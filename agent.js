@@ -225,7 +225,8 @@ app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
     agent: 'noizylab-email-agent',
-    version: '1.0.0',
+    version: '2.0.0',
+    mode: 'HYPER-DRIVE',
     timestamp: new Date().toISOString()
   });
 });
@@ -234,19 +235,24 @@ app.get('/health', (req, res) => {
 app.get('/agent/info', (req, res) => {
   res.json({
     name: 'noizylab-email-agent',
-    version: '1.0.0',
-    description: 'AI agent for NOIZYLAB email system automation',
+    version: '2.0.0',
+    description: 'AI agent for NOIZYLAB email system automation - HYPER-DRIVE MODE',
     capabilities: [
-      'email_template_generation',
+      'email_sending_with_attachments',
+      'bulk_email_sending',
+      'email_queue_system',
+      'email_validation',
+      'template_generation',
       'smtp_configuration',
       'nodemailer_integration',
-      'express_server_setup'
+      'rate_limiting'
     ],
     config: {
       smtp_host: config.smtp.host,
       smtp_port: config.smtp.port,
       server_port: config.server.port
-    }
+    },
+    templates: ['welcome', 'notification', 'alert', 'password-reset', 'invoice', 'confirmation']
   });
 });
 
@@ -256,9 +262,9 @@ app.get('/agent/verify', rateLimitMiddleware, async (req, res) => {
   res.json(result);
 });
 
-// Send email endpoint
+// Send email endpoint with attachments support
 app.post('/agent/send-email', rateLimitMiddleware, async (req, res) => {
-  const { to, subject, text, html, from } = req.body;
+  const { to, subject, text, html, from, attachments } = req.body;
   
   if (!to || !subject || (!text && !html)) {
     return res.status(400).json({
@@ -267,11 +273,124 @@ app.post('/agent/send-email', rateLimitMiddleware, async (req, res) => {
     });
   }
   
-  const result = await sendEmail({ to, subject, text, html, from });
+  // Validate email
+  if (!validateEmail(to)) {
+    return res.status(400).json({
+      success: false,
+      error: 'Invalid email address'
+    });
+  }
+  
+  const result = await sendEmail({ to, subject, text, html, from, attachments });
   res.json(result);
 });
 
-// Generate email template
+// Bulk email endpoint
+app.post('/agent/bulk-email', rateLimitMiddleware, async (req, res) => {
+  const { recipients, subject, text, html, from, attachments } = req.body;
+  
+  if (!recipients || !Array.isArray(recipients) || recipients.length === 0) {
+    return res.status(400).json({
+      success: false,
+      error: 'recipients must be a non-empty array'
+    });
+  }
+  
+  if (!subject || (!text && !html)) {
+    return res.status(400).json({
+      success: false,
+      error: 'Missing required fields: subject, and text/html'
+    });
+  }
+  
+  // Validate all emails
+  const invalidEmails = recipients.filter(email => !validateEmail(email));
+  if (invalidEmails.length > 0) {
+    return res.status(400).json({
+      success: false,
+      error: 'Invalid email addresses',
+      invalidEmails
+    });
+  }
+  
+  const results = await sendBulkEmails(recipients, { subject, text, html, from, attachments });
+  
+  const successCount = results.filter(r => r.success).length;
+  const failCount = results.filter(r => !r.success).length;
+  
+  res.json({
+    success: true,
+    total: recipients.length,
+    sent: successCount,
+    failed: failCount,
+    results
+  });
+});
+
+// Queue email endpoint
+app.post('/agent/queue-email', rateLimitMiddleware, (req, res) => {
+  const { to, subject, text, html, from, attachments } = req.body;
+  
+  if (!to || !subject || (!text && !html)) {
+    return res.status(400).json({
+      success: false,
+      error: 'Missing required fields: to, subject, and text/html'
+    });
+  }
+  
+  if (!validateEmail(to)) {
+    return res.status(400).json({
+      success: false,
+      error: 'Invalid email address'
+    });
+  }
+  
+  const queueItem = addToQueue({ to, subject, text, html, from, attachments });
+  
+  res.json({
+    success: true,
+    message: 'Email added to queue',
+    queueId: queueItem.id,
+    queueSize: emailQueue.length
+  });
+});
+
+// Email validation endpoint
+app.post('/agent/validate-email', (req, res) => {
+  const { email } = req.body;
+  
+  if (!email) {
+    return res.status(400).json({
+      success: false,
+      error: 'Email is required'
+    });
+  }
+  
+  const isValid = validateEmail(email);
+  
+  res.json({
+    success: true,
+    email,
+    valid: isValid
+  });
+});
+
+// Queue status endpoint
+app.get('/agent/queue-status', (req, res) => {
+  res.json({
+    success: true,
+    queueSize: emailQueue.length,
+    isProcessing: isProcessingQueue,
+    items: emailQueue.map(item => ({
+      id: item.id,
+      to: item.to,
+      status: item.status,
+      createdAt: item.createdAt
+    }))
+  });
+});
+
+// Generate email template with MORE templates
 app.post('/agent/generate-template', rateLimitMiddleware, (req, res) => {
   const { type, data } = req.body;
   
@@ -300,6 +419,24 @@ app.post('/agent/generate-template', rateLimitMiddleware, (req, res) => {
       template.html = `<div style="background-color: #fff3cd; padding: 15px; border: 1px solid #ffc107;"><strong>ALERT:</strong> ${data?.message || 'An alert has been triggered.'}</div>`;
       break;
       
+    case 'password-reset':
+      template.subject = 'Password Reset Request';
+      template.text = `Hello ${data?.name || 'there'},\n\nWe received a request to reset your password. Click the link below to reset it:\n\n${data?.resetLink || 'https://example.com/reset'}\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nThe NOIZYLAB Team`;
+      template.html = `<h2>Password Reset Request</h2><p>Hello ${data?.name || 'there'},</p><p>We received a request to reset your password.</p><p><a href="${data?.resetLink || 'https://example.com/reset'}" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Password</a></p><p>If you didn't request this, please ignore this email.</p><p>Best regards,<br>The NOIZYLAB Team</p>`;
+      break;
+      
+    case 'invoice':
+      template.subject = `Invoice #${data?.invoiceNumber || '12345'}`;
+      template.text = `Hello ${data?.name || 'there'},\n\nThank you for your purchase. Your invoice is ready.\n\nInvoice #: ${data?.invoiceNumber || '12345'}\nAmount: $${data?.amount || '0.00'}\nDate: ${data?.date || new Date().toLocaleDateString()}\n\nBest regards,\nThe NOIZYLAB Team`;
+      template.html = `<h2>Invoice #${data?.invoiceNumber || '12345'}</h2><p>Hello ${data?.name || 'there'},</p><p>Thank you for your purchase. Your invoice is ready.</p><table style="border-collapse: collapse; width: 100%;"><tr><td style="padding: 10px; border: 1px solid #ddd;"><strong>Invoice #:</strong></td><td style="padding: 10px; border: 1px solid #ddd;">${data?.invoiceNumber || '12345'}</td></tr><tr><td style="padding: 10px; border: 1px solid #ddd;"><strong>Amount:</strong></td><td style="padding: 10px; border: 1px solid #ddd;">$${data?.amount || '0.00'}</td></tr><tr><td style="padding: 10px; border: 1px solid #ddd;"><strong>Date:</strong></td><td style="padding: 10px; border: 1px solid #ddd;">${data?.date || new Date().toLocaleDateString()}</td></tr></table><p>Best regards,<br>The NOIZYLAB Team</p>`;
+      break;
+      
+    case 'confirmation':
+      template.subject = 'Confirmation - Action Required';
+      template.text = `Hello ${data?.name || 'there'},\n\nPlease confirm your action by clicking the link below:\n\n${data?.confirmLink || 'https://example.com/confirm'}\n\nBest regards,\nThe NOIZYLAB Team`;
+      template.html = `<h2>Confirmation Required</h2><p>Hello ${data?.name || 'there'},</p><p>Please confirm your action by clicking the button below:</p><p><a href="${data?.confirmLink || 'https://example.com/confirm'}" style="background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Confirm Action</a></p><p>Best regards,<br>The NOIZYLAB Team</p>`;
+      break;
+      
     default:
       template.subject = 'Message from NOIZYLAB';
       template.text = data?.message || 'This is a message from NOIZYLAB.';
@@ -326,14 +463,21 @@ function startAgent() {
   app.listen(config.server.port, config.server.host, () => {
     console.log('');
     console.log('==========================================');
-    console.log('NOIZYLAB Email Agent Started');
+    console.log('🚀 NOIZYLAB Email Agent - HYPER-DRIVE MODE');
     console.log('==========================================');
     console.log(`Server: http://${config.server.host}:${config.server.port}`);
     console.log(`Health: http://localhost:${config.server.port}/health`);
     console.log(`Agent Info: http://localhost:${config.server.port}/agent/info`);
     console.log('==========================================');
+    console.log('⚡ NEW FEATURES:');
+    console.log('  • Bulk Email Sending');
+    console.log('  • Email Queue System');
+    console.log('  • Attachment Support');
+    console.log('  • Email Validation');
+    console.log('  • 6 Email Templates');
+    console.log('==========================================');
     console.log('');
-    log('info', 'Agent is ready to process requests');
+    log('info', 'Agent ready at WARP SPEED!');
   });
 }
 

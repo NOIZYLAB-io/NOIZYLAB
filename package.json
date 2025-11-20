@@ -1,7 +1,7 @@
 {
   "name": "noizylab-email-agent",
-  "version": "1.0.0",
-  "description": "AI agent for NOIZYLAB email system automation",
+  "version": "2.0.0",
+  "description": "AI agent for NOIZYLAB email system automation - HYPER-DRIVE MODE",
   "main": "agent.js",
   "scripts": {
     "start": "node agent.js",
@@ -12,7 +12,10 @@
     "email",
     "agent",
     "automation",
-    "noizylab"
+    "noizylab",
+    "bulk-email",
+    "queue",
+    "fast"
   ],
   "author": "NOIZYLAB",
   "license": "MIT",
