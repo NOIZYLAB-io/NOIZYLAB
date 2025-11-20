@@ -13,6 +13,42 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Simple in-memory rate limiter
+const rateLimiter = new Map();
+const RATE_LIMIT_WINDOW = 60000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 10; // 10 requests per minute
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const userRequests = rateLimiter.get(ip) || [];
+  
+  // Remove old requests outside the window
+  const validRequests = userRequests.filter(time => now - time < RATE_LIMIT_WINDOW);
+  
+  if (validRequests.length >= RATE_LIMIT_MAX_REQUESTS) {
+    return false;
+  }
+  
+  validRequests.push(now);
+  rateLimiter.set(ip, validRequests);
+  return true;
+}
+
+// Rate limiting middleware
+function rateLimitMiddleware(req, res, next) {
+  const ip = req.ip || req.connection.remoteAddress;
+  
+  if (!checkRateLimit(ip)) {
+    return res.status(429).json({
+      success: false,
+      error: 'Too many requests. Please try again later.'
+    });
+  }
+  
+  next();
+}
+
+
 // Configuration from environment variables
 const config = {
   smtp: {
@@ -131,7 +167,7 @@ app.get('/agent/verify', async (req, res) => {
 });
 
 // Send email endpoint
-app.post('/agent/send-email', async (req, res) => {
+app.post('/agent/send-email', rateLimitMiddleware, async (req, res) => {
   const { to, subject, text, html, from } = req.body;
   
   if (!to || !subject || (!text && !html)) {
