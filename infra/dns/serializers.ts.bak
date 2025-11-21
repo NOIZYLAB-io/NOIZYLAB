@@ -80,7 +80,7 @@ function recordToZoneFileLines(record: DnsRecord, defaultTtl: number): string[] 
       name.padEnd(20) + ' ' + ttl.toString().padEnd(8) + ' IN SRV   ' + srvData + comment,
     ];
   } else if (isCAARecord(record)) {
-    const caaData = record.flags + ' ' + record.tag + ' ' + escapeString(record.value);
+    const caaData = record.flags + ' ' + record.tag + ' "' + record.value + '"';
     return [
       name.padEnd(20) + ' ' + ttl.toString().padEnd(8) + ' IN CAA   ' + caaData + comment,
     ];
@@ -100,30 +100,18 @@ function escapeTxtValue(value: string): string {
     for (let i = 0; i < value.length; i += 255) {
       chunks.push(value.substring(i, i + 255));
     }
-    const escapedChunks = chunks.map((chunk) => escapeString(chunk));
+    const escapedChunks = chunks.map((chunk) => '"' + escapeString(chunk) + '"');
     return escapedChunks.join(' ');
   }
 
-  return escapeString(value);
+  return '"' + escapeString(value) + '"';
 }
 
 /**
- * Escape special characters in strings and wrap in quotes
+ * Escape special characters in strings
  */
 function escapeString(str: string): string {
-  const QUOTE = String.fromCharCode(34);
-  let result = '';
-  for (let i = 0; i < str.length; i++) {
-    const char = str[i];
-    if (char === '\\') {
-      result += '\\\\';
-    } else if (char === QUOTE) {
-      result += '\\' + QUOTE;
-    } else {
-      result += char;
-    }
-  }
-  return QUOTE + result + QUOTE;
+  return str.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 }
 
 /**
@@ -178,7 +166,7 @@ function formatRecordValue(record: DnsRecord): string {
   } else if (isSRVRecord(record)) {
     return record.priority + ' ' + record.weight + ' ' + record.port + ' ' + record.target;
   } else if (isCAARecord(record)) {
-    return record.flags + ' ' + record.tag + ' ' + escapeString(record.value);
+    return record.flags + ' ' + record.tag + ' "' + record.value + '"';
   }
   return '';
 }
@@ -250,7 +238,7 @@ function toCloudflarePayload(config: ZoneConfig): CloudflareRecord[] {
         content: srvContent,
       };
     } else if (isCAARecord(record)) {
-      const caaContent = record.flags + ' ' + record.tag + ' ' + escapeString(record.value);
+      const caaContent = record.flags + ' ' + record.tag + ' "' + record.value + '"';
       return { ...base, content: caaContent };
     }
 
@@ -284,7 +272,7 @@ function toGoDaddyPayload(config: ZoneConfig): GoDaddyRecord[] {
         port: record.port,
       };
     } else if (isCAARecord(record)) {
-      const caaData = record.flags + ' ' + record.tag + ' ' + escapeString(record.value);
+      const caaData = record.flags + ' ' + record.tag + ' "' + record.value + '"';
       return { ...base, data: caaData };
     }
 
