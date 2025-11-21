@@ -1,0 +1,19 @@
+{
+  "name": "noizylab-dns-manager",
+  "version": "1.0.0",
+  "description": "GoDaddy DNS management for NOIZYLAB domain and email setup",
+  "main": "godaddy-dns-manager.js",
+  "type": "module",
+  "scripts": {
+    "start": "node godaddy-dns-manager.js",
+    "dns:setup": "node godaddy-dns-manager.js --setup",
+    "dns:verify": "node godaddy-dns-manager.js --verify"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "node-fetch": "^3.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
