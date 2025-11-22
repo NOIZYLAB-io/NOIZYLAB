@@ -5,15 +5,35 @@
   "main": "godaddy-dns-manager.js",
   "type": "module",
   "scripts": {
-    "start": "node godaddy-dns-manager.js",
+    "start": "node godaddy-dns-manager.js --help",
+    "setup:wizard": "node scripts/setup-wizard.js",
+    "generate:dkim": "node scripts/generate-dkim.js",
     "dns:setup": "node godaddy-dns-manager.js --setup",
-    "dns:verify": "node godaddy-dns-manager.js --verify"
+    "dns:verify": "node godaddy-dns-manager.js --verify",
+    "dns:list": "node godaddy-dns-manager.js --list",
+    "dns:backup": "node scripts/backup-dns.js",
+    "dns:restore": "node scripts/restore-dns.js",
+    "dns:check-propagation": "node scripts/check-propagation.js",
+    "test:email": "node scripts/test-email.js",
+    "postinstall": "echo '\n✅ Installation complete! Run: npm run setup:wizard to configure.\n'"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.7"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "keywords": [
+    "dns",
+    "godaddy",
+    "email",
+    "dkim",
+    "spf",
+    "dmarc",
+    "noizylab"
+  ],
+  "author": "NOIZYLAB",
+  "license": "PROPRIETARY"
 }
