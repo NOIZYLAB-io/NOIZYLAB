@@ -1,0 +1,52 @@
+# NOIZYLAB Email System - Cloudflare Workers Configuration
+name = "noizylab-email-system"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Development settings
+[dev]
+port = 8787
+local_protocol = "http"
+
+# Environment variables (secrets should be set via wrangler secret)
+[vars]
+ENVIRONMENT = "development"
+APP_NAME = "NOIZYLAB"
+DEFAULT_FROM_EMAIL = "noreply@noizylab.com"
+RATE_LIMIT_MAX_REQUESTS = "100"
+RATE_LIMIT_WINDOW_SECONDS = "3600"
+
+# KV Namespace for rate limiting and caching
+[[kv_namespaces]]
+binding = "EMAIL_KV"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+# D1 Database for email logs
+[[d1_databases]]
+binding = "EMAIL_DB"
+database_name = "noizylab-email-logs"
+database_id = "your-d1-database-id"
+
+# Queue for async email processing
+[[queues.producers]]
+queue = "email-queue"
+binding = "EMAIL_QUEUE"
+
+[[queues.consumers]]
+queue = "email-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+
+# Production environment
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+# Staging environment
+[env.staging]
+vars = { ENVIRONMENT = "staging" }
+
+# Workers Analytics Engine (optional)
+# [[analytics_engine_datasets]]
+# binding = "EMAIL_ANALYTICS"
