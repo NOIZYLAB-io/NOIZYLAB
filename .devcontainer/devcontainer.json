@@ -5,18 +5,64 @@
     "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
-  "postCreateCommand": "pip install -U pip && pip install transformers accelerate safetensors peft datasets sentencepiece fastapi uvicorn paho-mqtt requests faiss-cpu sentence-transformers && npm i -g wrangler @github/copilot && npm i",
+  "postCreateCommand": "pip install -U pip && pip install transformers accelerate safetensors peft datasets sentencepiece fastapi uvicorn paho-mqtt requests faiss-cpu sentence-transformers && npm i -g wrangler @github/copilot && npm i && echo 'NOIZYLAB Cockpit ready for mission control!'",
+  "forwardPorts": [3000, 8000, 8080],
+  "portsAttributes": {
+    "3000": {
+      "label": "PWA Dev Server",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "label": "FastAPI",
+      "onAutoForward": "notify"
+    },
+    "8080": {
+      "label": "Alternative Web Server",
+      "onAutoForward": "notify"
+    }
+  },
   "customizations": {
     "vscode": {
       "settings": {
         "editor.formatOnSave": true,
-        "files.trimTrailingWhitespace": true
+        "files.trimTrailingWhitespace": true,
+        "editor.suggestSelection": "first",
+        "editor.inlineSuggest.enabled": true,
+        "github.copilot.enable": {
+          "*": true,
+          "yaml": true,
+          "plaintext": false,
+          "markdown": true
+        },
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": false,
+        "python.formatting.provider": "black",
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+          }
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
       },
       "extensions": [
         "cursor.cursor",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
         "ms-python.python",
         "ms-python.black-formatter",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "ms-python.vscode-pylance",
+        "ms-vscode.vscode-typescript-next"
       ]
     }
   },
