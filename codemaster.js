@@ -8,7 +8,7 @@
 // ║   ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝ ║
 // ║                                                                                        ║
 // ║                    THE ULTIMATE AI-POWERED CODE COMMAND CENTER                         ║
-// ║                                   Version 1.0.0                                        ║
+// ║                                   Version 2.0.0                                        ║
 // ╚═══════════════════════════════════════════════════════════════════════════════════════╝
 
 import { execSync, spawn } from "child_process";
@@ -96,7 +96,7 @@ ${C.brightMagenta}${C.bright}
    ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
 ${C.reset}
   ${C.dim}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${C.reset}
-  ${C.cyan}THE ULTIMATE AI-POWERED CODE COMMAND CENTER${C.reset}                    ${C.dim}v1.0.0${C.reset}
+  ${C.cyan}THE ULTIMATE AI-POWERED CODE COMMAND CENTER${C.reset}                    ${C.dim}v2.0.0${C.reset}
   ${C.dim}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${C.reset}
 `);
 }
@@ -162,8 +162,9 @@ const BLUEPRINTS = {
 const commands = {
   // ─── HELP & INFO ─────────────────────────────────────────────────────────
   help: { desc: "Show this help message", run: showHelp },
-  version: { desc: "Show version", run: () => log("CODEMASTER v1.0.0") },
+  version: { desc: "Show version", run: () => log("CODEMASTER v2.0.0") },
   status: { desc: "System status", run: showStatus },
+  stats: { desc: "Project statistics", run: showProjectStats },
 
   // ─── AGENTS ──────────────────────────────────────────────────────────────
   agents: { desc: "List all agents", run: listAgents },
@@ -199,7 +200,32 @@ const commands = {
   logs: { desc: "View logs", run: viewLogs },
 
   // ─── NOIZYLAB ────────────────────────────────────────────────────────────
-  noizy: { desc: "NoizyLab commands", usage: "noizy <command>", run: noizyCommands }
+  noizy: { desc: "NoizyLab commands", usage: "noizy <command>", run: noizyCommands },
+
+  // ─── CODE QUALITY ─────────────────────────────────────────────────────────
+  review: { desc: "AI code review", usage: "review <file|dir>", run: codeReview },
+  docs: { desc: "Generate documentation", usage: "docs [type] [target]", run: generateDocs },
+  test: { desc: "Generate tests", usage: "test <file>", run: generateTests },
+  lint: { desc: "Lint code", usage: "lint [path]", run: lintCode },
+
+  // ─── GIT AUTOMATION ───────────────────────────────────────────────────────
+  commit: { desc: "Smart commit with AI message", usage: "commit [files]", run: smartCommit },
+  pr: { desc: "Create pull request", usage: "pr [title]", run: createPR },
+  branch: { desc: "Smart branch management", usage: "branch <action>", run: manageBranch },
+
+  // ─── MONITORING & METRICS ─────────────────────────────────────────────────
+  metrics: { desc: "View system metrics", run: showMetrics },
+  dashboard: { desc: "Open dashboard", run: openDashboard },
+  watch: { desc: "Watch files for changes", usage: "watch [pattern]", run: watchFiles },
+
+  // ─── PIPELINES ────────────────────────────────────────────────────────────
+  pipeline: { desc: "Run automation pipeline", usage: "pipeline <name>", run: runPipeline },
+  ci: { desc: "CI/CD operations", usage: "ci [test|build|deploy]", run: runCI },
+
+  // ─── UTILITIES ────────────────────────────────────────────────────────────
+  clean: { desc: "Clean build artifacts", run: cleanProject },
+  upgrade: { desc: "Upgrade CODEMASTER", run: upgradeCLI },
+  doctor: { desc: "Diagnose issues", run: diagnoseIssues }
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -212,22 +238,27 @@ function showHelp() {
   log(`${C.bright}COMMANDS:${C.reset}\n`);
 
   const categories = {
-    "Info": ["help", "version", "status"],
+    "Info": ["help", "version", "status", "stats"],
     "Agents": ["agents", "summon", "council", "chat"],
     "Generation": ["forge", "generators", "blueprints", "scaffold"],
-    "Workflows": ["workflow"],
+    "Code Quality": ["review", "docs", "test", "lint"],
+    "Git Automation": ["commit", "pr", "branch"],
+    "Workflows": ["workflow", "pipeline", "ci"],
+    "Monitoring": ["metrics", "dashboard", "watch"],
     "Deployment": ["deploy", "dev"],
     "Analysis": ["analyze", "secure"],
     "Interactive": ["shell"],
-    "Utilities": ["init", "config", "logs", "noizy"]
+    "Utilities": ["init", "config", "logs", "clean", "upgrade", "doctor", "noizy"]
   };
 
   for (const [category, cmds] of Object.entries(categories)) {
     log(`  ${C.yellow}${category}${C.reset}`);
     cmds.forEach(name => {
       const cmd = commands[name];
-      const usage = cmd.usage ? ` ${C.dim}${cmd.usage}${C.reset}` : "";
-      log(`    ${C.cyan}${name.padEnd(12)}${C.reset} ${cmd.desc}${usage}`);
+      if (cmd) {
+        const usage = cmd.usage ? ` ${C.dim}${cmd.usage}${C.reset}` : "";
+        log(`    ${C.cyan}${name.padEnd(12)}${C.reset} ${cmd.desc}${usage}`);
+      }
     });
     log("");
   }
@@ -236,8 +267,11 @@ function showHelp() {
   log(`  ${C.dim}$${C.reset} codemaster summon FORGE "Create a REST API for users"`);
   log(`  ${C.dim}$${C.reset} codemaster forge api --resources users,posts`);
   log(`  ${C.dim}$${C.reset} codemaster scaffold saas my-app`);
+  log(`  ${C.dim}$${C.reset} codemaster review ./src`);
+  log(`  ${C.dim}$${C.reset} codemaster commit`);
+  log(`  ${C.dim}$${C.reset} codemaster pipeline full-deploy`);
+  log(`  ${C.dim}$${C.reset} codemaster doctor`);
   log(`  ${C.dim}$${C.reset} codemaster shell`);
-  log(`  ${C.dim}$${C.reset} codemaster council "Review this architecture"`);
   log("");
 }
 
@@ -716,6 +750,565 @@ function noizyCommands(args) {
   } else {
     sh("node noizy.js help");
   }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// NEW v2.0 COMMAND IMPLEMENTATIONS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function showProjectStats() {
+  banner();
+  log(`${C.bright}PROJECT STATISTICS${C.reset}\n`);
+
+  // Count files by extension
+  const counts = { js: 0, ts: 0, json: 0, html: 0, css: 0, md: 0, total: 0, lines: 0 };
+
+  function walkDir(dir) {
+    if (!fs.existsSync(dir)) return;
+    const files = fs.readdirSync(dir);
+    files.forEach(file => {
+      if (file.startsWith(".") || file === "node_modules") return;
+      const fullPath = path.join(dir, file);
+      const stat = fs.statSync(fullPath);
+      if (stat.isDirectory()) {
+        walkDir(fullPath);
+      } else {
+        counts.total++;
+        const ext = path.extname(file).slice(1);
+        if (counts[ext] !== undefined) counts[ext]++;
+        try {
+          const content = fs.readFileSync(fullPath, "utf8");
+          counts.lines += content.split("\n").length;
+        } catch {}
+      }
+    });
+  }
+
+  walkDir(".");
+
+  log(`  ${C.cyan}Total Files:${C.reset}     ${counts.total}`);
+  log(`  ${C.cyan}Total Lines:${C.reset}     ${counts.lines.toLocaleString()}`);
+  log("");
+  log(`  ${C.yellow}JavaScript:${C.reset}      ${counts.js} files`);
+  log(`  ${C.yellow}TypeScript:${C.reset}      ${counts.ts} files`);
+  log(`  ${C.yellow}JSON:${C.reset}            ${counts.json} files`);
+  log(`  ${C.yellow}HTML:${C.reset}            ${counts.html} files`);
+  log(`  ${C.yellow}CSS:${C.reset}             ${counts.css} files`);
+  log(`  ${C.yellow}Markdown:${C.reset}        ${counts.md} files`);
+
+  // Git stats
+  const commits = shOutput("git rev-list --count HEAD 2>/dev/null") || "0";
+  const branch = shOutput("git branch --show-current 2>/dev/null") || "N/A";
+  const lastCommit = shOutput("git log -1 --format='%h %s' 2>/dev/null") || "N/A";
+
+  log(`\n${C.bright}GIT STATISTICS${C.reset}\n`);
+  log(`  ${C.cyan}Branch:${C.reset}          ${branch}`);
+  log(`  ${C.cyan}Commits:${C.reset}         ${commits}`);
+  log(`  ${C.cyan}Last Commit:${C.reset}     ${lastCommit}`);
+  log("");
+}
+
+function codeReview(args) {
+  const target = args[0] || ".";
+
+  banner();
+  log(`${C.bright}AI CODE REVIEW${C.reset}\n`);
+  info(`Target: ${target}\n`);
+
+  if (fs.existsSync(target)) {
+    const isDir = fs.statSync(target).isDirectory();
+    if (isDir) {
+      info("Reviewing directory structure and key files...\n");
+    } else {
+      const content = fs.readFileSync(target, "utf8");
+      log(`${C.dim}Analyzing ${content.split("\n").length} lines of code...${C.reset}\n`);
+    }
+  }
+
+  summonAgent(["ARCHITECT", `Perform a comprehensive code review on ${target}. Check for:
+1. Code quality and best practices
+2. Performance issues
+3. Security vulnerabilities
+4. Maintainability
+5. Suggestions for improvement
+
+Provide specific, actionable feedback.`]);
+}
+
+function generateDocs(args) {
+  const type = args[0] || "readme";
+  const target = args[1] || ".";
+
+  banner();
+  log(`${C.bright}DOCUMENTATION GENERATOR${C.reset}\n`);
+  info(`Type: ${type}, Target: ${target}\n`);
+
+  const types = {
+    readme: "Generate a comprehensive README.md with features, installation, usage, and API documentation",
+    api: "Generate API documentation with all endpoints, parameters, and examples",
+    jsdoc: "Add JSDoc comments to all functions and classes",
+    changelog: "Generate a CHANGELOG.md from git history",
+    contributing: "Generate a CONTRIBUTING.md with guidelines"
+  };
+
+  if (!types[type]) {
+    error(`Unknown doc type: ${type}`);
+    log(`\nAvailable: ${Object.keys(types).join(", ")}`);
+    return;
+  }
+
+  summonAgent(["ORACLE", types[type] + ` for the project at ${target}`]);
+}
+
+function generateTests(args) {
+  const file = args[0];
+
+  if (!file) {
+    error("Usage: codemaster test <file>");
+    return;
+  }
+
+  if (!fs.existsSync(file)) {
+    error(`File not found: ${file}`);
+    return;
+  }
+
+  banner();
+  log(`${C.bright}TEST GENERATOR${C.reset}\n`);
+  info(`File: ${file}\n`);
+
+  const content = fs.readFileSync(file, "utf8");
+  summonAgent(["PHANTOM", `Generate comprehensive tests for this code:
+
+\`\`\`javascript
+${content.substring(0, 3000)}
+\`\`\`
+
+Include:
+1. Unit tests for all functions
+2. Edge cases
+3. Error handling tests
+4. Integration tests if applicable
+5. Use modern testing patterns`]);
+}
+
+function lintCode(args) {
+  const target = args[0] || ".";
+
+  banner();
+  log(`${C.bright}CODE LINTING${C.reset}\n`);
+  info(`Target: ${target}\n`);
+
+  // Try ESLint first
+  const eslintResult = shOutput(`npx eslint ${target} --format stylish 2>&1`);
+  if (eslintResult) {
+    log(eslintResult);
+  } else {
+    warn("ESLint not configured. Running basic checks...\n");
+    summonAgent(["SENTINEL", `Perform a code lint check on ${target}. Look for common issues, unused variables, formatting problems, and style inconsistencies.`]);
+  }
+}
+
+function smartCommit(args) {
+  const files = args.join(" ") || ".";
+
+  banner();
+  log(`${C.bright}SMART COMMIT${C.reset}\n`);
+
+  // Get git diff
+  const diff = shOutput(`git diff --staged --stat 2>/dev/null`) || shOutput(`git diff --stat 2>/dev/null`);
+
+  if (!diff) {
+    warn("No changes detected to commit.");
+    return;
+  }
+
+  info("Changes detected:\n");
+  log(diff);
+
+  // Stage files if specified
+  if (files !== ".") {
+    sh(`git add ${files}`, true);
+  }
+
+  // Get detailed diff for AI analysis
+  const detailedDiff = shOutput(`git diff --staged 2>/dev/null`) || shOutput(`git diff 2>/dev/null`);
+
+  log(`\n${C.dim}Generating commit message with AI...${C.reset}\n`);
+
+  const prompt = `Based on this git diff, generate a clear, concise commit message following conventional commits format (type: description).
+
+Diff:
+${detailedDiff?.substring(0, 2000) || "No diff available"}
+
+Return ONLY the commit message, nothing else. Format: <type>(<scope>): <description>`;
+
+  const commitMsg = shOutput(`npx wrangler ai run @cf/mistral/mistral-7b-instruct-v0.1 "${prompt.replace(/"/g, '\\"').replace(/\n/g, '\\n')}" 2>/dev/null`);
+
+  if (commitMsg) {
+    log(`${C.cyan}Suggested commit message:${C.reset}`);
+    log(`  ${commitMsg}\n`);
+    info(`Run: git commit -m "${commitMsg.replace(/"/g, '\\"')}"`);
+  } else {
+    warn("Could not generate commit message. Please write one manually.");
+  }
+}
+
+function createPR(args) {
+  const title = args.join(" ");
+
+  banner();
+  log(`${C.bright}CREATE PULL REQUEST${C.reset}\n`);
+
+  const branch = shOutput("git branch --show-current");
+  const baseBranch = shOutput("git remote show origin 2>/dev/null | grep 'HEAD branch' | awk '{print $NF}'") || "main";
+
+  info(`Current branch: ${branch}`);
+  info(`Base branch: ${baseBranch}\n`);
+
+  // Get commits for this branch
+  const commits = shOutput(`git log ${baseBranch}..HEAD --oneline 2>/dev/null`);
+
+  if (!commits) {
+    warn("No commits to create PR from.");
+    return;
+  }
+
+  log(`${C.cyan}Commits in this branch:${C.reset}`);
+  log(commits);
+
+  if (title) {
+    log(`\n${C.dim}Creating PR...${C.reset}`);
+    sh(`gh pr create --title "${title}" --body "Auto-generated PR by CODEMASTER"`);
+  } else {
+    log(`\n${C.dim}Generate PR with: gh pr create --title "Your Title"${C.reset}`);
+  }
+}
+
+function manageBranch(args) {
+  const action = args[0];
+
+  banner();
+  log(`${C.bright}BRANCH MANAGEMENT${C.reset}\n`);
+
+  if (!action) {
+    // List branches
+    const branches = shOutput("git branch -a");
+    log(branches);
+    log(`\n${C.dim}Actions: create, switch, delete, clean${C.reset}`);
+    return;
+  }
+
+  switch (action) {
+    case "create":
+      const name = args[1];
+      if (!name) {
+        error("Usage: codemaster branch create <name>");
+        return;
+      }
+      sh(`git checkout -b ${name}`);
+      success(`Created and switched to branch: ${name}`);
+      break;
+
+    case "switch":
+      const target = args[1];
+      if (!target) {
+        error("Usage: codemaster branch switch <name>");
+        return;
+      }
+      sh(`git checkout ${target}`);
+      break;
+
+    case "delete":
+      const delBranch = args[1];
+      if (!delBranch) {
+        error("Usage: codemaster branch delete <name>");
+        return;
+      }
+      sh(`git branch -d ${delBranch}`);
+      break;
+
+    case "clean":
+      info("Cleaning merged branches...");
+      sh(`git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d 2>/dev/null || true`);
+      success("Cleaned up merged branches");
+      break;
+
+    default:
+      error(`Unknown action: ${action}`);
+  }
+}
+
+function showMetrics() {
+  banner();
+  log(`${C.bright}SYSTEM METRICS${C.reset}\n`);
+
+  // Memory usage
+  const memUsage = process.memoryUsage();
+  log(`${C.yellow}Memory Usage:${C.reset}`);
+  log(`  Heap Used:     ${Math.round(memUsage.heapUsed / 1024 / 1024)} MB`);
+  log(`  Heap Total:    ${Math.round(memUsage.heapTotal / 1024 / 1024)} MB`);
+  log(`  RSS:           ${Math.round(memUsage.rss / 1024 / 1024)} MB`);
+
+  // Uptime
+  log(`\n${C.yellow}System:${C.reset}`);
+  log(`  Node Version:  ${process.version}`);
+  log(`  Platform:      ${process.platform}`);
+  log(`  Architecture:  ${process.arch}`);
+
+  // Project metrics
+  log(`\n${C.yellow}Project:${C.reset}`);
+  log(`  Agents:        ${Object.keys(AGENTS).length}`);
+  log(`  Generators:    ${Object.keys(GENERATORS).length}`);
+  log(`  Blueprints:    ${Object.keys(BLUEPRINTS).length}`);
+
+  log("");
+}
+
+function openDashboard() {
+  banner();
+  info("Opening dashboard...\n");
+
+  const dashboardPath = "dashboard/dashboard.html";
+  if (fs.existsSync(dashboardPath)) {
+    // Try to open in browser
+    const openCmd = process.platform === "darwin" ? "open" : process.platform === "win32" ? "start" : "xdg-open";
+    sh(`${openCmd} ${dashboardPath} 2>/dev/null || echo "Open ${dashboardPath} in your browser"`, true);
+    success(`Dashboard: ${dashboardPath}`);
+  } else {
+    warn("Dashboard not found. Run: codemaster init");
+  }
+}
+
+function watchFiles(args) {
+  const pattern = args[0] || "**/*.js";
+
+  banner();
+  log(`${C.bright}FILE WATCHER${C.reset}\n`);
+  info(`Watching: ${pattern}`);
+  info("Press Ctrl+C to stop\n");
+
+  // Simple file watcher using fs.watch
+  const watchedDirs = new Set();
+
+  function addWatch(dir) {
+    if (watchedDirs.has(dir)) return;
+    watchedDirs.add(dir);
+
+    try {
+      fs.watch(dir, { recursive: true }, (eventType, filename) => {
+        if (filename && filename.endsWith(".js")) {
+          const time = new Date().toLocaleTimeString();
+          log(`${C.dim}[${time}]${C.reset} ${C.cyan}${eventType}${C.reset}: ${filename}`);
+        }
+      });
+    } catch {}
+  }
+
+  addWatch(".");
+  info("Watching for changes...");
+}
+
+function runPipeline(args) {
+  const pipelineName = args[0];
+
+  banner();
+  log(`${C.bright}AUTOMATION PIPELINE${C.reset}\n`);
+
+  const pipelines = {
+    "full-deploy": ["lint", "test", "build", "deploy"],
+    "code-quality": ["lint", "review", "test"],
+    "quick-deploy": ["build", "deploy"],
+    "docs-update": ["docs", "commit"]
+  };
+
+  if (!pipelineName) {
+    log(`${C.yellow}Available Pipelines:${C.reset}\n`);
+    Object.entries(pipelines).forEach(([name, steps]) => {
+      log(`  ${C.cyan}${name.padEnd(15)}${C.reset} ${steps.join(" -> ")}`);
+    });
+    log(`\n${C.dim}Usage: codemaster pipeline <name>${C.reset}`);
+    return;
+  }
+
+  const steps = pipelines[pipelineName];
+  if (!steps) {
+    error(`Unknown pipeline: ${pipelineName}`);
+    return;
+  }
+
+  info(`Running pipeline: ${pipelineName}`);
+  log(`${C.dim}Steps: ${steps.join(" -> ")}${C.reset}\n`);
+
+  steps.forEach((step, i) => {
+    log(`\n${C.yellow}[${i + 1}/${steps.length}]${C.reset} ${C.bright}${step.toUpperCase()}${C.reset}`);
+    if (commands[step]) {
+      commands[step].run([]);
+    }
+  });
+
+  log(`\n${C.green}Pipeline complete!${C.reset}\n`);
+}
+
+function runCI(args) {
+  const action = args[0] || "test";
+
+  banner();
+  log(`${C.bright}CI/CD OPERATIONS${C.reset}\n`);
+
+  switch (action) {
+    case "test":
+      info("Running tests...");
+      sh("npm test 2>/dev/null || node --test 2>/dev/null || echo 'No test command configured'");
+      break;
+
+    case "build":
+      info("Building project...");
+      sh("npm run build 2>/dev/null || echo 'No build command configured'");
+      break;
+
+    case "deploy":
+      info("Deploying...");
+      deployWorkers(["all"]);
+      break;
+
+    case "all":
+      info("Running full CI pipeline...");
+      runPipeline(["full-deploy"]);
+      break;
+
+    default:
+      error(`Unknown CI action: ${action}`);
+      log("\nAvailable: test, build, deploy, all");
+  }
+}
+
+function cleanProject() {
+  banner();
+  log(`${C.bright}CLEANING PROJECT${C.reset}\n`);
+
+  const toClean = [
+    "node_modules/.cache",
+    "dist",
+    "build",
+    ".wrangler",
+    "coverage",
+    "*.log"
+  ];
+
+  toClean.forEach(item => {
+    if (item.includes("*")) {
+      // Glob pattern
+      const files = shOutput(`ls ${item} 2>/dev/null`);
+      if (files) {
+        sh(`rm -f ${item}`, true);
+        success(`Removed ${item}`);
+      }
+    } else if (fs.existsSync(item)) {
+      sh(`rm -rf ${item}`, true);
+      success(`Removed ${item}`);
+    }
+  });
+
+  log("");
+  success("Clean complete!");
+}
+
+function upgradeCLI() {
+  banner();
+  log(`${C.bright}UPGRADE CODEMASTER${C.reset}\n`);
+
+  info("Checking for updates...");
+
+  // Check git for updates
+  const status = shOutput("git fetch && git status -uno 2>/dev/null");
+  if (status && status.includes("behind")) {
+    info("Updates available!");
+    sh("git pull");
+    success("CODEMASTER upgraded!");
+  } else {
+    success("Already up to date!");
+  }
+
+  log("");
+}
+
+function diagnoseIssues() {
+  banner();
+  log(`${C.bright}CODEMASTER DOCTOR${C.reset}\n`);
+  log(`${C.dim}Diagnosing system issues...${C.reset}\n`);
+
+  let issues = 0;
+
+  // Check Node.js
+  const nodeVersion = shOutput("node --version");
+  if (nodeVersion) {
+    const major = parseInt(nodeVersion.slice(1).split(".")[0]);
+    if (major >= 18) {
+      success(`Node.js ${nodeVersion}`);
+    } else {
+      warn(`Node.js ${nodeVersion} (recommend v18+)`);
+      issues++;
+    }
+  } else {
+    error("Node.js not found");
+    issues++;
+  }
+
+  // Check npm
+  const npmVersion = shOutput("npm --version");
+  if (npmVersion) {
+    success(`npm ${npmVersion}`);
+  } else {
+    error("npm not found");
+    issues++;
+  }
+
+  // Check wrangler
+  const wranglerVersion = shOutput("npx wrangler --version 2>/dev/null");
+  if (wranglerVersion) {
+    success(`Wrangler ${wranglerVersion}`);
+  } else {
+    warn("Wrangler not installed (run: npm install -g wrangler)");
+    issues++;
+  }
+
+  // Check wrangler auth
+  const wranglerWhoami = shOutput("npx wrangler whoami 2>/dev/null");
+  if (wranglerWhoami && !wranglerWhoami.includes("not authenticated")) {
+    success("Wrangler authenticated");
+  } else {
+    warn("Wrangler not authenticated (run: npx wrangler login)");
+    issues++;
+  }
+
+  // Check git
+  const gitVersion = shOutput("git --version");
+  if (gitVersion) {
+    success(gitVersion);
+  } else {
+    error("Git not found");
+    issues++;
+  }
+
+  // Check core files
+  const coreFiles = ["codemaster.js", "package.json", "wrangler.toml"];
+  coreFiles.forEach(file => {
+    if (fs.existsSync(file)) {
+      success(`${file} present`);
+    } else {
+      warn(`${file} missing`);
+      issues++;
+    }
+  });
+
+  log("");
+  if (issues === 0) {
+    log(`${C.green}${C.bright}All systems operational!${C.reset}`);
+  } else {
+    log(`${C.yellow}${issues} issue(s) found. See warnings above.${C.reset}`);
+  }
+  log("");
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
