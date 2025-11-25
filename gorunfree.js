@@ -16,7 +16,8 @@ const os = require('os');
 // --- CONFIGURATION ---
 const PORT = 9999;
 const BROWSER = 'Safari'; // Change to 'Google Chrome' or 'Arc' if needed
-const SOUNDS = true;
+const IS_MACOS = os.platform() === 'darwin';
+const SOUNDS = IS_MACOS; // Sounds only work on macOS
 
 // --- CLI ROUTER ---
 const args = process.argv.slice(2);
@@ -116,11 +117,13 @@ async function retrieveClient() {
 
 function runServer() {
     console.clear();
+    const platform = IS_MACOS ? 'macOS' : 'Linux';
     console.log(`\x1b[32m
     ╔══════════════════════════════════╗
     ║   GORUNFREE BRIDGE ONLINE        ║
-    ║   Port: ${PORT}                     ║
+    ║   Port: ${PORT}  |  ${platform.padEnd(7)}      ║
     ╚══════════════════════════════════╝\x1b[0m`);
+    if (!IS_MACOS) console.log('\x1b[33m    ⚠ Browser automation disabled (macOS only)\x1b[0m\n');
     playSound('PowerOn');
 
     const server = http.createServer(async (req, res) => {
@@ -188,16 +191,22 @@ function sanitize(text) {
 
 function getClipboard() {
     return new Promise((resolve) => {
-        const proc = spawn('pbpaste');
+        const cmd = IS_MACOS ? 'pbpaste' : 'xclip';
+        const args = IS_MACOS ? [] : ['-selection', 'clipboard', '-o'];
+        const proc = spawn(cmd, args);
         let data = '';
         proc.stdout.on('data', d => data += d);
+        proc.on('error', () => resolve('')); // Handle missing command
         proc.on('close', () => resolve(data));
     });
 }
 
 function copyToClipboard(text) {
     return new Promise((resolve) => {
-        const proc = spawn('pbcopy');
+        const cmd = IS_MACOS ? 'pbcopy' : 'xclip';
+        const args = IS_MACOS ? [] : ['-selection', 'clipboard'];
+        const proc = spawn(cmd, args);
+        proc.on('error', () => resolve()); // Handle missing command
         proc.stdin.write(text);
         proc.stdin.end();
         proc.on('close', resolve);
@@ -205,14 +214,23 @@ function copyToClipboard(text) {
 }
 
 function playSound(name) {
-    if(SOUNDS) spawn('afplay', [`/System/Library/Sounds/${name}.aiff`]);
+    if (!SOUNDS) return;
+    try {
+        const proc = spawn('afplay', [`/System/Library/Sounds/${name}.aiff`]);
+        proc.on('error', () => {}); // Silently ignore if afplay not found
+    } catch (e) {}
 }
 
 function runAppleScript(script) {
     return new Promise((resolve, reject) => {
+        if (!IS_MACOS) {
+            console.log('[Linux mode] Skipping AppleScript automation');
+            return resolve('');
+        }
         const proc = spawn('osascript', ['-e', script]);
         let out = '';
         proc.stdout.on('data', d => out += d);
+        proc.on('error', () => resolve('')); // Handle missing osascript
         proc.on('close', () => resolve(out.trim()));
     });
 }
