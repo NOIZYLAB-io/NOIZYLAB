@@ -1,0 +1,432 @@
+# ==============================================================================
+# METABEAST_CC - PRESETS & PATCHES MANIFEST
+# ==============================================================================
+# Preset Management System
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Presets & Patches Registry
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  description: |
+    Comprehensive preset management system for organizing, categorizing,
+    and discovering presets across all instruments and effects.
+
+# ==============================================================================
+# TAXONOMY
+# ==============================================================================
+taxonomy:
+  presetTypes:
+    - factory          # Comes with plugin
+    - expansion        # Official expansion packs
+    - third_party      # Commercial third-party
+    - user             # User-created
+    - shared           # Community/shared presets
+    - project          # Project-specific
+
+  categories:
+    synth:
+      - bass
+      - lead
+      - pad
+      - pluck
+      - keys
+      - arp
+      - sequence
+      - fx
+      - texture
+      - ambient
+      - aggressive
+      - warm
+      - digital
+      - analog
+
+    effects:
+      - vocal
+      - drums
+      - guitar
+      - bass_guitar
+      - piano
+      - strings
+      - brass
+      - master
+      - creative
+      - corrective
+
+    mixing:
+      - starting_point
+      - genre_specific
+      - instrument_specific
+      - mastering
+
+  genres:
+    - pop
+    - rock
+    - hip_hop
+    - edm
+    - house
+    - techno
+    - dnb
+    - dubstep
+    - ambient
+    - cinematic
+    - orchestral
+    - jazz
+    - r_and_b
+    - metal
+    - indie
+    - trap
+    - lo_fi
+    - synthwave
+
+# ==============================================================================
+# PRESET LOCATIONS BY PLATFORM
+# ==============================================================================
+presetLocations:
+  macOS:
+    system:
+      - path: "/Library/Audio/Presets"
+        description: "System-wide presets"
+      - path: "~/Library/Audio/Presets"
+        description: "User presets"
+
+    vst3:
+      - path: "~/Library/Audio/Presets/[Manufacturer]/[Plugin]"
+        description: "VST3 preset standard location"
+
+    au:
+      - path: "~/Library/Audio/Presets/[Manufacturer]/[Plugin]"
+        description: "AU preset location"
+
+    native_instruments:
+      - path: "~/Documents/Native Instruments/[Product]"
+        description: "NI user content"
+      - path: "/Users/Shared/Native Instruments"
+        description: "Shared NI content"
+
+    kontakt:
+      - path: "~/Documents/Native Instruments/User Content/Kontakt"
+        description: "Kontakt user presets"
+
+    serum:
+      - path: "/Library/Audio/Presets/Xfer Records/Serum Presets"
+        description: "Serum presets"
+
+    fabfilter:
+      - path: "~/Library/Application Support/FabFilter/[Plugin]"
+        description: "FabFilter presets"
+
+    izotope:
+      - path: "~/Documents/iZotope/[Product]"
+        description: "iZotope presets"
+
+    arturia:
+      - path: "~/Library/Arturia/[Product]"
+        description: "Arturia presets"
+
+  windows:
+    system:
+      - path: "C:\\Program Files\\Common Files\\VST3 Presets"
+        description: "VST3 system presets"
+
+    user:
+      - path: "%USERPROFILE%\\Documents\\VST3 Presets"
+        description: "User VST3 presets"
+
+    native_instruments:
+      - path: "%USERPROFILE%\\Documents\\Native Instruments\\[Product]"
+        description: "NI user content"
+
+    serum:
+      - path: "%USERPROFILE%\\Documents\\Xfer\\Serum Presets"
+        description: "Serum presets"
+
+# ==============================================================================
+# PRESET FORMATS
+# ==============================================================================
+presetFormats:
+  universal:
+    - extension: .fxp
+      description: "VST2 preset (single)"
+      binary: true
+
+    - extension: .fxb
+      description: "VST2 bank"
+      binary: true
+
+    - extension: .vstpreset
+      description: "VST3 preset"
+      xml_based: true
+
+    - extension: .aupreset
+      description: "Audio Unit preset"
+      plist: true
+
+  specific:
+    serum:
+      - extension: .fxp
+        location: "Presets/[Category]"
+        organization: "by_category"
+
+    kontakt:
+      - extension: .nki
+        description: "Kontakt Instrument"
+      - extension: .nkm
+        description: "Kontakt Multi"
+      - extension: .nkp
+        description: "Kontakt Preset"
+
+    massive:
+      - extension: .nmsv
+        description: "Massive preset"
+      - extension: .ksd
+        description: "Komplete Sound"
+
+    omnisphere:
+      - extension: .prt_omn
+        description: "Omnisphere Part"
+      - extension: .mlt_omn
+        description: "Omnisphere Multi"
+
+    pigments:
+      - extension: .pgtx
+        description: "Pigments preset"
+
+    fabfilter:
+      - extension: .ffp
+        description: "FabFilter preset"
+
+    izotope:
+      - extension: .xml
+        description: "iZotope settings"
+
+# ==============================================================================
+# PRESET ORGANIZATION STRUCTURE
+# ==============================================================================
+organizationStructure:
+  recommended:
+    root: "~/Audio_Presets"
+    tree:
+      - "Synths/"
+      - "Synths/Serum/"
+      - "Synths/Serum/Bass/"
+      - "Synths/Serum/Leads/"
+      - "Synths/Serum/Pads/"
+      - "Synths/Serum/Plucks/"
+      - "Synths/Serum/Keys/"
+      - "Synths/Serum/FX/"
+      - "Synths/Omnisphere/"
+      - "Synths/Massive/"
+      - "Synths/Pigments/"
+      - "Synths/Vital/"
+      - "Effects/"
+      - "Effects/EQ/"
+      - "Effects/Compression/"
+      - "Effects/Reverb/"
+      - "Effects/Delay/"
+      - "Effects/Saturation/"
+      - "Effects/Mastering/"
+      - "Mixing/"
+      - "Mixing/Vocals/"
+      - "Mixing/Drums/"
+      - "Mixing/Bass/"
+      - "Mixing/Guitar/"
+      - "Mixing/Master/"
+      - "Templates/"
+      - "Templates/Starting_Points/"
+      - "Templates/Genre/"
+
+  naming_convention:
+    format: "[Category]_[Subcategory]_[Name]_[Variant]"
+    examples:
+      - "Bass_Sub_808_Clean"
+      - "Lead_Saw_Screamer_Aggressive"
+      - "Pad_Warm_Lush_Wide"
+      - "Vocal_Pop_RadioReady_Bright"
+      - "Drums_Rock_Punchy_Parallel"
+
+# ==============================================================================
+# POPULAR PRESET PACKS BY PLUGIN
+# ==============================================================================
+presetPacks:
+  serum:
+    factory:
+      count: 456
+      categories: [bass, lead, pad, pluck, keys, fx]
+
+    expansion_packs:
+      - name: "Serum Preset Vol 1"
+        developer: Xfer Records
+        count: 100
+        price: "$39"
+        style: [variety]
+
+      - name: "Cymatics Serum Presets"
+        developer: Cymatics
+        count: 500+
+        price: "$49"
+        style: [edm, pop, trap]
+
+      - name: "Virtual Riot Serum Presets"
+        developer: Virtual Riot
+        count: 200
+        price: "Free"
+        style: [dubstep, bass]
+
+      - name: "Splice Serum Packs"
+        developer: Various
+        count: "1000+"
+        price: "Subscription"
+        style: [all_genres]
+
+  omnisphere:
+    factory:
+      count: 14000+
+      categories: [synth, acoustic, hybrid, texture]
+
+    expansion_packs:
+      - name: "Spectrasonics Soundsources"
+        developer: Spectrasonics
+        count: "Varies"
+        price: "$79-149"
+        style: [variety]
+
+      - name: "Pulse - EDM Expansion"
+        developer: The Unfinished
+        count: 200
+        price: "$29"
+        style: [edm]
+
+      - name: "Drones"
+        developer: Spectrasonics
+        count: 500+
+        price: "$99"
+        style: [ambient, texture]
+
+  massive:
+    factory:
+      count: 1300
+      categories: [bass, lead, pad, keys, fx]
+
+    expansion_packs:
+      - name: "Massive X Expansions"
+        developer: Native Instruments
+        count: "Varies"
+        price: "$49-79"
+        style: [electronic]
+
+  kontakt:
+    organization: "By Library"
+    note: "Presets are library-specific"
+
+  fabfilter:
+    pro_q:
+      factory_count: 60
+      categories: [surgical, mastering, mixing]
+      user_presets:
+        location: "~/Library/Application Support/FabFilter/Pro-Q 3"
+
+    pro_c:
+      factory_count: 50
+      categories: [vocals, drums, bass, mix]
+
+    pro_r:
+      factory_count: 80
+      categories: [rooms, halls, plates, creative]
+
+  soundtoys:
+    decapitator:
+      factory_count: 100
+      categories: [gentle, aggressive, vintage]
+
+    echoboy:
+      factory_count: 150
+      categories: [tape, digital, modulated]
+
+# ==============================================================================
+# PRESET BACKUP STRATEGY
+# ==============================================================================
+backupStrategy:
+  frequency: weekly
+  locations:
+    primary: "Cloud sync (iCloud/Dropbox/Google Drive)"
+    secondary: "External drive monthly backup"
+    project: "Include in project folder"
+
+  automation:
+    script: "tools/backup_presets.py"
+    schedule: "Weekly on Sunday 2AM"
+
+  whatToBackup:
+    - "User presets"
+    - "Custom settings"
+    - "Project-specific presets"
+    - "Modified factory presets"
+
+  whatNotToBackup:
+    - "Factory presets (reinstallable)"
+    - "Expansion packs (reinstallable)"
+
+# ==============================================================================
+# PRESET MANAGEMENT TOOLS
+# ==============================================================================
+tools:
+  built_in:
+    - name: "audiocat presets"
+      commands:
+        - "audiocat presets scan"
+        - "audiocat presets organize"
+        - "audiocat presets backup"
+        - "audiocat presets search"
+
+  third_party:
+    - name: Plugin Alliance Scanner
+      description: "Auto-organize PA presets"
+      platform: [macOS, Windows]
+
+    - name: Splice
+      description: "Cloud preset sync"
+      platform: [macOS, Windows]
+
+    - name: Plugin Boutique Scaler
+      description: "Preset organization"
+      platform: [macOS, Windows]
+
+# ==============================================================================
+# WORKFLOW RECOMMENDATIONS
+# ==============================================================================
+workflows:
+  newPreset:
+    steps:
+      - "1. Create preset in plugin"
+      - "2. Use naming convention"
+      - "3. Save to user preset folder"
+      - "4. Tag with metadata if supported"
+      - "5. Backup to cloud"
+
+  findingPresets:
+    tips:
+      - "Use plugin's built-in browser"
+      - "Organize by sound type first, genre second"
+      - "Create favorites folder"
+      - "Use tags liberally"
+      - "Star commonly used presets"
+
+  projectPresets:
+    recommendation: |
+      Save project-specific presets in the project folder
+      under a "Presets" subfolder. This ensures the preset
+      travels with the project and can be easily recalled.
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Presets & Patches Manifest v1.0.0               ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝

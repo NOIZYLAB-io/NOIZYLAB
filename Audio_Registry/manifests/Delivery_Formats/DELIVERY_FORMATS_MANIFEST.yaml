@@ -1,0 +1,493 @@
+# ==============================================================================
+# METABEAST_CC - DELIVERY FORMATS MANIFEST
+# ==============================================================================
+# Audio/Video Delivery Specifications
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Delivery Formats Registry
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  description: |
+    Complete specifications for audio delivery across all platforms including
+    streaming services, broadcast, film, gaming, and physical media.
+
+# ==============================================================================
+# STREAMING PLATFORM SPECIFICATIONS
+# ==============================================================================
+streaming:
+  spotify:
+    name: Spotify
+    codec: "Ogg Vorbis / AAC"
+    quality_tiers:
+      free: "128 kbps AAC"
+      premium: "256 kbps AAC"
+      high_quality: "320 kbps Ogg Vorbis"
+    loudness_target: "-14 LUFS"
+    true_peak: "-1 dBTP"
+    sample_rate: "44.1 kHz"
+    bit_depth: "16-bit source accepted"
+    recommendations:
+      - "Target -14 LUFS integrated"
+      - "Leave 1dB headroom minimum"
+      - "Spotify normalizes by default"
+      - "Avoid over-compression"
+    notes: "Spotify uses loudness normalization by default"
+
+  apple_music:
+    name: Apple Music
+    codec: "AAC / Apple Lossless / Hi-Res Lossless / Dolby Atmos"
+    quality_tiers:
+      standard: "256 kbps AAC"
+      lossless: "ALAC up to 24-bit/48kHz"
+      hi_res_lossless: "ALAC up to 24-bit/192kHz"
+      spatial: "Dolby Atmos"
+    loudness_target: "-16 LUFS"
+    true_peak: "-1 dBTP"
+    sample_rate: "44.1 kHz minimum, up to 192 kHz"
+    bit_depth: "16-bit minimum, 24-bit preferred"
+    recommendations:
+      - "Submit highest quality masters"
+      - "Consider Dolby Atmos mix"
+      - "Apple Sound Check uses -16 LUFS"
+    notes: "Apple accepts and preserves hi-res audio"
+
+  youtube_music:
+    name: YouTube Music
+    codec: "AAC / Opus"
+    quality_tiers:
+      low: "48 kbps AAC"
+      normal: "128 kbps AAC"
+      high: "256 kbps AAC"
+    loudness_target: "-14 LUFS"
+    true_peak: "-1 dBTP"
+    sample_rate: "44.1 kHz"
+    bit_depth: "16-bit"
+    recommendations:
+      - "Match with YouTube video specs"
+      - "Target -14 LUFS for consistency"
+
+  tidal:
+    name: Tidal
+    codec: "FLAC / MQA / Dolby Atmos"
+    quality_tiers:
+      hifi: "FLAC 16-bit/44.1kHz"
+      master: "MQA up to 24-bit/352.8kHz"
+      max: "FLAC 24-bit/192kHz"
+      atmos: "Dolby Atmos"
+    loudness_target: "-14 LUFS"
+    true_peak: "-1 dBTP"
+    sample_rate: "44.1 kHz minimum"
+    bit_depth: "16-bit minimum, 24-bit for Master"
+    recommendations:
+      - "Submit MQA masters for Master quality"
+      - "Consider Dolby Atmos for immersive"
+    notes: "Tidal preserves highest quality"
+
+  amazon_music:
+    name: Amazon Music
+    codec: "AAC / FLAC / Dolby Atmos"
+    quality_tiers:
+      sd: "256 kbps AAC"
+      hd: "FLAC 16-bit/44.1kHz"
+      ultra_hd: "FLAC 24-bit/192kHz"
+      spatial: "Dolby Atmos / 360 Reality Audio"
+    loudness_target: "-14 LUFS"
+    true_peak: "-1 dBTP"
+    sample_rate: "44.1 kHz minimum"
+    bit_depth: "16-bit minimum"
+
+  soundcloud:
+    name: SoundCloud
+    codec: "MP3 / AAC (transcoded)"
+    quality_tiers:
+      free: "128 kbps MP3"
+      go: "256 kbps AAC"
+    loudness_target: "No normalization"
+    upload_format: "WAV or FLAC recommended"
+    sample_rate: "44.1 kHz"
+    recommendations:
+      - "Upload WAV for best quality"
+      - "SoundCloud transcodes to MP3/AAC"
+      - "No loudness normalization applied"
+
+  bandcamp:
+    name: Bandcamp
+    codec: "FLAC / ALAC / MP3 / Ogg / AAC"
+    quality_options: "All formats available to buyers"
+    upload_format: "FLAC or WAV required"
+    sample_rate: "44.1 kHz minimum, up to 192 kHz"
+    bit_depth: "16-bit minimum, 24-bit accepted"
+    recommendations:
+      - "Upload 24-bit masters"
+      - "Bandcamp preserves original quality"
+      - "Buyers choose format"
+
+# ==============================================================================
+# DOLBY ATMOS SPECIFICATIONS
+# ==============================================================================
+dolbyAtmos:
+  overview:
+    name: Dolby Atmos Music
+    type: "Object-based spatial audio"
+    channels: "7.1.4 bed + objects"
+    delivery: "ADM BWF / Dolby Atmos Master File"
+
+  bedFormat:
+    channels: "7.1.4"
+    layout:
+      - L: "Left"
+      - R: "Right"
+      - C: "Center"
+      - LFE: "Low Frequency Effects"
+      - Ls: "Left Surround"
+      - Rs: "Right Surround"
+      - Lrs: "Left Rear Surround"
+      - Rrs: "Right Rear Surround"
+      - Ltf: "Left Top Front"
+      - Rtf: "Right Top Front"
+      - Ltr: "Left Top Rear"
+      - Rtr: "Right Top Rear"
+
+  specifications:
+    sample_rate: "48 kHz"
+    bit_depth: "24-bit"
+    loudness_target: "-18 LUFS"
+    true_peak: "-1 dBTP"
+    dialog_level: "-24 LKFS"
+    max_objects: 128
+    max_bed_channels: 7.1.4
+
+  delivery_formats:
+    - format: "ADM BWF"
+      extension: ".wav"
+      description: "Audio Definition Model Broadcast Wave"
+
+    - format: "Dolby Atmos Master File"
+      extension: ".atmos"
+      description: "Native Dolby format"
+
+    - format: "MP4 / EC-3"
+      extension: ".mp4"
+      description: "Consumer delivery"
+
+  daw_support:
+    native:
+      - Logic Pro
+      - Pro Tools
+      - Nuendo
+      - DaVinci Resolve
+    with_renderer:
+      - Ableton Live
+      - Cubase
+      - Studio One
+      - Reaper
+
+  tools:
+    - name: Dolby Atmos Music Panner
+      type: plugin
+      price: Free
+      platform: [macOS, Windows]
+
+    - name: Dolby Atmos Renderer
+      type: application
+      price: Free (with registration)
+      platform: [macOS, Windows]
+
+    - name: Dolby Atmos Production Suite
+      type: plugin_suite
+      price: "$299/year"
+      platform: [macOS, Windows]
+
+# ==============================================================================
+# BROADCAST SPECIFICATIONS
+# ==============================================================================
+broadcast:
+  television:
+    us_standards:
+      - name: "ATSC A/85"
+        loudness: "-24 LKFS"
+        true_peak: "-2 dBTP"
+        dialog_anchor: true
+
+    european_standards:
+      - name: "EBU R128"
+        loudness: "-23 LUFS"
+        true_peak: "-1 dBTP"
+        loudness_range: "Recommended < 18 LU"
+
+    uk_standards:
+      - name: "ASWG-R001"
+        loudness: "-24 LUFS"
+        true_peak: "-2 dBTP"
+
+  radio:
+    fm:
+      sample_rate: "44.1 kHz"
+      processing: "Station processing applied"
+      recommendations:
+        - "Avoid over-limiting"
+        - "Station processing adds compression"
+        - "Target -14 LUFS pre-processing"
+
+    digital_radio:
+      codec: "AAC / HE-AAC"
+      sample_rate: "48 kHz"
+      loudness: "-23 LUFS (EBU R128)"
+
+  podcast:
+    apple_podcasts:
+      loudness: "-16 LUFS mono / -19 LUFS stereo"
+      true_peak: "-1 dBTP"
+      sample_rate: "44.1 kHz"
+      bit_depth: "16-bit"
+      codec: "AAC 128-256 kbps"
+
+    spotify_podcasts:
+      loudness: "-14 LUFS"
+      true_peak: "-1 dBTP"
+      codec: "MP3 or AAC"
+
+    youtube_podcasts:
+      loudness: "-14 LUFS"
+      codec: "AAC"
+
+# ==============================================================================
+# FILM & POST-PRODUCTION
+# ==============================================================================
+film:
+  theatrical:
+    dolby:
+      - name: "Dolby Atmos"
+        channels: "Object-based"
+        sample_rate: "48 kHz"
+        bit_depth: "24-bit"
+        loudness: "-85 dB Leq(m)"
+
+      - name: "Dolby 7.1"
+        channels: 8
+        layout: "L R C LFE Ls Rs Lrs Rrs"
+        sample_rate: "48 kHz"
+
+      - name: "Dolby 5.1"
+        channels: 6
+        layout: "L R C LFE Ls Rs"
+        sample_rate: "48 kHz"
+
+    imax:
+      name: "IMAX 12.0"
+      channels: 12
+      sample_rate: "48 kHz"
+      notes: "Six-channel point source"
+
+  home_video:
+    blu_ray:
+      formats:
+        - "Dolby TrueHD"
+        - "DTS-HD Master Audio"
+        - "Dolby Atmos"
+        - "DTS:X"
+      sample_rate: "48 kHz or 96 kHz"
+      bit_depth: "24-bit"
+
+    dvd:
+      formats:
+        - "Dolby Digital (AC-3)"
+        - "DTS"
+      sample_rate: "48 kHz"
+      bit_rate: "448 kbps (DD) / 768 kbps (DTS)"
+
+    streaming:
+      netflix:
+        formats:
+          - "Dolby Atmos (DD+)"
+          - "5.1 (DD+)"
+          - "Stereo (AAC)"
+        loudness: "-27 LKFS (dialog)"
+        true_peak: "-2 dBTP"
+
+      disney_plus:
+        formats:
+          - "Dolby Atmos"
+          - "5.1"
+        loudness: "-24 LKFS"
+
+# ==============================================================================
+# GAMING
+# ==============================================================================
+gaming:
+  platforms:
+    pc:
+      formats:
+        - "PCM (WAV/AIFF)"
+        - "Vorbis"
+        - "Opus"
+        - "FMOD/Wwise proprietary"
+      spatial: ["Windows Sonic", "Dolby Atmos", "DTS:X"]
+      sample_rates: ["44.1 kHz", "48 kHz"]
+
+    playstation:
+      formats:
+        - "Sony proprietary"
+        - "AC-3"
+      spatial: "Tempest 3D Audio"
+      sample_rate: "48 kHz"
+
+    xbox:
+      formats:
+        - "WAV"
+        - "XMA"
+      spatial: ["Windows Sonic", "Dolby Atmos"]
+      sample_rate: "48 kHz"
+
+    nintendo_switch:
+      formats:
+        - "Opus"
+        - "ADPCM"
+      sample_rate: "48 kHz"
+
+  middleware:
+    - name: FMOD
+      usage: "Sound design & implementation"
+      formats: ["WAV", "Vorbis", "FADPCM"]
+
+    - name: Wwise
+      usage: "Sound design & implementation"
+      formats: ["WAV", "Vorbis", "Opus", "AAC"]
+
+# ==============================================================================
+# VINYL & PHYSICAL MEDIA
+# ==============================================================================
+physical:
+  vinyl:
+    specifications:
+      max_time_per_side: "22-25 minutes (optimal)"
+      frequency_range: "20 Hz - 20 kHz"
+      dynamic_range: "55-70 dB"
+      stereo_width: "Mono bass below 150 Hz recommended"
+
+    mastering_requirements:
+      - "Separate vinyl master required"
+      - "Reduce high frequencies slightly"
+      - "Mono bass (below 150 Hz)"
+      - "Limit sibilance"
+      - "Avoid excessive limiting"
+      - "Leave 2-3 dB headroom"
+
+    cutting_formats:
+      - "24-bit/96 kHz WAV"
+      - "DDP image"
+
+  cd:
+    specifications:
+      format: "Red Book Audio"
+      sample_rate: "44.1 kHz"
+      bit_depth: "16-bit"
+      max_time: "74-80 minutes"
+
+    delivery:
+      format: "DDP 2.0"
+      includes:
+        - "Audio files"
+        - "PQ codes"
+        - "ISRC codes"
+        - "CD-Text"
+        - "UPC/EAN"
+
+  cassette:
+    specifications:
+      frequency_range: "30 Hz - 15 kHz (Type II)"
+      dynamic_range: "50-60 dB"
+      noise_reduction: ["Dolby B", "Dolby C", "dbx"]
+
+    mastering:
+      - "Reduce high frequencies slightly"
+      - "Slight bass boost"
+      - "Account for noise floor"
+
+# ==============================================================================
+# MASTER FILE SPECIFICATIONS
+# ==============================================================================
+masteringSpecs:
+  digital_release:
+    format: "WAV or AIFF"
+    sample_rate: "44.1 kHz (or higher)"
+    bit_depth: "24-bit (16-bit final)"
+    loudness: "-14 LUFS (streaming)"
+    true_peak: "-1 dBTP"
+
+  high_resolution:
+    format: "WAV or FLAC"
+    sample_rate: "96 kHz or 192 kHz"
+    bit_depth: "24-bit"
+    loudness: "Preserved dynamic range"
+
+  stem_delivery:
+    tracks:
+      - "Drums"
+      - "Bass"
+      - "Guitars"
+      - "Keys/Synths"
+      - "Vocals"
+      - "FX"
+      - "Full Mix"
+    format: "WAV 24-bit"
+    sample_rate: "Match session rate"
+
+# ==============================================================================
+# METERING & QC TOOLS
+# ==============================================================================
+tools:
+  loudness:
+    - name: iZotope Insight 2
+      type: plugin
+      features: ["LUFS", "True Peak", "Spectrum", "Surround"]
+
+    - name: Nugen VisLM
+      type: plugin
+      features: ["Broadcast compliant", "LUFS", "Logging"]
+
+    - name: Youlean Loudness Meter
+      type: plugin
+      features: ["LUFS", "Free", "Streaming presets"]
+      price: "Free / $49 Pro"
+
+    - name: LEVELS
+      type: plugin
+      developer: Mastering The Mix
+      features: ["Streaming presets", "True Peak", "Stereo"]
+
+  spectrum:
+    - name: SPAN
+      type: plugin
+      developer: Voxengo
+      features: ["Free", "Correlation", "Spectrum"]
+      price: "Free"
+
+    - name: FabFilter Pro-Q 3
+      type: plugin
+      features: ["EQ + Analyzer", "Reference match"]
+
+  codec_preview:
+    - name: Codec Toolbox
+      type: plugin
+      developer: Sonnox
+      features: ["Preview streaming codecs"]
+
+    - name: Expose 2
+      type: plugin
+      developer: Mastering The Mix
+      features: ["QC automation", "Streaming check"]
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Delivery Formats Manifest v1.0.0                ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝

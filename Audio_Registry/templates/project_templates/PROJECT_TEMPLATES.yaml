@@ -1,0 +1,657 @@
+# ==============================================================================
+# METABEAST_CC - PROJECT TEMPLATES
+# ==============================================================================
+# DAW Session Templates for Rapid Production Startup
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Project Templates
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  description: |
+    Comprehensive project template system for rapid production startup.
+    Templates organized by genre, purpose, and workflow.
+
+# ==============================================================================
+# TEMPLATE ORGANIZATION
+# ==============================================================================
+organization:
+  folder_structure:
+    templates:
+      - "01_Genre/"
+      - "02_Mixing/"
+      - "03_Mastering/"
+      - "04_Sound_Design/"
+      - "05_Scoring/"
+      - "06_Podcast/"
+      - "07_Recording/"
+      - "_Starting_Points/"
+
+  naming_convention: "{Category}_{Genre}_{Variant}_{BPM}"
+  examples:
+    - "Genre_EDM_Progressive_128"
+    - "Mix_Drums_Rock_Standard"
+    - "Master_Streaming_Standard"
+    - "Score_Orchestral_Full"
+
+# ==============================================================================
+# GENRE TEMPLATES
+# ==============================================================================
+genreTemplates:
+  electronic:
+    edm_progressive:
+      name: "EDM Progressive House"
+      bpm: 128
+      time_signature: "4/4"
+      key: "A minor"
+      tracks:
+        drums:
+          - name: "Kick"
+            type: audio
+            color: "#FF5500"
+            routing: "Drums Bus"
+          - name: "Snare"
+            type: audio
+            color: "#FF5500"
+            routing: "Drums Bus"
+          - name: "Hats"
+            type: audio
+            color: "#FF5500"
+            routing: "Drums Bus"
+          - name: "Percussion"
+            type: audio
+            color: "#FF5500"
+            routing: "Drums Bus"
+        bass:
+          - name: "Sub Bass"
+            type: instrument
+            instrument: "Serum"
+            color: "#0066FF"
+            routing: "Bass Bus"
+          - name: "Mid Bass"
+            type: instrument
+            instrument: "Serum"
+            color: "#0066FF"
+            routing: "Bass Bus"
+        synths:
+          - name: "Lead"
+            type: instrument
+            instrument: "Serum"
+            color: "#00FFFF"
+            routing: "Synth Bus"
+          - name: "Pad"
+            type: instrument
+            instrument: "Omnisphere"
+            color: "#FF00FF"
+            routing: "Synth Bus"
+          - name: "Pluck"
+            type: instrument
+            instrument: "Serum"
+            color: "#00FFFF"
+            routing: "Synth Bus"
+          - name: "Arp"
+            type: instrument
+            instrument: "Serum"
+            color: "#00FFFF"
+            routing: "Synth Bus"
+        fx:
+          - name: "Risers"
+            type: audio
+            color: "#FFFF00"
+          - name: "Downlifters"
+            type: audio
+            color: "#FFFF00"
+          - name: "Impacts"
+            type: audio
+            color: "#FFFF00"
+      buses:
+        - name: "Drums Bus"
+          plugins: ["Transient Shaper", "Bus Comp", "EQ"]
+        - name: "Bass Bus"
+          plugins: ["Sidechain Comp", "Saturation"]
+        - name: "Synth Bus"
+          plugins: ["Reverb Send", "Delay Send"]
+        - name: "Master"
+          plugins: ["Limiter", "Meter"]
+      sends:
+        - name: "Reverb"
+          plugin: "Valhalla Room"
+        - name: "Delay"
+          plugin: "EchoBoy"
+        - name: "Sidechain"
+          type: "Sidechain from Kick"
+
+    techno:
+      name: "Techno"
+      bpm: 130
+      time_signature: "4/4"
+      tracks:
+        drums:
+          - "Kick"
+          - "Clap"
+          - "Hats (Closed)"
+          - "Hats (Open)"
+          - "Ride"
+          - "Percussion 1"
+          - "Percussion 2"
+        synths:
+          - "Stab"
+          - "Pad"
+          - "Lead"
+          - "Texture"
+        bass:
+          - "Bass"
+        fx:
+          - "Noise"
+          - "Risers"
+          - "Impacts"
+
+    dubstep:
+      name: "Dubstep/Bass Music"
+      bpm: 140-150
+      time_signature: "4/4"
+      tracks:
+        drums:
+          - "Kick"
+          - "Snare"
+          - "Hats"
+          - "Perc"
+        bass:
+          - "Sub"
+          - "Growl 1"
+          - "Growl 2"
+          - "Reese"
+        synths:
+          - "Lead"
+          - "Pad"
+          - "Arp"
+        fx:
+          - "Risers"
+          - "Downlifters"
+          - "Vocal Chops"
+
+    lo_fi:
+      name: "Lo-Fi Hip Hop"
+      bpm: 75-85
+      time_signature: "4/4"
+      tracks:
+        drums:
+          - "Kick"
+          - "Snare"
+          - "Hats"
+          - "Vinyl Noise"
+        keys:
+          - "Piano"
+          - "Rhodes"
+        bass:
+          - "Bass"
+        samples:
+          - "Sample 1"
+          - "Sample 2"
+          - "Vocal Chop"
+      effects:
+        master:
+          - "Tape Saturation"
+          - "Vinyl Sim"
+          - "RC-20"
+
+  hip_hop:
+    trap:
+      name: "Trap"
+      bpm: 140-160
+      time_signature: "4/4"
+      tracks:
+        drums:
+          - "808"
+          - "Kick"
+          - "Snare"
+          - "Hats (Fast)"
+          - "Perc"
+        synths:
+          - "Melody 1"
+          - "Melody 2"
+          - "Pad"
+        vocals:
+          - "Lead Vocal"
+          - "Adlibs"
+          - "Hook"
+
+    boom_bap:
+      name: "Boom Bap"
+      bpm: 90-100
+      time_signature: "4/4"
+      tracks:
+        drums:
+          - "Kick"
+          - "Snare"
+          - "Hats"
+          - "Vinyl Crackle"
+        samples:
+          - "Sample (Chopped)"
+          - "Sample 2"
+        bass:
+          - "Bass"
+        vocals:
+          - "Lead Vocal"
+          - "Doubles"
+
+  rock:
+    rock_band:
+      name: "Rock Band"
+      bpm: 120
+      time_signature: "4/4"
+      tracks:
+        drums:
+          - "Kick In"
+          - "Kick Out"
+          - "Snare Top"
+          - "Snare Bot"
+          - "Hi-Hat"
+          - "Tom 1"
+          - "Tom 2"
+          - "Floor Tom"
+          - "OH L"
+          - "OH R"
+          - "Room"
+        bass:
+          - "Bass DI"
+          - "Bass Amp"
+        guitars:
+          - "Rhythm L"
+          - "Rhythm R"
+          - "Lead"
+          - "Clean"
+        vocals:
+          - "Lead Vocal"
+          - "Harmony 1"
+          - "Harmony 2"
+        keys:
+          - "Piano/Keys"
+      buses:
+        - "Drum Bus"
+        - "Guitar Bus"
+        - "Vocal Bus"
+        - "Master"
+
+  pop:
+    modern_pop:
+      name: "Modern Pop"
+      bpm: 100-120
+      time_signature: "4/4"
+      tracks:
+        drums:
+          - "Kick"
+          - "Snare"
+          - "Hats"
+          - "Percussion"
+          - "Clap"
+        bass:
+          - "Bass"
+          - "Sub"
+        synths:
+          - "Pad"
+          - "Pluck"
+          - "Lead"
+          - "Arp"
+        guitars:
+          - "Acoustic"
+          - "Electric Clean"
+        vocals:
+          - "Lead Vocal"
+          - "Doubles"
+          - "Harmonies"
+          - "Adlibs"
+
+# ==============================================================================
+# MIXING TEMPLATES
+# ==============================================================================
+mixingTemplates:
+  vocal_production:
+    name: "Vocal Production Chain"
+    tracks:
+      recording:
+        - name: "Raw Vocal"
+          plugins: []
+      editing:
+        - name: "Comp Vocal"
+          plugins:
+            - "Melodyne (ARA)"
+      processing:
+        - name: "Main Vocal"
+          plugins:
+            - "De-esser"
+            - "EQ (Subtractive)"
+            - "Compressor 1 (Fast)"
+            - "Compressor 2 (Slow)"
+            - "EQ (Additive)"
+            - "Saturation"
+    sends:
+      - name: "Vox Verb"
+        plugin: "Valhalla Room"
+        wet: "20%"
+      - name: "Vox Delay"
+        plugin: "EchoBoy"
+        wet: "15%"
+      - name: "Vox Throw"
+        plugin: "Long Reverb"
+        automation: "Phrase endings"
+    buses:
+      - name: "Vocal Bus"
+        plugins:
+          - "Bus Compression"
+          - "Limiting"
+
+  drum_mixing:
+    name: "Drum Mixing Template"
+    parallel_chains:
+      - name: "Drum Crush"
+        plugins: ["Heavy Compression", "Saturation"]
+        blend: "10-30%"
+      - name: "Room Verb"
+        plugins: ["Room Reverb"]
+        blend: "15%"
+    buses:
+      kick:
+        plugins: ["EQ", "Compression", "Saturation"]
+      snare:
+        plugins: ["EQ", "Compression", "Transient"]
+      overheads:
+        plugins: ["EQ", "Compression"]
+      room:
+        plugins: ["EQ", "Compression"]
+      drum_bus:
+        plugins: ["Bus Comp", "EQ", "Limiter"]
+
+  mix_bus:
+    name: "Mix Bus Chain"
+    plugins:
+      - name: "Console Emulation"
+        type: "Saturation"
+        plugin: "Slate VCC"
+      - name: "Bus EQ"
+        type: "EQ"
+        plugin: "Pultec EQP-1A"
+      - name: "Bus Compression"
+        type: "Compressor"
+        plugin: "SSL Bus Comp"
+        settings:
+          ratio: "2:1 or 4:1"
+          attack: "30ms"
+          release: "Auto"
+          reduction: "2-4dB"
+      - name: "Tape"
+        type: "Saturation"
+        plugin: "Studer A800"
+      - name: "Limiter"
+        type: "Limiter"
+        plugin: "FabFilter Pro-L 2"
+        bypass: "During mix"
+
+# ==============================================================================
+# MASTERING TEMPLATES
+# ==============================================================================
+masteringTemplates:
+  streaming:
+    name: "Streaming Master"
+    target:
+      lufs: -14
+      true_peak: -1
+    chain:
+      - name: "Reference"
+        plugin: "Reference Plugin"
+        purpose: "A/B with references"
+      - name: "Surgical EQ"
+        plugin: "FabFilter Pro-Q 3"
+        purpose: "Problem solving"
+      - name: "Tonal EQ"
+        plugin: "Pultec EQP-1A"
+        purpose: "Character"
+      - name: "Multiband Comp"
+        plugin: "FabFilter Pro-MB"
+        purpose: "Dynamic balance"
+      - name: "Compression"
+        plugin: "Shadow Hills"
+        purpose: "Glue"
+      - name: "Saturation"
+        plugin: "Saturn"
+        purpose: "Warmth"
+      - name: "Stereo Enhancement"
+        plugin: "Ozone Imager"
+        purpose: "Width"
+      - name: "Limiter"
+        plugin: "FabFilter Pro-L 2"
+        purpose: "Loudness"
+      - name: "Metering"
+        plugin: "Insight 2"
+        purpose: "Verification"
+
+  vinyl:
+    name: "Vinyl Master"
+    target:
+      dynamic_range: "Preserved"
+      bass: "Mono below 150Hz"
+    chain:
+      - name: "EQ"
+        notes: "Roll off extreme lows, tame highs"
+      - name: "M/S Processing"
+        notes: "Mono bass, controlled stereo"
+      - name: "De-esser"
+        notes: "Reduce sibilance for cutting"
+      - name: "Limiting"
+        notes: "Gentle, preserve dynamics"
+
+  dolby_atmos:
+    name: "Dolby Atmos Master"
+    format: "7.1.4 + Objects"
+    target:
+      lufs: -18
+      true_peak: -1
+    requirements:
+      - "Dolby Atmos Renderer"
+      - "7.1.4 monitoring or binaural"
+      - "ADM BWF export"
+
+# ==============================================================================
+# SCORING TEMPLATES
+# ==============================================================================
+scoringTemplates:
+  orchestral_full:
+    name: "Full Orchestra"
+    tracks:
+      strings:
+        - "Violins I"
+        - "Violins II"
+        - "Violas"
+        - "Cellos"
+        - "Basses"
+      woodwinds:
+        - "Flutes"
+        - "Oboes"
+        - "Clarinets"
+        - "Bassoons"
+      brass:
+        - "Horns"
+        - "Trumpets"
+        - "Trombones"
+        - "Tuba"
+      percussion:
+        - "Timpani"
+        - "Percussion"
+        - "Harp"
+        - "Piano"
+      choir:
+        - "Sopranos"
+        - "Altos"
+        - "Tenors"
+        - "Basses"
+    articulation_maps: true
+    routing:
+      - "Strings Bus"
+      - "Woodwinds Bus"
+      - "Brass Bus"
+      - "Percussion Bus"
+      - "Choir Bus"
+      - "Orchestra Bus"
+
+  hybrid_cinematic:
+    name: "Hybrid Cinematic"
+    tracks:
+      orchestral:
+        - "Strings Ensemble"
+        - "Brass Ensemble"
+        - "Percussion"
+      hybrid:
+        - "Synth Pad"
+        - "Pulse"
+        - "Texture"
+        - "Risers"
+        - "Impacts"
+      drums:
+        - "Epic Drums"
+        - "Trailer Hits"
+
+# ==============================================================================
+# RECORDING TEMPLATES
+# ==============================================================================
+recordingTemplates:
+  vocal_session:
+    name: "Vocal Recording Session"
+    tracks:
+      - name: "Vocal 1"
+        input: "Input 1"
+        monitoring: "Low latency"
+        record_ready: true
+      - name: "Vocal 2"
+        input: "Input 1"
+        monitoring: "Low latency"
+      - name: "Vocal 3"
+        input: "Input 1"
+        monitoring: "Low latency"
+    headphone_mix:
+      - "Instrumental"
+      - "Vocal (with verb)"
+      - "Click"
+    plugins:
+      monitoring:
+        - "Light Compression"
+        - "Reverb (for confidence)"
+
+  band_tracking:
+    name: "Band Tracking"
+    tracks:
+      drums:
+        inputs: [1, 2, 3, 4, 5, 6, 7, 8]
+      bass:
+        inputs: [9, 10]
+      guitar:
+        inputs: [11, 12, 13, 14]
+      keys:
+        inputs: [15, 16]
+      scratch_vocal:
+        inputs: [17]
+    headphone_mixes: 4
+    click_track: true
+
+# ==============================================================================
+# PODCAST TEMPLATES
+# ==============================================================================
+podcastTemplates:
+  interview:
+    name: "Podcast Interview"
+    tracks:
+      - name: "Host"
+        plugins:
+          - "Gate"
+          - "EQ"
+          - "Compression"
+          - "De-esser"
+      - name: "Guest 1"
+        plugins:
+          - "Gate"
+          - "EQ"
+          - "Compression"
+          - "De-esser"
+      - name: "Guest 2"
+        plugins:
+          - "Gate"
+          - "EQ"
+          - "Compression"
+          - "De-esser"
+      - name: "Intro/Outro Music"
+      - name: "Sound Effects"
+    master:
+      target_lufs: -16
+      plugins:
+        - "Multiband Compression"
+        - "Limiter"
+        - "Loudness Meter"
+
+  solo:
+    name: "Solo Podcast"
+    tracks:
+      - name: "Narrator"
+        plugins:
+          - "Gate"
+          - "EQ"
+          - "Compression"
+          - "De-esser"
+          - "Limiter"
+      - name: "Music Bed"
+      - name: "SFX"
+
+# ==============================================================================
+# DAW-SPECIFIC NOTES
+# ==============================================================================
+dawNotes:
+  ableton_live:
+    template_location: "~/Music/Ableton/User Library/Templates"
+    file_format: ".als"
+    notes:
+      - "Use Groups for buses"
+      - "Save with Return tracks"
+      - "Include Browser collections"
+
+  logic_pro:
+    template_location: "~/Music/Audio Music Apps/Project Templates"
+    file_format: ".logicx"
+    notes:
+      - "Use Track Stacks for buses"
+      - "Save Channel Strip settings"
+      - "Include Patch selections"
+
+  pro_tools:
+    template_location: "Session templates folder"
+    file_format: ".ptx"
+    notes:
+      - "Use I/O Setup presets"
+      - "Include routing"
+      - "Save with clip groups"
+
+  studio_one:
+    template_location: "Templates folder"
+    file_format: ".song"
+    notes:
+      - "Use Folder Tracks"
+      - "Save FX Chains"
+      - "Include Macro controls"
+
+  cubase:
+    template_location: "User Presets/Project Templates"
+    file_format: ".cpr"
+    notes:
+      - "Use VCA Faders"
+      - "Save Track Presets"
+      - "Include Expression Maps"
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Project Templates v1.0.0                        ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝

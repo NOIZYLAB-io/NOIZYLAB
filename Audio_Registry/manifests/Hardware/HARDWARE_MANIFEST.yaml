@@ -1,0 +1,919 @@
+# ==============================================================================
+# METABEAST_CC - HARDWARE MANIFEST
+# ==============================================================================
+# Audio Production Hardware Registry
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Hardware Registry
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  totalItems: 120
+  description: |
+    Complete registry of professional audio hardware including interfaces,
+    monitors, microphones, preamps, outboard gear, and accessories.
+
+# ==============================================================================
+# TAXONOMY
+# ==============================================================================
+taxonomy:
+  categories:
+    - audio_interface
+    - monitors
+    - headphones
+    - microphones
+    - preamps
+    - compressors
+    - equalizers
+    - converters
+    - clocks
+    - summing
+    - controllers
+    - cables
+    - acoustic_treatment
+    - furniture
+
+  connectionTypes:
+    digital:
+      - USB
+      - USB-C
+      - Thunderbolt
+      - Thunderbolt 3
+      - Thunderbolt 4
+      - PCIe
+      - Dante
+      - AVB
+      - MADI
+      - AES/EBU
+      - S/PDIF
+      - ADAT
+      - Ethernet
+
+    analog:
+      - XLR
+      - TRS
+      - TS
+      - RCA
+      - ELCO
+      - DB25
+      - Bantam/TT
+
+  tiers:
+    - professional    # High-end studio
+    - prosumer        # Project studio
+    - consumer        # Home studio
+    - broadcast       # Broadcast grade
+    - live            # Live sound
+
+# ==============================================================================
+# AUDIO INTERFACES
+# ==============================================================================
+audioInterfaces:
+  professional:
+    - name: Universal Audio Apollo x16
+      manufacturer: Universal Audio
+      type: audio_interface
+      connection: Thunderbolt 3
+      inputs: 18x24
+      preamps: 16
+      converters: "24-bit/192kHz"
+      dsp: "HEXA Core"
+      price: "$4999"
+      tier: professional
+      features:
+        - UAD plugins in real-time
+        - Unison preamp technology
+        - Surround monitoring
+      tags: [UAD, DSP, premium]
+
+    - name: Antelope Orion Studio Synergy Core
+      manufacturer: Antelope Audio
+      type: audio_interface
+      connection: Thunderbolt/USB
+      inputs: 12x24
+      preamps: 4
+      converters: "24-bit/192kHz"
+      dsp: "Synergy Core"
+      price: "$3995"
+      tier: professional
+      features:
+        - Synergy Core effects
+        - Atomic clocking
+        - Premium converters
+      tags: [DSP, clocking, premium]
+
+    - name: RME Fireface UFX III
+      manufacturer: RME
+      type: audio_interface
+      connection: USB 3
+      inputs: 94
+      preamps: 12
+      converters: "24-bit/192kHz"
+      price: "$3499"
+      tier: professional
+      features:
+        - TotalMix FX
+        - DURec
+        - Extreme low latency
+      tags: [reliable, German, TotalMix]
+
+    - name: Apogee Symphony Desktop
+      manufacturer: Apogee
+      type: audio_interface
+      connection: USB-C
+      inputs: 12x14
+      preamps: 2
+      converters: "24-bit/192kHz"
+      price: "$1295"
+      tier: professional
+      features:
+        - Symphony converters
+        - DSP FX
+        - Hardware inserts
+      tags: [converters, DSP, compact]
+
+    - name: Lynx Aurora (n) 8
+      manufacturer: Lynx
+      type: audio_interface
+      connection: Thunderbolt/USB
+      inputs: 8x8
+      preamps: 0
+      converters: "24-bit/192kHz"
+      price: "$3498"
+      tier: professional
+      features:
+        - Reference converters
+        - Expandable
+        - Mastering grade
+      tags: [converters, mastering, reference]
+
+  prosumer:
+    - name: Focusrite Scarlett 18i20
+      manufacturer: Focusrite
+      type: audio_interface
+      connection: USB-C
+      inputs: 18x20
+      preamps: 8
+      converters: "24-bit/192kHz"
+      price: "$549"
+      tier: prosumer
+      features:
+        - Air mode
+        - ADAT expansion
+        - Talkback mic
+      tags: [versatile, reliable, value]
+
+    - name: MOTU 828es
+      manufacturer: MOTU
+      type: audio_interface
+      connection: Thunderbolt/USB
+      inputs: 28x32
+      preamps: 2
+      converters: "24-bit/192kHz"
+      price: "$1299"
+      tier: prosumer
+      features:
+        - ESS Sabre32 converters
+        - Web control
+        - DSP effects
+      tags: [converters, versatile, DSP]
+
+    - name: SSL 2+
+      manufacturer: Solid State Logic
+      type: audio_interface
+      connection: USB-C
+      inputs: 2x4
+      preamps: 2
+      converters: "24-bit/192kHz"
+      price: "$299"
+      tier: prosumer
+      features:
+        - SSL preamps
+        - Legacy 4K mode
+        - SSL software bundle
+      tags: [SSL, compact, value]
+
+    - name: Audient iD44 MkII
+      manufacturer: Audient
+      type: audio_interface
+      connection: USB-C
+      inputs: 20x24
+      preamps: 4
+      converters: "24-bit/96kHz"
+      price: "$699"
+      tier: prosumer
+      features:
+        - Class-A preamps
+        - ADAT expansion
+        - ScrollControl
+      tags: [preamps, British, value]
+
+    - name: PreSonus Quantum 2626
+      manufacturer: PreSonus
+      type: audio_interface
+      connection: Thunderbolt 3
+      inputs: 26x26
+      preamps: 8
+      converters: "24-bit/192kHz"
+      price: "$799"
+      tier: prosumer
+      features:
+        - XMAX preamps
+        - Ultra-low latency
+        - ADAT expansion
+      tags: [latency, XMAX, versatile]
+
+# ==============================================================================
+# STUDIO MONITORS
+# ==============================================================================
+monitors:
+  nearfield:
+    - name: Genelec 8341A
+      manufacturer: Genelec
+      type: monitors
+      size: "7-inch coaxial"
+      amplification: "Tri-amp, 350W"
+      frequency: "38Hz - 37kHz"
+      price: "$3200 each"
+      tier: professional
+      features:
+        - SAM (Smart Active Monitoring)
+        - GLM calibration
+        - Coaxial design
+      tags: [reference, SAM, coaxial]
+
+    - name: Focal Trio11 Be
+      manufacturer: Focal
+      type: monitors
+      size: "Triple driver"
+      amplification: "Tri-amp, 600W"
+      frequency: "30Hz - 40kHz"
+      price: "$4999 each"
+      tier: professional
+      features:
+        - Focus mode
+        - Beryllium tweeter
+        - TMD suspension
+      tags: [beryllium, versatile, French]
+
+    - name: Adam Audio A77X
+      manufacturer: Adam Audio
+      type: monitors
+      size: "7-inch dual"
+      amplification: "Bi-amp, 200W"
+      frequency: "42Hz - 50kHz"
+      price: "$2199 each"
+      tier: professional
+      features:
+        - X-ART tweeter
+        - DSP room correction
+        - Horizontal design
+      tags: [ribbon, DSP, German]
+
+    - name: Neumann KH 150
+      manufacturer: Neumann
+      type: monitors
+      size: "6.5-inch"
+      amplification: "Bi-amp, 145W"
+      frequency: "39Hz - 21kHz"
+      price: "$1999 each"
+      tier: professional
+      features:
+        - MA 1 calibration
+        - DSP processing
+        - Mathematically modeled
+      tags: [German, DSP, accurate]
+
+    - name: Yamaha HS8
+      manufacturer: Yamaha
+      type: monitors
+      size: "8-inch"
+      amplification: "Bi-amp, 120W"
+      frequency: "38Hz - 30kHz"
+      price: "$449 each"
+      tier: prosumer
+      features:
+        - NS10 heritage
+        - Room control
+        - High trim
+      tags: [value, reliable, flat]
+
+    - name: KRK Rokit RP8 G4
+      manufacturer: KRK
+      type: monitors
+      size: "8-inch"
+      amplification: "Bi-amp, 203W"
+      frequency: "36Hz - 40kHz"
+      price: "$449 each"
+      tier: prosumer
+      features:
+        - DSP-driven EQ
+        - App control
+        - LCD visual EQ
+      tags: [DSP, app, value]
+
+  midfield:
+    - name: Genelec 8351B
+      manufacturer: Genelec
+      type: monitors
+      size: "10-inch coaxial"
+      amplification: "Tri-amp, 450W"
+      frequency: "32Hz - 40kHz"
+      price: "$5900 each"
+      tier: professional
+      features:
+        - SAM
+        - GLM calibration
+        - Point source
+      tags: [reference, SAM, coaxial]
+
+    - name: ATC SCM25A Pro
+      manufacturer: ATC
+      type: monitors
+      size: "6.5-inch"
+      amplification: "Tri-amp, 350W"
+      frequency: "54Hz - 22kHz"
+      price: "$6499 pair"
+      tier: professional
+      features:
+        - Hand-built drivers
+        - British engineering
+        - Legendary mid-dome
+      tags: [British, handmade, precise]
+
+  subwoofers:
+    - name: Genelec 7370A
+      manufacturer: Genelec
+      type: subwoofer
+      size: "12-inch"
+      amplification: "500W"
+      frequency: "19Hz - 100Hz"
+      price: "$4500"
+      tier: professional
+      features:
+        - SAM
+        - GLM integration
+        - Phase adjustment
+      tags: [SAM, deep, accurate]
+
+    - name: Focal Sub One
+      manufacturer: Focal
+      type: subwoofer
+      size: "13-inch"
+      amplification: "600W"
+      frequency: "25Hz - 150Hz"
+      price: "$2999"
+      tier: professional
+      features:
+        - W composite cone
+        - Variable phase
+        - THX certified
+      tags: [powerful, THX, French]
+
+# ==============================================================================
+# HEADPHONES
+# ==============================================================================
+headphones:
+  closed:
+    - name: Sony MDR-MV1
+      manufacturer: Sony
+      type: headphones
+      design: open
+      impedance: "24 ohms"
+      frequency: "5Hz - 80kHz"
+      price: "$499"
+      tier: professional
+      features:
+        - Spatial audio mixing
+        - Ultra-wide bandwidth
+        - Lightweight
+      tags: [spatial, open, lightweight]
+
+    - name: Audeze LCD-X
+      manufacturer: Audeze
+      type: headphones
+      design: open
+      impedance: "20 ohms"
+      frequency: "10Hz - 50kHz"
+      price: "$1199"
+      tier: professional
+      features:
+        - Planar magnetic
+        - Creator package available
+        - Fluxor magnets
+      tags: [planar, premium, detailed]
+
+    - name: Sennheiser HD 600
+      manufacturer: Sennheiser
+      type: headphones
+      design: open
+      impedance: "300 ohms"
+      frequency: "12Hz - 39kHz"
+      price: "$399"
+      tier: professional
+      features:
+        - Industry standard
+        - Open design
+        - Neutral response
+      tags: [reference, classic, neutral]
+
+    - name: Audio-Technica ATH-M50x
+      manufacturer: Audio-Technica
+      type: headphones
+      design: closed
+      impedance: "38 ohms"
+      frequency: "15Hz - 28kHz"
+      price: "$149"
+      tier: prosumer
+      features:
+        - Foldable
+        - Detachable cable
+        - Popular tracking choice
+      tags: [value, closed, portable]
+
+    - name: Beyerdynamic DT 770 Pro
+      manufacturer: Beyerdynamic
+      type: headphones
+      design: closed
+      impedance: "80/250 ohms"
+      frequency: "5Hz - 35kHz"
+      price: "$179"
+      tier: prosumer
+      features:
+        - Comfort for long sessions
+        - Studio standard
+        - Made in Germany
+      tags: [comfort, tracking, German]
+
+    - name: Beyerdynamic DT 1990 Pro
+      manufacturer: Beyerdynamic
+      type: headphones
+      design: open
+      impedance: "250 ohms"
+      frequency: "5Hz - 40kHz"
+      price: "$549"
+      tier: professional
+      features:
+        - Tesla drivers
+        - Two ear pad options
+        - Premium build
+      tags: [Tesla, premium, open]
+
+# ==============================================================================
+# MICROPHONES
+# ==============================================================================
+microphones:
+  condenser:
+    large_diaphragm:
+      - name: Neumann U 87 Ai
+        manufacturer: Neumann
+        type: microphone
+        pattern: [cardioid, omni, figure-8]
+        frequency: "20Hz - 20kHz"
+        sensitivity: "28 mV/Pa"
+        price: "$3600"
+        tier: professional
+        features:
+          - Industry standard
+          - Multiple patterns
+          - Self-noise 12dB-A
+        tags: [classic, versatile, German]
+
+      - name: AKG C414 XLII
+        manufacturer: AKG
+        type: microphone
+        pattern: [9 patterns]
+        frequency: "20Hz - 20kHz"
+        sensitivity: "23 mV/Pa"
+        price: "$1099"
+        tier: professional
+        features:
+          - 9 polar patterns
+          - LED status
+          - 3 bass cut filters
+        tags: [versatile, Austrian, patterns]
+
+      - name: Audio-Technica AT4050
+        manufacturer: Audio-Technica
+        type: microphone
+        pattern: [cardioid, omni, figure-8]
+        frequency: "20Hz - 18kHz"
+        sensitivity: "15.8 mV/Pa"
+        price: "$699"
+        tier: professional
+        features:
+          - Dual diaphragm
+          - Low noise
+          - Versatile
+        tags: [value, versatile, reliable]
+
+      - name: Rode NT1 5th Gen
+        manufacturer: Rode
+        type: microphone
+        pattern: [cardioid]
+        frequency: "20Hz - 20kHz"
+        sensitivity: "35 mV/Pa"
+        price: "$259"
+        tier: prosumer
+        features:
+          - 4.5dB-A self-noise
+          - 32-bit float output
+          - USB and XLR
+        tags: [quiet, value, Australian]
+
+    small_diaphragm:
+      - name: Neumann KM 184
+        manufacturer: Neumann
+        type: microphone
+        pattern: [cardioid]
+        frequency: "20Hz - 20kHz"
+        sensitivity: "15 mV/Pa"
+        price: "$900"
+        tier: professional
+        features:
+          - Transformerless
+          - Precision cardioid
+          - Low self-noise
+        tags: [precision, German, SDC]
+
+      - name: DPA 4011A
+        manufacturer: DPA
+        type: microphone
+        pattern: [cardioid]
+        frequency: "20Hz - 20kHz"
+        sensitivity: "10 mV/Pa"
+        price: "$1949"
+        tier: professional
+        features:
+          - Reference quality
+          - Modular
+          - Danish precision
+        tags: [reference, Danish, precision]
+
+  dynamic:
+    - name: Shure SM7B
+      manufacturer: Shure
+      type: microphone
+      pattern: [cardioid]
+      frequency: "50Hz - 20kHz"
+      sensitivity: "1.12 mV/Pa"
+      price: "$399"
+      tier: professional
+      features:
+        - Broadcast standard
+        - Air suspension
+        - Bass rolloff
+      tags: [broadcast, voice, versatile]
+
+    - name: Shure SM57
+      manufacturer: Shure
+      type: microphone
+      pattern: [cardioid]
+      frequency: "40Hz - 15kHz"
+      sensitivity: "1.88 mV/Pa"
+      price: "$99"
+      tier: prosumer
+      features:
+        - Indestructible
+        - Industry standard
+        - Snare/guitar amp
+      tags: [classic, rugged, value]
+
+    - name: Sennheiser MD 421-II
+      manufacturer: Sennheiser
+      type: microphone
+      pattern: [cardioid]
+      frequency: "30Hz - 17kHz"
+      sensitivity: "2 mV/Pa"
+      price: "$399"
+      tier: professional
+      features:
+        - 5-position bass filter
+        - Broadcast legend
+        - Toms and guitar
+      tags: [broadcast, German, versatile]
+
+    - name: Electro-Voice RE20
+      manufacturer: Electro-Voice
+      type: microphone
+      pattern: [cardioid]
+      frequency: "45Hz - 18kHz"
+      sensitivity: "1.5 mV/Pa"
+      price: "$449"
+      tier: professional
+      features:
+        - Variable-D
+        - No proximity effect
+        - Broadcast standard
+      tags: [broadcast, voice, Variable-D]
+
+  ribbon:
+    - name: Royer R-121
+      manufacturer: Royer Labs
+      type: microphone
+      pattern: [figure-8]
+      frequency: "30Hz - 15kHz"
+      sensitivity: "4 mV/Pa"
+      price: "$1395"
+      tier: professional
+      features:
+        - Modern ribbon
+        - Guitar amp standard
+        - Offset ribbon
+      tags: [ribbon, classic, warm]
+
+    - name: AEA R84
+      manufacturer: AEA
+      type: microphone
+      pattern: [figure-8]
+      frequency: "20Hz - 20kHz"
+      sensitivity: "2.5 mV/Pa"
+      price: "$1099"
+      tier: professional
+      features:
+        - Big ribbon sound
+        - Figure-8
+        - Vintage character
+      tags: [ribbon, vintage, warm]
+
+# ==============================================================================
+# PREAMPS & OUTBOARD
+# ==============================================================================
+preamps:
+  - name: Universal Audio 6176
+    manufacturer: Universal Audio
+    type: preamp_compressor
+    channels: 1
+    price: "$2999"
+    tier: professional
+    features:
+      - 610 tube preamp
+      - 1176 compressor
+      - Classic combo
+    tags: [tube, classic, versatile]
+
+  - name: API 3124+
+    manufacturer: API
+    type: preamp
+    channels: 4
+    price: "$3250"
+    tier: professional
+    features:
+      - Discrete API design
+      - 2520 op-amps
+      - +48V phantom
+    tags: [punchy, American, discrete]
+
+  - name: Neve 1073SPX
+    manufacturer: AMS Neve
+    type: preamp_eq
+    channels: 1
+    price: "$2995"
+    tier: professional
+    features:
+      - Original 1073 circuit
+      - Class-A design
+      - Neve transformer
+    tags: [classic, British, transformer]
+
+  - name: Grace Design m101
+    manufacturer: Grace Design
+    type: preamp
+    channels: 1
+    price: "$825"
+    tier: professional
+    features:
+      - Ultra-clean
+      - Ribbon safe
+      - Mastering grade
+    tags: [transparent, ribbon-safe, clean]
+
+  - name: Warm Audio WA73
+    manufacturer: Warm Audio
+    type: preamp
+    channels: 1
+    price: "$599"
+    tier: prosumer
+    features:
+      - Neve 1073 clone
+      - Carnhill transformer
+      - Value option
+    tags: [value, Neve-style, transformer]
+
+compressors:
+  - name: Universal Audio 1176LN
+    manufacturer: Universal Audio
+    type: compressor
+    ratio: "4, 8, 12, 20:1"
+    price: "$2499"
+    tier: professional
+    features:
+      - FET limiting
+      - All-buttons mode
+      - Industry standard
+    tags: [classic, FET, fast]
+
+  - name: Empirical Labs Distressor
+    manufacturer: Empirical Labs
+    type: compressor
+    ratio: "1:1 to 20:1"
+    price: "$1799"
+    tier: professional
+    features:
+      - 8 ratios
+      - Dist 2/3 modes
+      - Modern classic
+    tags: [versatile, modern, punchy]
+
+  - name: SSL Bus Compressor
+    manufacturer: Solid State Logic
+    type: compressor
+    ratio: "2, 4, 10:1"
+    price: "$2599"
+    tier: professional
+    features:
+      - Stereo bus standard
+      - VCA design
+      - Auto-release
+    tags: [glue, stereo, classic]
+
+  - name: Tube-Tech CL 1B
+    manufacturer: Tube-Tech
+    type: compressor
+    ratio: "Variable"
+    price: "$3295"
+    tier: professional
+    features:
+      - Optical tube
+      - Danish design
+      - Smooth compression
+    tags: [tube, optical, smooth]
+
+# ==============================================================================
+# CABLES & CONNECTIVITY
+# ==============================================================================
+cables:
+  brands:
+    - name: Mogami
+      tier: professional
+      products: [Gold, Platinum]
+      notes: "Industry standard studio cables"
+
+    - name: Canare
+      tier: professional
+      products: [Star Quad]
+      notes: "Broadcast standard"
+
+    - name: Vovox
+      tier: professional
+      products: [Sonorus, Link]
+      notes: "Swiss precision"
+
+    - name: Cordial
+      tier: prosumer
+      products: [CSM, CFM]
+      notes: "German value"
+
+  essentials:
+    - type: XLR
+      recommended: "Mogami Gold Studio"
+      quantity: "12-24 depending on setup"
+
+    - type: TRS
+      recommended: "Mogami Gold TRS"
+      quantity: "8-16 patchbay connections"
+
+    - type: TS
+      recommended: "Mogami Platinum Guitar"
+      quantity: "4-8 for instruments"
+
+    - type: USB
+      recommended: "Anker or cable matters"
+      quantity: "2-4 backups"
+
+    - type: Thunderbolt
+      recommended: "Apple or Belkin certified"
+      quantity: "2 minimum"
+
+# ==============================================================================
+# ACOUSTIC TREATMENT
+# ==============================================================================
+acousticTreatment:
+  absorption:
+    - name: GIK Acoustics 242 Panels
+      type: broadband absorber
+      size: "24x48x2 inches"
+      NRC: 1.0
+      price: "$80 each"
+      placement: [first_reflection, corners]
+
+    - name: Auralex Studiofoam
+      type: foam absorber
+      size: "Various"
+      NRC: 0.8
+      price: "$150/pack"
+      placement: [walls, ceiling]
+
+    - name: Rockwool Safe'n'Sound
+      type: DIY insulation
+      size: "Various"
+      NRC: 0.95
+      price: "$50/bag"
+      placement: [DIY panels, ceiling]
+
+  diffusion:
+    - name: GIK Acoustics Alpha Series
+      type: diffusor
+      size: "24x24 inches"
+      frequency: "400Hz - 3.5kHz"
+      price: "$100 each"
+      placement: [rear wall, ceiling]
+
+    - name: RPG Skyline
+      type: diffusor
+      size: "24x24 inches"
+      frequency: "500Hz - 5kHz"
+      price: "$250 each"
+      placement: [rear wall]
+
+  bass_traps:
+    - name: GIK Acoustics Monster Bass Trap
+      type: bass trap
+      size: "24x48x7 inches"
+      effective_to: "50Hz"
+      price: "$190 each"
+      placement: [corners]
+
+    - name: Primacoustic MaxTrap
+      type: bass trap
+      size: "24x48 inches"
+      effective_to: "65Hz"
+      price: "$180 each"
+      placement: [corners, wall-ceiling]
+
+# ==============================================================================
+# STUDIO FURNITURE
+# ==============================================================================
+furniture:
+  desks:
+    - name: Argosy Dual 15K
+      type: studio desk
+      width: "95 inches"
+      price: "$8000"
+      tier: professional
+      features:
+        - Rack bays
+        - Keyboard tray
+        - Cable management
+
+    - name: Output Platform
+      type: studio desk
+      width: "77 inches"
+      price: "$1299"
+      tier: prosumer
+      features:
+        - Keyboard tray
+        - Cable management
+        - Modular design
+
+    - name: Ikea Bekant + Alex
+      type: studio desk
+      width: "Customizable"
+      price: "$400-600"
+      tier: consumer
+      features:
+        - Budget option
+        - Flexible
+        - Common setup
+
+  chairs:
+    - name: Herman Miller Aeron
+      type: studio chair
+      price: "$1395"
+      tier: professional
+      features:
+        - Ergonomic
+        - 12-year warranty
+        - Industry standard
+
+    - name: Secretlab Titan
+      type: studio chair
+      price: "$489"
+      tier: prosumer
+      features:
+        - Gaming style
+        - Comfortable
+        - Value option
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Hardware Manifest v1.0.0                        ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝

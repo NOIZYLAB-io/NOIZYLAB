@@ -1,0 +1,699 @@
+# ==============================================================================
+# METABEAST_CC - MIDI CONTROLLERS MANIFEST
+# ==============================================================================
+# Complete MIDI Controller Registry
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: MIDI Controllers Registry
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  totalItems: 80
+  description: |
+    Comprehensive registry of MIDI controllers including keyboards,
+    drum pads, DAW controllers, expression controllers, and hybrid devices.
+
+# ==============================================================================
+# TAXONOMY
+# ==============================================================================
+taxonomy:
+  categories:
+    - keyboard_controller
+    - drum_pad
+    - daw_controller
+    - fader_controller
+    - knob_controller
+    - expression
+    - wind_controller
+    - hybrid
+    - modular
+    - streaming
+
+  keyActions:
+    - synth
+    - semi-weighted
+    - fully-weighted
+    - hammer-action
+    - aftertouch
+    - poly-aftertouch
+
+  features:
+    - MPE
+    - velocity-sensitive
+    - aftertouch
+    - RGB
+    - display
+    - motorized-faders
+    - touch-strips
+    - CV/Gate
+    - standalone
+
+  connectionTypes:
+    - USB
+    - USB-C
+    - MIDI DIN
+    - Bluetooth
+    - CV/Gate
+    - Ethernet
+
+# ==============================================================================
+# KEYBOARD CONTROLLERS
+# ==============================================================================
+keyboardControllers:
+  professional:
+    - name: Native Instruments Kontrol S88 MK3
+      manufacturer: Native Instruments
+      type: keyboard_controller
+      keys: 88
+      action: fully-weighted
+      connection: [USB]
+      features:
+        - Polyphonic aftertouch
+        - NKS integration
+        - OLED displays per key
+        - Smart Play
+      price: "$1599"
+      tier: professional
+      tags: [NKS, weighted, displays]
+      notes: "Ultimate Komplete Kontrol experience"
+
+    - name: Arturia KeyLab 88 MK3
+      manufacturer: Arturia
+      type: keyboard_controller
+      keys: 88
+      action: hammer-action
+      connection: [USB-C, MIDI DIN]
+      features:
+        - Fatar TP/100LR keybed
+        - DAW integration
+        - 9 faders, 9 knobs
+        - Analog Lab integration
+      price: "$1099"
+      tier: professional
+      tags: [Fatar, DAW-control, analog]
+      notes: "Premium hammer action with DAW control"
+
+    - name: Novation SL MK3 61
+      manufacturer: Novation
+      type: keyboard_controller
+      keys: 61
+      action: semi-weighted
+      connection: [USB, MIDI DIN]
+      features:
+        - CV/Gate outputs
+        - Sequencer
+        - Large screens
+        - InControl
+      price: "$649"
+      tier: professional
+      tags: [sequencer, CV, displays]
+      notes: "Best for hybrid setups"
+
+    - name: Roli Seaboard Rise 2
+      manufacturer: Roli
+      type: keyboard_controller
+      keys: 49
+      action: silicone-surface
+      connection: [USB-C, Bluetooth]
+      features:
+        - 5D touch
+        - MPE
+        - Strike, Glide, Slide, Press, Lift
+        - Bluetooth MIDI
+      price: "$1399"
+      tier: professional
+      tags: [MPE, expressive, innovative]
+      notes: "Most expressive controller"
+
+  prosumer:
+    - name: Arturia KeyLab Essential 61 MK3
+      manufacturer: Arturia
+      type: keyboard_controller
+      keys: 61
+      action: synth
+      connection: [USB]
+      features:
+        - DAW transport
+        - 9 faders
+        - 9 encoders
+        - Chord mode
+      price: "$299"
+      tier: prosumer
+      tags: [value, DAW-control, bundle]
+      notes: "Best value DAW keyboard"
+
+    - name: Novation Launchkey 61 MK3
+      manufacturer: Novation
+      type: keyboard_controller
+      keys: 61
+      action: synth
+      connection: [USB]
+      features:
+        - Ableton integration
+        - 16 RGB pads
+        - Scale mode
+        - Arpeggiator
+      price: "$269"
+      tier: prosumer
+      tags: [Ableton, pads, arpeggiator]
+      notes: "Best for Ableton users"
+
+    - name: M-Audio Hammer 88 Pro
+      manufacturer: M-Audio
+      type: keyboard_controller
+      keys: 88
+      action: hammer-action
+      connection: [USB]
+      features:
+        - Graded hammer action
+        - Aftertouch
+        - USB-MIDI host
+        - Low price
+      price: "$499"
+      tier: prosumer
+      tags: [value, weighted, budget]
+      notes: "Budget weighted controller"
+
+  compact:
+    - name: Arturia MiniLab 3
+      manufacturer: Arturia
+      type: keyboard_controller
+      keys: 25
+      action: synth
+      connection: [USB-C]
+      features:
+        - 8 RGB pads
+        - 8 encoders
+        - Analog Lab Intro
+        - Compact
+      price: "$119"
+      tier: consumer
+      tags: [compact, portable, value]
+      notes: "Best compact controller"
+
+    - name: Novation Launchkey Mini MK3
+      manufacturer: Novation
+      type: keyboard_controller
+      keys: 25
+      action: synth
+      connection: [USB]
+      features:
+        - 16 RGB pads
+        - Ableton integration
+        - Arpeggiator
+        - USB powered
+      price: "$109"
+      tier: consumer
+      tags: [compact, Ableton, portable]
+      notes: "Best mini for Ableton"
+
+    - name: Akai MPK Mini MK3
+      manufacturer: Akai
+      type: keyboard_controller
+      keys: 25
+      action: synth
+      connection: [USB]
+      features:
+        - 8 MPC pads
+        - 8 knobs
+        - Joystick
+        - Note repeat
+      price: "$99"
+      tier: consumer
+      tags: [compact, MPC, popular]
+      notes: "Most popular mini controller"
+
+# ==============================================================================
+# DRUM PAD CONTROLLERS
+# ==============================================================================
+drumPadControllers:
+  - name: Akai MPC Live II
+    manufacturer: Akai
+    type: drum_pad
+    pads: 16
+    standalone: true
+    connection: [USB, MIDI DIN]
+    features:
+      - Standalone operation
+      - 7" touch screen
+      - Battery powered
+      - 16GB storage
+      - CV/Gate outputs
+    price: "$1199"
+    tier: professional
+    tags: [standalone, MPC, production]
+    notes: "Full production in standalone"
+
+  - name: Native Instruments Maschine MK3
+    manufacturer: Native Instruments
+    type: drum_pad
+    pads: 16
+    standalone: false
+    connection: [USB]
+    features:
+      - Color screens
+      - Audio interface built-in
+      - Touch strips
+      - NKS integration
+    price: "$649"
+    tier: professional
+    tags: [NKS, workflow, integration]
+    notes: "Deep NI integration"
+
+  - name: Ableton Push 3
+    manufacturer: Ableton
+    type: hybrid
+    pads: 64
+    standalone: true
+    connection: [USB-C, Ethernet]
+    features:
+      - Standalone mode
+      - MPE pads
+      - Audio interface
+      - Full Live control
+    price: "$1999"
+    tier: professional
+    tags: [Ableton, standalone, MPE]
+    notes: "Ultimate Ableton controller"
+
+  - name: Novation Launchpad Pro MK3
+    manufacturer: Novation
+    type: drum_pad
+    pads: 64
+    standalone: false
+    connection: [USB]
+    features:
+      - RGB velocity pads
+      - Sequencer
+      - Chord mode
+      - Custom modes
+    price: "$299"
+    tier: prosumer
+    tags: [RGB, sequencer, Ableton]
+    notes: "Best grid controller value"
+
+  - name: Akai MPD226
+    manufacturer: Akai
+    type: drum_pad
+    pads: 16
+    standalone: false
+    connection: [USB]
+    features:
+      - Thick Fat pads
+      - 4 faders
+      - 4 knobs
+      - Note repeat
+    price: "$149"
+    tier: prosumer
+    tags: [pads, MPC, value]
+    notes: "MPC pads on a budget"
+
+  - name: PreSonus ATOM SQ
+    manufacturer: PreSonus
+    type: hybrid
+    pads: 32
+    standalone: false
+    connection: [USB]
+    features:
+      - 32 RGB pads
+      - Touch strips
+      - Studio One integration
+      - Chord modes
+    price: "$199"
+    tier: prosumer
+    tags: [hybrid, Studio One, RGB]
+    notes: "Great for Studio One users"
+
+# ==============================================================================
+# DAW CONTROLLERS
+# ==============================================================================
+dawControllers:
+  mixers:
+    - name: Avid S1
+      manufacturer: Avid
+      type: daw_controller
+      faders: 8
+      motorized: true
+      connection: [Ethernet]
+      features:
+        - EUCON
+        - Touch screen
+        - Soft Keys
+        - Compact design
+      price: "$1199"
+      tier: professional
+      tags: [Pro Tools, EUCON, compact]
+      notes: "Best compact Pro Tools control"
+
+    - name: SSL UF8
+      manufacturer: Solid State Logic
+      type: daw_controller
+      faders: 8
+      motorized: true
+      connection: [USB]
+      features:
+        - SSL quality faders
+        - Multi-DAW support
+        - Expandable
+        - Soft Keys
+      price: "$1499"
+      tier: professional
+      tags: [SSL, motorized, premium]
+      notes: "Premium DAW control"
+
+    - name: Behringer X-Touch
+      manufacturer: Behringer
+      type: daw_controller
+      faders: 9
+      motorized: true
+      connection: [USB, MIDI, Ethernet]
+      features:
+        - Mackie/HUI protocol
+        - Scribble strips
+        - USB hub
+        - Budget price
+      price: "$499"
+      tier: prosumer
+      tags: [value, motorized, Mackie]
+      notes: "Best budget motorized controller"
+
+    - name: Icon Platform M+
+      manufacturer: Icon
+      type: daw_controller
+      faders: 9
+      motorized: true
+      connection: [USB]
+      features:
+        - Mackie Control
+        - Modular expansion
+        - Good build
+        - Great value
+      price: "$349"
+      tier: prosumer
+      tags: [value, modular, Mackie]
+      notes: "Budget motorized option"
+
+  compact:
+    - name: PreSonus Faderport V2
+      manufacturer: PreSonus
+      type: daw_controller
+      faders: 1
+      motorized: true
+      connection: [USB]
+      features:
+        - Single motorized fader
+        - Transport
+        - Session navigator
+        - All DAWs
+      price: "$199"
+      tier: prosumer
+      tags: [compact, motorized, simple]
+      notes: "Simple single fader control"
+
+    - name: Korg nanoKONTROL2
+      manufacturer: Korg
+      type: daw_controller
+      faders: 8
+      motorized: false
+      connection: [USB]
+      features:
+        - 8 sliders
+        - 8 knobs
+        - Transport
+        - Ultra-compact
+      price: "$59"
+      tier: consumer
+      tags: [budget, compact, portable]
+      notes: "Ultra-budget DAW control"
+
+# ==============================================================================
+# EXPRESSION CONTROLLERS
+# ==============================================================================
+expressionControllers:
+  - name: Expressive E Touché SE
+    manufacturer: Expressive E
+    type: expression
+    connection: [USB]
+    features:
+      - 4-axis control
+      - Pressure, tilt, vibrato
+      - CV outputs optional
+      - MPE support
+    price: "$399"
+    tier: professional
+    tags: [expressive, MPE, innovative]
+    notes: "Unique expression controller"
+
+  - name: Roli Lightpad Block M
+    manufacturer: Roli
+    type: expression
+    connection: [USB, Bluetooth]
+    features:
+      - Pressure grid
+      - MPE
+      - Modular connection
+      - Portable
+    price: "$229"
+    tier: prosumer
+    tags: [MPE, portable, modular]
+    notes: "Portable MPE expression"
+
+  - name: Keith McMillen K-Board Pro 4
+    manufacturer: Keith McMillen
+    type: expression
+    keys: 48
+    connection: [USB]
+    features:
+      - Poly aftertouch
+      - MPE
+      - Continuous pitch
+      - Pressure sensitive
+    price: "$579"
+    tier: professional
+    tags: [MPE, poly-AT, expressive]
+    notes: "Expressive smart fabric keys"
+
+  - name: Sensel Morph
+    manufacturer: Sensel
+    type: expression
+    connection: [USB, Bluetooth]
+    features:
+      - Interchangeable overlays
+      - 20,000+ pressure sensors
+      - MPE
+      - Multiple modes
+    price: "$249"
+    tier: prosumer
+    tags: [modular, MPE, versatile]
+    notes: "Most versatile expression surface"
+
+# ==============================================================================
+# WIND & BREATH CONTROLLERS
+# ==============================================================================
+windControllers:
+  - name: Akai EWI 5000
+    manufacturer: Akai
+    type: wind_controller
+    connection: [USB, MIDI DIN, Wireless]
+    features:
+      - Wireless
+      - Built-in sounds
+      - Breath and bite sensors
+      - 3 octave range
+    price: "$899"
+    tier: professional
+    tags: [wireless, standalone, breath]
+    notes: "Premier wireless wind controller"
+
+  - name: Roland Aerophone AE-30
+    manufacturer: Roland
+    type: wind_controller
+    connection: [USB, Bluetooth]
+    features:
+      - SuperNATURAL sounds
+      - Bluetooth audio/MIDI
+      - Traditional fingering
+      - Speaker built-in
+    price: "$1299"
+    tier: professional
+    tags: [Roland, standalone, speaker]
+    notes: "Most realistic wind sounds"
+
+  - name: Artinoise Re.cทrder
+    manufacturer: Artinoise
+    type: wind_controller
+    connection: [Bluetooth, USB]
+    features:
+      - Recorder form factor
+      - MPE
+      - Breath and finger pressure
+      - Affordable
+    price: "$179"
+    tier: prosumer
+    tags: [affordable, MPE, portable]
+    notes: "Affordable MPE wind controller"
+
+  - name: TEControl Breath Controller
+    manufacturer: TEControl
+    type: expression
+    connection: [USB]
+    features:
+      - Breath-only
+      - High resolution
+      - Compact
+      - Works with any DAW
+    price: "$99"
+    tier: consumer
+    tags: [breath, simple, affordable]
+    notes: "Simple breath expression"
+
+# ==============================================================================
+# STREAMING & BROADCAST
+# ==============================================================================
+streamingControllers:
+  - name: Elgato Stream Deck XL
+    manufacturer: Elgato
+    type: streaming
+    buttons: 32
+    connection: [USB]
+    features:
+      - LCD buttons
+      - Customizable icons
+      - Multi-action
+      - Plugin ecosystem
+    price: "$249"
+    tier: professional
+    tags: [streaming, customizable, LCD]
+    notes: "Industry standard stream deck"
+
+  - name: Elgato Stream Deck MK.2
+    manufacturer: Elgato
+    type: streaming
+    buttons: 15
+    connection: [USB]
+    features:
+      - LCD buttons
+      - Detachable USB-C
+      - Stand included
+      - Plugin support
+    price: "$149"
+    tier: prosumer
+    tags: [streaming, popular, value]
+    notes: "Most popular stream deck"
+
+  - name: Loupedeck Live S
+    manufacturer: Loupedeck
+    type: streaming
+    buttons: 15
+    dials: 4
+    connection: [USB]
+    features:
+      - Touch buttons
+      - Dials with LED rings
+      - Creative app support
+      - OBS/Twitch
+    price: "$229"
+    tier: prosumer
+    tags: [creative, dials, versatile]
+    notes: "Best for creative apps"
+
+# ==============================================================================
+# MODULAR/CV
+# ==============================================================================
+cvControllers:
+  - name: Arturia KeyStep Pro
+    manufacturer: Arturia
+    type: keyboard_controller
+    keys: 37
+    connection: [USB, MIDI DIN, CV/Gate]
+    features:
+      - 4 CV/Gate outputs
+      - 4-track sequencer
+      - Arpeggiator
+      - Drum sequencer
+    price: "$449"
+    tier: professional
+    tags: [CV, sequencer, modular]
+    notes: "Best keyboard for modular"
+
+  - name: Arturia BeatStep Pro
+    manufacturer: Arturia
+    type: drum_pad
+    pads: 16
+    connection: [USB, MIDI DIN, CV/Gate]
+    features:
+      - 2 melodic + 1 drum sequencer
+      - CV/Gate outputs
+      - Looper
+      - Projects
+    price: "$299"
+    tier: professional
+    tags: [sequencer, CV, modular]
+    notes: "Best pad sequencer for modular"
+
+  - name: Novation Circuit Tracks
+    manufacturer: Novation
+    type: hybrid
+    pads: 32
+    connection: [USB, MIDI DIN]
+    features:
+      - Standalone groovebox
+      - 2 synth tracks
+      - 4 drum tracks
+      - Battery powered
+    price: "$399"
+    tier: prosumer
+    tags: [standalone, groovebox, portable]
+    notes: "Portable standalone production"
+
+# ==============================================================================
+# RECOMMENDATIONS BY USE CASE
+# ==============================================================================
+recommendations:
+  production:
+    electronic:
+      - Ableton Push 3
+      - Akai MPC Live II
+      - Novation Launchpad Pro MK3
+    traditional:
+      - Native Instruments Kontrol S88 MK3
+      - Arturia KeyLab 88 MK3
+
+  live_performance:
+    keyboards:
+      - Native Instruments Kontrol S61 MK3
+      - Roli Seaboard Rise 2
+    pads:
+      - Ableton Push 3
+      - Novation Launchpad Pro MK3
+
+  studio_mixing:
+    professional:
+      - SSL UF8
+      - Avid S1
+    budget:
+      - Behringer X-Touch
+      - Icon Platform M+
+
+  modular_integration:
+    - Arturia KeyStep Pro
+    - Arturia BeatStep Pro
+    - Novation SL MK3
+
+  portable:
+    - Arturia MiniLab 3
+    - Akai MPK Mini MK3
+    - Novation Launchkey Mini MK3
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - MIDI Controllers Manifest v1.0.0                ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝
