@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CODEMASTER Dashboard</title>
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-tertiary: #1a1a25;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0b0;
+      --accent-purple: #9b59b6;
+      --accent-blue: #3498db;
+      --accent-green: #2ecc71;
+      --accent-red: #e74c3c;
+      --accent-yellow: #f39c12;
+      --accent-cyan: #1abc9c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+      border-radius: 16px;
+      border: 1px solid rgba(155, 89, 182, 0.3);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .header .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .header .status {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(46, 204, 113, 0.2);
+      border: 1px solid var(--accent-green);
+      border-radius: 20px;
+      color: var(--accent-green);
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-purple);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card-header .emoji {
+      font-size: 1.5rem;
+    }
+
+    .card-header h2 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* Stats */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1rem;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Agents List */
+    .agent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .agent-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .agent-item:hover {
+      background: rgba(155, 89, 182, 0.2);
+    }
+
+    .agent-emoji {
+      font-size: 1.25rem;
+    }
+
+    .agent-name {
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .agent-role {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .agent-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+
+    /* Activity Feed */
+    .activity-feed {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .activity-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .activity-time {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .activity-content {
+      flex: 1;
+      font-size: 0.875rem;
+    }
+
+    /* Generators & Blueprints */
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: var(--bg-tertiary);
+      border-radius: 6px;
+      font-size: 0.875rem;
+    }
+
+    /* Command Input */
+    .command-section {
+      margin-top: 2rem;
+    }
+
+    .command-input {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .command-input input {
+      flex: 1;
+      background: var(--bg-tertiary);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .command-input input:focus {
+      outline: none;
+      border-color: var(--accent-purple);
+    }
+
+    .command-input button {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      border: none;
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      color: white;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .command-input button:hover {
+      transform: scale(1.02);
+      opacity: 0.9;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>👑 CODEMASTER</h1>
+      <p class="subtitle">THE ULTIMATE AI-POWERED CODE COMMAND CENTER</p>
+      <span class="status">● System Operational</span>
+    </header>
+
+    <!-- Stats Grid -->
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji">📊</span>
+          <h2>SYSTEM METRICS</h2>
+        </div>
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-value" id="tasks-completed">0</div>
+            <div class="stat-label">Tasks Completed</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="agent-calls">0</div>
+            <div class="stat-label">Agent Calls</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="code-generated">0</div>
+            <div class="stat-label">Code Generated</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="workflows-run">0</div>
+            <div class="stat-label">Workflows Run</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji">🤖</span>
+          <h2>AGENTS (14)</h2>
+        </div>
+        <div class="agent-list">
+          <div class="agent-item">
+            <span class="agent-emoji">👑</span>
+            <span class="agent-name">CODEMASTER</span>
+            <span class="agent-role">Supreme Commander</span>
+            <span class="agent-status"></span>
+          </div>
+          <div class="agent-item">
+            <span class="agent-emoji">🏗️</span>
+            <span class="agent-name">ARCHITECT</span>
+            <span class="agent-role">System Architect</span>
+            <span class="agent-status"></span>
+          </div>
+          <div class="agent-item">
+            <span class="agent-emoji">🔨</span>
+            <span class="agent-name">FORGE</span>
+            <span class="agent-role">Code Forge Master</span>
+            <span class="agent-status"></span>
+          </div>
+          <div class="agent-item">
+            <span class="agent-emoji">🛡️</span>
+            <span class="agent-name">SENTINEL</span>
+            <span class="agent-role">Security Guardian</span>
+            <span class="agent-status"></span>
+          </div>
+          <div class="agent-item">
+            <span class="agent-emoji">👻</span>
+            <span class="agent-name">PHANTOM</span>
+            <span class="agent-role">Debug Hunter</span>
+            <span class="agent-status"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji">⚡</span>
+          <h2>GENERATORS</h2>
+        </div>
+        <div class="item-grid">
+          <div class="item">⚡ Worker</div>
+          <div class="item">🔌 API</div>
+          <div class="item">💻 CLI</div>
+          <div class="item">⚛️ Component</div>
+          <div class="item">🖥️ Server</div>
+          <div class="item">🗃️ Model</div>
+          <div class="item">🧪 Test</div>
+          <div class="item">📦 Project</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="emoji">📋</span>
+          <h2>BLUEPRINTS</h2>
+        </div>
+        <div class="item-grid">
+          <div class="item">📧 Email System</div>
+          <div class="item">🌐 CF API</div>
+          <div class="item">🤖 AI Agent</div>
+          <div class="item">💻 CLI Tool</div>
+          <div class="item">🚀 Fullstack</div>
+          <div class="item">💼 SaaS</div>
+          <div class="item">🎮 Discord Bot</div>
+          <div class="item">🔧 Microservice</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity -->
+    <div class="card">
+      <div class="card-header">
+        <span class="emoji">📜</span>
+        <h2>RECENT ACTIVITY</h2>
+      </div>
+      <div class="activity-feed" id="activity-feed">
+        <div class="activity-item">
+          <span class="activity-time">Just now</span>
+          <span class="activity-content">👑 CODEMASTER initialized</span>
+        </div>
+        <div class="activity-item">
+          <span class="activity-time">1m ago</span>
+          <span class="activity-content">🔨 FORGE generated REST API</span>
+        </div>
+        <div class="activity-item">
+          <span class="activity-time">5m ago</span>
+          <span class="activity-content">🛡️ SENTINEL completed security scan</span>
+        </div>
+        <div class="activity-item">
+          <span class="activity-time">10m ago</span>
+          <span class="activity-content">🏗️ ARCHITECT reviewed architecture</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Command Input -->
+    <div class="command-section">
+      <div class="command-input">
+        <input type="text" id="command" placeholder="Enter command... (e.g., summon FORGE create a REST API)">
+        <button onclick="executeCommand()">Execute</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // API Base URL
+    const API_URL = '/api';
+
+    // Fetch and update metrics
+    async function updateMetrics() {
+      try {
+        const response = await fetch(`${API_URL}/metrics`);
+        const data = await response.json();
+
+        document.getElementById('tasks-completed').textContent = data.tasksCompleted || 0;
+        document.getElementById('agent-calls').textContent = data.agentCalls || 0;
+        document.getElementById('code-generated').textContent = data.codeGenerated || 0;
+        document.getElementById('workflows-run').textContent = data.workflowsRun || 0;
+      } catch (error) {
+        console.error('Failed to fetch metrics:', error);
+      }
+    }
+
+    // Execute command
+    async function executeCommand() {
+      const input = document.getElementById('command');
+      const command = input.value.trim();
+
+      if (!command) return;
+
+      // Add to activity feed
+      addActivity(`Executing: ${command}`);
+
+      try {
+        const response = await fetch(`${API_URL}/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: command })
+        });
+
+        const result = await response.json();
+        addActivity(`✓ ${result.agent}: ${result.response?.substring(0, 100) || 'Completed'}...`);
+      } catch (error) {
+        addActivity(`✗ Error: ${error.message}`);
+      }
+
+      input.value = '';
+    }
+
+    // Add activity to feed
+    function addActivity(content) {
+      const feed = document.getElementById('activity-feed');
+      const item = document.createElement('div');
+      item.className = 'activity-item';
+      item.innerHTML = `
+        <span class="activity-time">Just now</span>
+        <span class="activity-content">${content}</span>
+      `;
+      feed.insertBefore(item, feed.firstChild);
+    }
+
+    // Enter key to execute
+    document.getElementById('command').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') executeCommand();
+    });
+
+    // Initial load
+    updateMetrics();
+    setInterval(updateMetrics, 30000);
+  </script>
+</body>
+</html>

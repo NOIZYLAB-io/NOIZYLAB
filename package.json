@@ -1,22 +1,40 @@
 {
-  "name": "noizylab-cli",
-  "version": "2.0.0",
-  "description": "NoizyLab AI-Powered Email & Agent Command Center",
+  "name": "codemaster",
+  "version": "1.0.0",
+  "description": "CODEMASTER - The Ultimate AI-Powered Code Command Center",
   "type": "module",
   "bin": {
+    "codemaster": "./codemaster.js",
     "noizy": "./noizy.js"
   },
   "scripts": {
     "dev": "wrangler dev workers/email-worker.js",
     "dev:api": "wrangler dev workers/api-dashboard.js --port 8788",
-    "deploy": "wrangler deploy workers/email-worker.js && wrangler deploy workers/api-dashboard.js",
+    "dev:codemaster": "wrangler dev workers/codemaster-api.js --port 8789",
+    "deploy": "npm run deploy:all",
+    "deploy:all": "wrangler deploy workers/email-worker.js && wrangler deploy workers/api-dashboard.js && wrangler deploy workers/codemaster-api.js",
     "deploy:email": "wrangler deploy workers/email-worker.js",
     "deploy:api": "wrangler deploy workers/api-dashboard.js",
+    "deploy:codemaster": "wrangler deploy workers/codemaster-api.js",
     "logs": "wrangler tail",
     "test": "node --test tests/",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "start": "node codemaster.js",
+    "shell": "node codemaster.js shell",
+    "status": "node codemaster.js status"
   },
-  "keywords": ["cli", "cloudflare", "workers", "ai", "email", "agents"],
+  "keywords": [
+    "codemaster",
+    "ai",
+    "agents",
+    "cli",
+    "cloudflare",
+    "workers",
+    "code-generation",
+    "automation",
+    "workflow",
+    "email"
+  ],
   "author": "NoizyLab",
   "license": "MIT",
   "dependencies": {
@@ -27,5 +45,9 @@
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Noizyfish/NOIZYLAB.git"
   }
 }
