@@ -1,0 +1,74 @@
+# ==============================================================================
+# METABEAST_CC - Git Ignore
+# ==============================================================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Snapshots (keep directory but ignore contents)
+snapshots/*.tar.gz
+
+# Checksums (generated)
+checksums/*.md5
+
+# Local config
+.env
+.env.local
+*.local.yaml
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Build artifacts
+*.pyc
+*.pyo

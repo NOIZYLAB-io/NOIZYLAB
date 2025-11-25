@@ -1,0 +1,21 @@
+name,type,category,developer,format,os,releaseYear,status,tags,url,notes
+Surge XT,instrument,synth,Surge Synth Team,"VST3,AU,CLAP,Standalone","macOS,Windows,Linux",2021,active,"wavetable,free,open-source",https://surge-synthesizer.github.io,Free open-source hybrid synth
+Helm,instrument,synth,Matt Tytel,"VST3,AU,Standalone","macOS,Windows,Linux",2016,active,"free,polyphonic,wavetable",https://tytel.org/helm,Free polyphonic synth
+OB-Xd,instrument,synth,discoDSP,"VST3,AU","macOS,Windows,Linux",2018,active,"free,oberheim,analog-modeling",https://obxd.wordpress.com,Free Oberheim emulation
+Dexed,instrument,synth,Digital Suburban,"VST3,AU,Standalone","macOS,Windows,Linux",2015,active,"free,FM,DX7",https://asb2m10.github.io/dexed,Free DX7 emulation
+TyrellN6,instrument,synth,U-He,"VST3,AU","macOS,Windows",2012,active,"free,analog-modeling,subtractive",https://u-he.com/tyrelln6,Free analog-style synth from U-He
+Spitfire LABS,instrument,sampler,Spitfire Audio,"VST3,AU,AAX,Standalone","macOS,Windows",2018,active,"free,orchestral,textures",https://labs.spitfireaudio.com,Free sample library collection
+Decent Sampler,instrument,sampler,Decent Samples,"VST3,AU,Standalone","macOS,Windows,Linux",2020,active,"free,sample-player",https://www.decentsamples.com,Free sample player
+SQ8L,instrument,synth,Siegfried Kullmann,VST2,"Windows",2007,legacy,"free,Ensoniq,vintage",N/A,Free Ensoniq SQ-80 emulation
+TAL-Reverb-4,plugin,reverb,TAL Software,"VST3,AU","macOS,Windows",2015,active,"free,plate,vintage",https://tal-software.com,Free plate reverb
+TAL-Chorus-LX,plugin,modulation,TAL Software,"VST3,AU","macOS,Windows",2015,active,"free,chorus,Juno",https://tal-software.com,Free Juno chorus emulation
+OTT,plugin,multiband,Xfer Records,"VST3,AU","macOS,Windows",2010,active,"free,multiband,compression",https://xferrecords.com/freeware,Famous free multiband upward/downward compressor
+Wider,plugin,stereo,Infected Mushroom,"VST3,AU","macOS,Windows",2018,active,"free,stereo,widening",https://polyversemusic.com/wider,Free stereo widening plugin
+Kilohearts Essentials,plugin,utility,KiloHearts,"VST3,AU,AAX","macOS,Windows",2020,active,"free,snapins,effects",https://kilohearts.com/products/kilohearts_essentials,Free effect snapins
+Analog Obsession Suite,plugin,utility,Analog Obsession,"VST3,AU","macOS,Windows",2020,active,"free,analog,collection",https://analogobsession.com,Free analog-style plugin collection
+Sitala,instrument,drum,Decomposer,"VST3,AU,Standalone","macOS,Windows,Linux",2019,active,"free,drum-sampler,simple",https://decomposer.de/sitala,Free drum sampler
+Dragonfly Reverb,plugin,reverb,Michael Willis,"VST3,AU,CLAP","macOS,Windows,Linux",2019,active,"free,algorithmic,open-source",https://michaelwillis.github.io/dragonfly-reverb,Free algorithmic reverb suite
+MeldaProduction MFreeFXBundle,plugin,utility,MeldaProduction,"VST3,AU,AAX","macOS,Windows",2015,active,"free,suite,comprehensive",https://meldaproduction.com/MFreeFXBundle,37 free plugins
+iZotope Vinyl,plugin,saturation,iZotope,"VST3,AU,AAX","macOS,Windows",2006,active,"free,lo-fi,vinyl",https://izotope.com/vinyl,Free vinyl simulation
+Softube Saturation Knob,plugin,saturation,Softube,"VST3,AU,AAX","macOS,Windows",2014,active,"free,saturation,simple",https://softube.com/saturation-knob,Free one-knob saturation
+Native Instruments KOMPLETE START,instrument,suite,Native Instruments,"VST3,AU,AAX,Standalone","macOS,Windows",2019,active,"free,collection,starter",https://native-instruments.com/komplete-start,Free 2000+ sound starter pack
