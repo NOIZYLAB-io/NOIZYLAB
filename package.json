@@ -1,15 +1,31 @@
 {
   "name": "noizylab-cli",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "NoizyLab AI-Powered Email & Agent Command Center",
   "type": "module",
   "bin": {
     "noizy": "./noizy.js"
   },
   "scripts": {
     "dev": "wrangler dev workers/email-worker.js",
-    "deploy": "wrangler deploy workers/email-worker.js"
+    "dev:api": "wrangler dev workers/api-dashboard.js --port 8788",
+    "deploy": "wrangler deploy workers/email-worker.js && wrangler deploy workers/api-dashboard.js",
+    "deploy:email": "wrangler deploy workers/email-worker.js",
+    "deploy:api": "wrangler deploy workers/api-dashboard.js",
+    "logs": "wrangler tail",
+    "test": "node --test tests/",
+    "lint": "eslint ."
   },
+  "keywords": ["cli", "cloudflare", "workers", "ai", "email", "agents"],
+  "author": "NoizyLab",
+  "license": "MIT",
   "dependencies": {
     "wrangler": "^3.47.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

@@ -1,10 +1,48 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# NOIZYLAB CLOUDFLARE WORKERS CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
 name = "noizylab-email-worker"
 main = "workers/email-worker.js"
 compatibility_date = "2024-12-01"
 
+# ─── KV NAMESPACES ────────────────────────────────────────────────────────────
 kv_namespaces = [
-  { binding = "MAIL_LOGS", id = "xxxxxxxxxxxxxxxxxxxx" }
+  { binding = "MAIL_LOGS", id = "YOUR_MAIL_LOGS_KV_ID" },
+  { binding = "AGENTS_STATE", id = "YOUR_AGENTS_STATE_KV_ID" },
+  { binding = "RATE_LIMITS", id = "YOUR_RATE_LIMITS_KV_ID" },
+  { binding = "CONFIG", id = "YOUR_CONFIG_KV_ID" }
 ]
 
+# ─── AI BINDING ───────────────────────────────────────────────────────────────
 [ai]
 binding = "AI"
+
+# ─── ENVIRONMENT VARIABLES ────────────────────────────────────────────────────
+[vars]
+ENVIRONMENT = "production"
+FORWARD_EMAIL = "rsplowman@icloud.com"
+WEBHOOK_ENABLED = "true"
+MAX_EMAILS_PER_HOUR = "100"
+SPAM_THRESHOLD = "7"
+
+# ─── SECRETS (set via wrangler secret put) ────────────────────────────────────
+# WEBHOOK_URL - Discord/Slack webhook URL
+# ADMIN_API_KEY - API authentication key
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# API DASHBOARD WORKER
+# ═══════════════════════════════════════════════════════════════════════════════
+
+[[env.api]]
+name = "noizylab-api"
+main = "workers/api-dashboard.js"
+
+[env.api.vars]
+CORS_ORIGIN = "*"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EMAIL ROUTING RULES
+# ═══════════════════════════════════════════════════════════════════════════════
+# Configure in Cloudflare Dashboard:
+# Email Routing → Routing Rules → Catch-all → Send to Worker

@@ -1,0 +1,79 @@
+{
+  "name": "NoizyLab",
+  "version": "2.0.0",
+  "description": "AI-Powered Email Command Center",
+
+  "email": {
+    "forwardTo": "rsplowman@icloud.com",
+    "replyFrom": "noreply@noizylab.ca",
+    "domain": "noizylab.ca"
+  },
+
+  "spam": {
+    "enabled": true,
+    "threshold": 7,
+    "trustedDomains": [
+      "noizylab.ca",
+      "gmail.com",
+      "icloud.com",
+      "apple.com",
+      "github.com",
+      "cloudflare.com"
+    ]
+  },
+
+  "rateLimiting": {
+    "enabled": true,
+    "maxEmailsPerHour": 100,
+    "maxEmailsPerDomain": 50
+  },
+
+  "webhooks": {
+    "enabled": true,
+    "platforms": ["discord", "slack"],
+    "notifyOn": ["urgent", "error", "spam"]
+  },
+
+  "agents": {
+    "default": "ECHO",
+    "available": ["LUCY", "KEITH", "WARDY", "RED_ALERT", "NOVA", "ECHO"],
+    "autoReply": {
+      "enabled": true,
+      "urgencyThreshold": 8
+    }
+  },
+
+  "api": {
+    "enabled": true,
+    "requireAuth": false,
+    "corsOrigins": ["*"],
+    "rateLimit": {
+      "requests": 100,
+      "windowMs": 60000
+    }
+  },
+
+  "logging": {
+    "level": "info",
+    "retention": {
+      "emails": 2592000,
+      "spam": 604800,
+      "errors": 604800
+    }
+  },
+
+  "features": {
+    "aiAnalysis": true,
+    "agentRouting": true,
+    "spamDetection": true,
+    "autoReply": true,
+    "webhookNotifications": true,
+    "dashboardApi": true
+  },
+
+  "metadata": {
+    "createdAt": "2024-12-01T00:00:00.000Z",
+    "updatedAt": "2024-12-01T00:00:00.000Z",
+    "author": "NoizyLab Team"
+  }
+}

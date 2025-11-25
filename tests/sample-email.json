@@ -1,0 +1,6 @@
+{
+  "from": "client@example.com",
+  "to": "inbox@noizylab.ca",
+  "subject": "URGENT: Website is down!",
+  "body": "Hi NoizyLab team,\n\nOur production website has been down for the past 30 minutes!\n\nWe're losing customers and need immediate assistance.\n\nThe error message shows: 502 Bad Gateway\n\nPlease help ASAP!\n\nBest regards,\nJohn Smith\nAcme Corp"
+}
