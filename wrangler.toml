@@ -1,0 +1,10 @@
+name = "noizylab-email-worker"
+main = "workers/email-worker.js"
+compatibility_date = "2024-12-01"
+
+kv_namespaces = [
+  { binding = "MAIL_LOGS", id = "xxxxxxxxxxxxxxxxxxxx" }
+]
+
+[ai]
+binding = "AI"

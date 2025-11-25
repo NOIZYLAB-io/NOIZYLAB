@@ -1,0 +1,15 @@
+{
+  "name": "noizylab-cli",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "noizy": "./noizy.js"
+  },
+  "scripts": {
+    "dev": "wrangler dev workers/email-worker.js",
+    "deploy": "wrangler deploy workers/email-worker.js"
+  },
+  "dependencies": {
+    "wrangler": "^3.47.0"
+  }
+}
