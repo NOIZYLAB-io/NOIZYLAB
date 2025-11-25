@@ -1,0 +1,726 @@
+#!/usr/bin/env python3
+# ==============================================================================
+# AUDIOCAT - THE LIBRARIAN CLI
+# ==============================================================================
+# Audio Canon Catalog Management Tool
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+import argparse
+import json
+import yaml
+import hashlib
+import os
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional, Any
+
+VERSION = "1.0.0"
+CATALOG_NAME = "Audio Canon (DAWs, Plugins, Instruments)"
+
+# ==============================================================================
+# ANSI Colors for Terminal Output
+# ==============================================================================
+class Colors:
+    HEADER = '\033[95m'
+    BLUE = '\033[94m'
+    CYAN = '\033[96m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+
+def print_header(text: str):
+    print(f"\n{Colors.BOLD}{Colors.CYAN}{'='*60}{Colors.END}")
+    print(f"{Colors.BOLD}{Colors.CYAN}  {text}{Colors.END}")
+    print(f"{Colors.BOLD}{Colors.CYAN}{'='*60}{Colors.END}\n")
+
+def print_success(text: str):
+    print(f"{Colors.GREEN}[SUCCESS]{Colors.END} {text}")
+
+def print_warning(text: str):
+    print(f"{Colors.YELLOW}[WARNING]{Colors.END} {text}")
+
+def print_error(text: str):
+    print(f"{Colors.RED}[ERROR]{Colors.END} {text}")
+
+def print_info(text: str):
+    print(f"{Colors.BLUE}[INFO]{Colors.END} {text}")
+
+# ==============================================================================
+# Registry Manager Class
+# ==============================================================================
+class AudioCatalog:
+    def __init__(self, root: str = "./Audio_Registry"):
+        self.root = Path(root)
+        self.data_dir = self.root / "data"
+        self.manifests_dir = self.root / "manifests"
+        self.checksums_dir = self.root / "checksums"
+        self.tools_dir = self.root / "tools"
+        self.catalog_file = self.data_dir / "catalog.yaml"
+        self.index_file = self.data_dir / "index.json"
+        self.catalog: Dict = {}
+
+    def init_registry(self) -> bool:
+        """Initialize the Audio Registry folder structure."""
+        try:
+            # Create directory structure
+            dirs = [
+                self.data_dir,
+                self.manifests_dir / "DAW",
+                self.manifests_dir / "Plugins",
+                self.manifests_dir / "Instruments",
+                self.manifests_dir / "AI_Models",
+                self.manifests_dir / "Repair_Tools",
+                self.checksums_dir,
+                self.tools_dir / "ingest",
+                self.tools_dir / "audit",
+                self.tools_dir / "export",
+            ]
+
+            for d in dirs:
+                d.mkdir(parents=True, exist_ok=True)
+                print_info(f"Created: {d}")
+
+            # Create initial catalog if not exists
+            if not self.catalog_file.exists():
+                initial_catalog = {
+                    "meta": {
+                        "catalogName": CATALOG_NAME,
+                        "version": VERSION,
+                        "generatedAt": datetime.now().isoformat(),
+                        "owner": "Rob (Fish Music Inc. / MissionControl96 / NOIZYLAB)"
+                    },
+                    "items": []
+                }
+                with open(self.catalog_file, 'w') as f:
+                    yaml.dump(initial_catalog, f, default_flow_style=False, sort_keys=False)
+                print_info(f"Created: {self.catalog_file}")
+
+            print_success("Audio Registry initialized successfully!")
+            return True
+
+        except Exception as e:
+            print_error(f"Failed to initialize registry: {e}")
+            return False
+
+    def load_catalog(self) -> bool:
+        """Load the catalog from YAML file."""
+        try:
+            if self.catalog_file.exists():
+                with open(self.catalog_file, 'r') as f:
+                    self.catalog = yaml.safe_load(f)
+                return True
+            else:
+                print_error(f"Catalog not found: {self.catalog_file}")
+                return False
+        except Exception as e:
+            print_error(f"Failed to load catalog: {e}")
+            return False
+
+    def save_catalog(self) -> bool:
+        """Save the catalog to YAML file."""
+        try:
+            with open(self.catalog_file, 'w') as f:
+                yaml.dump(self.catalog, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
+            print_success(f"Catalog saved: {self.catalog_file}")
+            return True
+        except Exception as e:
+            print_error(f"Failed to save catalog: {e}")
+            return False
+
+    def add_item(self, name: str, item_type: str, category: str, developer: str,
+                 formats: List[str] = None, os_list: List[str] = None,
+                 release_year: int = None, tags: List[str] = None,
+                 status: str = "active", url: str = None, notes: str = None) -> bool:
+        """Add a new item to the catalog."""
+        if not self.load_catalog():
+            return False
+
+        # Generate item ID
+        type_prefix = {"daw": "daw", "plugin": "plug", "instrument": "inst", "ai_model": "ai"}
+        prefix = type_prefix.get(item_type, "item")
+        existing_ids = [i.get("itemId", "") for i in self.catalog.get("items", [])]
+        max_num = 0
+        for eid in existing_ids:
+            if eid.startswith(prefix):
+                try:
+                    num = int(eid.split("-")[1])
+                    max_num = max(max_num, num)
+                except (IndexError, ValueError):
+                    pass
+        item_id = f"{prefix}-{max_num + 1:03d}"
+
+        # Create item
+        item = {
+            "itemId": item_id,
+            "name": name,
+            "type": item_type,
+            "category": category,
+            "developer": developer,
+            "status": status
+        }
+
+        if formats:
+            item["format"] = formats
+        if os_list:
+            item["os"] = os_list
+        if release_year:
+            item["releaseYear"] = release_year
+        if tags:
+            item["tags"] = tags
+        if url:
+            item["urls"] = {"home": url}
+        if notes:
+            item["notes"] = notes
+
+        # Add to catalog
+        if "items" not in self.catalog:
+            self.catalog["items"] = []
+        self.catalog["items"].append(item)
+
+        if self.save_catalog():
+            print_success(f"Added: {name} ({item_id})")
+            return True
+        return False
+
+    def search(self, query: str, field: str = None) -> List[Dict]:
+        """Search items in the catalog."""
+        if not self.load_catalog():
+            return []
+
+        results = []
+        query_lower = query.lower()
+
+        for item in self.catalog.get("items", []):
+            if field:
+                # Search specific field
+                value = item.get(field, "")
+                if isinstance(value, str) and query_lower in value.lower():
+                    results.append(item)
+                elif isinstance(value, list) and any(query_lower in str(v).lower() for v in value):
+                    results.append(item)
+            else:
+                # Search all fields
+                for key, value in item.items():
+                    if isinstance(value, str) and query_lower in value.lower():
+                        results.append(item)
+                        break
+                    elif isinstance(value, list) and any(query_lower in str(v).lower() for v in value):
+                        results.append(item)
+                        break
+
+        return results
+
+    def audit(self, verbose: bool = False) -> Dict:
+        """Run audit on the catalog and return statistics."""
+        if not self.load_catalog():
+            return {}
+
+        items = self.catalog.get("items", [])
+
+        stats = {
+            "total": len(items),
+            "by_type": {},
+            "by_category": {},
+            "by_developer": {},
+            "by_status": {},
+            "by_os": {"macOS": 0, "Windows": 0, "Linux": 0},
+            "by_format": {},
+            "missing_fields": [],
+            "decade_distribution": {},
+        }
+
+        required_fields = ["name", "type", "category", "developer"]
+
+        for item in items:
+            # Count by type
+            t = item.get("type", "unknown")
+            stats["by_type"][t] = stats["by_type"].get(t, 0) + 1
+
+            # Count by category
+            c = item.get("category", "unknown")
+            stats["by_category"][c] = stats["by_category"].get(c, 0) + 1
+
+            # Count by developer
+            d = item.get("developer", "unknown")
+            stats["by_developer"][d] = stats["by_developer"].get(d, 0) + 1
+
+            # Count by status
+            s = item.get("status", "unknown")
+            stats["by_status"][s] = stats["by_status"].get(s, 0) + 1
+
+            # Count by OS
+            for os_name in item.get("os", []):
+                if os_name in stats["by_os"]:
+                    stats["by_os"][os_name] += 1
+
+            # Count by format
+            for fmt in item.get("format", []):
+                stats["by_format"][fmt] = stats["by_format"].get(fmt, 0) + 1
+
+            # Decade distribution
+            year = item.get("releaseYear")
+            if year:
+                decade = f"{(year // 10) * 10}s"
+                stats["decade_distribution"][decade] = stats["decade_distribution"].get(decade, 0) + 1
+
+            # Check missing fields
+            missing = [f for f in required_fields if not item.get(f)]
+            if missing:
+                stats["missing_fields"].append({
+                    "itemId": item.get("itemId", "unknown"),
+                    "name": item.get("name", "unknown"),
+                    "missing": missing
+                })
+
+        return stats
+
+    def export_json(self, output: str = None) -> bool:
+        """Export catalog to JSON format for dashboards."""
+        if not self.load_catalog():
+            return False
+
+        output_path = Path(output) if output else self.index_file
+
+        # Build compact index
+        index = {
+            "meta": {
+                "catalogName": self.catalog.get("meta", {}).get("catalogName", CATALOG_NAME),
+                "version": VERSION,
+                "generatedAt": datetime.now().isoformat(),
+                "itemCount": len(self.catalog.get("items", [])),
+            },
+            "items": [],
+            "stats": self.audit()
+        }
+
+        for item in self.catalog.get("items", []):
+            compact_item = {
+                "id": item.get("itemId"),
+                "name": item.get("name"),
+                "type": item.get("type"),
+                "category": item.get("category"),
+                "developer": item.get("developer"),
+                "year": item.get("releaseYear"),
+                "status": item.get("status"),
+                "tags": item.get("tags", []),
+            }
+            if item.get("urls", {}).get("home"):
+                compact_item["url"] = item["urls"]["home"]
+            index["items"].append(compact_item)
+
+        try:
+            with open(output_path, 'w') as f:
+                json.dump(index, f, indent=2)
+            print_success(f"Exported to: {output_path}")
+
+            # Generate checksum
+            self.generate_checksum(output_path)
+            return True
+        except Exception as e:
+            print_error(f"Export failed: {e}")
+            return False
+
+    def generate_checksum(self, file_path: Path) -> str:
+        """Generate MD5 checksum for a file."""
+        try:
+            with open(file_path, 'rb') as f:
+                md5_hash = hashlib.md5(f.read()).hexdigest()
+
+            checksum_file = self.checksums_dir / f"{file_path.name}.md5"
+            with open(checksum_file, 'w') as f:
+                f.write(f"{md5_hash}  {file_path.name}\n")
+
+            print_info(f"Checksum: {md5_hash}")
+            return md5_hash
+        except Exception as e:
+            print_warning(f"Checksum generation failed: {e}")
+            return ""
+
+    def import_csv(self, csv_file: str) -> bool:
+        """Import items from CSV file."""
+        import csv
+
+        if not self.load_catalog():
+            return False
+
+        try:
+            with open(csv_file, 'r') as f:
+                reader = csv.DictReader(f)
+                count = 0
+                for row in reader:
+                    # Parse list fields
+                    formats = row.get("format", "").split(",") if row.get("format") else None
+                    os_list = row.get("os", "").split(",") if row.get("os") else None
+                    tags = row.get("tags", "").split(",") if row.get("tags") else None
+                    year = int(row.get("releaseYear")) if row.get("releaseYear") else None
+
+                    self.add_item(
+                        name=row.get("name"),
+                        item_type=row.get("type"),
+                        category=row.get("category"),
+                        developer=row.get("developer"),
+                        formats=[f.strip() for f in formats] if formats else None,
+                        os_list=[o.strip() for o in os_list] if os_list else None,
+                        release_year=year,
+                        tags=[t.strip() for t in tags] if tags else None,
+                        status=row.get("status", "active"),
+                        url=row.get("url"),
+                        notes=row.get("notes")
+                    )
+                    count += 1
+
+                print_success(f"Imported {count} items from {csv_file}")
+                return True
+        except Exception as e:
+            print_error(f"Import failed: {e}")
+            return False
+
+    def list_items(self, item_type: str = None, category: str = None,
+                   developer: str = None, limit: int = 50) -> None:
+        """List items with optional filtering."""
+        if not self.load_catalog():
+            return
+
+        items = self.catalog.get("items", [])
+
+        # Apply filters
+        if item_type:
+            items = [i for i in items if i.get("type") == item_type]
+        if category:
+            items = [i for i in items if i.get("category") == category]
+        if developer:
+            items = [i for i in items if developer.lower() in i.get("developer", "").lower()]
+
+        # Limit results
+        items = items[:limit]
+
+        print_header(f"Catalog Items ({len(items)} shown)")
+
+        for item in items:
+            status_color = Colors.GREEN if item.get("status") == "active" else Colors.YELLOW
+            print(f"  {Colors.BOLD}{item.get('itemId', 'N/A'):12}{Colors.END} "
+                  f"{item.get('name', 'Unknown'):30} "
+                  f"{item.get('type', 'N/A'):12} "
+                  f"{item.get('category', 'N/A'):15} "
+                  f"{status_color}{item.get('status', 'N/A')}{Colors.END}")
+
+
+# ==============================================================================
+# AI Host Guide - Interactive Repair Workflow Assistant
+# ==============================================================================
+class AIHostGuide:
+    """Interactive guide for AI-assisted audio/video repair workflows."""
+
+    def __init__(self, catalog: AudioCatalog):
+        self.catalog = catalog
+        self.repair_workflows = self._load_repair_workflows()
+
+    def _load_repair_workflows(self) -> Dict:
+        """Load repair workflow definitions."""
+        return {
+            "noise_reduction": {
+                "name": "Noise Reduction",
+                "description": "Remove background noise, hiss, hum, and unwanted artifacts",
+                "tools": ["iZotope RX", "Acon DeNoise", "Waves NS1", "Clarity Vx"],
+                "ai_models": ["RX Voice De-noise", "Clarity Vx Neural", "NVIDIA RTX Voice"],
+                "steps": [
+                    "1. Analyze noise floor - identify consistent background noise",
+                    "2. Capture noise profile from silent section",
+                    "3. Apply spectral de-noise with learned profile",
+                    "4. Fine-tune threshold and reduction amount",
+                    "5. Check for artifacts and musical noise",
+                    "6. Apply adaptive mode for varying noise"
+                ]
+            },
+            "dialogue_repair": {
+                "name": "Dialogue Repair & Enhancement",
+                "description": "Clean up spoken word, remove plosives, de-ess, level",
+                "tools": ["iZotope RX", "Revoice Pro", "Waves Clarity Vx", "Accusonus ERA"],
+                "ai_models": ["RX Dialogue Isolate", "Clarity Vx DeReverb", "Adobe Podcast AI"],
+                "steps": [
+                    "1. Isolate dialogue using AI separation",
+                    "2. Remove breath sounds (manual or auto)",
+                    "3. De-click and de-crackle for mouth noise",
+                    "4. De-plosive for p/b pops",
+                    "5. De-ess sibilance",
+                    "6. Apply dialogue leveler",
+                    "7. EQ for presence and clarity"
+                ]
+            },
+            "music_restoration": {
+                "name": "Music Restoration",
+                "description": "Restore old recordings, vinyl, tape transfers",
+                "tools": ["iZotope RX", "Acon Acoustica", "Cedar", "Sonnox Restore"],
+                "ai_models": ["RX Music Rebalance", "LALAL.AI Splitter", "Deezer Spleeter"],
+                "steps": [
+                    "1. De-click for vinyl pops and clicks",
+                    "2. De-crackle for surface noise",
+                    "3. De-hum for electrical interference",
+                    "4. Spectral repair for dropouts",
+                    "5. Azimuth correction for tape",
+                    "6. De-noise for tape hiss",
+                    "7. Remaster EQ and limiting"
+                ]
+            },
+            "stem_separation": {
+                "name": "Stem Separation & Unmixing",
+                "description": "Separate mixed audio into individual stems",
+                "tools": ["iZotope RX", "SpectraLayers", "AudioShake", "LALAL.AI"],
+                "ai_models": ["RX Music Rebalance", "Demucs", "Spleeter", "LALAL.AI Orion"],
+                "steps": [
+                    "1. Choose separation model (vocals, drums, bass, other)",
+                    "2. Analyze mix complexity",
+                    "3. Run AI separation",
+                    "4. Clean individual stems",
+                    "5. De-bleed between stems",
+                    "6. Phase align if recombining",
+                    "7. Export stems at original quality"
+                ]
+            },
+            "video_audio_sync": {
+                "name": "Video Audio Sync & Repair",
+                "description": "Fix sync issues, replace audio, ADR alignment",
+                "tools": ["Revoice Pro", "VocAlign", "DaVinci Resolve", "Premiere Pro"],
+                "ai_models": ["Revoice APT", "Synchro Arts AI", "Adobe Sensei"],
+                "steps": [
+                    "1. Identify sync offset (visual vs audio)",
+                    "2. Use waveform alignment for drift",
+                    "3. Apply time-stretch for speed mismatch",
+                    "4. ADR alignment with guide track",
+                    "5. Room tone matching",
+                    "6. Crossfade transitions",
+                    "7. Final QC pass"
+                ]
+            },
+            "clipping_repair": {
+                "name": "Clipping & Distortion Repair",
+                "description": "Fix digital clipping, analog distortion, overloads",
+                "tools": ["iZotope RX", "Acon DeClip", "Sonnox Restore", "Accusonus ERA"],
+                "ai_models": ["RX De-clip", "Adobe Enhance Speech"],
+                "steps": [
+                    "1. Identify clipping type (digital/analog)",
+                    "2. Analyze clipping severity",
+                    "3. Apply de-clip with appropriate algorithm",
+                    "4. Reconstruct waveform peaks",
+                    "5. Reduce residual distortion",
+                    "6. Level match repaired sections",
+                    "7. Spectral repair for severe damage"
+                ]
+            },
+            "reverb_removal": {
+                "name": "Reverb & Room Removal",
+                "description": "Remove unwanted room sound and reverb tails",
+                "tools": ["iZotope RX", "Acon DeVerberate", "SPL De-Verb", "Waves Clarity"],
+                "ai_models": ["RX De-reverb", "Clarity Vx DeReverb", "Zynaptiq UNVEIL"],
+                "steps": [
+                    "1. Analyze reverb characteristics",
+                    "2. Set reverb profile/tail length",
+                    "3. Apply de-reverb processing",
+                    "4. Balance dry signal preservation",
+                    "5. Handle transients separately",
+                    "6. Clean up artifacts",
+                    "7. Add controlled reverb if needed"
+                ]
+            }
+        }
+
+    def guide(self, task: str = None) -> None:
+        """Interactive guide through repair workflows."""
+        print_header("AI HOST GUIDE - Audio/Video Repair Assistant")
+
+        if not task:
+            print("Available Repair Workflows:\n")
+            for key, workflow in self.repair_workflows.items():
+                print(f"  {Colors.CYAN}{key:20}{Colors.END} - {workflow['name']}")
+            print(f"\n{Colors.YELLOW}Usage:{Colors.END} audiocat guide <workflow_name>")
+            print(f"{Colors.YELLOW}Example:{Colors.END} audiocat guide noise_reduction")
+            return
+
+        if task not in self.repair_workflows:
+            print_error(f"Unknown workflow: {task}")
+            print_info(f"Available: {', '.join(self.repair_workflows.keys())}")
+            return
+
+        workflow = self.repair_workflows[task]
+
+        print(f"{Colors.BOLD}{Colors.GREEN}{workflow['name']}{Colors.END}")
+        print(f"{Colors.CYAN}{workflow['description']}{Colors.END}\n")
+
+        print(f"{Colors.BOLD}Recommended Tools:{Colors.END}")
+        for tool in workflow['tools']:
+            print(f"  - {tool}")
+
+        print(f"\n{Colors.BOLD}AI Models:{Colors.END}")
+        for model in workflow['ai_models']:
+            print(f"  - {Colors.YELLOW}{model}{Colors.END}")
+
+        print(f"\n{Colors.BOLD}Workflow Steps:{Colors.END}")
+        for step in workflow['steps']:
+            print(f"  {step}")
+
+        # Search catalog for related tools
+        print(f"\n{Colors.BOLD}Related Items in Catalog:{Colors.END}")
+        for tool_name in workflow['tools'][:3]:
+            results = self.catalog.search(tool_name.split()[0])
+            for r in results[:2]:
+                print(f"  [{r.get('itemId')}] {r.get('name')} - {r.get('developer')}")
+
+
+# ==============================================================================
+# CLI Entry Point
+# ==============================================================================
+def main():
+    parser = argparse.ArgumentParser(
+        prog='audiocat',
+        description=f'{Colors.BOLD}AUDIOCAT{Colors.END} - THE LIBRARIAN CLI v{VERSION}',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=f'''
+{Colors.CYAN}Examples:{Colors.END}
+  audiocat init --root "/Audio_Registry"
+  audiocat add --name "Serum" --type plugin --category synth --developer "Xfer Records"
+  audiocat search "reverb"
+  audiocat audit --verbose
+  audiocat export --output index.json
+  audiocat guide noise_reduction
+  audiocat list --type plugin --category eq
+
+{Colors.YELLOW}Fish Music Inc. / MissionControl96 / NOIZYLAB{Colors.END}
+'''
+    )
+
+    subparsers = parser.add_subparsers(dest='command', help='Commands')
+
+    # Init command
+    init_parser = subparsers.add_parser('init', help='Initialize Audio Registry')
+    init_parser.add_argument('--root', default='./Audio_Registry', help='Root directory')
+
+    # Add command
+    add_parser = subparsers.add_parser('add', help='Add item to catalog')
+    add_parser.add_argument('--name', required=True, help='Item name')
+    add_parser.add_argument('--type', required=True, choices=['daw', 'plugin', 'instrument', 'ai_model'], help='Item type')
+    add_parser.add_argument('--category', required=True, help='Category')
+    add_parser.add_argument('--developer', required=True, help='Developer name')
+    add_parser.add_argument('--format', nargs='+', help='Formats (VST3 AU AAX)')
+    add_parser.add_argument('--os', nargs='+', help='Operating systems')
+    add_parser.add_argument('--releaseYear', type=int, help='Release year')
+    add_parser.add_argument('--tags', nargs='+', help='Tags')
+    add_parser.add_argument('--status', default='active', help='Status')
+    add_parser.add_argument('--url', help='Home URL')
+    add_parser.add_argument('--notes', help='Notes')
+
+    # Search command
+    search_parser = subparsers.add_parser('search', help='Search catalog')
+    search_parser.add_argument('query', help='Search query')
+    search_parser.add_argument('--field', help='Specific field to search')
+
+    # List command
+    list_parser = subparsers.add_parser('list', help='List catalog items')
+    list_parser.add_argument('--type', help='Filter by type')
+    list_parser.add_argument('--category', help='Filter by category')
+    list_parser.add_argument('--developer', help='Filter by developer')
+    list_parser.add_argument('--limit', type=int, default=50, help='Max items to show')
+
+    # Audit command
+    audit_parser = subparsers.add_parser('audit', help='Run catalog audit')
+    audit_parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
+
+    # Export command
+    export_parser = subparsers.add_parser('export', help='Export to JSON')
+    export_parser.add_argument('--output', '-o', help='Output file')
+    export_parser.add_argument('--format', choices=['json', 'csv'], default='json', help='Export format')
+
+    # Import command
+    import_parser = subparsers.add_parser('import', help='Import from CSV')
+    import_parser.add_argument('--file', required=True, help='CSV file to import')
+
+    # Guide command
+    guide_parser = subparsers.add_parser('guide', help='AI Host Guide for repair workflows')
+    guide_parser.add_argument('task', nargs='?', help='Workflow name')
+
+    # Parse arguments
+    args = parser.parse_args()
+
+    if not args.command:
+        parser.print_help()
+        return
+
+    # Determine root path
+    root = getattr(args, 'root', './Audio_Registry')
+    catalog = AudioCatalog(root)
+
+    # Execute command
+    if args.command == 'init':
+        catalog.init_registry()
+
+    elif args.command == 'add':
+        catalog.add_item(
+            name=args.name,
+            item_type=args.type,
+            category=args.category,
+            developer=args.developer,
+            formats=args.format,
+            os_list=args.os,
+            release_year=args.releaseYear,
+            tags=args.tags,
+            status=args.status,
+            url=args.url,
+            notes=args.notes
+        )
+
+    elif args.command == 'search':
+        results = catalog.search(args.query, args.field)
+        print_header(f"Search Results: '{args.query}' ({len(results)} found)")
+        for item in results:
+            print(f"  [{item.get('itemId')}] {item.get('name')} - {item.get('developer')} ({item.get('category')})")
+
+    elif args.command == 'list':
+        catalog.list_items(
+            item_type=args.type,
+            category=args.category,
+            developer=args.developer,
+            limit=args.limit
+        )
+
+    elif args.command == 'audit':
+        stats = catalog.audit(args.verbose)
+        print_header("Catalog Audit Report")
+        print(f"  Total Items: {Colors.BOLD}{stats.get('total', 0)}{Colors.END}")
+        print(f"\n  {Colors.CYAN}By Type:{Colors.END}")
+        for t, c in stats.get('by_type', {}).items():
+            print(f"    {t:15} {c:5}")
+        print(f"\n  {Colors.CYAN}By Category:{Colors.END}")
+        for cat, c in sorted(stats.get('by_category', {}).items(), key=lambda x: -x[1])[:10]:
+            print(f"    {cat:20} {c:5}")
+        print(f"\n  {Colors.CYAN}By OS:{Colors.END}")
+        for os_name, c in stats.get('by_os', {}).items():
+            print(f"    {os_name:15} {c:5}")
+        print(f"\n  {Colors.CYAN}By Format:{Colors.END}")
+        for fmt, c in sorted(stats.get('by_format', {}).items(), key=lambda x: -x[1]):
+            print(f"    {fmt:15} {c:5}")
+        print(f"\n  {Colors.CYAN}By Decade:{Colors.END}")
+        for decade, c in sorted(stats.get('decade_distribution', {}).items()):
+            print(f"    {decade:15} {c:5}")
+
+        if stats.get('missing_fields') and args.verbose:
+            print(f"\n  {Colors.RED}Missing Required Fields:{Colors.END}")
+            for item in stats['missing_fields']:
+                print(f"    {item['itemId']}: {item['name']} - missing: {', '.join(item['missing'])}")
+
+    elif args.command == 'export':
+        catalog.export_json(args.output)
+
+    elif args.command == 'import':
+        catalog.import_csv(args.file)
+
+    elif args.command == 'guide':
+        guide = AIHostGuide(catalog)
+        guide.guide(args.task)
+
+
+if __name__ == '__main__':
+    main()

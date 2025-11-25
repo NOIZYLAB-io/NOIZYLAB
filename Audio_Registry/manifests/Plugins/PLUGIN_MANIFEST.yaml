@@ -1,0 +1,596 @@
+# ==============================================================================
+# THE LIBRARIAN - PLUGIN MANIFEST
+# ==============================================================================
+# Complete registry of Audio Plugins by Category
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Audio Plugins Registry
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  totalCategories: 15
+
+# ==============================================================================
+# EQ PLUGINS
+# ==============================================================================
+eq:
+  surgical:
+    - name: FabFilter Pro-Q 3
+      developer: FabFilter
+      format: [VST3, AU, AAX]
+      price: 179
+      features: [dynamic_bands, spectrum_analyzer, linear_phase, M/S, surround]
+      rating: 10
+      notes: "Industry standard surgical EQ"
+
+    - name: Kirchhoff-EQ
+      developer: Three-Body Technology
+      format: [VST3, AU, AAX]
+      price: 249
+      features: [spectrum_grab, dynamic_bands, AI_assist]
+      rating: 9
+      notes: "Innovative grab-and-drag EQ"
+
+    - name: Equilibrium
+      developer: DMG Audio
+      format: [VST3, AU, AAX]
+      price: 299
+      features: [every_filter_type, mastering, linear_phase]
+      rating: 9
+      notes: "Most comprehensive EQ ever made"
+
+  character:
+    - name: Pultec EQP-1A (UAD)
+      developer: Universal Audio
+      format: [UAD, VST3, AU]
+      price: 299
+      features: [tube, passive, classic]
+      rating: 9
+      notes: "Classic Pultec boost/cut magic"
+
+    - name: Neve 1073 (UAD)
+      developer: Universal Audio
+      format: [UAD, VST3, AU]
+      price: 299
+      features: [transformer, console, preamp]
+      rating: 9
+
+    - name: Maag EQ4
+      developer: Plugin Alliance
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [air_band, 40kHz]
+      rating: 8
+
+  free:
+    - name: TDR SlickEQ
+      developer: Tokyo Dawn Labs
+      format: [VST3, AU, AAX]
+      price: 0
+      features: [3_band, saturation, output_stage]
+      rating: 8
+
+    - name: TDR Nova
+      developer: Tokyo Dawn Labs
+      format: [VST3, AU, AAX]
+      price: 0
+      features: [dynamic_EQ, 4_bands]
+      rating: 9
+
+# ==============================================================================
+# COMPRESSOR PLUGINS
+# ==============================================================================
+compressors:
+  transparent:
+    - name: FabFilter Pro-C 2
+      developer: FabFilter
+      format: [VST3, AU, AAX]
+      price: 179
+      features: [8_styles, sidechain, visual]
+      rating: 9
+
+    - name: TDR Kotelnikov
+      developer: Tokyo Dawn Labs
+      format: [VST3, AU, AAX]
+      price: 50
+      features: [mastering, transparent, free_version]
+      rating: 9
+
+    - name: DMG Compassion
+      developer: DMG Audio
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [advanced_detection, flexible]
+      rating: 9
+
+  character:
+    - name: UAD 1176 Collection
+      developer: Universal Audio
+      format: [UAD, VST3, AU]
+      price: 299
+      features: [FET, all_buttons, classic]
+      rating: 10
+
+    - name: UAD LA-2A Collection
+      developer: Universal Audio
+      format: [UAD, VST3, AU]
+      price: 299
+      features: [optical, tube, smooth]
+      rating: 10
+
+    - name: Empirical Labs Distressor
+      developer: Plugin Alliance
+      format: [VST3, AU, AAX]
+      price: 249
+      features: [versatile, distortion, modern_classic]
+      rating: 9
+
+    - name: SSL G-Bus Compressor
+      developer: Waves / Plugin Alliance
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [bus, glue, punch]
+      rating: 9
+
+  bus:
+    - name: Shadow Hills Mastering Compressor
+      developer: Plugin Alliance
+      format: [VST3, AU, AAX]
+      price: 299
+      features: [optical_VCA, dual_stage, transformers]
+      rating: 10
+
+    - name: Vertigo VSC-2
+      developer: Plugin Alliance
+      format: [VST3, AU, AAX]
+      price: 249
+      features: [VCA, punchy, modern]
+      rating: 9
+
+    - name: API 2500
+      developer: Waves / UAD
+      format: [VST3, AU, AAX]
+      price: 249
+      features: [punchy, API_character]
+      rating: 9
+
+# ==============================================================================
+# REVERB PLUGINS
+# ==============================================================================
+reverbs:
+  algorithmic:
+    - name: Valhalla Room
+      developer: ValhallaDSP
+      format: [VST3, AU, AAX]
+      price: 50
+      features: [lush, algorithmic, affordable]
+      rating: 10
+
+    - name: Valhalla VintageVerb
+      developer: ValhallaDSP
+      format: [VST3, AU, AAX]
+      price: 50
+      features: [vintage_algorithms, character]
+      rating: 9
+
+    - name: Valhalla Supermassive
+      developer: ValhallaDSP
+      format: [VST3, AU, AAX]
+      price: 0
+      features: [massive, delay, FREE]
+      rating: 10
+
+    - name: FabFilter Pro-R 2
+      developer: FabFilter
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [decay_EQ, modern, visual]
+      rating: 9
+
+    - name: Eventide Blackhole
+      developer: Eventide
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [massive, otherworldly, modulated]
+      rating: 9
+
+  convolution:
+    - name: Altiverb 7
+      developer: Audio Ease
+      format: [VST3, AU, AAX]
+      price: 595
+      features: [impulse_library, post_production, standard]
+      rating: 10
+
+    - name: Seventh Heaven Pro
+      developer: LiquidSonics
+      format: [VST3, AU, AAX]
+      price: 149
+      features: [Bricasti_M7, convolution]
+      rating: 9
+
+    - name: Waves IR-L
+      developer: Waves
+      format: [VST3, AU, AAX]
+      price: 249
+      features: [convolution, efficient]
+      rating: 8
+
+  hybrid:
+    - name: Exponential Audio R4
+      developer: iZotope
+      format: [VST3, AU, AAX]
+      price: 299
+      features: [lush, modulated, post_production]
+      rating: 9
+
+    - name: Lexicon PCM Native
+      developer: Lexicon
+      format: [VST3, AU, AAX]
+      price: 599
+      features: [legendary_algorithms]
+      rating: 9
+
+# ==============================================================================
+# DELAY PLUGINS
+# ==============================================================================
+delays:
+  vintage:
+    - name: Soundtoys EchoBoy
+      developer: Soundtoys
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [multiple_styles, saturation, character]
+      rating: 10
+
+    - name: Valhalla Delay
+      developer: ValhallaDSP
+      format: [VST3, AU, AAX]
+      price: 50
+      features: [tape, diffusion, versatile]
+      rating: 9
+
+    - name: UAD Galaxy Tape Echo
+      developer: Universal Audio
+      format: [UAD, VST3, AU]
+      price: 199
+      features: [tape, Roland_Space_Echo]
+      rating: 9
+
+  modern:
+    - name: FabFilter Timeless 3
+      developer: FabFilter
+      format: [VST3, AU, AAX]
+      price: 179
+      features: [modulation, visual, tape]
+      rating: 9
+
+    - name: Eventide UltraTap
+      developer: Eventide
+      format: [VST3, AU, AAX]
+      price: 179
+      features: [multi_tap, rhythmic, creative]
+      rating: 9
+
+    - name: D16 Repeater
+      developer: D16 Group
+      format: [VST3, AU]
+      price: 79
+      features: [modern, flexible, clean]
+      rating: 8
+
+# ==============================================================================
+# SATURATION / DISTORTION
+# ==============================================================================
+saturation:
+  analog:
+    - name: Soundtoys Decapitator
+      developer: Soundtoys
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [5_styles, analog, punish_button]
+      rating: 10
+
+    - name: Soundtoys Radiator
+      developer: Soundtoys
+      format: [VST3, AU, AAX]
+      price: 149
+      features: [tube, Altec_1567A, warm]
+      rating: 9
+
+    - name: UAD Studer A800
+      developer: Universal Audio
+      format: [UAD, VST3, AU]
+      price: 299
+      features: [tape, warmth, glue]
+      rating: 10
+
+  multiband:
+    - name: FabFilter Saturn 2
+      developer: FabFilter
+      format: [VST3, AU, AAX]
+      price: 179
+      features: [multiband, modulation, many_types]
+      rating: 9
+
+    - name: iZotope Trash 2
+      developer: iZotope
+      format: [VST3, AU, AAX]
+      price: 99
+      features: [convolution, creative, extreme]
+      rating: 8
+
+  tape:
+    - name: Softube Tape
+      developer: Softube
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [tape_saturation, subtle_to_extreme]
+      rating: 9
+
+    - name: Waves J37 Tape
+      developer: Waves
+      format: [VST3, AU, AAX]
+      price: 179
+      features: [Abbey_Road, tape_formulas]
+      rating: 8
+
+# ==============================================================================
+# LIMITERS
+# ==============================================================================
+limiters:
+  mastering:
+    - name: FabFilter Pro-L 2
+      developer: FabFilter
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [8_algorithms, true_peak, loudness_metering]
+      rating: 10
+
+    - name: DMG Limitless
+      developer: DMG Audio
+      format: [VST3, AU, AAX]
+      price: 299
+      features: [multiband, advanced, mastering]
+      rating: 9
+
+    - name: Sonnox Oxford Limiter
+      developer: Sonnox
+      format: [VST3, AU, AAX]
+      price: 310
+      features: [enhance, transparent, broadcast]
+      rating: 9
+
+  loudness:
+    - name: Waves L2
+      developer: Waves
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [classic, IDR_dithering]
+      rating: 8
+
+    - name: iZotope Maximizer (Ozone)
+      developer: iZotope
+      format: [VST3, AU, AAX]
+      price: included_in_ozone
+      features: [IRC_modes, AI_assist]
+      rating: 9
+
+# ==============================================================================
+# CHANNEL STRIPS
+# ==============================================================================
+channel_strips:
+  console:
+    - name: Waves SSL E-Channel
+      developer: Waves
+      format: [VST3, AU, AAX]
+      price: 249
+      features: [SSL_4000E, EQ, dynamics]
+      rating: 8
+
+    - name: Waves SSL G-Channel
+      developer: Waves
+      format: [VST3, AU, AAX]
+      price: 249
+      features: [SSL_4000G, EQ, dynamics]
+      rating: 8
+
+    - name: UAD Neve 88RS
+      developer: Universal Audio
+      format: [UAD, VST3, AU]
+      price: 349
+      features: [Neve_console, EQ, dynamics]
+      rating: 9
+
+    - name: Brainworx bx_console SSL 4000E
+      developer: Plugin Alliance
+      format: [VST3, AU, AAX]
+      price: 299
+      features: [72_channel_variations, TMT]
+      rating: 9
+
+  ai_assisted:
+    - name: iZotope Neutron 4
+      developer: iZotope
+      format: [VST3, AU, AAX]
+      price: 399
+      features: [AI_mixing, assistant, unmask]
+      rating: 8
+
+    - name: Sonible smart:channel
+      developer: Sonible
+      format: [VST3, AU, AAX]
+      price: 129
+      features: [AI_EQ, dynamics, saturation]
+      rating: 8
+
+# ==============================================================================
+# MASTERING SUITES
+# ==============================================================================
+mastering:
+  suites:
+    - name: iZotope Ozone 11
+      developer: iZotope
+      format: [VST3, AU, AAX, Standalone]
+      price: 499
+      features: [AI_mastering, modules, reference]
+      rating: 9
+
+    - name: IK Multimedia T-RackS 5
+      developer: IK Multimedia
+      format: [VST3, AU, AAX, Standalone]
+      price: 399
+      features: [classic_emulations, many_modules]
+      rating: 8
+
+    - name: Waves Abbey Road TG Mastering Chain
+      developer: Waves
+      format: [VST3, AU, AAX]
+      price: 299
+      features: [EMI_TG12410, classic]
+      rating: 8
+
+  meters:
+    - name: Voxengo SPAN
+      developer: Voxengo
+      format: [VST3, AU, AAX]
+      price: 0
+      features: [spectrum_analyzer, FREE]
+      rating: 10
+
+    - name: iZotope Insight 2
+      developer: iZotope
+      format: [VST3, AU, AAX]
+      price: 199
+      features: [loudness, spectrum, stereo, surround]
+      rating: 9
+
+    - name: Nugen VisLM
+      developer: Nugen Audio
+      format: [VST3, AU, AAX]
+      price: 399
+      features: [broadcast_loudness, logging]
+      rating: 9
+
+# ==============================================================================
+# MODULATION
+# ==============================================================================
+modulation:
+  chorus_flanger:
+    - name: Soundtoys MicroShift
+      developer: Soundtoys
+      format: [VST3, AU, AAX]
+      price: 99
+      features: [stereo_widening, H3000_style]
+      rating: 9
+
+    - name: Eventide TriceraChorus
+      developer: Eventide
+      format: [VST3, AU, AAX]
+      price: 99
+      features: [tri_voice, lush]
+      rating: 8
+
+  phaser:
+    - name: Soundtoys PhaseMistress
+      developer: Soundtoys
+      format: [VST3, AU, AAX]
+      price: 129
+      features: [vintage_styles, analog]
+      rating: 9
+
+  tremolo:
+    - name: Soundtoys Tremolator
+      developer: Soundtoys
+      format: [VST3, AU, AAX]
+      price: 99
+      features: [rhythmic, groove_locked, gating]
+      rating: 9
+
+# ==============================================================================
+# MULTIBAND DYNAMICS
+# ==============================================================================
+multiband:
+  - name: FabFilter Pro-MB
+    developer: FabFilter
+    format: [VST3, AU, AAX]
+    price: 199
+    features: [expand_compress, visual, mid_side]
+    rating: 9
+
+  - name: Waves C6
+    developer: Waves
+    format: [VST3, AU, AAX]
+    price: 249
+    features: [6_bands, sidechain]
+    rating: 8
+
+  - name: iZotope Ozone Dynamics
+    developer: iZotope
+    format: [VST3, AU, AAX]
+    price: included_in_ozone
+    features: [intelligent, learn]
+    rating: 8
+
+# ==============================================================================
+# UTILITY
+# ==============================================================================
+utility:
+  metering:
+    - name: Voxengo SPAN (Free)
+      price: 0
+    - name: iZotope Insight 2
+      price: 199
+    - name: Plugin Alliance bx_meter
+      price: 0
+
+  gain_staging:
+    - name: Plugin Alliance bx_solo
+      price: 0
+    - name: Waves Vocal Rider
+      price: 179
+    - name: Hornet VU Meter
+      price: 15
+
+  analysis:
+    - name: ADPTR Metric AB
+      price: 99
+    - name: MeldaProduction MMultiAnalyzer
+      price: 99
+    - name: Plugin Alliance AMEK Mastering Compressor
+      price: 299
+
+# ==============================================================================
+# BUNDLES - BEST VALUE
+# ==============================================================================
+bundles:
+  - name: FabFilter Total Bundle
+    developer: FabFilter
+    price: 869
+    includes: [Pro-Q, Pro-C, Pro-L, Pro-R, Pro-MB, Saturn, Timeless, Volcano, Twin]
+    value_rating: 10
+
+  - name: Soundtoys 5
+    developer: Soundtoys
+    price: 499
+    includes: [EchoBoy, Decapitator, Radiator, MicroShift, all_little_series]
+    value_rating: 10
+
+  - name: ValhallaDSP Complete
+    developer: ValhallaDSP
+    price: 250
+    includes: [Room, VintageVerb, Delay, Shimmer, Supermassive]
+    value_rating: 10
+
+  - name: iZotope Music Production Suite
+    developer: iZotope
+    price: 699
+    includes: [Ozone, Neutron, RX, Nectar, Trash, Stutter_Edit]
+    value_rating: 9
+
+  - name: Plugin Alliance MEGA Bundle
+    developer: Plugin Alliance
+    price: 25/month
+    includes: [100+_plugins, all_brands]
+    value_rating: 9

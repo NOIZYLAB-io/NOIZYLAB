@@ -1,0 +1,566 @@
+# ==============================================================================
+# THE LIBRARIAN - INSTRUMENT MANIFEST
+# ==============================================================================
+# Complete registry of Virtual Instruments
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Virtual Instruments Registry
+  version: 1.0.0
+  generatedAt: 2025-11-25
+
+# ==============================================================================
+# SYNTHESIZERS - WAVETABLE
+# ==============================================================================
+synths_wavetable:
+  - name: Serum
+    developer: Xfer Records
+    type: wavetable
+    format: [VST3, AU, AAX]
+    price: 189
+    features:
+      - Visual wavetable editing
+      - Advanced modulation matrix
+      - Built-in effects
+      - Drag-and-drop modulation
+    presets: 450+
+    cpu_usage: medium
+    rating: 10
+    notes: "Industry standard wavetable synth. Exceptional visual feedback."
+    url: "https://xferrecords.com/serum"
+
+  - name: Vital
+    developer: Matt Tytel
+    type: wavetable
+    format: [VST3, AU, CLAP, Standalone]
+    price: 0
+    features:
+      - Spectral warping
+      - MPE support
+      - Advanced modulation
+      - Text-to-wavetable
+    presets: 400+
+    cpu_usage: medium
+    rating: 9
+    notes: "Free Serum alternative. Excellent quality."
+    url: "https://vital.audio"
+
+  - name: Pigments
+    developer: Arturia
+    type: wavetable_hybrid
+    format: [VST3, AU, AAX]
+    price: 199
+    features:
+      - Multiple engines (wavetable, VA, granular, additive)
+      - Sample engine
+      - Extensive modulation
+    presets: 1200+
+    cpu_usage: medium
+    rating: 9
+    url: "https://arturia.com/pigments"
+
+  - name: Phase Plant
+    developer: KiloHearts
+    type: modular_wavetable
+    format: [VST3, AU, AAX, CLAP]
+    price: 199
+    features:
+      - Modular architecture
+      - Snapin integration
+      - Multiple generators
+      - CLAP support
+    rating: 9
+    url: "https://kilohearts.com/phase-plant"
+
+# ==============================================================================
+# SYNTHESIZERS - ANALOG MODELING
+# ==============================================================================
+synths_analog:
+  - name: Diva
+    developer: U-He
+    type: analog_modeling
+    format: [VST3, AU, AAX]
+    price: 179
+    features:
+      - Zero-delay feedback filters
+      - Multiple vintage synth modules
+      - Authentic analog behavior
+    cpu_usage: high
+    rating: 10
+    notes: "Most authentic analog emulation. Worth the CPU cost."
+    url: "https://u-he.com/diva"
+
+  - name: Repro
+    developer: U-He
+    type: analog_modeling
+    format: [VST3, AU, AAX]
+    price: 179
+    features:
+      - Prophet-5 emulation (Repro-5)
+      - Pro-One emulation (Repro-1)
+      - Dual synth bundle
+    rating: 10
+    url: "https://u-he.com/repro"
+
+  - name: V Collection
+    developer: Arturia
+    type: analog_modeling_suite
+    format: [VST3, AU, AAX, Standalone]
+    price: 599
+    features:
+      - 30+ vintage synth emulations
+      - Moog, Prophet, Jupiter, CS-80, etc.
+      - Analog Lab browser
+    includes:
+      - Mini V (Minimoog)
+      - Prophet V
+      - Jup-8 V
+      - CS-80 V
+      - OB-Xa V
+      - Matrix-12 V
+      - SEM V
+      - Modular V
+    rating: 9
+    url: "https://arturia.com/v-collection"
+
+  - name: TAL-U-NO-LX
+    developer: TAL Software
+    type: analog_modeling
+    format: [VST3, AU]
+    price: 60
+    features:
+      - Juno-60 emulation
+      - Accurate filter
+      - Affordable
+    rating: 8
+    url: "https://tal-software.com"
+
+# ==============================================================================
+# SYNTHESIZERS - HYBRID / FLAGSHIP
+# ==============================================================================
+synths_hybrid:
+  - name: Omnisphere
+    developer: Spectrasonics
+    type: hybrid
+    format: [VST3, AU, AAX]
+    price: 479
+    features:
+      - Hybrid synthesis (samples + synthesis)
+      - Hardware synth integration
+      - Granular synthesis
+      - Massive sound library (64GB+)
+      - Sound Match
+    presets: 14000+
+    rating: 10
+    notes: "Flagship hybrid synth. Unmatched sonic range."
+    url: "https://spectrasonics.net/omnisphere"
+
+  - name: Zebra
+    developer: U-He
+    type: modular
+    format: [VST3, AU, AAX]
+    price: 199
+    features:
+      - Modular architecture
+      - Film scoring favorite
+      - Hans Zimmer's synth
+    rating: 10
+    notes: "Hollywood secret weapon."
+    url: "https://u-he.com/zebra"
+
+  - name: Massive X
+    developer: Native Instruments
+    type: wavetable
+    format: [VST3, AU, AAX, Standalone]
+    price: 199
+    features:
+      - Routing matrix
+      - Noise oscillators
+      - Performer sequencer
+    rating: 8
+    url: "https://native-instruments.com/massive-x"
+
+# ==============================================================================
+# SAMPLERS
+# ==============================================================================
+samplers:
+  - name: Kontakt
+    developer: Native Instruments
+    type: sampler
+    format: [VST3, AU, AAX, Standalone]
+    price: 399
+    features:
+      - Industry standard sampler
+      - Scripting (KSP)
+      - Massive third-party library ecosystem
+      - Time Machine Pro
+    included_libraries:
+      - Factory Library (55GB)
+      - Session Strings
+      - Session Horns
+      - Session Guitarist
+    rating: 10
+    notes: "Industry standard. Essential for sample libraries."
+    url: "https://native-instruments.com/kontakt"
+
+  - name: Falcon
+    developer: UVI
+    type: hybrid_sampler
+    format: [VST3, AU, AAX, Standalone]
+    price: 349
+    features:
+      - 16 oscillator types
+      - Scripting
+      - Effects rack
+      - Macro controls
+    rating: 9
+    url: "https://uvi.net/falcon"
+
+  - name: HALion
+    developer: Steinberg
+    type: sampler
+    format: [VST3]
+    price: 349
+    features:
+      - Wavetable, granular, VA
+      - Scripting
+      - Layer editing
+    rating: 8
+    url: "https://steinberg.net/halion"
+
+# ==============================================================================
+# KEYBOARDS / PIANOS
+# ==============================================================================
+pianos:
+  acoustic:
+    - name: Keyscape
+      developer: Spectrasonics
+      price: 399
+      size: 77GB
+      instruments: 36
+      highlights: [LA Custom C7, Rhodes, Wurlitzer, Clavinet]
+      rating: 10
+      notes: "Definitive keyboard collection."
+
+    - name: Piano V
+      developer: Arturia
+      price: 199
+      models: 12
+      highlights: [Steinway, Bosendorfer, Yamaha]
+      rating: 8
+
+    - name: Addictive Keys
+      developer: XLN Audio
+      price: 79/each
+      models: [Studio Grand, Mark One, Electric Grand, Modern Upright]
+      rating: 8
+
+  electric:
+    - name: Keyscape (Electric)
+      developer: Spectrasonics
+      highlights: [Rhodes Mark I-V, Wurlitzer 200A, Pianet, Clavinet]
+      included_in: Keyscape
+
+    - name: Scarbee Rhodes
+      developer: Native Instruments
+      format: [Kontakt]
+      price: 99
+
+    - name: Lounge Lizard
+      developer: AAS
+      price: 199
+      type: physical_modeling
+
+# ==============================================================================
+# ORCHESTRAL LIBRARIES
+# ==============================================================================
+orchestral:
+  full_orchestras:
+    - name: BBC Symphony Orchestra
+      developer: Spitfire Audio
+      tiers: [Discover (Free), Core, Professional]
+      price: [0, 449, 999]
+      recorded_at: Maida Vale Studios
+      articulations: 80+
+      rating: 9
+      url: "https://spitfireaudio.com/bbcso"
+
+    - name: Berlin Series
+      developer: Orchestral Tools
+      sections: [Strings, Brass, Woodwinds, Percussion, Choir]
+      price: 100-600/section
+      recorded_at: Teldex Studio Berlin
+      player: SINE Player
+      rating: 10
+      url: "https://orchestraltools.com"
+
+    - name: Hollywood Orchestra Opus
+      developer: EastWest
+      price: 799
+      player: Opus
+      sections: [Strings, Brass, Woodwinds, Percussion]
+      rating: 9
+      url: "https://eastwest.com"
+
+    - name: Synchron Series
+      developer: Vienna Symphonic Library
+      price: varies
+      recorded_at: Synchron Stage Vienna
+      player: Synchron Player
+      features: [MIR Pro integration, multiple mic positions]
+      rating: 10
+      url: "https://vsl.co.at"
+
+  strings:
+    - name: Spitfire Chamber Strings
+      developer: Spitfire Audio
+      price: 449
+      ensemble_size: chamber
+      articulations: extensive
+      rating: 9
+
+    - name: CSS (Cinematic Studio Strings)
+      developer: Cinematic Studio Series
+      price: 399
+      legato: excellent
+      rating: 9
+
+    - name: Berlin Strings
+      developer: Orchestral Tools
+      price: 600
+      rating: 10
+
+  brass:
+    - name: Cinebrass
+      developer: Cinesamples
+      price: 399
+      sections: [Core, Pro]
+      rating: 9
+
+    - name: Berlin Brass
+      developer: Orchestral Tools
+      price: 500
+      rating: 10
+
+  woodwinds:
+    - name: Berlin Woodwinds
+      developer: Orchestral Tools
+      price: 500
+      rating: 10
+
+    - name: Cinewinds
+      developer: Cinesamples
+      price: 399
+      rating: 9
+
+  cinematic:
+    - name: Albion Series
+      developer: Spitfire Audio
+      volumes: [One, NEO, Solstice, Tundra, Iceni]
+      price: 449/each
+      style: hybrid_orchestral
+      rating: 9
+
+    - name: Metropolis Ark
+      developer: Orchestral Tools
+      volumes: [1, 2, 3, 4]
+      style: epic_cinematic
+      rating: 10
+
+# ==============================================================================
+# DRUMS / PERCUSSION
+# ==============================================================================
+drums:
+  acoustic:
+    - name: Superior Drummer 3
+      developer: Toontrack
+      price: 399
+      features: [tracker, sound_library, e-drum_support]
+      expansions: SDX Libraries
+      rating: 10
+      url: "https://toontrack.com"
+
+    - name: Addictive Drums 2
+      developer: XLN Audio
+      price: 179
+      features: [beat_transformer, kitpiece_separation]
+      rating: 9
+
+    - name: BFD3
+      developer: BFD
+      price: 349
+      features: [detailed_acoustic, groove_library]
+      rating: 8
+
+  electronic:
+    - name: Battery 4
+      developer: Native Instruments
+      price: 199
+      features: [drum_sampler, effects, layering]
+      rating: 9
+
+    - name: Spark 2
+      developer: Arturia
+      price: 199
+      features: [vintage_drum_machines, sequencer]
+      rating: 8
+
+    - name: Geist 2
+      developer: FXpansion
+      price: 149
+      features: [sampling, slicing, sequencing]
+      rating: 8
+
+  cinematic:
+    - name: Damage 2
+      developer: Heavyocity
+      format: [Kontakt]
+      price: 449
+      style: cinematic_percussion
+      rating: 10
+      notes: "Industry standard cinematic percussion."
+
+    - name: Action Strikes
+      developer: Native Instruments
+      format: [Kontakt]
+      price: 99
+      style: ensemble_percussion
+      rating: 8
+
+    - name: HZ01 - Hans Zimmer Percussion
+      developer: Spitfire Audio
+      price: 549
+      recorded_at: AIR Studios
+      rating: 10
+
+# ==============================================================================
+# CINEMATIC / HYBRID
+# ==============================================================================
+cinematic:
+  - name: Hybrid Tools Equinox
+    developer: 8Dio
+    format: [Kontakt]
+    price: 498
+    features:
+      - Rhythm generators
+      - Super kits
+      - Probability engine
+      - Tonal elements
+    style: trailer_hybrid
+    rating: 9
+    notes: "Organize via Files/Quick Load."
+    url: "https://8dio.com"
+
+  - name: Gravity
+    developer: Heavyocity
+    format: [Kontakt]
+    price: 449
+    features:
+      - Cinematic pads
+      - Risers
+      - Hits
+      - Sound design
+    rating: 9
+
+  - name: Mosaic Series
+    developer: Heavyocity
+    format: [Kontakt]
+    price: 199/each
+    volumes: [Keys, Tape, Voices, Bass, Pluck]
+    style: textural
+    rating: 8
+
+  - name: Output Engines
+    developer: Output
+    products: [Exhale, Analog Strings, Analog Brass, Portal, Substance]
+    price: 199/each
+    style: modern_hybrid
+    rating: 9
+
+# ==============================================================================
+# GUITAR / BASS
+# ==============================================================================
+guitars_bass:
+  bass:
+    - name: Trilian
+      developer: Spectrasonics
+      price: 299
+      types: [acoustic, electric, synth]
+      rating: 10
+      notes: "Complete bass solution."
+
+    - name: MODO Bass
+      developer: IK Multimedia
+      price: 299
+      type: physical_modeling
+      rating: 8
+
+  guitar:
+    - name: Ample Guitar
+      developer: Ample Sound
+      price: 149/each
+      types: [acoustic, electric, bass]
+      rating: 8
+
+    - name: MODO Guitar
+      developer: IK Multimedia
+      price: 299
+      type: physical_modeling
+      rating: 7
+
+    - name: Session Guitarist
+      developer: Native Instruments
+      format: [Kontakt]
+      products: [Strummed Acoustic, Electric Sunburst, Picked Acoustic]
+      price: 99-149
+      rating: 8
+
+# ==============================================================================
+# WORLD / ETHNIC
+# ==============================================================================
+world:
+  - name: Ethno World
+    developer: Best Service
+    price: 499
+    regions: [Africa, Asia, Europe, Americas, Middle East]
+    instruments: 320+
+    rating: 9
+
+  - name: Silk
+    developer: EastWest
+    price: 299
+    regions: [China, India, Persia]
+    rating: 8
+
+  - name: World Suite
+    developer: UVI
+    price: 299
+    instruments: 370+
+    rating: 9
+
+# ==============================================================================
+# KONTAKT QUICK LOAD ORGANIZATION
+# ==============================================================================
+kontakt_organization:
+  quick_load_structure:
+    - category: Orchestral
+      subcategories: [Strings, Brass, Woodwinds, Percussion, Full Orchestra]
+    - category: Synths
+      subcategories: [Pads, Leads, Bass, Textures, Arps]
+    - category: Keys
+      subcategories: [Acoustic Piano, Electric Piano, Organ, Mallets]
+    - category: Drums
+      subcategories: [Acoustic Kits, Electronic, Percussion, Cinematic]
+    - category: Cinematic
+      subcategories: [Hybrid, Trailer, Risers, Hits, Drones]
+    - category: World
+      subcategories: [by region]
+
+  8dio_organization:
+    notes: "8Dio libraries organize via Files > Quick Load in Kontakt"
+    recommended_structure:
+      - "8Dio/Hybrid Tools/"
+      - "8Dio/Century Series/"
+      - "8Dio/Epic Series/"
+      - "8Dio/Lacrimosa/"

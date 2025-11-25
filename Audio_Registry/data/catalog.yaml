@@ -1,0 +1,1739 @@
+# ==============================================================================
+# THE LIBRARIAN - Audio Canon Catalog
+# ==============================================================================
+# DAWs, Plugins, Instruments Registry for Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  catalogName: Audio Canon (DAWs, Plugins, Instruments)
+  version: 1.0.0
+  generatedAt: 2025-11-25T13:47:00-05:00
+  owner: Rob (Fish Music Inc. / MissionControl96 / NOIZYLAB)
+  description: |
+    Comprehensive registry of digital audio workstations, virtual instruments,
+    and audio plugins. Curated for production workflow optimization and
+    MissionControl96 dashboard integration.
+  schema:
+    item:
+      required: [name, type, category, developer]
+      fields:
+        itemId: string
+        name: string
+        type: [daw, plugin, instrument]
+        category: [daw, synth, sampler, drum, orchestral, eq, compressor, reverb, delay, saturation, pitch, spectral, utility]
+        developer: string
+        format: [VST2, VST3, AU, AAX, CLAP, Standalone]
+        os: [macOS, Windows, Linux]
+        minVersion: string
+        releaseYear: number
+        status: [active, legacy, discontinued]
+        urls: { home: string, docs: string }
+        tags: [string]
+        notes: string
+
+# ==============================================================================
+# TAXONOMY
+# ==============================================================================
+taxonomy:
+  types:
+    - daw
+    - plugin
+    - instrument
+  categories:
+    - daw
+    - synth
+    - sampler
+    - drum
+    - orchestral
+    - eq
+    - compressor
+    - reverb
+    - delay
+    - saturation
+    - pitch
+    - spectral
+    - utility
+    - hybrid
+    - multiband
+    - channel-strip
+    - metering
+    - gate
+    - limiter
+    - exciter
+    - stereo
+    - modulation
+  formats:
+    - VST2
+    - VST3
+    - AU
+    - AAX
+    - CLAP
+    - Standalone
+    - AUv3
+    - RTAS
+  os:
+    - macOS
+    - Windows
+    - Linux
+  status:
+    - active
+    - legacy
+    - discontinued
+    - beta
+  tagsExamples:
+    - wavetable
+    - MPE
+    - convolution
+    - mastering
+    - trailer
+    - hybrid
+    - orchestral
+    - analysis
+    - repair
+    - modulation
+    - analog-modeling
+    - vintage
+    - AI-assisted
+    - Atmos
+    - spatial
+    - granular
+    - additive
+    - subtractive
+    - FM
+    - physical-modeling
+
+# ==============================================================================
+# TIMELINE - Evolution of Digital Audio Production
+# ==============================================================================
+timeline:
+  decades:
+    1980s:
+      highlights:
+        - MIDI standardization (1983)
+        - Atari ST and Amiga sequencing
+        - Early DAW precursors and digital editing
+        - Fairlight CMI, Synclavier dominance
+      daws:
+        - Pro Tools (Sound Designer, 1989)
+        - Cubase (1989)
+        - Notator/Logic
+        - Cakewalk (1987)
+      landmarks:
+        - Fairlight CMI Series III
+        - E-mu Emulator II
+        - Akai S900
+
+    1990s:
+      highlights:
+        - VST emerges (Steinberg, 1996)
+        - Native multitrack audio
+        - Software synthesis begins
+        - Pro Tools becomes industry standard
+      daws:
+        - Digital Performer (1990)
+        - Samplitude (1992)
+        - Nuendo (1999)
+        - Cool Edit Pro (1996)
+        - Acid Pro (1998)
+        - Logic Audio (1994)
+      landmarks:
+        - Steinberg Cubase VST (1996)
+        - Propellerhead ReBirth (1997)
+        - Native Instruments Generator (1996)
+
+    2000s:
+      highlights:
+        - Clip/warp workflows revolutionize production
+        - Audio Unit format (Apple, 2002)
+        - Integrated virtual instruments
+        - Bedroom producer revolution
+      daws:
+        - Ableton Live (2001)
+        - Reason (2000)
+        - FL Studio (2003 rebrand from Fruity Loops)
+        - GarageBand (2004)
+        - Reaper (2006)
+      landmarks:
+        - Native Instruments Kontakt (2002)
+        - Spectrasonics Atmosphere (2002)
+        - Auto-Tune (1997, mainstream 2000s)
+
+    2010s:
+      highlights:
+        - Modular routing paradigms
+        - Advanced comping and editing
+        - Efficient modern UX
+        - MPE (MIDI Polyphonic Expression)
+        - Cloud integration begins
+      daws:
+        - Studio One (2009, matured 2010s)
+        - Bitwig Studio (2014)
+        - Logic Pro X (2013)
+        - Live 9/10 (2013/2018)
+      landmarks:
+        - Serum (2014)
+        - Diva (2011)
+        - Omnisphere 2 (2015)
+        - FabFilter Pro-Q 2 (2013)
+
+    2020s:
+      highlights:
+        - Dolby Atmos mainstream adoption
+        - Cloud collaboration workflows
+        - CLAP format emerges (2022)
+        - AI-assisted DSP and composition
+        - Apple Silicon transition
+      daws:
+        - Logic Pro (modern, Atmos)
+        - Live 12 (2024)
+        - Luna (Universal Audio)
+        - Waveform Free/Pro
+        - Studio One 6 (2022)
+        - Bitwig 5 (2023)
+      landmarks:
+        - iZotope RX 10 (AI repair)
+        - Ozone 11 (AI mastering)
+        - CLAP format adoption
+
+# ==============================================================================
+# DEVELOPERS
+# ==============================================================================
+developers:
+  instruments:
+    - name: Native Instruments
+      country: Germany
+      flagship: [Kontakt, Massive, FM8, Reaktor]
+    - name: Spectrasonics
+      country: USA
+      flagship: [Omnisphere, Keyscape, Trilian]
+    - name: Xfer Records
+      country: USA
+      flagship: [Serum, LFOTool, OTT]
+    - name: U-He
+      country: Germany
+      flagship: [Diva, Zebra, Repro, Hive]
+    - name: Arturia
+      country: France
+      flagship: [V Collection, Pigments, Analog Lab]
+    - name: KiloHearts
+      country: Sweden
+      flagship: [Phase Plant, Snap Heap, Multipass]
+    - name: Spitfire Audio
+      country: UK
+      flagship: [BBC Symphony Orchestra, LABS, Albion]
+    - name: Orchestral Tools
+      country: Germany
+      flagship: [Berlin Series, Metropolis Ark, SINE Player]
+    - name: Vienna Symphonic Library
+      country: Austria
+      flagship: [Synchron Player, VI Pro, MIR Pro]
+    - name: EastWest
+      country: USA
+      flagship: [Hollywood Orchestra, Opus, ComposerCloud]
+    - name: 8Dio
+      country: USA
+      flagship: [Hybrid Tools, Century Series, Lacrimosa]
+    - name: Heavyocity
+      country: USA
+      flagship: [Damage, Gravity, Mosaic]
+    - name: Output
+      country: USA
+      flagship: [Exhale, Analog Strings, Portal]
+    - name: UVI
+      country: France
+      flagship: [Falcon, Vintage Vault, World Suite]
+
+  effects:
+    - name: FabFilter
+      country: Netherlands
+      flagship: [Pro-Q, Pro-L, Pro-C, Saturn]
+    - name: Soundtoys
+      country: USA
+      flagship: [Decapitator, EchoBoy, Little AlterBoy]
+    - name: ValhallaDSP
+      country: USA
+      flagship: [Valhalla Room, VintageVerb, Delay, Supermassive]
+    - name: iZotope
+      country: USA
+      flagship: [Ozone, RX, Neutron, Nectar]
+    - name: Waves
+      country: Israel
+      flagship: [SSL, API, CLA, L-Series]
+    - name: Universal Audio
+      country: USA
+      flagship: [UAD Plugins, Luna, Neve, API]
+    - name: Eventide
+      country: USA
+      flagship: [H3000, Blackhole, UltraTap, Physion]
+    - name: Softube
+      country: Sweden
+      flagship: [Console 1, Tape, Harmonics, Weiss]
+    - name: DMG Audio
+      country: UK
+      flagship: [Equilibrium, Multiplicity, Limitless]
+    - name: Tokyo Dawn Labs
+      country: Germany
+      flagship: [TDR Kotelnikov, SlickEQ, Nova]
+    - name: Sonnox
+      country: UK
+      flagship: [Oxford EQ, Limiter, SuprEsser]
+    - name: Slate Digital
+      country: USA
+      flagship: [Virtual Mix Rack, FG-X, VBC]
+    - name: PSP Audioware
+      country: Poland
+      flagship: [Vintage Warmer, InfiniStrip, MasterComp]
+    - name: Plugin Alliance
+      country: Germany
+      flagship: [Lindell, Brainworx, SPL]
+
+  utility:
+    - name: Synchro Arts
+      country: UK
+      flagship: [VocAlign, Revoice Pro]
+    - name: Acon Digital
+      country: Norway
+      flagship: [Acoustica, DeVerberate, Extract]
+    - name: Audionamix
+      country: USA
+      flagship: [TRAX, ADX, Instant Dialogue Cleaner]
+    - name: Celemony
+      country: Germany
+      flagship: [Melodyne]
+
+  daws:
+    - name: Ableton
+      country: Germany
+      flagship: [Live Suite]
+    - name: Apple
+      country: USA
+      flagship: [Logic Pro, MainStage, GarageBand]
+    - name: Steinberg
+      country: Germany
+      flagship: [Cubase, Nuendo, WaveLab]
+    - name: Avid
+      country: USA
+      flagship: [Pro Tools]
+    - name: PreSonus
+      country: USA
+      flagship: [Studio One]
+    - name: Cockos
+      country: USA
+      flagship: [Reaper]
+    - name: Bitwig
+      country: Germany
+      flagship: [Bitwig Studio]
+    - name: Reason Studios
+      country: Sweden
+      flagship: [Reason]
+    - name: Magix
+      country: Germany
+      flagship: [Samplitude, Sequoia, Acid Pro]
+    - name: Tracktion
+      country: UK
+      flagship: [Waveform]
+    - name: Universal Audio
+      country: USA
+      flagship: [Luna]
+
+# ==============================================================================
+# ITEMS - The Audio Canon
+# ==============================================================================
+items:
+  # ============================================================================
+  # DAWs
+  # ============================================================================
+  - itemId: daw-001
+    name: Ableton Live
+    type: daw
+    category: daw
+    developer: Ableton
+    format: [VST3, AU]
+    os: [macOS, Windows]
+    minVersion: "12.0"
+    releaseYear: 2001
+    status: active
+    tags: [clip, warp, performance, Max for Live, session-view, arrangement]
+    urls:
+      home: "https://ableton.com"
+      docs: "https://ableton.com/en/manual"
+    notes: "Industry standard for electronic music and live performance."
+
+  - itemId: daw-002
+    name: Logic Pro
+    type: daw
+    category: daw
+    developer: Apple
+    format: [AU]
+    os: [macOS]
+    minVersion: "11.0"
+    releaseYear: 1993
+    status: active
+    tags: [instruments, scoring, Atmos, Apple Silicon, spatial]
+    urls:
+      home: "https://apple.com/logic-pro"
+      docs: "https://support.apple.com/logic-pro"
+    notes: "Complete production suite with excellent stock plugins. Now supports Atmos."
+
+  - itemId: daw-003
+    name: Pro Tools
+    type: daw
+    category: daw
+    developer: Avid
+    format: [AAX]
+    os: [macOS, Windows]
+    minVersion: "2024.6"
+    releaseYear: 1989
+    status: active
+    tags: [industry-standard, mixing, post-production, collaboration]
+    urls:
+      home: "https://avid.com/pro-tools"
+    notes: "Industry standard for professional recording and mixing. Post-production king."
+
+  - itemId: daw-004
+    name: Cubase
+    type: daw
+    category: daw
+    developer: Steinberg
+    format: [VST3]
+    os: [macOS, Windows]
+    minVersion: "13"
+    releaseYear: 1989
+    status: active
+    tags: [MIDI, composition, scoring, VariAudio]
+    urls:
+      home: "https://steinberg.net/cubase"
+    notes: "Pioneer of VST. Excellent MIDI and composition tools."
+
+  - itemId: daw-005
+    name: Studio One
+    type: daw
+    category: daw
+    developer: PreSonus
+    format: [VST3, AU]
+    os: [macOS, Windows]
+    minVersion: "6.5"
+    releaseYear: 2009
+    status: active
+    tags: [drag-drop, mastering, modern-workflow]
+    urls:
+      home: "https://presonus.com/studio-one"
+    notes: "Modern workflow design. Excellent integrated mastering."
+
+  - itemId: daw-006
+    name: FL Studio
+    type: daw
+    category: daw
+    developer: Image-Line
+    format: [VST3]
+    os: [macOS, Windows]
+    minVersion: "21"
+    releaseYear: 1997
+    status: active
+    tags: [pattern, lifetime-updates, hip-hop, electronic]
+    urls:
+      home: "https://image-line.com"
+    notes: "Legendary pattern-based workflow. Lifetime free updates."
+
+  - itemId: daw-007
+    name: Bitwig Studio
+    type: daw
+    category: daw
+    developer: Bitwig
+    format: [VST3, CLAP]
+    os: [macOS, Windows, Linux]
+    minVersion: "5.1"
+    releaseYear: 2014
+    status: active
+    tags: [modular, MPE, Linux, Grid, CLAP]
+    urls:
+      home: "https://bitwig.com"
+    notes: "Most innovative DAW. Excellent modular integration. CLAP pioneer."
+
+  - itemId: daw-008
+    name: Reaper
+    type: daw
+    category: daw
+    developer: Cockos
+    format: [VST3, AU, CLAP]
+    os: [macOS, Windows, Linux]
+    minVersion: "7.0"
+    releaseYear: 2006
+    status: active
+    tags: [customizable, lightweight, affordable, scripting]
+    urls:
+      home: "https://reaper.fm"
+    notes: "Extremely customizable. Incredible value. Active community."
+
+  - itemId: daw-009
+    name: Reason
+    type: daw
+    category: daw
+    developer: Reason Studios
+    format: [VST3, AU]
+    os: [macOS, Windows]
+    minVersion: "12"
+    releaseYear: 2000
+    status: active
+    tags: [rack, virtual-hardware, routing]
+    urls:
+      home: "https://reasonstudios.com"
+    notes: "Unique rack-based workflow. Now works as VST plugin."
+
+  - itemId: daw-010
+    name: Luna
+    type: daw
+    category: daw
+    developer: Universal Audio
+    format: [AU]
+    os: [macOS]
+    releaseYear: 2020
+    status: active
+    tags: [UAD, tape-emulation, console]
+    urls:
+      home: "https://uaudio.com/luna"
+    notes: "Deep UAD integration. Tape and console workflow."
+
+  - itemId: daw-011
+    name: Digital Performer
+    type: daw
+    category: daw
+    developer: MOTU
+    format: [VST3, AU]
+    os: [macOS, Windows]
+    releaseYear: 1990
+    status: active
+    tags: [film-scoring, chunks, MIDI]
+    urls:
+      home: "https://motu.com/dp"
+    notes: "Film scoring favorite. Chunks workflow for cues."
+
+  - itemId: daw-012
+    name: Nuendo
+    type: daw
+    category: daw
+    developer: Steinberg
+    format: [VST3]
+    os: [macOS, Windows]
+    releaseYear: 1999
+    status: active
+    tags: [post-production, game-audio, ADR]
+    urls:
+      home: "https://steinberg.net/nuendo"
+    notes: "Cubase for post-production. Industry standard for game audio."
+
+  # ============================================================================
+  # SYNTHS / INSTRUMENTS
+  # ============================================================================
+  - itemId: inst-001
+    name: Kontakt
+    type: instrument
+    category: sampler
+    developer: Native Instruments
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    minVersion: "7"
+    releaseYear: 2002
+    status: active
+    tags: [libraries, scripting, open-format, industry-standard]
+    urls:
+      home: "https://native-instruments.com/kontakt"
+    notes: "Industry standard sampler. Massive third-party library ecosystem."
+
+  - itemId: inst-002
+    name: Omnisphere
+    type: instrument
+    category: synth
+    developer: Spectrasonics
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "2.8"
+    releaseYear: 2008
+    status: active
+    tags: [hybrid, granular, massive-library, sound-design]
+    urls:
+      home: "https://spectrasonics.net/omnisphere"
+    notes: "Flagship hybrid synth. Unmatched sonic range. Hardware integration."
+
+  - itemId: inst-003
+    name: Hybrid Tools Equinox
+    type: instrument
+    category: hybrid
+    developer: 8Dio
+    format: [Kontakt]
+    os: [macOS, Windows]
+    releaseYear: 2020
+    status: active
+    tags: [rhythm-generator, trailer, kits, tonal, cinematic]
+    notes: "Generators, super kits, probability engine. Organize via Files/Quick Load."
+    urls:
+      home: "https://8dio.com/hybrid-tools-equinox"
+
+  - itemId: inst-004
+    name: Serum
+    type: instrument
+    category: synth
+    developer: Xfer Records
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2014
+    status: active
+    tags: [wavetable, visual, modulation, sound-design]
+    urls:
+      home: "https://xferrecords.com/serum"
+    notes: "Modern wavetable standard. Exceptional visual feedback."
+
+  - itemId: inst-005
+    name: Diva
+    type: instrument
+    category: synth
+    developer: U-He
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows, Linux]
+    releaseYear: 2011
+    status: active
+    tags: [analog-modeling, vintage, zero-feedback-delay]
+    urls:
+      home: "https://u-he.com/diva"
+    notes: "Most authentic analog emulation. CPU-intensive but worth it."
+
+  - itemId: inst-006
+    name: Pigments
+    type: instrument
+    category: synth
+    developer: Arturia
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "5"
+    releaseYear: 2018
+    status: active
+    tags: [wavetable, granular, virtual-analog, additive]
+    urls:
+      home: "https://arturia.com/pigments"
+    notes: "Versatile modern synth. Multiple synthesis engines."
+
+  - itemId: inst-007
+    name: Phase Plant
+    type: instrument
+    category: synth
+    developer: KiloHearts
+    format: [VST3, AU, AAX, CLAP]
+    os: [macOS, Windows]
+    releaseYear: 2019
+    status: active
+    tags: [modular, wavetable, granular, snapins]
+    urls:
+      home: "https://kilohearts.com/phase-plant"
+    notes: "Modular synthesis playground. Snapin ecosystem."
+
+  - itemId: inst-008
+    name: Massive X
+    type: instrument
+    category: synth
+    developer: Native Instruments
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2019
+    status: active
+    tags: [wavetable, bass, modern]
+    urls:
+      home: "https://native-instruments.com/massive-x"
+    notes: "Successor to Massive. Routing matrix, noise oscillators."
+
+  - itemId: inst-009
+    name: Zebra
+    type: instrument
+    category: synth
+    developer: U-He
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows, Linux]
+    releaseYear: 2004
+    status: active
+    tags: [modular, film-scoring, Hans-Zimmer]
+    urls:
+      home: "https://u-he.com/zebra"
+    notes: "Hollywood secret weapon. Hans Zimmer's go-to synth."
+
+  - itemId: inst-010
+    name: Vital
+    type: instrument
+    category: synth
+    developer: Matt Tytel
+    format: [VST3, AU, CLAP, Standalone]
+    os: [macOS, Windows, Linux]
+    releaseYear: 2020
+    status: active
+    tags: [wavetable, free, open-source, MPE]
+    urls:
+      home: "https://vital.audio"
+    notes: "Free spectral warping wavetable synth. Serum alternative."
+
+  - itemId: inst-011
+    name: Keyscape
+    type: instrument
+    category: sampler
+    developer: Spectrasonics
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2016
+    status: active
+    tags: [keys, piano, electric-piano, vintage]
+    urls:
+      home: "https://spectrasonics.net/keyscape"
+    notes: "Definitive keyboard collection. Integrates with Omnisphere."
+
+  - itemId: inst-012
+    name: Trilian
+    type: instrument
+    category: sampler
+    developer: Spectrasonics
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2009
+    status: active
+    tags: [bass, acoustic, electric, synth-bass]
+    urls:
+      home: "https://spectrasonics.net/trilian"
+    notes: "Complete bass solution. Acoustic, electric, and synth basses."
+
+  - itemId: inst-013
+    name: Falcon
+    type: instrument
+    category: sampler
+    developer: UVI
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2016
+    status: active
+    tags: [hybrid, sampler, synth, scripting]
+    urls:
+      home: "https://uvi.net/falcon"
+    notes: "Powerful hybrid instrument. Multiple synthesis engines."
+
+  # ============================================================================
+  # ORCHESTRAL INSTRUMENTS
+  # ============================================================================
+  - itemId: inst-020
+    name: BBC Symphony Orchestra
+    type: instrument
+    category: orchestral
+    developer: Spitfire Audio
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2019
+    status: active
+    tags: [orchestral, full-orchestra, Maida-Vale]
+    urls:
+      home: "https://spitfireaudio.com/bbcso"
+    notes: "Complete orchestra recorded at Maida Vale. Free Discover version."
+
+  - itemId: inst-021
+    name: Berlin Series
+    type: instrument
+    category: orchestral
+    developer: Orchestral Tools
+    format: [Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2012
+    status: active
+    tags: [orchestral, strings, brass, woodwinds, Teldex]
+    urls:
+      home: "https://orchestraltools.com/berlin-series"
+    notes: "Recorded at Teldex. Exceptional detail and dynamics."
+
+  - itemId: inst-022
+    name: Hollywood Orchestra Opus
+    type: instrument
+    category: orchestral
+    developer: EastWest
+    format: [Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2021
+    status: active
+    tags: [orchestral, Hollywood, complete]
+    urls:
+      home: "https://eastwest.com/opus"
+    notes: "Complete Hollywood sound. New Opus engine."
+
+  - itemId: inst-023
+    name: Synchron Series
+    type: instrument
+    category: orchestral
+    developer: Vienna Symphonic Library
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2017
+    status: active
+    tags: [orchestral, Synchron-Stage, MIR]
+    urls:
+      home: "https://vsl.co.at"
+    notes: "Synchron Stage Vienna. Exceptional room integration."
+
+  - itemId: inst-024
+    name: Albion
+    type: instrument
+    category: orchestral
+    developer: Spitfire Audio
+    format: [Kontakt]
+    os: [macOS, Windows]
+    releaseYear: 2011
+    status: active
+    tags: [orchestral, cinematic, hybrid, loops]
+    urls:
+      home: "https://spitfireaudio.com/albion"
+    notes: "Hybrid orchestral toolkit. Multiple volumes for different styles."
+
+  - itemId: inst-025
+    name: Metropolis Ark
+    type: instrument
+    category: orchestral
+    developer: Orchestral Tools
+    format: [Kontakt, Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2015
+    status: active
+    tags: [orchestral, epic, trailer, massive]
+    urls:
+      home: "https://orchestraltools.com/metropolis-ark"
+    notes: "Epic orchestral sound. Multiple volumes."
+
+  # ============================================================================
+  # DRUM / PERCUSSION INSTRUMENTS
+  # ============================================================================
+  - itemId: inst-030
+    name: Superior Drummer
+    type: instrument
+    category: drum
+    developer: Toontrack
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    minVersion: "3"
+    releaseYear: 2017
+    status: active
+    tags: [acoustic-drums, SDX, tracker]
+    urls:
+      home: "https://toontrack.com/superior-drummer"
+    notes: "Industry standard acoustic drums. Massive SDX library."
+
+  - itemId: inst-031
+    name: Battery
+    type: instrument
+    category: drum
+    developer: Native Instruments
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    minVersion: "4"
+    releaseYear: 2004
+    status: active
+    tags: [drum-sampler, electronic, acoustic]
+    urls:
+      home: "https://native-instruments.com/battery"
+    notes: "Versatile drum sampler. Electronic and acoustic."
+
+  - itemId: inst-032
+    name: Damage
+    type: instrument
+    category: drum
+    developer: Heavyocity
+    format: [Kontakt]
+    os: [macOS, Windows]
+    releaseYear: 2011
+    status: active
+    tags: [cinematic, percussion, trailer, industrial]
+    urls:
+      home: "https://heavyocity.com/damage"
+    notes: "Cinematic percussion. Industry standard for trailers."
+
+  - itemId: inst-033
+    name: Gravity
+    type: instrument
+    category: hybrid
+    developer: Heavyocity
+    format: [Kontakt]
+    os: [macOS, Windows]
+    releaseYear: 2015
+    status: active
+    tags: [cinematic, pads, risers, hits]
+    urls:
+      home: "https://heavyocity.com/gravity"
+    notes: "Modern cinematic scoring toolkit."
+
+  - itemId: inst-034
+    name: Action Strikes
+    type: instrument
+    category: drum
+    developer: Native Instruments
+    format: [Kontakt]
+    os: [macOS, Windows]
+    releaseYear: 2013
+    status: active
+    tags: [cinematic, percussion, ensemble]
+    urls:
+      home: "https://native-instruments.com"
+    notes: "Ensemble percussion for cinematic work."
+
+  # ============================================================================
+  # EQ PLUGINS
+  # ============================================================================
+  - itemId: plug-001
+    name: FabFilter Pro-Q
+    type: plugin
+    category: eq
+    developer: FabFilter
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "3"
+    releaseYear: 2010
+    status: active
+    tags: [surgical, linear-phase, dynamic-bands, spectrum-analyzer]
+    urls:
+      home: "https://fabfilter.com/pro-q"
+    notes: "Industry standard EQ. Dynamic bands, excellent analyzer."
+
+  - itemId: plug-002
+    name: Equilibrium
+    type: plugin
+    category: eq
+    developer: DMG Audio
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2017
+    status: active
+    tags: [mastering, linear-phase, M/S, surgical]
+    urls:
+      home: "https://dmgaudio.com/equilibrium"
+    notes: "Most comprehensive EQ. Every filter type imaginable."
+
+  - itemId: plug-003
+    name: SlickEQ
+    type: plugin
+    category: eq
+    developer: Tokyo Dawn Labs
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2014
+    status: active
+    tags: [mixing, free-version, analog-modeling]
+    urls:
+      home: "https://tokyodawn.net/slickeq"
+    notes: "Excellent free EQ. GE version for advanced features."
+
+  - itemId: plug-004
+    name: Kirchhoff-EQ
+    type: plugin
+    category: eq
+    developer: Three-Body Technology
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2022
+    status: active
+    tags: [surgical, spectrum-grab, innovative]
+    urls:
+      home: "https://three-body-tech.com"
+    notes: "Innovative EQ. Spectrum grab feature."
+
+  - itemId: plug-005
+    name: Massenburg DesignWorks MDWEQ
+    type: plugin
+    category: eq
+    developer: Plugin Alliance
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2015
+    status: active
+    tags: [parametric, mastering, transparent]
+    urls:
+      home: "https://plugin-alliance.com"
+    notes: "George Massenburg's parametric EQ design."
+
+  # ============================================================================
+  # COMPRESSOR PLUGINS
+  # ============================================================================
+  - itemId: plug-010
+    name: FabFilter Pro-C
+    type: plugin
+    category: compressor
+    developer: FabFilter
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "2"
+    releaseYear: 2012
+    status: active
+    tags: [versatile, sidechain, visual]
+    urls:
+      home: "https://fabfilter.com/pro-c"
+    notes: "Versatile compressor. Multiple styles, excellent visuals."
+
+  - itemId: plug-011
+    name: Kotelnikov
+    type: plugin
+    category: compressor
+    developer: Tokyo Dawn Labs
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2012
+    status: active
+    tags: [mastering, transparent, free-version]
+    urls:
+      home: "https://tokyodawn.net/kotelnikov"
+    notes: "Transparent mastering compressor. Excellent free option."
+
+  - itemId: plug-012
+    name: API 2500
+    type: plugin
+    category: compressor
+    developer: Waves
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2008
+    status: active
+    tags: [bus, analog-modeling, punch]
+    urls:
+      home: "https://waves.com"
+    notes: "Classic bus compressor emulation."
+
+  - itemId: plug-013
+    name: Shadow Hills Mastering Compressor
+    type: plugin
+    category: compressor
+    developer: Plugin Alliance
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2019
+    status: active
+    tags: [mastering, optical-VCA, transformer]
+    urls:
+      home: "https://plugin-alliance.com"
+    notes: "Legendary mastering compressor. Optical and VCA stages."
+
+  - itemId: plug-014
+    name: Vertigo VSC-2
+    type: plugin
+    category: compressor
+    developer: Plugin Alliance
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2015
+    status: active
+    tags: [bus, VCA, glue]
+    urls:
+      home: "https://plugin-alliance.com"
+    notes: "Modern VCA bus compressor. SSL-style but unique."
+
+  # ============================================================================
+  # REVERB PLUGINS
+  # ============================================================================
+  - itemId: plug-020
+    name: Valhalla Room
+    type: plugin
+    category: reverb
+    developer: ValhallaDSP
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2011
+    status: active
+    tags: [algorithmic, lush, affordable]
+    urls:
+      home: "https://valhalladsp.com/valhalla-room"
+    notes: "Exceptional algorithmic reverb. Incredible value."
+
+  - itemId: plug-021
+    name: Valhalla VintageVerb
+    type: plugin
+    category: reverb
+    developer: ValhallaDSP
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2012
+    status: active
+    tags: [algorithmic, vintage, character]
+    urls:
+      home: "https://valhalladsp.com/vintageverb"
+    notes: "Vintage digital reverb algorithms. 1970s-1980s character."
+
+  - itemId: plug-022
+    name: Valhalla Supermassive
+    type: plugin
+    category: reverb
+    developer: ValhallaDSP
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2020
+    status: active
+    tags: [algorithmic, massive, delay, free]
+    urls:
+      home: "https://valhalladsp.com/supermassive"
+    notes: "FREE massive reverb/delay. Exceptional quality."
+
+  - itemId: plug-023
+    name: FabFilter Pro-R
+    type: plugin
+    category: reverb
+    developer: FabFilter
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "2"
+    releaseYear: 2017
+    status: active
+    tags: [algorithmic, visual, EQ-decay]
+    urls:
+      home: "https://fabfilter.com/pro-r"
+    notes: "Innovative decay EQ. Beautiful visual interface."
+
+  - itemId: plug-024
+    name: Altiverb
+    type: plugin
+    category: reverb
+    developer: Audio Ease
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "7"
+    releaseYear: 2001
+    status: active
+    tags: [convolution, impulse-responses, post-production]
+    urls:
+      home: "https://audioease.com/altiverb"
+    notes: "Industry standard convolution reverb. Massive IR library."
+
+  - itemId: plug-025
+    name: Seventh Heaven
+    type: plugin
+    category: reverb
+    developer: LiquidSonics
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2017
+    status: active
+    tags: [convolution, Bricasti, M7]
+    urls:
+      home: "https://liquidsonics.com/seventh-heaven"
+    notes: "Bricasti M7 convolution. Professional version available."
+
+  - itemId: plug-026
+    name: Blackhole
+    type: plugin
+    category: reverb
+    developer: Eventide
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2017
+    status: active
+    tags: [algorithmic, massive, creative, modulated]
+    urls:
+      home: "https://eventideaudio.com/blackhole"
+    notes: "Massive, otherworldly reverb. Sound design essential."
+
+  # ============================================================================
+  # DELAY PLUGINS
+  # ============================================================================
+  - itemId: plug-030
+    name: EchoBoy
+    type: plugin
+    category: delay
+    developer: Soundtoys
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2006
+    status: active
+    tags: [vintage, analog-modeling, character]
+    urls:
+      home: "https://soundtoys.com/echoboy"
+    notes: "The delay plugin. Multiple vintage styles, excellent saturation."
+
+  - itemId: plug-031
+    name: Valhalla Delay
+    type: plugin
+    category: delay
+    developer: ValhallaDSP
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2018
+    status: active
+    tags: [tape, diffusion, vintage, modern]
+    urls:
+      home: "https://valhalladsp.com/valhalla-delay"
+    notes: "Versatile delay. Tape, BBD, digital modes with diffusion."
+
+  - itemId: plug-032
+    name: H-Delay
+    type: plugin
+    category: delay
+    developer: Waves
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2007
+    status: active
+    tags: [hybrid, lofi, filtering]
+    urls:
+      home: "https://waves.com/h-delay"
+    notes: "Versatile hybrid delay. Analog character with modern features."
+
+  - itemId: plug-033
+    name: Timeless
+    type: plugin
+    category: delay
+    developer: FabFilter
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "3"
+    releaseYear: 2009
+    status: active
+    tags: [tape, modulation, visual]
+    urls:
+      home: "https://fabfilter.com/timeless"
+    notes: "FabFilter's delay. Tape-style with extensive modulation."
+
+  - itemId: plug-034
+    name: UltraTap
+    type: plugin
+    category: delay
+    developer: Eventide
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2016
+    status: active
+    tags: [multi-tap, rhythmic, creative]
+    urls:
+      home: "https://eventideaudio.com/ultratap"
+    notes: "Multi-tap delay. Rhythmic, creative delays and reverbs."
+
+  # ============================================================================
+  # SATURATION / DISTORTION PLUGINS
+  # ============================================================================
+  - itemId: plug-040
+    name: Decapitator
+    type: plugin
+    category: saturation
+    developer: Soundtoys
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2009
+    status: active
+    tags: [analog, saturation, character, punish]
+    urls:
+      home: "https://soundtoys.com/decapitator"
+    notes: "Industry standard saturation. Multiple analog models."
+
+  - itemId: plug-041
+    name: Saturn
+    type: plugin
+    category: saturation
+    developer: FabFilter
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "2"
+    releaseYear: 2011
+    status: active
+    tags: [multiband, saturation, modulation]
+    urls:
+      home: "https://fabfilter.com/saturn"
+    notes: "Multiband saturation. Multiple distortion types, modulation."
+
+  - itemId: plug-042
+    name: Tape
+    type: plugin
+    category: saturation
+    developer: Softube
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2013
+    status: active
+    tags: [tape, saturation, warmth]
+    urls:
+      home: "https://softube.com/tape"
+    notes: "Tape saturation and compression. Subtle to extreme."
+
+  - itemId: plug-043
+    name: Trash 2
+    type: plugin
+    category: saturation
+    developer: iZotope
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2012
+    status: active
+    tags: [distortion, convolution, creative]
+    urls:
+      home: "https://izotope.com/trash"
+    notes: "Creative distortion. Convolution trash feature."
+
+  - itemId: plug-044
+    name: Radiator
+    type: plugin
+    category: saturation
+    developer: Soundtoys
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2010
+    status: active
+    tags: [vintage, tube, Altec]
+    urls:
+      home: "https://soundtoys.com/radiator"
+    notes: "Altec 1567A tube mixer emulation."
+
+  # ============================================================================
+  # PITCH / TIME PLUGINS
+  # ============================================================================
+  - itemId: plug-050
+    name: Melodyne
+    type: plugin
+    category: pitch
+    developer: Celemony
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    minVersion: "5"
+    releaseYear: 2001
+    status: active
+    tags: [polyphonic-pitch, time, DNA]
+    urls:
+      home: "https://celemony.com/melodyne"
+    notes: "Industry standard pitch correction. Polyphonic DNA technology."
+
+  - itemId: plug-051
+    name: Auto-Tune
+    type: plugin
+    category: pitch
+    developer: Antares
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 1997
+    status: active
+    tags: [pitch-correction, effect, real-time]
+    urls:
+      home: "https://antarestech.com"
+    notes: "Original pitch correction. Real-time and graphical modes."
+
+  - itemId: plug-052
+    name: VocAlign
+    type: plugin
+    category: pitch
+    developer: Synchro Arts
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2018
+    status: active
+    tags: [alignment, time, doubles]
+    urls:
+      home: "https://synchroarts.com/vocalign"
+    notes: "Automatic vocal alignment. Essential for doubles/stacks."
+
+  - itemId: plug-053
+    name: Revoice Pro
+    type: plugin
+    category: pitch
+    developer: Synchro Arts
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2012
+    status: active
+    tags: [alignment, pitch, time, ADR]
+    urls:
+      home: "https://synchroarts.com/revoice-pro"
+    notes: "Professional time/pitch alignment. ADR workflow."
+
+  - itemId: plug-054
+    name: Little AlterBoy
+    type: plugin
+    category: pitch
+    developer: Soundtoys
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2014
+    status: active
+    tags: [pitch-shift, formant, creative]
+    urls:
+      home: "https://soundtoys.com/little-alterboy"
+    notes: "Real-time pitch/formant shifting. Creative vocal effects."
+
+  # ============================================================================
+  # SPECTRAL / REPAIR PLUGINS
+  # ============================================================================
+  - itemId: plug-060
+    name: RX
+    type: plugin
+    category: spectral
+    developer: iZotope
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    minVersion: "11"
+    releaseYear: 2008
+    status: active
+    tags: [repair, spectral, AI, de-noise, post-production]
+    urls:
+      home: "https://izotope.com/rx"
+    notes: "Industry standard audio repair. AI-powered restoration."
+
+  - itemId: plug-061
+    name: SpectraLayers
+    type: plugin
+    category: spectral
+    developer: Steinberg
+    format: [VST3, AU, Standalone]
+    os: [macOS, Windows]
+    releaseYear: 2012
+    status: active
+    tags: [spectral, editing, AI, unmixing]
+    urls:
+      home: "https://steinberg.net/spectralayers"
+    notes: "Visual spectral editing. AI unmixing."
+
+  - itemId: plug-062
+    name: De-Breath
+    type: plugin
+    category: spectral
+    developer: Waves
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2012
+    status: active
+    tags: [breath-removal, vocal, automatic]
+    urls:
+      home: "https://waves.com"
+    notes: "Automatic breath removal for vocals."
+
+  # ============================================================================
+  # UTILITY PLUGINS
+  # ============================================================================
+  - itemId: plug-070
+    name: Ozone
+    type: plugin
+    category: utility
+    developer: iZotope
+    format: [VST3, AU, AAX, Standalone]
+    os: [macOS, Windows]
+    minVersion: "11"
+    releaseYear: 2005
+    status: active
+    tags: [mastering, AI, suite]
+    urls:
+      home: "https://izotope.com/ozone"
+    notes: "Complete mastering suite. AI-assisted mastering."
+
+  - itemId: plug-071
+    name: FabFilter Pro-L
+    type: plugin
+    category: limiter
+    developer: FabFilter
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "2"
+    releaseYear: 2011
+    status: active
+    tags: [limiter, mastering, loudness, metering]
+    urls:
+      home: "https://fabfilter.com/pro-l"
+    notes: "Transparent mastering limiter. Multiple algorithms."
+
+  - itemId: plug-072
+    name: FabFilter Pro-MB
+    type: plugin
+    category: multiband
+    developer: FabFilter
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2013
+    status: active
+    tags: [multiband, dynamics, visual]
+    urls:
+      home: "https://fabfilter.com/pro-mb"
+    notes: "Multiband dynamics. Expand or compress per band."
+
+  - itemId: plug-073
+    name: Neutron
+    type: plugin
+    category: channel-strip
+    developer: iZotope
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "4"
+    releaseYear: 2016
+    status: active
+    tags: [channel-strip, AI, mixing-assistant]
+    urls:
+      home: "https://izotope.com/neutron"
+    notes: "AI-assisted channel strip. Mix assistant."
+
+  - itemId: plug-074
+    name: SPAN
+    type: plugin
+    category: metering
+    developer: Voxengo
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2007
+    status: active
+    tags: [spectrum-analyzer, metering, free]
+    urls:
+      home: "https://voxengo.com/span"
+    notes: "FREE spectrum analyzer. Industry standard metering."
+
+  - itemId: plug-075
+    name: Insight
+    type: plugin
+    category: metering
+    developer: iZotope
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    minVersion: "2"
+    releaseYear: 2013
+    status: active
+    tags: [metering, loudness, broadcast]
+    urls:
+      home: "https://izotope.com/insight"
+    notes: "Comprehensive metering. LUFS, true peak, spectrum."
+
+  - itemId: plug-076
+    name: bx_meter
+    type: plugin
+    category: metering
+    developer: Plugin Alliance
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2012
+    status: active
+    tags: [metering, M/S, stereo, free]
+    urls:
+      home: "https://plugin-alliance.com"
+    notes: "Free metering. M/S and correlation display."
+
+  # ============================================================================
+  # MODULATION PLUGINS
+  # ============================================================================
+  - itemId: plug-080
+    name: PhaseMistress
+    type: plugin
+    category: modulation
+    developer: Soundtoys
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2016
+    status: active
+    tags: [phaser, vintage, analog]
+    urls:
+      home: "https://soundtoys.com/phasemistress"
+    notes: "Vintage phaser emulation. Multiple classic models."
+
+  - itemId: plug-081
+    name: MicroShift
+    type: plugin
+    category: modulation
+    developer: Soundtoys
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2014
+    status: active
+    tags: [widening, stereo, doubling]
+    urls:
+      home: "https://soundtoys.com/microshift"
+    notes: "Classic stereo widening. H3000 inspired."
+
+  - itemId: plug-082
+    name: Tremolator
+    type: plugin
+    category: modulation
+    developer: Soundtoys
+    format: [VST3, AU, AAX]
+    os: [macOS, Windows]
+    releaseYear: 2010
+    status: active
+    tags: [tremolo, rhythmic, gating]
+    urls:
+      home: "https://soundtoys.com/tremolator"
+    notes: "Rhythmic tremolo and gating. Groove-locked."
+
+# ==============================================================================
+# REGISTRY CONFIGURATION
+# ==============================================================================
+registry:
+  folderLayout:
+    root: /Audio_Registry
+    tree:
+      - "data/: catalog.yaml, index.json"
+      - "manifests/: DAW/, Plugins/, Instruments/"
+      - "checksums/: catalog.md5"
+      - "tools/: ingest/, audit/, export/"
+  files:
+    catalogYaml: data/catalog.yaml
+    indexJson: data/index.json
+  snapshots:
+    cadence: monthly
+    notes: "Archive catalog.yaml + index.json with timestamp; compute MD5 for audit."
+
+# ==============================================================================
+# WORKFLOWS
+# ==============================================================================
+workflows:
+  ingest:
+    - step: 1
+      action: "Add cornerstone items per decade"
+      details: "50 per decade min; prioritize DAWs, landmark synths/effects."
+    - step: 2
+      action: "Normalize fields"
+      details: "types, categories, formats, OS, status."
+    - step: 3
+      action: "Attach URLs"
+      details: "vendor homepage/doc links for verification."
+    - step: 4
+      action: "Validate schema"
+      details: "Ensure all required fields present."
+
+  audit:
+    - step: 1
+      action: "Completeness check"
+      details: "Check required fields; flag missing format/os/year."
+    - step: 2
+      action: "Counts summary"
+      details: "Items by type/category/developer; trend since last snapshot."
+    - step: 3
+      action: "Health assessment"
+      details: "deprecated/legacy ratio; OS coverage (macOS/Windows/Linux)."
+
+  export:
+    - format: JSON
+      details: "Compact index for dashboards."
+      file: index.json
+    - format: CSV
+      details: "Optional for bulk edits/imports."
+      file: catalog.csv
+    - format: "Quick Load stubs"
+      details: "Generate NKIs/multis shortcuts (Kontakt)."
+
+  contactSheet:
+    - action: "Developer constellations"
+      details: "Group items per developer for cockpit display."
+    - action: "Decade timelines"
+      details: "Render evolution view with key leaps and flagship items."
+
+# ==============================================================================
+# CLI SPECIFICATION
+# ==============================================================================
+cli:
+  name: audiocat
+  version: "1.0.0"
+  commands:
+    init:
+      description: "Create /Audio_Registry with data/manifests/checksums"
+      flags:
+        - name: --root
+          description: "Root directory for registry"
+          default: "./Audio_Registry"
+    add:
+      description: "Add one item (flags map to schema fields)"
+      flags:
+        - name: --name
+          required: true
+        - name: --type
+          required: true
+        - name: --category
+          required: true
+        - name: --developer
+          required: true
+        - name: --format
+          required: false
+        - name: --os
+          required: false
+        - name: --releaseYear
+          required: false
+        - name: --tags
+          required: false
+        - name: --status
+          default: active
+    import:
+      description: "Merge CSV into catalog.yaml"
+      flags:
+        - name: --file
+          required: true
+    export:
+      description: "Write index.json (for MissionControl96 dashboards)"
+      flags:
+        - name: --format
+          default: json
+          options: [json, csv]
+        - name: --output
+          default: index.json
+    audit:
+      description: "Print summary (counts, gaps)"
+      flags:
+        - name: --verbose
+          description: "Show detailed report"
+  examples:
+    - cmd: 'audiocat init --root "/Audio_Registry"'
+      description: "Initialize registry structure"
+    - cmd: 'audiocat add --name "Serum" --type plugin --category synth --developer "Xfer Records" --format "VST3 AU" --os "macOS Windows" --releaseYear 2014 --tags "wavetable modulation"'
+      description: "Add new plugin"
+    - cmd: 'audiocat audit'
+      description: "Run audit report"
+    - cmd: 'audiocat export index.json'
+      description: "Export to JSON"
+
+# ==============================================================================
+# POLICIES
+# ==============================================================================
+policies:
+  naming:
+    - rule: "NOIZY protocol"
+      details: "Always capitalize NOIZY."
+    - rule: "Voices"
+      details: "Always use full legal names in manifests."
+    - rule: "Developer names"
+      details: "Use official company name, not abbreviations."
+
+  accessibility:
+    - rule: "Dashboards"
+      details: "Large-tile touch, voice/gaze/switch control friendly."
+    - rule: "Font sizes"
+      details: "Minimum 14pt for readability."
+    - rule: "Color contrast"
+      details: "WCAG AA compliant."
+
+  auditability:
+    - rule: "Idempotent updates"
+      details: "Every CLI command preserves order and diffs."
+    - rule: "Checksums"
+      details: "Compute MD5 for catalog files after each export."
+    - rule: "Version control"
+      details: "All changes tracked in git."
+
+# ==============================================================================
+# EXTENSIONS / INTEGRATIONS
+# ==============================================================================
+extensions:
+  bridges:
+    MissionControl96:
+      description: "index.json feeds cockpit panels and filters."
+      endpoint: "/api/audio-catalog"
+    HomeAssistant:
+      description: "Expose counts and health via sensors for status tiles."
+      sensors:
+        - sensor.audio_catalog_total_items
+        - sensor.audio_catalog_active_count
+        - sensor.audio_catalog_health_score
+    NodeRED:
+      description: "Trigger monthly audits and timeline renders."
+      flows:
+        - monthly-audit-flow
+        - timeline-export-flow
+
+  future:
+    CLAP_tracking:
+      description: "Add CLAP adoption status per plugin."
+      priority: high
+    Atmos_readiness:
+      description: "Flags for DAWs/plugins supporting Atmos."
+      priority: high
+    MPE_support:
+      description: "Tag instruments and DAWs that implement MPE."
+      priority: medium
+    AI_features:
+      description: "Track AI-assisted features per tool."
+      priority: medium
+
+# ==============================================================================
+# NOTES
+# ==============================================================================
+notes:
+  - "Scope honesty: This canon is living; completeness grows via monthly ingest."
+  - "Kontakt open-format: 8Dio libraries organize via Files/Quick Load; include per-library manifests."
+  - "Curation lens: Prioritize landmark, active, and mission-critical tools before deep backfill."
+  - "Cross-platform: Prioritize items with macOS AND Windows support."
+  - "Format evolution: Track VST2 sunset and CLAP adoption."

@@ -1,0 +1,930 @@
+# ==============================================================================
+# THE LIBRARIAN - REPAIR TOOLS & AI MODELS MANIFEST
+# ==============================================================================
+# Comprehensive registry of audio/video repair tools, AI models, and workflows
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Audio/Video Repair Tools & AI Models
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  owner: Rob (Fish Music Inc. / MissionControl96 / NOIZYLAB)
+  purpose: |
+    Complete reference for audio and video repair, restoration, and enhancement
+    tools including traditional DSP, machine learning models, and AI-powered
+    solutions. Designed for integration with MissionControl96 dashboards and
+    third-party AI assistants.
+
+# ==============================================================================
+# TAXONOMY - Repair Categories
+# ==============================================================================
+taxonomy:
+  repair_categories:
+    - noise_reduction
+    - de_reverb
+    - de_clip
+    - de_click
+    - de_crackle
+    - de_hum
+    - de_ess
+    - de_plosive
+    - de_breath
+    - dialogue_isolation
+    - stem_separation
+    - spectral_repair
+    - time_alignment
+    - pitch_correction
+    - audio_restoration
+    - video_repair
+    - upscaling
+    - frame_interpolation
+    - stabilization
+    - color_correction
+
+  ai_model_types:
+    - neural_network
+    - deep_learning
+    - machine_learning
+    - spectral_analysis
+    - source_separation
+    - speech_recognition
+    - generative
+    - transformer
+    - diffusion
+
+# ==============================================================================
+# PROFESSIONAL REPAIR SUITES
+# ==============================================================================
+professional_suites:
+  - id: repair-001
+    name: iZotope RX
+    developer: iZotope (Native Instruments)
+    version: "11"
+    type: suite
+    category: [audio_restoration, spectral_repair, dialogue_isolation]
+    platform: [macOS, Windows]
+    format: [VST3, AU, AAX, Standalone]
+    pricing: subscription_perpetual
+    url: "https://izotope.com/rx"
+    ai_powered: true
+    modules:
+      - name: Spectral De-noise
+        ai: true
+        description: "AI-powered noise reduction with learned profiles"
+      - name: Voice De-noise
+        ai: true
+        description: "Neural network trained on voice recordings"
+      - name: Dialogue Isolate
+        ai: true
+        description: "Separate dialogue from background using ML"
+      - name: Music Rebalance
+        ai: true
+        description: "AI stem separation for remixing"
+      - name: De-clip
+        ai: false
+        description: "Reconstruct clipped waveforms"
+      - name: De-click
+        ai: false
+        description: "Remove clicks and pops"
+      - name: De-crackle
+        ai: false
+        description: "Remove vinyl crackle and surface noise"
+      - name: De-hum
+        ai: false
+        description: "Remove electrical hum and buzz"
+      - name: De-reverb
+        ai: true
+        description: "Reduce room reverb and reflections"
+      - name: De-rustle
+        ai: false
+        description: "Remove lavalier and clothing rustle"
+      - name: De-wind
+        ai: false
+        description: "Remove wind noise from recordings"
+      - name: Spectral Repair
+        ai: false
+        description: "Paint out unwanted sounds spectrally"
+      - name: Breath Control
+        ai: false
+        description: "Reduce or remove breath sounds"
+      - name: Mouth De-click
+        ai: false
+        description: "Remove mouth clicks and smacks"
+      - name: De-ess
+        ai: false
+        description: "Reduce sibilance"
+      - name: De-plosive
+        ai: false
+        description: "Remove p-pops and plosives"
+      - name: Repair Assistant
+        ai: true
+        description: "AI analyzes and suggests repairs"
+    notes: "Industry standard for post-production. Integrates with Pro Tools, Logic, and all major DAWs."
+
+  - id: repair-002
+    name: SpectraLayers Pro
+    developer: Steinberg
+    version: "11"
+    type: suite
+    category: [spectral_repair, stem_separation, audio_restoration]
+    platform: [macOS, Windows]
+    format: [VST3, AU, Standalone]
+    pricing: perpetual
+    url: "https://steinberg.net/spectralayers"
+    ai_powered: true
+    modules:
+      - name: Unmix Stems
+        ai: true
+        description: "AI-powered stem separation (vocals, drums, bass, other)"
+      - name: Unmix Components
+        ai: true
+        description: "Separate tonal, noise, and transient layers"
+      - name: Voice Denoiser
+        ai: true
+        description: "Neural voice isolation and cleaning"
+      - name: Spectral Casting
+        ai: false
+        description: "Transfer spectral characteristics"
+      - name: Spectral Molding
+        ai: false
+        description: "Shape and sculpt frequency content"
+      - name: Repair Layer
+        ai: false
+        description: "Non-destructive spectral editing"
+    notes: "Visual spectral editing with AI separation. Integrates with Cubase/Nuendo via ARA2."
+
+  - id: repair-003
+    name: Acoustica Premium
+    developer: Acon Digital
+    version: "7"
+    type: suite
+    category: [audio_restoration, spectral_repair]
+    platform: [macOS, Windows]
+    format: [Standalone]
+    pricing: perpetual
+    url: "https://acondigital.com/acoustica"
+    ai_powered: false
+    modules:
+      - name: DeNoise
+        description: "Broadband noise reduction"
+      - name: DeHum
+        description: "Hum and buzz removal"
+      - name: DeClick
+        description: "Click and pop removal"
+      - name: DeCrackle
+        description: "Surface noise removal"
+      - name: DeClip
+        description: "Clipping restoration"
+      - name: Spectral Editor
+        description: "Visual spectral editing"
+    notes: "Excellent value restoration suite. Clean UI, efficient processing."
+
+  - id: repair-004
+    name: Cedar Studio
+    developer: Cedar Audio
+    version: "Current"
+    type: suite
+    category: [audio_restoration, broadcast]
+    platform: [macOS, Windows]
+    format: [VST3, AU, AAX, Standalone]
+    pricing: premium_perpetual
+    url: "https://cedaraudio.com"
+    ai_powered: false
+    modules:
+      - name: DNS (Dialogue Noise Suppressor)
+        description: "Broadcast-quality noise suppression"
+      - name: Auto Dehiss
+        description: "Automatic hiss removal"
+      - name: Declip
+        description: "Professional declipping"
+      - name: Declick
+        description: "Click removal"
+      - name: Decrackle
+        description: "Crackle removal"
+    notes: "Broadcast and film industry standard. Premium pricing but exceptional quality."
+
+# ==============================================================================
+# AI-POWERED TOOLS & MODELS
+# ==============================================================================
+ai_tools:
+  # Speech & Dialogue
+  - id: ai-001
+    name: Adobe Podcast / Enhance Speech
+    developer: Adobe
+    type: cloud_service
+    category: [dialogue_isolation, noise_reduction, de_reverb]
+    platform: [Web]
+    pricing: free_tier
+    url: "https://podcast.adobe.com"
+    model_type: deep_learning
+    capabilities:
+      - Speech enhancement
+      - Noise reduction
+      - Reverb removal
+      - Level normalization
+    api_available: false
+    notes: "Free web-based speech enhancement. Excellent for quick dialogue cleanup."
+
+  - id: ai-002
+    name: Waves Clarity Vx
+    developer: Waves
+    type: plugin
+    category: [dialogue_isolation, noise_reduction, de_reverb]
+    platform: [macOS, Windows]
+    format: [VST3, AU, AAX]
+    pricing: perpetual
+    url: "https://waves.com/clarity-vx"
+    model_type: neural_network
+    capabilities:
+      - Real-time voice isolation
+      - Background noise removal
+      - Reverb reduction
+      - Low latency processing
+    notes: "Neural network voice isolation. Works in real-time for live applications."
+
+  - id: ai-003
+    name: Waves Clarity Vx DeReverb
+    developer: Waves
+    type: plugin
+    category: [de_reverb]
+    platform: [macOS, Windows]
+    format: [VST3, AU, AAX]
+    pricing: perpetual
+    url: "https://waves.com/clarity-vx-dereverb"
+    model_type: neural_network
+    capabilities:
+      - AI reverb removal
+      - Room sound reduction
+      - Real-time processing
+    notes: "Dedicated AI de-reverb. Works with Clarity Vx for complete cleanup chain."
+
+  - id: ai-004
+    name: NVIDIA RTX Voice / Broadcast
+    developer: NVIDIA
+    type: system_utility
+    category: [noise_reduction, dialogue_isolation]
+    platform: [Windows]
+    pricing: free
+    url: "https://nvidia.com/broadcast"
+    model_type: deep_learning
+    requirements: "NVIDIA RTX GPU required"
+    capabilities:
+      - Real-time noise suppression
+      - Background removal (video)
+      - Auto-frame (video)
+      - Virtual background
+    notes: "GPU-accelerated. System-wide audio/video enhancement. Requires RTX GPU."
+
+  # Stem Separation
+  - id: ai-010
+    name: LALAL.AI
+    developer: LALAL.AI
+    type: cloud_service
+    category: [stem_separation]
+    platform: [Web, macOS, Windows]
+    pricing: credits
+    url: "https://lalal.ai"
+    model_type: neural_network
+    models:
+      - name: Orion
+        description: "Latest model, best quality separation"
+      - name: Phoenix
+        description: "Balanced speed and quality"
+      - name: Cassiopeia
+        description: "Fast processing"
+    stem_types:
+      - vocals
+      - instrumental
+      - drums
+      - bass
+      - guitar
+      - piano
+      - synthesizer
+      - strings
+      - wind_instruments
+    api_available: true
+    notes: "High-quality cloud stem separation. API available for integration."
+
+  - id: ai-011
+    name: Demucs
+    developer: Meta AI Research
+    type: open_source
+    category: [stem_separation]
+    platform: [macOS, Windows, Linux]
+    pricing: free
+    url: "https://github.com/facebookresearch/demucs"
+    model_type: deep_learning
+    models:
+      - name: htdemucs
+        description: "Hybrid transformer model"
+      - name: htdemucs_ft
+        description: "Fine-tuned version"
+      - name: mdx_extra
+        description: "MDX challenge winner"
+    stem_types:
+      - vocals
+      - drums
+      - bass
+      - other
+    api_available: true
+    local_processing: true
+    notes: "Open source from Meta. Can run locally. State-of-the-art separation quality."
+
+  - id: ai-012
+    name: Spleeter
+    developer: Deezer Research
+    type: open_source
+    category: [stem_separation]
+    platform: [macOS, Windows, Linux]
+    pricing: free
+    url: "https://github.com/deezer/spleeter"
+    model_type: neural_network
+    models:
+      - name: 2stems
+        description: "Vocals + accompaniment"
+      - name: 4stems
+        description: "Vocals + drums + bass + other"
+      - name: 5stems
+        description: "Vocals + drums + bass + piano + other"
+    api_available: true
+    local_processing: true
+    notes: "Pioneer open source separator. Fast, good quality. Good for batch processing."
+
+  - id: ai-013
+    name: AudioShake
+    developer: AudioShake
+    type: cloud_service
+    category: [stem_separation, dialogue_isolation]
+    platform: [Web, API]
+    pricing: enterprise
+    url: "https://audioshake.ai"
+    model_type: deep_learning
+    capabilities:
+      - High-quality stem separation
+      - Dialogue isolation for film
+      - Lyric transcription
+      - Sync licensing preparation
+    api_available: true
+    notes: "Enterprise-grade separation. Used by major labels and studios."
+
+  - id: ai-014
+    name: RipX
+    developer: Hit'n'Mix
+    type: standalone
+    category: [stem_separation, audio_editing]
+    platform: [macOS, Windows]
+    pricing: perpetual
+    url: "https://hitnmix.com/ripx"
+    model_type: neural_network
+    capabilities:
+      - Stem separation
+      - Note-level editing
+      - Pitch correction
+      - Time stretching
+    notes: "Unique note-level editing after separation. Creative remix tool."
+
+  # Upscaling & Enhancement
+  - id: ai-020
+    name: Adobe Podcast Enhance
+    developer: Adobe
+    type: cloud_service
+    category: [audio_enhancement, upscaling]
+    platform: [Web]
+    pricing: free
+    url: "https://podcast.adobe.com/enhance"
+    model_type: deep_learning
+    capabilities:
+      - Automatic enhancement
+      - Studio-quality upgrade
+      - Background removal
+    notes: "Free, one-click enhancement. Good for podcasts and voice content."
+
+  - id: ai-021
+    name: Auphonic
+    developer: Auphonic
+    type: cloud_service
+    category: [audio_enhancement, loudness, noise_reduction]
+    platform: [Web, API]
+    pricing: credits
+    url: "https://auphonic.com"
+    model_type: machine_learning
+    capabilities:
+      - Automatic leveling
+      - Noise reduction
+      - Loudness normalization
+      - Multitrack processing
+      - Podcast production
+    api_available: true
+    notes: "Automated podcast/broadcast production. API for integration."
+
+  # Video AI Tools
+  - id: ai-030
+    name: Topaz Video AI
+    developer: Topaz Labs
+    type: standalone
+    category: [video_upscaling, frame_interpolation, stabilization]
+    platform: [macOS, Windows]
+    pricing: perpetual
+    url: "https://topazlabs.com/video-ai"
+    model_type: deep_learning
+    capabilities:
+      - Video upscaling (up to 16K)
+      - Frame interpolation (slow motion)
+      - Stabilization
+      - Deinterlacing
+      - Grain removal
+      - Motion deblur
+    models:
+      - name: Proteus
+        description: "General enhancement"
+      - name: Gaia
+        description: "CG and animation"
+      - name: Artemis
+        description: "Low quality footage"
+      - name: Chronos
+        description: "Frame interpolation"
+      - name: Apollo
+        description: "Slow motion"
+    notes: "Industry leader for video upscaling. Local GPU processing."
+
+  - id: ai-031
+    name: DaVinci Resolve Neural Engine
+    developer: Blackmagic Design
+    type: integrated
+    category: [video_upscaling, face_refinement, object_removal]
+    platform: [macOS, Windows, Linux]
+    pricing: free_studio
+    url: "https://blackmagicdesign.com/davinci-resolve"
+    model_type: deep_learning
+    capabilities:
+      - Super Scale (upscaling)
+      - Speed Warp (frame interpolation)
+      - Face Refinement
+      - Object Removal
+      - Magic Mask
+      - Voice Isolation
+    notes: "Built into DaVinci Resolve Studio. Requires Studio version for most AI features."
+
+  - id: ai-032
+    name: Runway ML
+    developer: Runway
+    type: cloud_service
+    category: [video_generation, video_editing, object_removal]
+    platform: [Web, API]
+    pricing: subscription
+    url: "https://runwayml.com"
+    model_type: diffusion
+    capabilities:
+      - Gen-2 video generation
+      - Inpainting (remove objects)
+      - Background removal
+      - Text to video
+      - Image to video
+      - Motion tracking
+    api_available: true
+    notes: "Cutting-edge generative video AI. Used for creative and repair workflows."
+
+  - id: ai-033
+    name: Descript
+    developer: Descript
+    type: standalone
+    category: [audio_video_editing, transcription, overdub]
+    platform: [macOS, Windows, Web]
+    pricing: subscription
+    url: "https://descript.com"
+    model_type: deep_learning
+    capabilities:
+      - Text-based video/audio editing
+      - Automatic transcription
+      - Overdub (voice cloning)
+      - Studio Sound (enhancement)
+      - Filler word removal
+      - Eye contact correction
+      - Green screen removal
+    notes: "Revolutionary text-based editing. Edit audio/video like a document."
+
+# ==============================================================================
+# OPEN SOURCE AI MODELS
+# ==============================================================================
+open_source_models:
+  - id: oss-001
+    name: Whisper
+    developer: OpenAI
+    type: transcription
+    category: [speech_recognition, transcription]
+    url: "https://github.com/openai/whisper"
+    license: MIT
+    capabilities:
+      - Multilingual transcription
+      - Translation
+      - Language detection
+      - Timestamp generation
+    models:
+      - tiny
+      - base
+      - small
+      - medium
+      - large
+      - large-v2
+      - large-v3
+    local_processing: true
+    notes: "State-of-the-art transcription. Can run locally. Supports 99 languages."
+
+  - id: oss-002
+    name: Vosk
+    developer: Alpha Cephei
+    type: transcription
+    category: [speech_recognition]
+    url: "https://alphacephei.com/vosk"
+    license: Apache 2.0
+    capabilities:
+      - Offline speech recognition
+      - Lightweight models
+      - Streaming recognition
+      - Speaker identification
+    local_processing: true
+    notes: "Lightweight offline transcription. Good for embedded and mobile."
+
+  - id: oss-003
+    name: Silero VAD
+    developer: Silero
+    type: utility
+    category: [voice_activity_detection]
+    url: "https://github.com/snakers4/silero-vad"
+    license: MIT
+    capabilities:
+      - Voice activity detection
+      - Silence detection
+      - Real-time processing
+    local_processing: true
+    notes: "Fast, accurate VAD. Useful for preprocessing before other AI tools."
+
+  - id: oss-004
+    name: Resemblyzer
+    developer: Resemble AI
+    type: utility
+    category: [speaker_identification]
+    url: "https://github.com/resemble-ai/Resemblyzer"
+    license: Apache 2.0
+    capabilities:
+      - Speaker embedding
+      - Speaker verification
+      - Speaker diarization
+    local_processing: true
+    notes: "Speaker identification and verification. Good for diarization workflows."
+
+  - id: oss-005
+    name: AudioLDM
+    developer: Various
+    type: generative
+    category: [audio_generation, sound_design]
+    url: "https://github.com/haoheliu/AudioLDM"
+    license: Various
+    capabilities:
+      - Text-to-audio generation
+      - Audio inpainting
+      - Style transfer
+    local_processing: true
+    notes: "Generate audio from text descriptions. Useful for sound design and repair."
+
+  - id: oss-006
+    name: Stable Audio
+    developer: Stability AI
+    type: generative
+    category: [audio_generation, music_generation]
+    url: "https://stability.ai/stable-audio"
+    license: Community
+    capabilities:
+      - Text-to-music generation
+      - Sound effect generation
+      - Audio continuation
+    notes: "High-quality generative audio. Can fill gaps and extend recordings."
+
+# ==============================================================================
+# REPAIR WORKFLOWS - AI HOST GUIDE
+# ==============================================================================
+repair_workflows:
+  dialogue_cleanup:
+    name: "Complete Dialogue Cleanup Chain"
+    description: "Full workflow for cleaning dialogue/voiceover recordings"
+    difficulty: intermediate
+    estimated_time: "15-30 min per minute of audio"
+    tools_required:
+      primary: ["iZotope RX", "Waves Clarity Vx"]
+      alternative: ["Adobe Podcast", "Acoustica"]
+    steps:
+      - order: 1
+        name: "Initial Analysis"
+        action: "Listen through entire recording, note problem areas"
+        tools: ["Any DAW", "RX Spectral view"]
+        ai_assist: "RX Repair Assistant can auto-detect issues"
+
+      - order: 2
+        name: "Dialogue Isolation"
+        action: "Separate speech from background noise/music"
+        tools: ["RX Dialogue Isolate", "Clarity Vx"]
+        ai_assist: "Neural network separation"
+        parameters:
+          sensitivity: "Start at 5, increase if needed"
+          separation_amount: "100% for severe cases, 50-75% for mild"
+
+      - order: 3
+        name: "De-reverb"
+        action: "Remove room sound and reflections"
+        tools: ["RX De-reverb", "Clarity Vx DeReverb"]
+        ai_assist: "AI reverb profile learning"
+        parameters:
+          reduction: "Start at 3-4 dB, avoid over-processing"
+          tail_length: "Match actual room reverb time"
+
+      - order: 4
+        name: "Noise Reduction"
+        action: "Remove broadband noise floor"
+        tools: ["RX Spectral De-noise", "Acon DeNoise"]
+        ai_assist: "Voice De-noise uses trained neural network"
+        parameters:
+          threshold: "2-4 dB above noise floor"
+          reduction: "6-12 dB typically"
+
+      - order: 5
+        name: "De-click / Mouth Noise"
+        action: "Remove clicks, pops, mouth sounds"
+        tools: ["RX Mouth De-click", "RX De-click"]
+        parameters:
+          sensitivity: "4-6 for mouth noise"
+          frequency_skew: "Center for general, high for sibilance"
+
+      - order: 6
+        name: "De-plosive"
+        action: "Remove P-pops and breath plosives"
+        tools: ["RX De-plosive"]
+        parameters:
+          sensitivity: "5-7"
+          frequency: "Focus below 200Hz"
+
+      - order: 7
+        name: "De-ess"
+        action: "Reduce harsh sibilance"
+        tools: ["RX De-ess", "FabFilter Pro-DS"]
+        parameters:
+          threshold: "Set to catch peaks"
+          frequency: "4-8kHz range"
+
+      - order: 8
+        name: "Breath Reduction"
+        action: "Reduce or remove breaths"
+        tools: ["RX Breath Control", "Waves DeBreath"]
+        parameters:
+          target_gain: "-12 to -18dB reduction"
+          sensitivity: "6-8"
+
+      - order: 9
+        name: "EQ & Presence"
+        action: "Shape tone, add clarity"
+        tools: ["Any EQ", "Neutron"]
+        ai_assist: "Neutron AI EQ suggestion"
+
+      - order: 10
+        name: "Final Limiting"
+        action: "Normalize levels, limit peaks"
+        tools: ["RX Loudness", "FabFilter Pro-L"]
+        parameters:
+          target_loudness: "-16 LUFS for podcast, -24 for broadcast"
+
+  stem_separation:
+    name: "AI Stem Separation Workflow"
+    description: "Separate mixed audio into individual stems for repair or remix"
+    difficulty: beginner
+    tools_required:
+      primary: ["LALAL.AI", "Demucs", "RX Music Rebalance"]
+      alternative: ["Spleeter", "SpectraLayers"]
+    steps:
+      - order: 1
+        name: "Prepare Source"
+        action: "Export highest quality version available"
+        notes: "WAV/AIFF preferred, 44.1kHz+ sample rate"
+
+      - order: 2
+        name: "Choose Model"
+        action: "Select appropriate AI model for content"
+        recommendations:
+          pop_rock: "Demucs htdemucs_ft"
+          classical: "Demucs htdemucs"
+          electronic: "LALAL.AI Orion"
+          vocals_only: "LALAL.AI or Spleeter 2stems"
+
+      - order: 3
+        name: "Run Separation"
+        action: "Process through chosen AI model"
+        tools: ["LALAL.AI web", "Demucs CLI", "SpectraLayers"]
+
+      - order: 4
+        name: "Evaluate Results"
+        action: "Check each stem for artifacts and bleed"
+        common_issues:
+          - "Vocal remnants in instrumental"
+          - "Drum bleed in bass stem"
+          - "Artifacts in reverb tails"
+
+      - order: 5
+        name: "Clean Individual Stems"
+        action: "Apply repairs to each stem"
+        tools: ["RX", "SpectraLayers"]
+
+      - order: 6
+        name: "Phase Alignment"
+        action: "If recombining, check phase relationships"
+        tools: ["Any DAW", "RX"]
+
+  video_restoration:
+    name: "Video Restoration & Upscaling"
+    description: "Restore and enhance old or low-quality video"
+    difficulty: advanced
+    tools_required:
+      primary: ["Topaz Video AI", "DaVinci Resolve"]
+      alternative: ["After Effects", "Premiere Pro"]
+    steps:
+      - order: 1
+        name: "Source Analysis"
+        action: "Analyze source quality, issues, format"
+        checklist:
+          - "Original resolution and frame rate"
+          - "Compression artifacts"
+          - "Interlacing"
+          - "Grain/noise level"
+          - "Color issues"
+
+      - order: 2
+        name: "Deinterlace (if needed)"
+        action: "Convert interlaced to progressive"
+        tools: ["Topaz Video AI", "DaVinci Resolve"]
+
+      - order: 3
+        name: "Stabilization"
+        action: "Remove camera shake"
+        tools: ["DaVinci Resolve Stabilizer", "Topaz"]
+
+      - order: 4
+        name: "Noise/Grain Reduction"
+        action: "Reduce video noise while preserving detail"
+        tools: ["Topaz Proteus", "DaVinci Resolve NR"]
+        parameters:
+          strength: "Balance between clean and natural"
+
+      - order: 5
+        name: "Upscaling"
+        action: "Increase resolution with AI enhancement"
+        tools: ["Topaz Video AI"]
+        models:
+          general: "Proteus"
+          animation: "Gaia"
+          low_quality: "Artemis"
+
+      - order: 6
+        name: "Frame Interpolation"
+        action: "Increase frame rate (optional)"
+        tools: ["Topaz Chronos/Apollo"]
+
+      - order: 7
+        name: "Color Correction"
+        action: "Fix color issues, grade"
+        tools: ["DaVinci Resolve Color"]
+
+      - order: 8
+        name: "Export"
+        action: "Export at target quality"
+        recommendations:
+          codec: "ProRes, DNxHR, or H.265"
+          bitrate: "High enough to preserve quality"
+
+# ==============================================================================
+# API & INTEGRATION ENDPOINTS
+# ==============================================================================
+api_integrations:
+  available_apis:
+    - name: LALAL.AI API
+      url: "https://lalal.ai/api"
+      auth: api_key
+      capabilities: [stem_separation]
+      pricing: credits
+
+    - name: Auphonic API
+      url: "https://auphonic.com/api"
+      auth: api_key
+      capabilities: [audio_enhancement, loudness]
+      pricing: credits
+
+    - name: AssemblyAI
+      url: "https://assemblyai.com"
+      auth: api_key
+      capabilities: [transcription, speaker_diarization]
+      pricing: per_minute
+
+    - name: Deepgram
+      url: "https://deepgram.com"
+      auth: api_key
+      capabilities: [transcription, real_time]
+      pricing: per_minute
+
+    - name: Runway ML API
+      url: "https://runwayml.com/api"
+      auth: api_key
+      capabilities: [video_generation, inpainting]
+      pricing: credits
+
+    - name: OpenAI Whisper API
+      url: "https://platform.openai.com"
+      auth: api_key
+      capabilities: [transcription, translation]
+      pricing: per_minute
+
+  local_models:
+    - name: Whisper.cpp
+      url: "https://github.com/ggerganov/whisper.cpp"
+      capabilities: [transcription]
+      requirements: "CPU or GPU"
+
+    - name: Demucs
+      url: "https://github.com/facebookresearch/demucs"
+      capabilities: [stem_separation]
+      requirements: "Python, PyTorch, GPU recommended"
+
+    - name: Silero Models
+      url: "https://github.com/snakers4/silero-models"
+      capabilities: [TTS, STT, VAD]
+      requirements: "Python, PyTorch"
+
+# ==============================================================================
+# HOST ASSISTANT CONFIGURATION
+# ==============================================================================
+host_assistant:
+  name: "THE LIBRARIAN - Repair Guide"
+  capabilities:
+    - "Recommend tools for specific repair tasks"
+    - "Guide through repair workflows step-by-step"
+    - "Suggest AI models for automation"
+    - "Estimate processing time and complexity"
+    - "Provide parameter recommendations"
+    - "Troubleshoot common issues"
+
+  prompts:
+    greeting: |
+      Welcome to THE LIBRARIAN Repair Guide.
+      I can help you with:
+      - Audio restoration and cleanup
+      - Video repair and upscaling
+      - AI-powered stem separation
+      - Dialogue isolation and enhancement
+
+      What would you like to repair today?
+
+    task_analysis: |
+      Analyzing your repair task...
+      Source: {source_type}
+      Issues detected: {issues}
+      Recommended workflow: {workflow}
+      Estimated time: {time_estimate}
+
+    tool_recommendation: |
+      For {task}, I recommend:
+      Primary: {primary_tool}
+      Alternative: {alt_tool}
+      AI-assisted: {ai_option}
+
+    workflow_step: |
+      Step {step_num}/{total_steps}: {step_name}
+      Action: {action}
+      Tool: {tool}
+      Parameters: {params}
+
+      Ready to proceed? [Y/n]
+
+# ==============================================================================
+# NOTES & BEST PRACTICES
+# ==============================================================================
+notes:
+  general:
+    - "Always work on copies, never original files"
+    - "Process in order: isolation > de-reverb > de-noise > detail work"
+    - "Less is more - subtle processing often sounds better"
+    - "AI tools work best with clean, high-bitrate sources"
+    - "Compare frequently with original to avoid over-processing"
+
+  audio_tips:
+    - "For dialogue: prioritize clarity over removing all artifacts"
+    - "De-reverb before de-noise for best results"
+    - "Use AI separation for severe problems, traditional tools for polish"
+    - "Export stems at same sample rate as source"
+
+  video_tips:
+    - "Upscale in reasonable increments (2x at a time)"
+    - "Match film grain if removing noise from film content"
+    - "Frame interpolation can cause artifacts on fast motion"
+    - "Color correct after restoration, not before"
+
+  integration:
+    - "Most AI APIs support batch processing"
+    - "Local models offer privacy and no per-use costs"
+    - "Cloud services are better for occasional use"
+    - "Consider hybrid workflows: local preprocessing + cloud AI"

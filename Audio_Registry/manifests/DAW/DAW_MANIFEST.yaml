@@ -1,0 +1,437 @@
+# ==============================================================================
+# THE LIBRARIAN - DAW MANIFEST
+# ==============================================================================
+# Complete registry of Digital Audio Workstations
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Digital Audio Workstations (DAWs)
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  totalItems: 25
+
+# ==============================================================================
+# TIER 1 - INDUSTRY STANDARDS
+# ==============================================================================
+tier1_industry_standard:
+  - id: daw-001
+    name: Ableton Live
+    developer: Ableton
+    headquarters: Berlin, Germany
+    currentVersion: "12.1"
+    releaseYear: 2001
+    platform: [macOS, Windows]
+    pluginFormats: [VST3, AU]
+    pricing:
+      intro: 99
+      standard: 449
+      suite: 749
+      currency: USD
+    features:
+      session_view: true
+      arrangement_view: true
+      max_for_live: true
+      comping: true
+      MPE: true
+      linked_tracks: true
+      atmos: false
+    strengths:
+      - "Clip-based workflow for electronic music"
+      - "Max for Live integration"
+      - "Industry standard for live performance"
+      - "Excellent warping and time-stretching"
+      - "Push integration"
+    weaknesses:
+      - "No Dolby Atmos support"
+      - "Score editing limited"
+      - "High price for Suite"
+    stock_plugins:
+      instruments: [Wavetable, Operator, Sampler, Simpler, Analog, Collision, Tension, Electric, Drift]
+      effects: [Hybrid Reverb, Spectral Resonator, Spectral Time, Corpus, Amp, Vocoder]
+    url: "https://ableton.com"
+
+  - id: daw-002
+    name: Logic Pro
+    developer: Apple
+    headquarters: Cupertino, USA
+    currentVersion: "11.1"
+    releaseYear: 1993
+    platform: [macOS, iPadOS]
+    pluginFormats: [AU]
+    pricing:
+      full: 199
+      currency: USD
+    features:
+      session_view: true
+      arrangement_view: true
+      score_editor: true
+      comping: true
+      MPE: true
+      atmos: true
+      spatial_audio: true
+    strengths:
+      - "Incredible value - all features for $199"
+      - "Best stock plugins in any DAW"
+      - "Full Atmos support"
+      - "Excellent MIDI editing"
+      - "Seamless Apple ecosystem"
+    weaknesses:
+      - "macOS only"
+      - "No VST support"
+    stock_plugins:
+      instruments: [Alchemy, Sampler, Drum Machine Designer, Retro Synth, ES2, Sculpture, Studio Strings/Horns/Brass]
+      effects: [Space Designer, ChromaVerb, Multipressor, Linear Phase EQ, Match EQ]
+    url: "https://apple.com/logic-pro"
+
+  - id: daw-003
+    name: Pro Tools
+    developer: Avid
+    headquarters: Burlington, USA
+    currentVersion: "2024.6"
+    releaseYear: 1989
+    platform: [macOS, Windows]
+    pluginFormats: [AAX]
+    pricing:
+      artist: 99/year
+      studio: 299/year
+      flex: 599/year
+      currency: USD
+    features:
+      session_view: false
+      arrangement_view: true
+      score_editor: true
+      comping: true
+      atmos: true
+      cloud_collab: true
+    strengths:
+      - "Industry standard for recording/mixing"
+      - "Best editing workflow for post-production"
+      - "Excellent collaboration features"
+      - "Atmos support"
+    weaknesses:
+      - "Subscription only (mostly)"
+      - "AAX only (limited plugin selection)"
+      - "High learning curve"
+    stock_plugins:
+      instruments: [Xpand!2, Vacuum, Structure, Boom]
+      effects: [Pro Compressor, Pro Limiter, Pro EQ, Pro Expander]
+    url: "https://avid.com/pro-tools"
+
+  - id: daw-004
+    name: Cubase
+    developer: Steinberg (Yamaha)
+    headquarters: Hamburg, Germany
+    currentVersion: "13"
+    releaseYear: 1989
+    platform: [macOS, Windows]
+    pluginFormats: [VST3]
+    pricing:
+      elements: 99
+      artist: 329
+      pro: 579
+      currency: EUR
+    features:
+      session_view: false
+      arrangement_view: true
+      score_editor: true
+      comping: true
+      MPE: true
+      VariAudio: true
+      chord_track: true
+    strengths:
+      - "Pioneer of VST format"
+      - "Excellent MIDI and score editing"
+      - "VariAudio pitch editing"
+      - "Chord track intelligence"
+    weaknesses:
+      - "Complex interface"
+      - "No clip launching"
+    stock_plugins:
+      instruments: [HALion Sonic, Retrologue, Padshop, Groove Agent]
+      effects: [Frequency, Squasher, Imager, Supervision]
+    url: "https://steinberg.net/cubase"
+
+# ==============================================================================
+# TIER 2 - PROFESSIONAL ALTERNATIVES
+# ==============================================================================
+tier2_professional:
+  - id: daw-005
+    name: Studio One
+    developer: PreSonus
+    headquarters: Baton Rouge, USA
+    currentVersion: "6.6"
+    releaseYear: 2009
+    platform: [macOS, Windows]
+    pluginFormats: [VST3, AU]
+    pricing:
+      artist: 99
+      professional: 399
+      currency: USD
+    features:
+      scratch_pads: true
+      arrangement_view: true
+      mastering_suite: true
+      comping: true
+      chord_track: true
+      show_page: true
+    strengths:
+      - "Modern, efficient workflow"
+      - "Integrated mastering"
+      - "Scratch pads for ideas"
+      - "Excellent drag-and-drop"
+    stock_plugins:
+      instruments: [Mai Tai, Mojito, Presence XT, Impact XT]
+      effects: [Pro EQ, Compressor, Limiter, Room Reverb]
+    url: "https://presonus.com/studio-one"
+
+  - id: daw-006
+    name: FL Studio
+    developer: Image-Line
+    headquarters: Ghent, Belgium
+    currentVersion: "21.2"
+    releaseYear: 1997
+    platform: [macOS, Windows]
+    pluginFormats: [VST3]
+    pricing:
+      fruity: 99
+      producer: 199
+      signature: 299
+      all_plugins: 499
+      currency: USD
+      lifetime_updates: true
+    features:
+      pattern_view: true
+      playlist_view: true
+      piano_roll: true
+      step_sequencer: true
+    strengths:
+      - "Lifetime free updates"
+      - "Best piano roll in any DAW"
+      - "Excellent for beat making"
+      - "Unique pattern workflow"
+    stock_plugins:
+      instruments: [Sytrus, Harmor, Harmless, Flex, Sakura, PoiZone]
+      effects: [Fruity Limiter, Parametric EQ 2, Maximus, Vocodex]
+    url: "https://image-line.com"
+
+  - id: daw-007
+    name: Bitwig Studio
+    developer: Bitwig
+    headquarters: Berlin, Germany
+    currentVersion: "5.2"
+    releaseYear: 2014
+    platform: [macOS, Windows, Linux]
+    pluginFormats: [VST3, CLAP]
+    pricing:
+      full: 399
+      upgrade: 169
+      currency: USD
+    features:
+      clip_launching: true
+      modular_grid: true
+      MPE: true
+      CLAP: true
+      linux: true
+      modulators: true
+    strengths:
+      - "Most innovative DAW"
+      - "The Grid modular environment"
+      - "Linux support"
+      - "First CLAP support"
+      - "Best modulation system"
+    stock_plugins:
+      instruments: [Polymer, Phase-4, FM-4, Polysynth]
+      effects: [Spectral Suite, Grid FX, Delay+, Reverb+]
+    url: "https://bitwig.com"
+
+  - id: daw-008
+    name: Reaper
+    developer: Cockos
+    headquarters: New York, USA
+    currentVersion: "7.22"
+    releaseYear: 2006
+    platform: [macOS, Windows, Linux]
+    pluginFormats: [VST3, AU, CLAP]
+    pricing:
+      discounted: 60
+      commercial: 225
+      currency: USD
+    features:
+      customizable: true
+      scripting: true
+      video: true
+      surround: true
+      portable: true
+    strengths:
+      - "Extremely customizable"
+      - "Incredibly lightweight"
+      - "Amazing value"
+      - "Cross-platform"
+      - "Active community"
+    stock_plugins:
+      instruments: [ReaSynth, ReaSamplOmatic5000]
+      effects: [ReaEQ, ReaComp, ReaVerb, ReaDelay, ReaGate]
+    url: "https://reaper.fm"
+
+# ==============================================================================
+# TIER 3 - SPECIALIZED / NICHE
+# ==============================================================================
+tier3_specialized:
+  - id: daw-009
+    name: Reason
+    developer: Reason Studios
+    headquarters: Stockholm, Sweden
+    currentVersion: "12.6"
+    releaseYear: 2000
+    platform: [macOS, Windows]
+    pluginFormats: [VST3, AU, Rack Plugin]
+    pricing:
+      intro: 99
+      full: 499
+      currency: USD
+    features:
+      rack: true
+      cv_routing: true
+      rack_plugin: true
+    strengths:
+      - "Unique rack-based workflow"
+      - "Can run as VST plugin"
+      - "Visual cable routing"
+    stock_plugins:
+      instruments: [Europa, Grain, Radical Piano, Klang]
+      effects: [Quartet, Sweeper, Master Bus Compressor]
+    url: "https://reasonstudios.com"
+
+  - id: daw-010
+    name: Luna
+    developer: Universal Audio
+    headquarters: Scotts Valley, USA
+    currentVersion: "1.4"
+    releaseYear: 2020
+    platform: [macOS]
+    pluginFormats: [AU, UAD]
+    pricing:
+      free: 0
+      currency: USD
+    features:
+      tape_emulation: true
+      console_emulation: true
+      uad_integration: true
+    strengths:
+      - "Free DAW"
+      - "Excellent tape emulation"
+      - "Deep UAD integration"
+    stock_plugins:
+      instruments: [Ravel Grand Piano, Shape]
+      effects: [Oxide Tape, Neve Summing, API Vision]
+    url: "https://uaudio.com/luna"
+
+  - id: daw-011
+    name: Digital Performer
+    developer: MOTU
+    headquarters: Cambridge, USA
+    currentVersion: "11.3"
+    releaseYear: 1990
+    platform: [macOS, Windows]
+    pluginFormats: [VST3, AU, AAX]
+    pricing:
+      full: 499
+      currency: USD
+    features:
+      chunks: true
+      film_scoring: true
+      beat_detection: true
+    strengths:
+      - "Film scoring workflow"
+      - "Chunks for organizing cues"
+      - "Excellent MIDI"
+    url: "https://motu.com/dp"
+
+  - id: daw-012
+    name: Nuendo
+    developer: Steinberg
+    headquarters: Hamburg, Germany
+    currentVersion: "13"
+    releaseYear: 1999
+    platform: [macOS, Windows]
+    pluginFormats: [VST3]
+    pricing:
+      full: 999
+      currency: EUR
+    features:
+      game_audio: true
+      post_production: true
+      ADR: true
+      atmos: true
+    strengths:
+      - "Industry standard for game audio"
+      - "Best ADR workflow"
+      - "Full Atmos support"
+    url: "https://steinberg.net/nuendo"
+
+# ==============================================================================
+# TIER 4 - FREE / ENTRY LEVEL
+# ==============================================================================
+tier4_free_entry:
+  - id: daw-020
+    name: GarageBand
+    developer: Apple
+    platform: [macOS, iOS, iPadOS]
+    pricing: free
+    strengths: ["Free", "Easy to learn", "Logic Pro compatible"]
+    url: "https://apple.com/garageband"
+
+  - id: daw-021
+    name: Cakewalk by BandLab
+    developer: BandLab
+    platform: [Windows]
+    pricing: free
+    strengths: ["Full-featured free DAW", "SONAR heritage"]
+    url: "https://cakewalk.com"
+
+  - id: daw-022
+    name: Waveform Free
+    developer: Tracktion
+    platform: [macOS, Windows, Linux]
+    pricing: free
+    strengths: ["No track limits", "Linux support"]
+    url: "https://tracktion.com/waveform"
+
+  - id: daw-023
+    name: Audacity
+    developer: Audacity Team
+    platform: [macOS, Windows, Linux]
+    pricing: free
+    strengths: ["Simple editing", "Open source", "Lightweight"]
+    url: "https://audacityteam.org"
+
+  - id: daw-024
+    name: LMMS
+    developer: LMMS Team
+    platform: [macOS, Windows, Linux]
+    pricing: free
+    strengths: ["FL Studio-like workflow", "Open source"]
+    url: "https://lmms.io"
+
+  - id: daw-025
+    name: Ardour
+    developer: Ardour Community
+    platform: [macOS, Windows, Linux]
+    pricing: free_donation
+    strengths: ["Pro-level features", "Open source", "Linux standard"]
+    url: "https://ardour.org"
+
+# ==============================================================================
+# FEATURE COMPARISON MATRIX
+# ==============================================================================
+comparison:
+  atmos_support: [Logic Pro, Pro Tools, Nuendo, Cubase Pro]
+  linux_support: [Bitwig, Reaper, Waveform, Ardour, LMMS]
+  best_midi: [Cubase, Logic Pro, Digital Performer]
+  best_audio_editing: [Pro Tools, Reaper, Nuendo]
+  best_live_performance: [Ableton Live, Bitwig]
+  best_value: [Reaper, FL Studio, Logic Pro]
+  best_stock_plugins: [Logic Pro, Ableton Live, Studio One]
+  best_for_beginners: [GarageBand, FL Studio, Studio One]
+  best_for_film: [Pro Tools, Nuendo, Digital Performer]
