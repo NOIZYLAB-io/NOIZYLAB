@@ -19,5 +19,11 @@ export { MetricsService, createMetricsService, getMetrics, recordAPIMetrics, EMA
 // Template helpers
 export { templateHelpers, registerHelper, getHelper, listHelpers, type TemplateHelper } from './template-helpers';
 
+// Token Management
+export { TokenAnalyticsService, createTokenAnalyticsService, type TokenUsageEvent, type TokenAnalytics } from './token-analytics';
+export { AdminAuthService, createAdminAuthService, adminAuthMiddleware, type AdminUser, type AdminRole, type AdminSession, type LoginResult } from './admin-auth';
+export { TokenWebhookService, createTokenWebhookService, verifyWebhookSignature, type TokenWebhook, type TokenWebhookPayload, type TokenEventType } from './token-webhooks';
+export { IPAllowlistService, createIPAllowlistService, ipAllowlistMiddleware, type IPAllowlistConfig, type IPAllowlistEntry, type IPCheckResult } from './ip-allowlist';
+
 // Providers
 export * from './providers';
