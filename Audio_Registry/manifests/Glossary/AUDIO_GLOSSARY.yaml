@@ -1,0 +1,502 @@
+# ==============================================================================
+# METABEAST_CC - AUDIO GLOSSARY
+# ==============================================================================
+# Comprehensive Audio Production Terminology
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Audio Production Glossary
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  totalTerms: 200+
+  description: |
+    Complete glossary of audio production terminology covering
+    recording, mixing, mastering, synthesis, and digital audio.
+
+# ==============================================================================
+# FUNDAMENTAL CONCEPTS
+# ==============================================================================
+fundamentals:
+  frequency:
+    definition: "Number of sound wave cycles per second, measured in Hertz (Hz)"
+    range: "Human hearing: 20 Hz to 20,000 Hz (20 kHz)"
+    related: ["pitch", "octave", "harmonic"]
+
+  amplitude:
+    definition: "The magnitude or strength of a sound wave"
+    measurement: "Measured in decibels (dB)"
+    related: ["loudness", "gain", "level"]
+
+  phase:
+    definition: "The position of a point in time on a waveform cycle"
+    measurement: "Measured in degrees (0° to 360°)"
+    issues: "Phase cancellation occurs when waves are out of phase"
+
+  wavelength:
+    definition: "Physical distance of one complete wave cycle"
+    formula: "Speed of sound (343 m/s) ÷ Frequency"
+    example: "100 Hz = 3.43 meters"
+
+  decibel:
+    abbreviation: "dB"
+    definition: "Logarithmic unit for measuring sound intensity"
+    types:
+      dBFS: "Decibels Full Scale (digital)"
+      dBu: "Professional analog reference"
+      dBV: "Consumer analog reference"
+      dBSPL: "Sound Pressure Level (acoustic)"
+
+  sample_rate:
+    definition: "Number of samples captured per second in digital audio"
+    common_rates:
+      - "44.1 kHz - CD standard"
+      - "48 kHz - Video/broadcast standard"
+      - "96 kHz - High resolution"
+      - "192 kHz - Archival/mastering"
+    nyquist: "Must be at least 2x highest frequency to capture"
+
+  bit_depth:
+    definition: "Number of bits used to represent each sample"
+    common_depths:
+      - "16-bit - CD standard (96 dB dynamic range)"
+      - "24-bit - Professional standard (144 dB dynamic range)"
+      - "32-bit float - Modern DAW internal processing"
+
+  dynamic_range:
+    definition: "Difference between quietest and loudest sounds"
+    measurement: "Expressed in decibels (dB)"
+    typical_ranges:
+      orchestral: "70+ dB"
+      rock: "10-20 dB"
+      edm: "5-10 dB"
+
+# ==============================================================================
+# RECORDING TERMS
+# ==============================================================================
+recording:
+  preamp:
+    definition: "Amplifier that boosts microphone signal to line level"
+    types: ["Solid-state", "Tube", "Transformer-coupled"]
+    characteristics: ["Gain", "Noise floor", "Color/character"]
+
+  phantom_power:
+    abbreviation: "+48V"
+    definition: "DC voltage sent through mic cable to power condenser microphones"
+    warning: "Can damage ribbon microphones"
+
+  gain_staging:
+    definition: "Managing signal levels throughout the audio chain"
+    goal: "Optimal signal-to-noise ratio without clipping"
+    target: "-18 dBFS average, -6 dBFS peaks"
+
+  headroom:
+    definition: "Space between peak level and clipping point"
+    recommendation: "Leave 6 dB for mixing, 3-6 dB for mastering"
+
+  noise_floor:
+    definition: "Inherent background noise in an audio system"
+    measurement: "Measured in dBu or dBFS"
+    lower_is_better: true
+
+  proximity_effect:
+    definition: "Bass boost when source is close to directional microphone"
+    affected_mics: ["Cardioid", "Figure-8"]
+    not_affected: ["Omnidirectional"]
+
+  polar_pattern:
+    definition: "Directional sensitivity pattern of a microphone"
+    types:
+      cardioid: "Front pickup, rejects rear"
+      omnidirectional: "Equal pickup from all directions"
+      figure_8: "Front and rear pickup, rejects sides"
+      supercardioid: "Tighter front focus than cardioid"
+      hypercardioid: "Even tighter focus with rear lobe"
+
+  room_tone:
+    definition: "Natural ambient sound of a recording space"
+    use: "Fill gaps in dialogue editing"
+    recording_tip: "Record 30-60 seconds of silence in every location"
+
+# ==============================================================================
+# MIXING TERMS
+# ==============================================================================
+mixing:
+  eq:
+    full_name: "Equalization"
+    definition: "Adjusting the balance of frequencies in an audio signal"
+    types:
+      parametric: "Adjustable frequency, gain, and Q"
+      graphic: "Fixed frequency bands"
+      shelf: "Boosts/cuts all frequencies above or below a point"
+      high_pass: "Removes frequencies below cutoff"
+      low_pass: "Removes frequencies above cutoff"
+
+  compression:
+    definition: "Reducing dynamic range by attenuating loud signals"
+    parameters:
+      threshold: "Level at which compression begins"
+      ratio: "Amount of gain reduction (e.g., 4:1)"
+      attack: "How quickly compression engages"
+      release: "How quickly compression disengages"
+      knee: "Soft or hard transition at threshold"
+      makeup_gain: "Compensate for reduced level"
+
+  limiting:
+    definition: "Extreme compression (10:1 or higher ratio)"
+    use: "Prevent clipping, increase loudness"
+    types: ["Brickwall", "Soft clip", "Lookahead"]
+
+  sidechain:
+    definition: "Using one signal to control processing on another"
+    common_uses:
+      - "Ducking bass when kick hits"
+      - "De-essing vocals"
+      - "Frequency-conscious compression"
+
+  parallel_processing:
+    aliases: ["New York compression", "Parallel compression"]
+    definition: "Blending heavily processed signal with dry signal"
+    benefit: "Adds weight/effect while preserving dynamics"
+
+  bus:
+    aliases: ["Subgroup", "Group", "Aux"]
+    definition: "Routing multiple tracks to a single channel"
+    use: "Process multiple tracks together, group control"
+
+  send:
+    aliases: ["Aux send", "Effect send"]
+    definition: "Routing signal copy to another channel (usually effects)"
+    types:
+      pre_fader: "Level independent of fader"
+      post_fader: "Level follows fader"
+
+  insert:
+    definition: "Processor placed directly in signal chain"
+    difference: "Unlike sends, insert processes 100% of signal"
+
+  panning:
+    definition: "Positioning sound in the stereo field"
+    techniques:
+      LCR: "Left, Center, Right only"
+      spread: "Use full stereo field"
+      complementary: "Balance left and right elements"
+
+  automation:
+    definition: "Recording and playing back parameter changes over time"
+    common_automations:
+      - "Volume rides"
+      - "Pan movements"
+      - "Effect sends"
+      - "Plugin parameters"
+
+  saturation:
+    definition: "Harmonic distortion that adds warmth and presence"
+    types:
+      tape: "Smooth, compression-like"
+      tube: "Even harmonics, warm"
+      transistor: "Odd harmonics, gritty"
+
+  mid_side:
+    abbreviation: "M/S"
+    definition: "Processing technique separating center (Mid) from sides (Side)"
+    uses: ["Stereo widening", "Mono bass", "Surgical EQ"]
+
+# ==============================================================================
+# MASTERING TERMS
+# ==============================================================================
+mastering:
+  lufs:
+    full_name: "Loudness Units relative to Full Scale"
+    definition: "Measurement of perceived loudness"
+    targets:
+      streaming: "-14 LUFS"
+      broadcast: "-23 LUFS"
+      cd: "-9 to -12 LUFS"
+
+  true_peak:
+    abbreviation: "dBTP"
+    definition: "Maximum level including inter-sample peaks"
+    importance: "Prevents distortion in lossy codecs"
+    target: "-1 dBTP or lower"
+
+  dithering:
+    definition: "Adding low-level noise when reducing bit depth"
+    when_to_use: "Final export to 16-bit only"
+    types: ["POW-r", "TPDF", "Shaped"]
+
+  loudness_normalization:
+    definition: "Adjusting playback level to match loudness target"
+    platforms: ["Spotify", "Apple Music", "YouTube"]
+    implication: "Over-compressed masters get turned down"
+
+  inter_sample_peaks:
+    abbreviation: "ISP"
+    definition: "Peaks that occur between samples in reconstruction"
+    issue: "Can cause clipping in D/A conversion and codecs"
+    solution: "Use true-peak limiting"
+
+  stem_mastering:
+    definition: "Mastering from grouped submixes rather than stereo mix"
+    typical_stems:
+      - "Drums"
+      - "Bass"
+      - "Music"
+      - "Vocals"
+
+  mastering_chain:
+    definition: "Series of processors used in mastering"
+    typical_order:
+      - "Corrective EQ"
+      - "Tonal EQ"
+      - "Compression"
+      - "Saturation"
+      - "Stereo enhancement"
+      - "Limiting"
+
+# ==============================================================================
+# SYNTHESIS TERMS
+# ==============================================================================
+synthesis:
+  oscillator:
+    abbreviation: "OSC"
+    definition: "Sound source that generates basic waveforms"
+    types: ["Sine", "Saw", "Square", "Triangle", "Noise"]
+
+  wavetable:
+    definition: "Synthesis using tables of single-cycle waveforms"
+    feature: "Morph between waveforms for movement"
+    examples: ["Serum", "Massive X", "Pigments"]
+
+  fm_synthesis:
+    full_name: "Frequency Modulation Synthesis"
+    definition: "Modulating one oscillator's frequency with another"
+    character: "Bell-like, metallic, complex tones"
+    examples: ["FM8", "Operator", "DX7"]
+
+  subtractive:
+    definition: "Starting with harmonically rich waveform, filtering away frequencies"
+    classic_synths: ["Minimoog", "Prophet-5", "Juno-106"]
+
+  additive:
+    definition: "Building sounds by adding sine waves together"
+    precision: "Can recreate any sound theoretically"
+    examples: ["Razor", "Alchemy"]
+
+  granular:
+    definition: "Breaking sound into tiny grains and manipulating them"
+    parameters: ["Grain size", "Density", "Position", "Pitch"]
+    examples: ["Granulator II", "Quanta", "Portal"]
+
+  filter:
+    definition: "Removes or emphasizes frequency ranges"
+    types:
+      low_pass: "Removes highs, most common"
+      high_pass: "Removes lows"
+      band_pass: "Keeps middle range"
+      notch: "Removes specific frequency"
+    characteristics:
+      cutoff: "Frequency where filtering begins"
+      resonance: "Emphasis at cutoff frequency"
+      slope: "Steepness (6/12/24 dB per octave)"
+
+  envelope:
+    abbreviation: "ENV"
+    definition: "Shape controlling parameter over time"
+    adsr:
+      attack: "Time to reach maximum level"
+      decay: "Time to fall to sustain level"
+      sustain: "Level held while note is held"
+      release: "Time to fall to zero after note release"
+
+  lfo:
+    full_name: "Low Frequency Oscillator"
+    definition: "Slow oscillator for modulating parameters"
+    range: "Usually 0.01 Hz to 20 Hz"
+    waveforms: ["Sine", "Triangle", "Square", "S&H"]
+
+  modulation:
+    definition: "Using one signal to control another's parameter"
+    sources: ["LFO", "Envelope", "MIDI", "Audio"]
+    destinations: ["Pitch", "Filter", "Amplitude", "Effects"]
+
+  unison:
+    definition: "Multiple voices playing the same note"
+    parameters: ["Voice count", "Detune", "Spread"]
+    effect: "Thicker, wider sound"
+
+  portamento:
+    aliases: ["Glide"]
+    definition: "Smooth pitch transition between notes"
+    modes: ["Always", "Legato only"]
+
+  aftertouch:
+    definition: "Pressure applied to key after initial strike"
+    types:
+      channel: "One value for all keys"
+      polyphonic: "Individual value per key"
+
+  mpe:
+    full_name: "MIDI Polyphonic Expression"
+    definition: "Per-note control of pitch, slide, pressure, velocity, release"
+    controllers: ["Roli Seaboard", "Linnstrument", "Sensel Morph"]
+
+# ==============================================================================
+# EFFECTS TERMS
+# ==============================================================================
+effects:
+  reverb:
+    definition: "Simulation of acoustic space reflections"
+    types:
+      room: "Small space, short decay"
+      hall: "Large space, long decay"
+      plate: "Metal plate emulation, bright"
+      spring: "Spring emulation, vintage"
+      convolution: "Uses impulse responses of real spaces"
+    parameters:
+      pre_delay: "Time before reverb starts"
+      decay: "Length of reverb tail"
+      damping: "High frequency absorption"
+      diffusion: "Density of reflections"
+
+  delay:
+    definition: "Repeating copies of signal over time"
+    types:
+      tape: "Warm, modulated"
+      digital: "Clean, precise"
+      analog: "Degraded repeats"
+      ping_pong: "Alternates left and right"
+    parameters:
+      time: "Delay between repeats"
+      feedback: "Amount sent back (number of repeats)"
+      mix: "Dry/wet balance"
+
+  chorus:
+    definition: "Modulated delay creating doubling effect"
+    parameters: ["Rate", "Depth", "Mix"]
+    use: "Thickening, stereo width"
+
+  flanger:
+    definition: "Short modulated delay creating sweeping effect"
+    range: "0.1 - 10 ms delay"
+    character: "Jet/swoosh sound"
+
+  phaser:
+    definition: "All-pass filters creating moving notches"
+    stages: "4, 6, 8, 12 stages common"
+    character: "Swirling, psychedelic"
+
+  distortion:
+    definition: "Clipping and harmonic generation"
+    types:
+      overdrive: "Soft clipping, tube-like"
+      distortion: "Hard clipping, aggressive"
+      fuzz: "Square wave clipping, extreme"
+      bitcrusher: "Digital distortion, lo-fi"
+
+  vocoder:
+    definition: "Imposes spectral characteristics of one sound onto another"
+    use: "Robot voices, talking instruments"
+    components: ["Carrier", "Modulator"]
+
+# ==============================================================================
+# DIGITAL AUDIO TERMS
+# ==============================================================================
+digitalAudio:
+  daw:
+    full_name: "Digital Audio Workstation"
+    definition: "Software for recording, editing, and producing audio"
+    examples: ["Ableton Live", "Logic Pro", "Pro Tools", "FL Studio"]
+
+  plugin:
+    definition: "Software that adds functionality to a DAW"
+    formats:
+      vst3: "Steinberg format, cross-platform"
+      au: "Audio Unit, Apple only"
+      aax: "Avid format, Pro Tools only"
+      clap: "New open standard"
+
+  midi:
+    full_name: "Musical Instrument Digital Interface"
+    definition: "Protocol for communicating musical information"
+    data_types: ["Note on/off", "Velocity", "CC", "Pitch bend", "Aftertouch"]
+
+  latency:
+    definition: "Delay in audio processing"
+    measurement: "Milliseconds (ms) or samples"
+    acceptable: "<10ms for live performance"
+
+  buffer:
+    definition: "Temporary data storage for audio processing"
+    size_tradeoff: "Larger = more latency, less CPU strain"
+    typical_sizes: ["64", "128", "256", "512", "1024", "2048"]
+
+  bounce:
+    aliases: ["Render", "Export", "Mixdown"]
+    definition: "Creating audio file from project"
+    options: ["Real-time", "Offline"]
+
+  freeze:
+    definition: "Temporarily render track to reduce CPU load"
+    benefit: "CPU-heavy plugins become simple audio"
+
+  quantize:
+    definition: "Snapping notes or events to a timing grid"
+    strength: "0% (no change) to 100% (perfect grid)"
+    modes: ["Note start", "Note end", "Both"]
+
+  time_stretch:
+    definition: "Changing audio duration without affecting pitch"
+    algorithms: ["Elastique", "Flex Time", "AudioWarp"]
+
+  pitch_shift:
+    definition: "Changing audio pitch without affecting duration"
+    quality: "Small shifts sound more natural"
+
+  warp:
+    definition: "Manipulating audio timing in various ways"
+    uses: ["Tempo matching", "Quantizing audio", "Creative effects"]
+
+# ==============================================================================
+# FILE FORMATS
+# ==============================================================================
+fileFormats:
+  lossless:
+    wav:
+      extension: ".wav"
+      description: "Uncompressed PCM audio"
+      use: "Professional recording and mixing"
+    aiff:
+      extension: ".aif, .aiff"
+      description: "Apple's uncompressed format"
+      use: "Same as WAV, Mac-preferred"
+    flac:
+      extension: ".flac"
+      description: "Lossless compression"
+      compression: "~50% smaller than WAV"
+
+  lossy:
+    mp3:
+      extension: ".mp3"
+      description: "Compressed audio"
+      common_rates: ["128", "192", "256", "320 kbps"]
+    aac:
+      extension: ".m4a, .aac"
+      description: "Advanced Audio Coding"
+      quality: "Better than MP3 at same bitrate"
+    ogg:
+      extension: ".ogg"
+      description: "Open-source compressed format"
+      use: "Spotify, game audio"
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Audio Glossary v1.0.0                           ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝

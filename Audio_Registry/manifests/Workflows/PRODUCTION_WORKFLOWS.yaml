@@ -1,0 +1,622 @@
+# ==============================================================================
+# METABEAST_CC - PRODUCTION WORKFLOWS MANIFEST
+# ==============================================================================
+# Complete Production Workflow Documentation
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Production Workflows
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  description: |
+    Comprehensive production workflows for music production, mixing,
+    mastering, sound design, and post-production.
+
+# ==============================================================================
+# MUSIC PRODUCTION WORKFLOWS
+# ==============================================================================
+musicProduction:
+  songwriting:
+    name: "Songwriting to Production"
+    phases:
+      ideation:
+        steps:
+          - "Start with core idea (melody, chord progression, lyric)"
+          - "Record voice memo or MIDI sketch"
+          - "Identify tempo, key, and feel"
+          - "Reference similar songs for structure"
+        tools: ["Voice Memos", "Piano/Guitar", "DAW"]
+        duration: "1-4 hours"
+
+      arrangement:
+        steps:
+          - "Create song structure (intro, verse, chorus, bridge, outro)"
+          - "Build chord progression"
+          - "Sketch basic drum pattern"
+          - "Add bass foundation"
+          - "Layer melodic elements"
+        structure_templates:
+          pop: "Intro(4) - Verse(8) - PreChorus(4) - Chorus(8) - Verse(8) - PreChorus(4) - Chorus(8) - Bridge(8) - Chorus(8) - Outro(4)"
+          edm: "Intro(16) - Buildup(8) - Drop(16) - Breakdown(8) - Buildup(8) - Drop(16) - Outro(8)"
+          hip_hop: "Intro(4) - Verse(16) - Hook(8) - Verse(16) - Hook(8) - Bridge(8) - Hook(8) - Outro(4)"
+
+      production:
+        steps:
+          - "Replace sketch elements with production sounds"
+          - "Program detailed drums"
+          - "Record or program bass"
+          - "Add harmonic elements (keys, guitars, synths)"
+          - "Create ear candy and transitions"
+          - "Add automation for movement"
+        tips:
+          - "Work in 8-bar sections"
+          - "Create contrast between sections"
+          - "Use frequency masking checker"
+          - "Reference mix frequently"
+
+  beat_making:
+    name: "Beat Making Workflow"
+    styles:
+      trap:
+        bpm_range: "140-160"
+        key_elements:
+          - "808 bass with glide"
+          - "Fast hi-hat rolls"
+          - "Hard-hitting snares"
+          - "Dark melodies"
+        workflow:
+          - "Start with 808 pattern"
+          - "Layer kick for punch"
+          - "Program snare/clap pattern"
+          - "Add hi-hat variations"
+          - "Create melody (minor key)"
+          - "Add counter-melody"
+          - "Arrange with breakdowns"
+
+      boom_bap:
+        bpm_range: "85-100"
+        key_elements:
+          - "Sampled drums or punchy kit"
+          - "Chopped samples"
+          - "Head-nodding groove"
+          - "Vinyl texture"
+        workflow:
+          - "Find or create sample"
+          - "Chop and rearrange"
+          - "Add boom-bap drums"
+          - "Layer bass underneath"
+          - "Add vinyl crackle"
+
+      lo_fi:
+        bpm_range: "70-90"
+        key_elements:
+          - "Jazzy chords"
+          - "Dusty drums"
+          - "Vinyl noise"
+          - "Tape wobble"
+        processing:
+          - "RC-20 Retro Color"
+          - "Tape saturation"
+          - "Bit reduction"
+          - "Sidechain pumping"
+
+  electronic_production:
+    name: "Electronic Music Production"
+    genres:
+      house:
+        bpm: "120-128"
+        structure: "Intro - Build - Drop - Breakdown - Build - Drop - Outro"
+        key_elements:
+          kick: "Punchy, sustained 4/4"
+          bass: "Rolling bassline, often sidechained"
+          hats: "Offbeat open hats, 16th closed"
+          clap: "2 and 4, layered"
+          synths: "Stabs, pads, leads"
+        mixing_tips:
+          - "Keep kick and bass mono"
+          - "Sidechain everything to kick"
+          - "Wide stereo on pads/synths"
+          - "Reverb on claps, dry kick"
+
+      techno:
+        bpm: "125-140"
+        key_elements:
+          kick: "Driving, often distorted"
+          percussion: "Industrial, metallic"
+          bass: "Dark, hypnotic"
+          atmosphere: "Evolving textures"
+        workflow:
+          - "Start with kick pattern"
+          - "Add driving percussion"
+          - "Build hypnotic bassline"
+          - "Layer evolving textures"
+          - "Create tension with automation"
+          - "Long builds and releases"
+
+      dubstep:
+        bpm: "140-150"
+        key_elements:
+          sub: "Heavy sub bass"
+          growls: "Complex bass design"
+          drums: "Half-time pattern"
+          drops: "Impactful transitions"
+        sound_design:
+          - "Serum for growl bass"
+          - "FM synthesis"
+          - "Wavetable manipulation"
+          - "Heavy processing chains"
+
+# ==============================================================================
+# VOCAL PRODUCTION WORKFLOWS
+# ==============================================================================
+vocalProduction:
+  recording:
+    name: "Vocal Recording Workflow"
+    preparation:
+      room:
+        - "Treat reflections (blankets, foam, vocal booth)"
+        - "Kill air conditioning during takes"
+        - "Remove phones/electronics causing interference"
+        - "Comfortable temperature"
+      artist:
+        - "Hydrate (room temperature water)"
+        - "Warm up vocals"
+        - "Learn lyrics thoroughly"
+        - "Comfortable headphone mix"
+      technical:
+        - "Set gain (peaks at -12dB to -6dB)"
+        - "Pop filter 4-6 inches from mic"
+        - "Singer 6-12 inches from mic"
+        - "Angle mic slightly off-axis for sibilance"
+
+    session_flow:
+      - phase: "Guide Track"
+        takes: 1-2
+        purpose: "Reference for arrangement"
+      - phase: "Main Takes"
+        takes: 3-5
+        purpose: "Capture best performances"
+      - phase: "Punch-ins"
+        takes: "As needed"
+        purpose: "Fix specific sections"
+      - phase: "Ad-libs"
+        takes: 2-3
+        purpose: "Creative additions"
+      - phase: "Harmonies"
+        takes: "Per harmony"
+        purpose: "Build arrangement"
+
+  editing:
+    name: "Vocal Editing Workflow"
+    steps:
+      comping:
+        - "Create comp playlist/take folder"
+        - "Listen through all takes"
+        - "Select best phrases"
+        - "Crossfade between takes"
+        - "Check for consistent tone"
+
+      cleaning:
+        - "Remove breaths between phrases (or reduce)"
+        - "Remove clicks, pops, mouth noise"
+        - "Fix timing issues (manually or with tools)"
+        - "Remove background noise"
+        tools: ["RX", "Strip Silence", "Manual editing"]
+
+      tuning:
+        - "Apply pitch correction (Melodyne, Auto-Tune)"
+        - "Preserve natural vibrato"
+        - "Fix only problem notes"
+        - "Check against instrumental"
+        tools: ["Melodyne", "Auto-Tune", "Waves Tune"]
+        settings:
+          natural: "Retune speed 50-100ms"
+          effect: "Retune speed 0-20ms"
+
+      alignment:
+        - "Align doubles to lead"
+        - "Align harmonies for tightness"
+        - "Time-stretch if needed"
+        tools: ["VocAlign", "Revoice Pro", "Flex Time/AudioWarp"]
+
+  mixing:
+    name: "Vocal Mixing Chain"
+    chain:
+      - position: 1
+        plugin_type: "Subtractive EQ"
+        purpose: "Remove mud, rumble"
+        typical_settings:
+          high_pass: "80-120 Hz"
+          cuts: "200-400 Hz (mud), 2-4 kHz (harsh)"
+
+      - position: 2
+        plugin_type: "De-esser"
+        purpose: "Tame sibilance"
+        typical_settings:
+          frequency: "5-8 kHz"
+          reduction: "3-6 dB"
+
+      - position: 3
+        plugin_type: "Compressor 1 (Fast)"
+        purpose: "Catch peaks"
+        typical_settings:
+          ratio: "4:1"
+          attack: "1-5 ms"
+          release: "50-100 ms"
+          reduction: "3-6 dB"
+
+      - position: 4
+        plugin_type: "Compressor 2 (Slow)"
+        purpose: "Even out dynamics"
+        typical_settings:
+          ratio: "2:1 - 3:1"
+          attack: "10-30 ms"
+          release: "100-200 ms"
+          reduction: "2-4 dB"
+
+      - position: 5
+        plugin_type: "Additive EQ"
+        purpose: "Add presence, air"
+        typical_settings:
+          presence: "3-5 kHz, +2dB shelf"
+          air: "10-12 kHz, +2dB shelf"
+
+      - position: 6
+        plugin_type: "Saturation"
+        purpose: "Add warmth, harmonics"
+        amount: "Subtle"
+
+    sends:
+      - name: "Plate Reverb"
+        decay: "1.5-2.5s"
+        pre_delay: "20-40ms"
+        mix: "15-25%"
+
+      - name: "Slap Delay"
+        time: "80-120ms"
+        feedback: "0-10%"
+        mix: "10-20%"
+
+      - name: "Long Delay"
+        time: "1/4 or 1/2 note"
+        feedback: "20-40%"
+        mix: "Automated for throws"
+
+# ==============================================================================
+# MIXING WORKFLOWS
+# ==============================================================================
+mixing:
+  preparation:
+    name: "Mix Preparation"
+    steps:
+      - "Import and organize tracks"
+      - "Color code by group (drums, bass, guitars, keys, vocals)"
+      - "Create routing (buses, sends)"
+      - "Set up VCA/groups"
+      - "Import reference tracks"
+      - "Check phase relationships"
+      - "Clean up noise/silence"
+
+    organization:
+      colors:
+        drums: "#FF5500"
+        bass: "#0066FF"
+        guitars: "#00FF00"
+        keys: "#FFFF00"
+        synths: "#00FFFF"
+        vocals: "#FF00FF"
+        fx: "#FF0066"
+
+      routing:
+        buses:
+          - "Drums Bus"
+          - "Bass Bus"
+          - "Guitars Bus"
+          - "Keys Bus"
+          - "Vocals Bus"
+          - "FX Bus"
+          - "Music Bus (all except vocals)"
+          - "Master"
+        sends:
+          - "Reverb 1 (Short)"
+          - "Reverb 2 (Long)"
+          - "Delay 1 (Slap)"
+          - "Delay 2 (1/4 note)"
+          - "Parallel Compression"
+
+  gain_staging:
+    name: "Gain Staging"
+    target_levels:
+      tracks: "-18 dBFS average"
+      buses: "-12 to -6 dBFS peaks"
+      master: "-6 dBFS peaks (headroom for mastering)"
+    procedure:
+      - "Set all faders to unity (0dB)"
+      - "Adjust clip/item gain to hit target"
+      - "Check meters at loudest section"
+      - "Maintain headroom throughout chain"
+
+  static_mix:
+    name: "Static Mix"
+    steps:
+      - "Start with all faders down"
+      - "Bring up most important element (usually vocal or lead)"
+      - "Balance drums around lead element"
+      - "Bring in bass to support drums"
+      - "Layer in supporting elements"
+      - "Create rough balance before any processing"
+    tips:
+      - "Mix at low volume"
+      - "Take frequent breaks"
+      - "Reference against commercial tracks"
+      - "Trust your ears, not your eyes"
+
+  eq_workflow:
+    name: "EQ Workflow"
+    approach: "Subtractive first, additive second"
+    steps:
+      - "High-pass filter to remove rumble"
+      - "Identify and cut problem frequencies"
+      - "Create space for other instruments"
+      - "Add presence/air if needed"
+      - "A/B with bypass frequently"
+
+    frequency_guide:
+      sub: "20-60 Hz - Rumble, sub bass"
+      bass: "60-200 Hz - Fullness, body"
+      low_mid: "200-500 Hz - Mud, warmth"
+      mid: "500-2000 Hz - Honk, body"
+      upper_mid: "2-4 kHz - Presence, aggression"
+      presence: "4-6 kHz - Clarity, definition"
+      brilliance: "6-10 kHz - Sizzle, detail"
+      air: "10-20 kHz - Air, sparkle"
+
+  compression_workflow:
+    name: "Compression Workflow"
+    types:
+      peak_limiting:
+        purpose: "Catch transients"
+        ratio: "8:1 - 20:1"
+        attack: "Fast (0.1-5ms)"
+        release: "Fast (50-100ms)"
+
+      dynamic_control:
+        purpose: "Even out performance"
+        ratio: "3:1 - 6:1"
+        attack: "Medium (5-15ms)"
+        release: "Medium (100-200ms)"
+
+      tone_shaping:
+        purpose: "Add punch, character"
+        ratio: "2:1 - 4:1"
+        attack: "Slow (15-50ms)"
+        release: "Auto or matched to tempo"
+
+      parallel:
+        purpose: "Add weight without killing dynamics"
+        ratio: "10:1 - 20:1"
+        attack: "Fast"
+        blend: "10-30%"
+
+# ==============================================================================
+# MASTERING WORKFLOWS
+# ==============================================================================
+mastering:
+  preparation:
+    name: "Pre-Mastering Checklist"
+    mix_delivery:
+      format: "WAV or AIFF"
+      bit_depth: "24-bit or 32-bit float"
+      sample_rate: "Match session (44.1/48/96 kHz)"
+      headroom: "-3 to -6 dB peaks"
+      no_limiting: "Remove master limiter"
+      no_dither: "Dither only on final master"
+
+    files_to_request:
+      - "Full mix (no processing on master)"
+      - "Instrumental"
+      - "Acapella"
+      - "TV mix (no lead vocal)"
+      - "Reference tracks"
+
+  workflow:
+    name: "Mastering Chain Workflow"
+    chain:
+      - position: 1
+        type: "Metering/Analysis"
+        plugins: ["Insight 2", "SPAN"]
+        purpose: "Analyze before processing"
+
+      - position: 2
+        type: "Corrective EQ"
+        plugins: ["Pro-Q 3", "Equilibrium"]
+        purpose: "Fix problems"
+        tips:
+          - "Narrow cuts only"
+          - "Address resonances"
+          - "Fix tonal balance issues"
+
+      - position: 3
+        type: "Tonal EQ"
+        plugins: ["Pultec", "Massive Passive"]
+        purpose: "Shape overall tone"
+        tips:
+          - "Broad strokes"
+          - "Air and weight"
+          - "Match to genre"
+
+      - position: 4
+        type: "Compression"
+        plugins: ["Shadow Hills", "API 2500", "Fairchild"]
+        purpose: "Glue and punch"
+        settings:
+          ratio: "1.5:1 - 4:1"
+          reduction: "1-3 dB"
+          attack: "Slow (preserve transients)"
+
+      - position: 5
+        type: "Saturation/Color"
+        plugins: ["Saturn", "Tape", "Decapitator"]
+        purpose: "Warmth and harmonics"
+        amount: "Subtle - just enough"
+
+      - position: 6
+        type: "Stereo Enhancement"
+        plugins: ["Ozone Imager", "S1"]
+        purpose: "Width adjustment"
+        tips:
+          - "Keep low end mono"
+          - "Widen only above 200Hz"
+          - "Check in mono"
+
+      - position: 7
+        type: "Limiting"
+        plugins: ["Pro-L 2", "Limitless", "L2"]
+        purpose: "Final loudness"
+        settings:
+          streaming: "-14 LUFS, -1 dBTP"
+          club: "-8 to -10 LUFS"
+          vinyl: "-12 to -14 LUFS"
+
+      - position: 8
+        type: "Metering"
+        plugins: ["Insight 2", "Youlean"]
+        purpose: "Verify specs"
+
+  loudness_targets:
+    streaming:
+      spotify: "-14 LUFS"
+      apple_music: "-16 LUFS"
+      youtube: "-14 LUFS"
+      amazon: "-14 LUFS"
+    other:
+      cd: "-9 to -12 LUFS"
+      vinyl: "-12 to -14 LUFS"
+      broadcast: "-23 LUFS (EBU R128)"
+      film: "-24 LKFS"
+
+# ==============================================================================
+# SOUND DESIGN WORKFLOWS
+# ==============================================================================
+soundDesign:
+  synth_patch_creation:
+    name: "Synth Sound Design"
+    bass:
+      sub_bass:
+        - "Start with sine wave"
+        - "Add slight saturation"
+        - "Gentle compression"
+        - "Low-pass filter to remove harmonics above 200Hz"
+      growl_bass:
+        - "Use wavetable with movement"
+        - "FM modulation from second oscillator"
+        - "Band-pass filter with LFO"
+        - "Distortion/saturation"
+        - "Multiband compression"
+
+    lead:
+      saw_lead:
+        - "Stack 2-3 saw waves"
+        - "Slight detune (5-15 cents)"
+        - "Unison for width"
+        - "Low-pass filter with envelope"
+        - "Reverb and delay"
+
+    pad:
+      lush_pad:
+        - "Multiple oscillators (saw, triangle)"
+        - "Heavy detuning"
+        - "Large unison"
+        - "Slow filter envelope"
+        - "Long reverb"
+        - "Subtle chorus/phaser"
+
+  foley_recording:
+    name: "Foley Recording Workflow"
+    setup:
+      microphone: "Large diaphragm condenser or shotgun"
+      preamp: "Clean, low noise"
+      room: "Dead/treated room"
+      props: "Organized and accessible"
+
+    categories:
+      footsteps:
+        surfaces: ["Concrete", "Wood", "Gravel", "Grass", "Metal"]
+        variations: ["Walk", "Run", "Scuff", "Jump", "Land"]
+      cloth:
+        types: ["Cotton", "Leather", "Synthetic", "Heavy coat"]
+        movements: ["Subtle", "Fast", "Rustle"]
+      impacts:
+        materials: ["Wood", "Metal", "Glass", "Plastic", "Body"]
+        intensities: ["Light", "Medium", "Heavy"]
+
+# ==============================================================================
+# POST-PRODUCTION WORKFLOWS
+# ==============================================================================
+postProduction:
+  dialogue_editing:
+    name: "Dialogue Editing Workflow"
+    steps:
+      - "Sync and organize all takes"
+      - "Select best takes"
+      - "Remove background noise (RX)"
+      - "Edit out breaths, clicks, pops"
+      - "Smooth transitions with crossfades"
+      - "Add room tone to fill gaps"
+      - "Check for consistent levels"
+      - "Apply subtle EQ for consistency"
+
+    tools:
+      primary: ["Pro Tools", "RX"]
+      plugins: ["RX Connect", "De-noise", "Dialogue Isolate"]
+
+  adr:
+    name: "ADR Recording Workflow"
+    preparation:
+      - "Prepare cue sheets with timecode"
+      - "Extract production audio as guide"
+      - "Set up matching microphone"
+      - "Create headphone mix with beeps"
+
+    recording:
+      - "Play video with 3-beep countdown"
+      - "Actor watches and performs"
+      - "Record multiple takes"
+      - "Review sync immediately"
+      - "Punch in problem words"
+
+    post:
+      - "Edit best takes"
+      - "Time-align to production"
+      - "Match room tone"
+      - "Process to match production"
+
+  sound_effects:
+    name: "Sound Effects Editing"
+    workflow:
+      - "Spot effects to picture"
+      - "Layer multiple elements"
+      - "Process for character"
+      - "Automate levels to action"
+      - "Create transitions"
+      - "Mix with dialogue and music"
+
+    layering_approach:
+      impacts:
+        - "Transient layer (attack)"
+        - "Body layer (weight)"
+        - "Tail layer (decay)"
+        - "Sweetener (character)"
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Production Workflows v1.0.0                     ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝

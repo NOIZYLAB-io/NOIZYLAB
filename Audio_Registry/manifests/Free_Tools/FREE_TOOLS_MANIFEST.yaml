@@ -1,0 +1,665 @@
+# ==============================================================================
+# METABEAST_CC - FREE TOOLS MANIFEST
+# ==============================================================================
+# Complete Registry of Free Audio Production Tools
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Free Audio Tools Registry
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  totalItems: 150+
+  description: |
+    Comprehensive collection of high-quality FREE audio production tools
+    including plugins, DAWs, sample libraries, and utilities.
+
+# ==============================================================================
+# FREE DAWS
+# ==============================================================================
+freeDaws:
+  - name: Reaper
+    developer: Cockos
+    platforms: [macOS, Windows, Linux]
+    license: "60-day unrestricted trial, $60 discounted license"
+    features:
+      - Full-featured professional DAW
+      - Customizable interface
+      - Excellent scripting support
+      - Low resource usage
+    url: "https://reaper.fm"
+    notes: "Essentially free - trial has no limitations"
+
+  - name: Ardour
+    developer: Ardour Community
+    platforms: [macOS, Windows, Linux]
+    license: "Open source (GPL)"
+    features:
+      - Professional multitrack recording
+      - MIDI sequencing
+      - Plugin support (VST, AU, LV2)
+    url: "https://ardour.org"
+    notes: "Free if you build from source"
+
+  - name: LMMS
+    developer: LMMS Community
+    platforms: [macOS, Windows, Linux]
+    license: "Open source (GPL)"
+    features:
+      - Beat and melody creation
+      - Built-in instruments
+      - Sample manipulation
+    url: "https://lmms.io"
+    notes: "Great for electronic music beginners"
+
+  - name: Audacity
+    developer: Audacity Team
+    platforms: [macOS, Windows, Linux]
+    license: "Open source (GPL)"
+    features:
+      - Audio editing
+      - Recording
+      - Format conversion
+      - Basic effects
+    url: "https://audacityteam.org"
+    notes: "Essential utility for audio editing"
+
+  - name: GarageBand
+    developer: Apple
+    platforms: [macOS, iOS]
+    license: "Free with Mac/iOS"
+    features:
+      - Full DAW functionality
+      - Built-in instruments and loops
+      - Logic Pro compatible
+    notes: "Excellent starting point for Mac users"
+
+  - name: Cakewalk by BandLab
+    developer: BandLab
+    platforms: [Windows]
+    license: "Completely free"
+    features:
+      - Professional features
+      - Unlimited tracks
+      - VST support
+      - Built-in instruments
+    url: "https://bandlab.com/products/cakewalk"
+    notes: "Former $500 software now free"
+
+  - name: Waveform Free
+    developer: Tracktion
+    platforms: [macOS, Windows, Linux]
+    license: "Free"
+    features:
+      - No track limits
+      - Built-in plugins
+      - Modern interface
+    url: "https://tracktion.com/waveform-free"
+
+  - name: SoundBridge
+    developer: SoundBridge
+    platforms: [macOS, Windows]
+    license: "Free"
+    features:
+      - DAW with built-in effects
+      - MIDI editing
+      - Mixing capabilities
+    url: "https://soundbridge.io"
+
+# ==============================================================================
+# FREE SYNTHS & INSTRUMENTS
+# ==============================================================================
+freeSynths:
+  wavetable:
+    - name: Vital
+      developer: Matt Tytel
+      platforms: [macOS, Windows, Linux]
+      format: [VST3, AU, Standalone, CLAP]
+      features:
+        - Spectral warping wavetable
+        - 3 oscillators
+        - Modulation matrix
+        - MPE support
+      url: "https://vital.audio"
+      quality: "Professional"
+      notes: "Rivals Serum - this is THE free synth"
+
+    - name: Surge XT
+      developer: Surge Synth Team
+      platforms: [macOS, Windows, Linux]
+      format: [VST3, AU, CLAP, Standalone]
+      features:
+        - Hybrid synthesis
+        - 2 oscillators with multiple modes
+        - Extensive modulation
+        - Open source
+      url: "https://surge-synthesizer.github.io"
+      quality: "Professional"
+
+  subtractive:
+    - name: TAL-NoiseMaker
+      developer: TAL
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Virtual analog synth
+        - Unison mode
+        - Easy to use
+      url: "https://tal-software.com"
+
+    - name: Tyrell N6
+      developer: u-He
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Classic subtractive
+        - Great presets
+        - u-He quality
+      url: "https://u-he.com/tyrelln6"
+
+    - name: Synth1
+      developer: Daichi
+      platforms: [Windows]
+      format: [VST]
+      features:
+        - Nord Lead 2 inspired
+        - Thousands of free presets online
+        - CPU efficient
+      notes: "Most downloaded free synth ever"
+
+    - name: Dexed
+      developer: Digital Suburban
+      platforms: [macOS, Windows, Linux]
+      format: [VST, AU, Standalone]
+      features:
+        - DX7 emulation
+        - Loads DX7 patches
+        - FM synthesis
+      url: "https://asb2m10.github.io/dexed"
+      notes: "Authentic Yamaha DX7 sound"
+
+    - name: OB-Xd
+      developer: discoDSP
+      platforms: [macOS, Windows, Linux]
+      format: [VST, AU]
+      features:
+        - Oberheim OB-X emulation
+        - Classic analog sound
+        - Low CPU
+      url: "https://www.discodsp.com/obxd"
+
+  samplers:
+    - name: Grace
+      developer: One Small Clue
+      platforms: [Windows]
+      format: [VST]
+      features:
+        - Sample playback
+        - Basic sampler functionality
+      url: "https://www.onesmallclue.com"
+
+    - name: TX16Wx
+      developer: CWITEC
+      platforms: [macOS, Windows]
+      format: [VST, AU, Standalone]
+      features:
+        - Multisampling
+        - SFZ support
+        - MIDI learn
+      url: "https://www.tx16wx.com"
+
+    - name: Sitala
+      developer: Decomposer
+      platforms: [macOS, Windows, Linux]
+      format: [VST, AU, Standalone]
+      features:
+        - Drum sampler
+        - 16 pads
+        - Easy drag and drop
+      url: "https://decomposer.de/sitala"
+      notes: "Perfect free drum sampler"
+
+  piano:
+    - name: Piano One
+      developer: Sound Magic
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Yamaha C7 grand
+        - Good quality
+        - Low CPU
+      url: "https://neovst.com/piano-one"
+
+    - name: Keyzone Classic
+      developer: Bitsonic
+      platforms: [Windows]
+      format: [VST]
+      features:
+        - Multiple piano types
+        - Rhodes, Wurlitzer
+        - Basic but usable
+      url: "https://bfreetv.com"
+
+    - name: Spitfire LABS
+      developer: Spitfire Audio
+      platforms: [macOS, Windows]
+      format: [VST, AU, Standalone]
+      features:
+        - Multiple pianos
+        - Soft Piano is excellent
+        - Many other instruments
+      url: "https://labs.spitfireaudio.com"
+      quality: "Professional"
+      notes: "LABS has 50+ free instruments!"
+
+# ==============================================================================
+# FREE EFFECTS PLUGINS
+# ==============================================================================
+freeEffects:
+  eq:
+    - name: TDR Nova
+      developer: Tokyo Dawn Labs
+      platforms: [macOS, Windows]
+      format: [VST, AU, AAX]
+      features:
+        - Dynamic EQ
+        - 4 bands
+        - Spectrum analyzer
+      url: "https://tokyodawn.net/nova"
+      quality: "Professional"
+
+    - name: TDR SlickEQ
+      developer: Tokyo Dawn Labs
+      platforms: [macOS, Windows]
+      format: [VST, AU, AAX]
+      features:
+        - 3-band EQ
+        - Output stage modeling
+        - EQ Sat
+      url: "https://tokyodawn.net/slickeq"
+      quality: "Professional"
+
+    - name: MEqualizer
+      developer: MeldaProduction
+      platforms: [macOS, Windows]
+      format: [VST, AU, AAX]
+      features:
+        - 6 bands
+        - Spectrum analyzer
+        - M/S processing
+      url: "https://meldaproduction.com/mequalizer"
+
+    - name: Marvel GEQ
+      developer: Voxengo
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - 16-band graphic EQ
+        - Linear phase mode
+        - Good visuals
+      url: "https://voxengo.com/marvel-geq"
+
+  compressor:
+    - name: TDR Kotelnikov
+      developer: Tokyo Dawn Labs
+      platforms: [macOS, Windows]
+      format: [VST, AU, AAX]
+      features:
+        - Mastering compressor
+        - Transparent
+        - Peak/RMS detection
+      url: "https://tokyodawn.net/kotelnikov"
+      quality: "Professional"
+      notes: "One of the best free compressors"
+
+    - name: Analog Obsession LALA
+      developer: Analog Obsession
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - LA-2A style
+        - Optical compression
+        - Warm character
+      url: "https://analogobsession.com"
+      notes: "All Analog Obsession plugins are free and excellent"
+
+    - name: Analog Obsession FETISH
+      developer: Analog Obsession
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - 1176 style
+        - FET compression
+        - Multiple ratios
+      url: "https://analogobsession.com"
+
+    - name: MJUC Jr
+      developer: Klanghelm
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Variable-mu style
+        - Easy to use
+        - Musical compression
+      url: "https://klanghelm.com/mjuc-jr"
+
+    - name: Rough Rider 3
+      developer: Audio Damage
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Character compressor
+        - Parallel mix
+        - Good for drums
+      url: "https://www.audiodamage.com/roughrider3"
+
+  reverb:
+    - name: Valhalla Supermassive
+      developer: ValhallaDSP
+      platforms: [macOS, Windows]
+      format: [VST, AU, AAX]
+      features:
+        - Massive reverbs and delays
+        - Excellent algorithms
+        - Professional quality
+      url: "https://valhalladsp.com/supermassive"
+      quality: "Professional"
+      notes: "Best free reverb available"
+
+    - name: TAL-Reverb-4
+      developer: TAL
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Plate-style reverb
+        - Vintage character
+        - Modulation
+      url: "https://tal-software.com"
+
+    - name: OrilRiver
+      developer: Denis Tihanov
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Algorithmic reverb
+        - Early reflections control
+        - Good quality
+      url: "https://orilriver.com"
+
+    - name: Dragonfly Reverb
+      developer: Michael Willis
+      platforms: [macOS, Windows, Linux]
+      format: [VST, CLAP, LV2]
+      features:
+        - Multiple reverb types
+        - Hall, Room, Plate, Early
+        - Open source
+      url: "https://michaelwillis.github.io/dragonfly-reverb"
+
+  delay:
+    - name: TAL-Dub
+      developer: TAL
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Vintage delay
+        - Dub-style feedback
+        - Character
+      url: "https://tal-software.com"
+
+    - name: Voxengo Tempo Delay
+      developer: Voxengo
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Tempo-synced
+        - Stereo delay
+        - Clean
+      url: "https://voxengo.com/tempo-delay"
+
+  saturation:
+    - name: Analog Obsession Channev
+      developer: Analog Obsession
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Neve-style saturation
+        - Transformer character
+        - EQ
+      url: "https://analogobsession.com"
+
+    - name: Softube Saturation Knob
+      developer: Softube
+      platforms: [macOS, Windows]
+      format: [VST, AU, AAX]
+      features:
+        - Simple one-knob
+        - Three modes
+        - Clean to dirty
+      url: "https://softube.com/saturation-knob"
+
+    - name: Camel Crusher
+      developer: Camel Audio (now Apple)
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Distortion
+        - Compression
+        - Filter
+      notes: "Classic free distortion plugin"
+
+  utility:
+    - name: Voxengo SPAN
+      developer: Voxengo
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - Spectrum analyzer
+        - Correlation meter
+        - Phase scope
+      url: "https://voxengo.com/span"
+      quality: "Professional"
+      notes: "Industry standard free analyzer"
+
+    - name: Youlean Loudness Meter
+      developer: Youlean
+      platforms: [macOS, Windows]
+      format: [VST, AU, AAX]
+      features:
+        - LUFS metering
+        - True peak
+        - Streaming presets
+      url: "https://youlean.co/youlean-loudness-meter"
+      quality: "Professional"
+      notes: "Essential for loudness compliance"
+
+    - name: MSED
+      developer: Voxengo
+      platforms: [macOS, Windows]
+      format: [VST, AU]
+      features:
+        - M/S encoder/decoder
+        - Side boost/cut
+        - Stereo width
+      url: "https://voxengo.com/msed"
+
+    - name: Kilohearts Essentials
+      developer: Kilohearts
+      platforms: [macOS, Windows]
+      format: [VST, AU, AAX]
+      features:
+        - 17 free effects
+        - Delay, reverb, distortion
+        - Filter, EQ, compressor
+      url: "https://kilohearts.com/products/kilohearts-essentials"
+      notes: "Amazing free bundle"
+
+# ==============================================================================
+# FREE SAMPLE LIBRARIES
+# ==============================================================================
+freeSampleLibraries:
+  spitfire_labs:
+    name: "Spitfire LABS"
+    developer: Spitfire Audio
+    instruments: 50+
+    highlights:
+      - "Soft Piano"
+      - "Strings"
+      - "Choir"
+      - "Drums"
+      - "Synths"
+      - "Percussion"
+    url: "https://labs.spitfireaudio.com"
+    quality: "Professional"
+    notes: "Best free sample library collection"
+
+  bbc_discover:
+    name: "BBC Symphony Orchestra Discover"
+    developer: Spitfire Audio
+    instruments: "33 instruments"
+    sections: ["Strings", "Brass", "Woodwinds", "Percussion"]
+    url: "https://spitfireaudio.com/bbc-symphony-orchestra-discover"
+    quality: "Professional"
+    notes: "Free orchestral starter"
+
+  pianobook:
+    name: "Pianobook"
+    developer: Community
+    instruments: 500+
+    description: "Community-sampled instruments"
+    url: "https://pianobook.co.uk"
+    notes: "Unique, characterful instruments"
+
+  decent_sampler:
+    name: "Decent Sampler Libraries"
+    developer: Various
+    instruments: 100+
+    url: "https://decentsamples.com"
+    notes: "Works with free Decent Sampler player"
+
+  native_instruments:
+    name: "NI Komplete Start"
+    developer: Native Instruments
+    includes:
+      - "2000+ sounds"
+      - "16 instruments and effects"
+      - "Kontakt Player"
+      - "Reaktor Player"
+    url: "https://native-instruments.com/komplete-start"
+    notes: "Excellent starter bundle"
+
+# ==============================================================================
+# FREE AI TOOLS
+# ==============================================================================
+freeAiTools:
+  - name: Whisper
+    developer: OpenAI
+    type: transcription
+    platforms: [macOS, Windows, Linux]
+    local: true
+    url: "https://github.com/openai/whisper"
+    notes: "Best free transcription"
+
+  - name: Demucs
+    developer: Meta AI
+    type: stem_separation
+    platforms: [macOS, Windows, Linux]
+    local: true
+    url: "https://github.com/facebookresearch/demucs"
+    notes: "Best free stem separation"
+
+  - name: Adobe Podcast Enhance
+    developer: Adobe
+    type: enhancement
+    platform: Web
+    url: "https://podcast.adobe.com/enhance"
+    notes: "One-click voice enhancement"
+
+  - name: NVIDIA Broadcast
+    developer: NVIDIA
+    type: noise_removal
+    requirements: "NVIDIA RTX GPU"
+    url: "https://nvidia.com/broadcast"
+    notes: "Real-time noise removal"
+
+# ==============================================================================
+# FREE UTILITIES
+# ==============================================================================
+freeUtilities:
+  conversion:
+    - name: FFmpeg
+      type: "Audio/video conversion"
+      platforms: [macOS, Windows, Linux]
+      url: "https://ffmpeg.org"
+
+    - name: SoX
+      type: "Audio processing"
+      platforms: [macOS, Windows, Linux]
+      url: "http://sox.sourceforge.net"
+
+    - name: MediaHuman Audio Converter
+      type: "Format conversion"
+      platforms: [macOS, Windows]
+      url: "https://mediahuman.com"
+
+  analysis:
+    - name: Sonic Visualiser
+      type: "Audio analysis"
+      platforms: [macOS, Windows, Linux]
+      url: "https://sonicvisualiser.org"
+
+    - name: Spek
+      type: "Spectrogram viewer"
+      platforms: [macOS, Windows, Linux]
+      url: "https://spek.cc"
+
+  midi:
+    - name: MIDI-OX
+      type: "MIDI utility"
+      platforms: [Windows]
+      url: "https://midiox.com"
+
+    - name: SendMIDI / ReceiveMIDI
+      type: "Command line MIDI"
+      platforms: [macOS, Windows, Linux]
+      url: "https://github.com/gbevin/SendMIDI"
+
+# ==============================================================================
+# RECOMMENDATIONS BY USE CASE
+# ==============================================================================
+recommendations:
+  starting_out:
+    daw: "Cakewalk (Windows) or GarageBand (Mac)"
+    synth: "Vital"
+    effects: "TDR bundle, Valhalla Supermassive"
+    samples: "Spitfire LABS"
+    metering: "SPAN, Youlean"
+
+  electronic_production:
+    daw: "Reaper or Cakewalk"
+    synths: ["Vital", "Surge XT", "Dexed"]
+    effects: ["Valhalla Supermassive", "Kilohearts Essentials"]
+    samples: "NI Komplete Start"
+
+  mixing:
+    eq: ["TDR Nova", "TDR SlickEQ"]
+    compression: ["TDR Kotelnikov", "Analog Obsession bundle"]
+    reverb: "Valhalla Supermassive"
+    metering: ["SPAN", "Youlean Loudness Meter"]
+
+  scoring:
+    samples: ["Spitfire LABS", "BBC Discover", "Pianobook"]
+    daw: "Reaper"
+    reverb: "Dragonfly Reverb"
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Free Tools Manifest v1.0.0                      ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝

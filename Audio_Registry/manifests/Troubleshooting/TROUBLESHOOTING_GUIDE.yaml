@@ -1,0 +1,537 @@
+# ==============================================================================
+# METABEAST_CC - TROUBLESHOOTING KNOWLEDGE BASE
+# ==============================================================================
+# Common Problems & Solutions for Audio Production
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Troubleshooting Guide
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  description: |
+    Comprehensive troubleshooting guide for audio production issues
+    including DAW problems, plugin issues, hardware setup, and mixing challenges.
+
+# ==============================================================================
+# DAW ISSUES
+# ==============================================================================
+dawIssues:
+  crashes:
+    symptom: "DAW crashes on startup"
+    solutions:
+      - priority: 1
+        action: "Start in safe mode (hold Shift on startup)"
+        details: "Bypasses plugins and preferences"
+      - priority: 2
+        action: "Remove recently installed plugins"
+        details: "Check ~/Library/Audio/Plug-Ins (macOS) or C:\\Program Files\\Common Files\\VST3 (Windows)"
+      - priority: 3
+        action: "Delete preferences file"
+        paths:
+          ableton: "~/Library/Preferences/Ableton/Live x.x.x"
+          logic: "~/Library/Preferences/com.apple.logic10.plist"
+          protools: "~/Library/Preferences/Avid"
+      - priority: 4
+        action: "Reinstall DAW"
+        details: "Keep projects safe, only reinstall application"
+
+  project_corruption:
+    symptom: "Project won't open or shows errors"
+    solutions:
+      - priority: 1
+        action: "Try backup versions"
+        details: "Check project folder for .bak files or automatic backups"
+      - priority: 2
+        action: "Open with plugins disabled"
+        details: "Hold Option/Alt while opening"
+      - priority: 3
+        action: "Import tracks into new project"
+        details: "Create blank project, import individual tracks"
+      - priority: 4
+        action: "Recover from audio files"
+        details: "Create new project and import all audio files from project folder"
+
+  high_cpu:
+    symptom: "CPU overload, pops, clicks, dropouts"
+    solutions:
+      - priority: 1
+        action: "Increase buffer size"
+        details: "Recording: 128-256, Mixing: 512-2048"
+      - priority: 2
+        action: "Freeze/flatten CPU-heavy tracks"
+        details: "Especially soft synths and convolution reverbs"
+      - priority: 3
+        action: "Disable unused plugins"
+        details: "Bypass or remove plugins not in use"
+      - priority: 4
+        action: "Check plugin issues"
+        details: "Some plugins are CPU hogs - Diva, Omnisphere"
+      - priority: 5
+        action: "Close other applications"
+        details: "Browsers, video apps consume resources"
+      - priority: 6
+        action: "Check sample rate"
+        details: "96kHz uses double CPU of 48kHz"
+
+  audio_dropout:
+    symptom: "Audio cuts out, glitches, or clicks"
+    solutions:
+      - priority: 1
+        action: "Increase buffer size"
+      - priority: 2
+        action: "Check audio interface driver"
+        details: "Update to latest version"
+      - priority: 3
+        action: "Check USB/Thunderbolt connection"
+        details: "Try different port, avoid hubs"
+      - priority: 4
+        action: "Disable WiFi/Bluetooth during session"
+      - priority: 5
+        action: "Check for sample rate mismatches"
+        details: "Session, interface, and OS must match"
+
+  latency:
+    symptom: "Delay between playing and hearing"
+    solutions:
+      - priority: 1
+        action: "Reduce buffer size for recording"
+        details: "64-128 samples for lowest latency"
+      - priority: 2
+        action: "Enable low-latency mode"
+        details: "Available in most DAWs"
+      - priority: 3
+        action: "Use direct monitoring"
+        details: "Monitor through interface, not DAW"
+      - priority: 4
+        action: "Check plugin latency"
+        details: "Linear-phase EQs and lookahead compressors add latency"
+      - priority: 5
+        action: "Use ASIO (Windows) or CoreAudio (macOS)"
+        details: "Never use DirectSound or MME"
+
+# ==============================================================================
+# PLUGIN ISSUES
+# ==============================================================================
+pluginIssues:
+  not_showing:
+    symptom: "Plugin doesn't appear in DAW"
+    solutions:
+      - priority: 1
+        action: "Rescan plugins"
+        details: "Force DAW to rescan plugin folders"
+      - priority: 2
+        action: "Check plugin format"
+        details: "VST3 for Windows, AU for Logic, AAX for Pro Tools"
+      - priority: 3
+        action: "Check installation path"
+        paths:
+          vst3_mac: "/Library/Audio/Plug-Ins/VST3"
+          vst3_win: "C:\\Program Files\\Common Files\\VST3"
+          au_mac: "/Library/Audio/Plug-Ins/Components"
+          aax: "/Library/Application Support/Avid/Audio/Plug-Ins"
+      - priority: 4
+        action: "Check authorization"
+        details: "Plugins may need iLok, eLicenser, or native activation"
+      - priority: 5
+        action: "Check compatibility"
+        details: "Apple Silicon requires native or Rosetta 2"
+
+  authorization:
+    symptom: "Plugin asks for authorization or license"
+    solutions:
+      ilok:
+        - "Install iLok License Manager"
+        - "Sign in to account"
+        - "Sync licenses"
+        - "Ensure iLok dongle connected (if applicable)"
+      native_instruments:
+        - "Install Native Access"
+        - "Sign in and refresh"
+        - "Check library locations"
+      waves:
+        - "Install Waves Central"
+        - "Sign in and install licenses"
+        - "Check Waves license service running"
+      arturia:
+        - "Install Arturia Software Center"
+        - "Sign in and activate"
+
+  crashes_daw:
+    symptom: "Specific plugin crashes DAW"
+    solutions:
+      - priority: 1
+        action: "Update plugin to latest version"
+      - priority: 2
+        action: "Run plugin in sandbox mode (if available)"
+        details: "Logic, Bitwig have this feature"
+      - priority: 3
+        action: "Check for known compatibility issues"
+        details: "Check plugin vendor's support site"
+      - priority: 4
+        action: "Remove and reinstall plugin"
+      - priority: 5
+        action: "Contact vendor support"
+
+  wrong_sound:
+    symptom: "Plugin sounds different than expected"
+    solutions:
+      - priority: 1
+        action: "Check sample rate"
+        details: "Some plugins sound different at different sample rates"
+      - priority: 2
+        action: "Check oversampling settings"
+        details: "Disable or match between systems"
+      - priority: 3
+        action: "Verify preset loaded correctly"
+        details: "Re-save preset if needed"
+      - priority: 4
+        action: "Check analog modeling settings"
+        details: "Some plugins have analog/clean modes"
+
+# ==============================================================================
+# AUDIO INTERFACE ISSUES
+# ==============================================================================
+interfaceIssues:
+  no_sound:
+    symptom: "No audio output from interface"
+    solutions:
+      - priority: 1
+        action: "Check output routing in DAW"
+        details: "Verify correct outputs selected"
+      - priority: 2
+        action: "Check interface output knob"
+        details: "Volume may be down"
+      - priority: 3
+        action: "Check OS audio settings"
+        details: "Interface should be default output"
+      - priority: 4
+        action: "Check cable connections"
+        details: "USB/Thunderbolt, speaker cables"
+      - priority: 5
+        action: "Restart interface"
+        details: "Power cycle the device"
+      - priority: 6
+        action: "Reinstall drivers"
+
+  input_issues:
+    symptom: "No signal from microphone or instrument"
+    solutions:
+      - priority: 1
+        action: "Check gain knob on interface"
+      - priority: 2
+        action: "Enable +48V phantom power (for condensers)"
+      - priority: 3
+        action: "Check input type (mic/line/inst)"
+        details: "Use Hi-Z/Inst for guitar"
+      - priority: 4
+        action: "Check DAW input routing"
+      - priority: 5
+        action: "Check cable"
+        details: "Try different cable"
+      - priority: 6
+        action: "Test with different input"
+
+  ground_loop:
+    symptom: "Hum or buzz in audio (50/60 Hz)"
+    solutions:
+      - priority: 1
+        action: "Use DI box for instruments"
+        details: "Lifts ground between guitar and interface"
+      - priority: 2
+        action: "Plug all gear into same outlet"
+        details: "Reduces ground potential differences"
+      - priority: 3
+        action: "Use power conditioner"
+      - priority: 4
+        action: "Check cable shielding"
+        details: "Use quality balanced cables"
+      - priority: 5
+        action: "Try ground lift (carefully)"
+        details: "Some DIs and interfaces have this switch"
+
+  sample_rate_mismatch:
+    symptom: "Audio plays at wrong speed or pitch"
+    solutions:
+      - priority: 1
+        action: "Match sample rate across all devices"
+        checklist:
+          - "DAW session sample rate"
+          - "Interface sample rate"
+          - "OS audio sample rate"
+          - "External clock (if using)"
+      - priority: 2
+        action: "Set interface as clock master"
+      - priority: 3
+        action: "Restart audio engine"
+
+# ==============================================================================
+# MIXING PROBLEMS
+# ==============================================================================
+mixingProblems:
+  muddy_mix:
+    symptom: "Mix sounds muddy, unclear"
+    solutions:
+      - priority: 1
+        action: "High-pass filter non-bass elements"
+        details: "Remove unnecessary low frequencies"
+        settings: "HPF at 80-150 Hz on guitars, vocals, keys"
+      - priority: 2
+        action: "Cut 200-400 Hz problem areas"
+        details: "This is where mud lives"
+      - priority: 3
+        action: "Create frequency space for each element"
+        details: "Cut in one place, boost in another"
+      - priority: 4
+        action: "Reduce reverb"
+        details: "Too much reverb creates mud"
+
+  harsh_mix:
+    symptom: "Mix sounds harsh, fatiguing"
+    solutions:
+      - priority: 1
+        action: "Identify harsh frequencies (2-4 kHz)"
+        details: "Use narrow cuts"
+      - priority: 2
+        action: "Check compression attack times"
+        details: "Too fast = harsh transients"
+      - priority: 3
+        action: "Add saturation/tape emulation"
+        details: "Rounds off harshness"
+      - priority: 4
+        action: "Use dynamic EQ"
+        details: "Only cuts when harsh frequencies peak"
+
+  thin_mix:
+    symptom: "Mix lacks body, weight"
+    solutions:
+      - priority: 1
+        action: "Check low-mid content (200-500 Hz)"
+        details: "May have over-cut"
+      - priority: 2
+        action: "Add harmonic saturation"
+        details: "Creates warmth and body"
+      - priority: 3
+        action: "Layer bass elements"
+        details: "Sub + mid bass working together"
+      - priority: 4
+        action: "Use parallel compression"
+        details: "Adds weight without killing dynamics"
+
+  no_punch:
+    symptom: "Mix lacks impact, energy"
+    solutions:
+      - priority: 1
+        action: "Check transients"
+        details: "Over-compression kills punch"
+      - priority: 2
+        action: "Use transient shaper"
+        details: "Boost attack on drums"
+      - priority: 3
+        action: "Slow down compressor attack"
+        details: "Let transients through"
+      - priority: 4
+        action: "Create contrast"
+        details: "Quiet parts make loud parts punch"
+
+  phase_issues:
+    symptom: "Sound disappears or changes in mono"
+    solutions:
+      - priority: 1
+        action: "Check for phase cancellation"
+        details: "Use correlation meter"
+      - priority: 2
+        action: "Flip polarity on problematic tracks"
+      - priority: 3
+        action: "Time-align multi-miked sources"
+        details: "Drums, amps, etc."
+      - priority: 4
+        action: "Reduce stereo width"
+        details: "Wide stereo can cause mono issues"
+
+  vocal_sits_wrong:
+    symptom: "Vocal doesn't sit in mix"
+    solutions:
+      - priority: 1
+        action: "Match reverb with music"
+        details: "Vocal should live in same space"
+      - priority: 2
+        action: "Use automation for level"
+        details: "Ride vocal dynamically"
+      - priority: 3
+        action: "Sidechain music to vocal"
+        details: "Gentle ducking when vocal plays"
+      - priority: 4
+        action: "EQ pocket in music"
+        details: "Cut 2-4 kHz in competing elements"
+      - priority: 5
+        action: "Parallel compression on vocal"
+        details: "Adds weight and presence"
+
+# ==============================================================================
+# RECORDING PROBLEMS
+# ==============================================================================
+recordingProblems:
+  clipping:
+    symptom: "Recording is distorted/clipped"
+    solutions:
+      - priority: 1
+        action: "Reduce gain at source"
+        details: "Turn down interface preamp"
+      - priority: 2
+        action: "Aim for peaks at -12 to -6 dBFS"
+      - priority: 3
+        action: "Check pad switch on microphone"
+      - priority: 4
+        action: "Increase distance from source"
+
+  noise_floor:
+    symptom: "Too much background noise in recording"
+    solutions:
+      - priority: 1
+        action: "Increase signal (louder source or closer mic)"
+        details: "Better signal-to-noise ratio"
+      - priority: 2
+        action: "Use lower-noise preamp"
+      - priority: 3
+        action: "Turn off noisy equipment"
+        details: "AC, computers, lights"
+      - priority: 4
+        action: "Use noise reduction in post"
+        details: "RX Voice De-noise"
+
+  plosives:
+    symptom: "P and B sounds pop"
+    solutions:
+      - priority: 1
+        action: "Use pop filter"
+        details: "4-6 inches from mic"
+      - priority: 2
+        action: "Angle microphone"
+        details: "Off-axis to mouth"
+      - priority: 3
+        action: "Increase distance"
+        details: "8-12 inches from mic"
+      - priority: 4
+        action: "Fix in post with RX De-plosive"
+
+  sibilance:
+    symptom: "S sounds too harsh"
+    solutions:
+      - priority: 1
+        action: "Angle microphone"
+        details: "Point slightly above or below mouth"
+      - priority: 2
+        action: "Use ribbon mic or darker condenser"
+      - priority: 3
+        action: "Apply de-esser in mix"
+      - priority: 4
+        action: "Manual editing of harsh S sounds"
+
+  room_reflections:
+    symptom: "Recording sounds roomy/echoey"
+    solutions:
+      - priority: 1
+        action: "Add acoustic treatment"
+        details: "Absorption panels, bass traps"
+      - priority: 2
+        action: "Record closer to mic"
+        details: "Reduces room pickup"
+      - priority: 3
+        action: "Use cardioid pattern"
+        details: "Rejects rear sound"
+      - priority: 4
+        action: "DIY booth with blankets"
+      - priority: 5
+        action: "Use RX De-reverb in post"
+
+# ==============================================================================
+# COMPUTER & SYSTEM ISSUES
+# ==============================================================================
+systemIssues:
+  storage_full:
+    symptom: "Running out of disk space"
+    solutions:
+      - priority: 1
+        action: "Archive old projects"
+        details: "Move to external drive"
+      - priority: 2
+        action: "Clear plugin/sample cache"
+        details: "Kontakt, Omnisphere cache"
+      - priority: 3
+        action: "Delete render files"
+        details: "Can be recreated"
+      - priority: 4
+        action: "Use 'Collect All and Save'"
+        details: "Then delete unused audio"
+
+  slow_performance:
+    symptom: "Computer running slowly"
+    solutions:
+      - priority: 1
+        action: "Restart computer"
+      - priority: 2
+        action: "Check Activity Monitor/Task Manager"
+        details: "Identify resource hogs"
+      - priority: 3
+        action: "Disable antivirus during sessions"
+        details: "Or whitelist DAW/plugins"
+      - priority: 4
+        action: "Upgrade RAM"
+        details: "16GB minimum, 32GB+ recommended"
+      - priority: 5
+        action: "Use SSD for projects"
+        details: "NVMe for best performance"
+
+  compatibility:
+    symptom: "Software incompatibility"
+    apple_silicon:
+      - "Check for native ARM version"
+      - "Use Rosetta 2 if needed"
+      - "Some plugins may not work"
+    windows_issues:
+      - "Run as administrator"
+      - "Check 32/64-bit compatibility"
+      - "Update Visual C++ redistributables"
+
+# ==============================================================================
+# QUICK REFERENCE
+# ==============================================================================
+quickReference:
+  emergency_fixes:
+    - problem: "No sound at all"
+      quick_fix: "Check output routing, interface, cables"
+
+    - problem: "Clicks and pops"
+      quick_fix: "Increase buffer size"
+
+    - problem: "Plugin not working"
+      quick_fix: "Rescan plugins, check authorization"
+
+    - problem: "Project won't open"
+      quick_fix: "Try backup, open with plugins disabled"
+
+    - problem: "Latency too high"
+      quick_fix: "Reduce buffer size, use direct monitoring"
+
+    - problem: "CPU overload"
+      quick_fix: "Freeze tracks, increase buffer"
+
+  keyboard_shortcuts:
+    save_project: "Cmd/Ctrl + S (do this often!)"
+    undo: "Cmd/Ctrl + Z"
+    bypass_plugin: "Usually Option/Alt + click"
+    solo: "Usually S or click solo button"
+    mute: "Usually M or click mute button"
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Troubleshooting Guide v1.0.0                    ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝

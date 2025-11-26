@@ -1,0 +1,640 @@
+# ==============================================================================
+# METABEAST_CC - LEARNING RESOURCES
+# ==============================================================================
+# Comprehensive Learning Resource Guide
+# Fish Music Inc. / MissionControl96 / NOIZYLAB
+# ==============================================================================
+
+meta:
+  manifestName: Learning Resources
+  version: 1.0.0
+  generatedAt: 2025-11-25
+  description: |
+    Curated learning resources for audio production including
+    YouTube channels, courses, books, and educational platforms.
+
+# ==============================================================================
+# YOUTUBE CHANNELS
+# ==============================================================================
+youtube:
+  mixing_mastering:
+    - name: Pensado's Place
+      url: "https://youtube.com/@pensadosplace"
+      specialty: "Professional mixing, interviews"
+      highlights:
+        - "Into the Lair series"
+        - "Industry interviews"
+        - "Mix breakdowns"
+      level: "Intermediate to Advanced"
+
+    - name: Produce Like A Pro
+      host: "Warren Huart"
+      url: "https://youtube.com/@producelikeapro"
+      specialty: "Recording, mixing, production"
+      highlights:
+        - "Mix critiques"
+        - "Artist collaborations"
+        - "Gear reviews"
+      level: "All levels"
+
+    - name: Dan Worrall
+      url: "https://youtube.com/@DanWorrall"
+      specialty: "Deep technical explanations"
+      highlights:
+        - "EQ and compression deep dives"
+        - "Scientific approach"
+        - "Myth busting"
+      level: "Intermediate to Advanced"
+      notes: "Best for understanding the science"
+
+    - name: White Sea Studio
+      url: "https://youtube.com/@WhiteSeaStudio"
+      specialty: "Mixing metal and rock"
+      highlights:
+        - "Before/after comparisons"
+        - "Plugin tutorials"
+        - "Mixing techniques"
+      level: "Intermediate"
+
+    - name: Mix With The Masters
+      url: "https://youtube.com/@mixwiththemasters"
+      specialty: "Industry professionals"
+      highlights:
+        - "World-class engineers"
+        - "Session breakdowns"
+        - "Professional techniques"
+      level: "Advanced"
+
+    - name: Spectre Sound Studios
+      url: "https://youtube.com/@SpectreMediaGroup"
+      specialty: "Metal production"
+      highlights:
+        - "Drum editing"
+        - "Guitar tones"
+        - "Mixing heavy music"
+      level: "Intermediate"
+
+  synthesis_sound_design:
+    - name: Venus Theory
+      url: "https://youtube.com/@VenusTheory"
+      specialty: "Sound design, ambient"
+      highlights:
+        - "Creative techniques"
+        - "Unique approaches"
+        - "Plugin deep dives"
+      level: "All levels"
+
+    - name: Andrew Huang
+      url: "https://youtube.com/@andrewhuang"
+      specialty: "Music production, creativity"
+      highlights:
+        - "Music challenges"
+        - "Production techniques"
+        - "Creative experiments"
+      level: "All levels"
+
+    - name: Syntorial
+      url: "https://youtube.com/@syntorial"
+      specialty: "Synthesis learning"
+      highlights:
+        - "Synthesis fundamentals"
+        - "Sound recreation"
+        - "Training exercises"
+      level: "Beginner to Intermediate"
+
+    - name: Simon Servida
+      url: "https://youtube.com/@SimonServida"
+      specialty: "Sound design, EDM"
+      highlights:
+        - "Bass sound design"
+        - "Serum tutorials"
+        - "Genre breakdowns"
+      level: "Intermediate"
+
+  daw_specific:
+    ableton:
+      - name: You Suck at Producing
+        url: "https://youtube.com/@yousuckatproducing"
+        specialty: "Ableton Live"
+        style: "Entertaining, practical"
+        level: "Beginner to Intermediate"
+
+      - name: Slynk
+        url: "https://youtube.com/@Slynk"
+        specialty: "Ableton techniques"
+        level: "Intermediate to Advanced"
+
+      - name: Seed to Stage
+        url: "https://youtube.com/@seedtostage"
+        specialty: "Ableton for electronic music"
+        level: "All levels"
+
+    logic:
+      - name: MusicTechHelpGuy
+        url: "https://youtube.com/@MusicTechHelpGuy"
+        specialty: "Logic Pro"
+        highlights: "Comprehensive Logic tutorials"
+        level: "All levels"
+
+      - name: Why Logic Pro Rules
+        url: "https://youtube.com/@WhyLogicProRules"
+        specialty: "Logic Pro tips"
+        level: "All levels"
+
+    pro_tools:
+      - name: Pro Tools Expert
+        url: "https://youtube.com/@ProToolsExpert"
+        specialty: "Pro Tools"
+        level: "All levels"
+
+    fl_studio:
+      - name: In The Mix
+        url: "https://youtube.com/@inthemix"
+        specialty: "FL Studio"
+        highlights:
+          - "Mixing in FL"
+          - "Plugin tutorials"
+          - "Workflow tips"
+        level: "All levels"
+
+      - name: Busy Works Beats
+        url: "https://youtube.com/@BusyWorksBeats"
+        specialty: "FL Studio, hip hop"
+        level: "Beginner to Intermediate"
+
+  scoring_orchestration:
+    - name: Christian Henson
+      url: "https://youtube.com/@ChristianHenson"
+      specialty: "Scoring, composition"
+      highlights:
+        - "Industry insights"
+        - "Creative process"
+        - "Spitfire founder"
+      level: "All levels"
+
+    - name: Alex Moukala
+      url: "https://youtube.com/@AlexMoukala"
+      specialty: "Game music, orchestration"
+      highlights:
+        - "Video game music analysis"
+        - "Orchestration techniques"
+        - "Composition breakdowns"
+      level: "Intermediate to Advanced"
+
+    - name: Guy Michelmore
+      url: "https://youtube.com/@ThinkSpaceEducation"
+      specialty: "Film scoring, orchestration"
+      highlights:
+        - "Orchestration basics"
+        - "Film scoring techniques"
+        - "Industry career advice"
+      level: "All levels"
+
+  audio_engineering:
+    - name: Recording Revolution
+      host: "Graham Cochrane"
+      url: "https://youtube.com/@recordingrevolution"
+      specialty: "Home recording"
+      highlights:
+        - "Budget-friendly tips"
+        - "Mixing basics"
+        - "Home studio setup"
+      level: "Beginner"
+
+    - name: Booth Junkie
+      url: "https://youtube.com/@BoothJunkie"
+      specialty: "Voice-over, recording"
+      highlights:
+        - "Microphone comparisons"
+        - "Room treatment"
+        - "Voice recording"
+      level: "All levels"
+
+# ==============================================================================
+# ONLINE COURSES
+# ==============================================================================
+courses:
+  platforms:
+    - name: Masterclass
+      url: "https://masterclass.com"
+      music_courses:
+        - "Hans Zimmer - Film Scoring"
+        - "Timbaland - Producing and Beatmaking"
+        - "Deadmau5 - Electronic Music Production"
+        - "Armin van Buuren - Dance Music"
+      price: "Subscription"
+
+    - name: Coursera
+      url: "https://coursera.org"
+      music_courses:
+        - "Music Production Specialization (Berklee)"
+        - "Electronic Music Production"
+        - "Songwriting"
+      price: "Free audit / Paid certificate"
+
+    - name: Berklee Online
+      url: "https://online.berklee.edu"
+      specialty: "Academic music courses"
+      offerings:
+        - Certificate programs
+        - Degree programs
+        - Individual courses
+      price: "Premium"
+
+    - name: Kadenze
+      url: "https://kadenze.com"
+      music_courses:
+        - "Audio Signal Processing"
+        - "Sound Production in Ableton"
+        - "Introduction to Programming for Musicians"
+      price: "Free audit / Paid premium"
+
+  specialized:
+    - name: Mix With The Masters
+      url: "https://mixwiththemasters.com"
+      specialty: "Professional mixing/mastering"
+      format: "Video seminars with top engineers"
+      instructors:
+        - "Chris Lord-Alge"
+        - "Andrew Scheps"
+        - "Tchad Blake"
+        - "Michael Brauer"
+      price: "Subscription"
+      level: "Intermediate to Advanced"
+
+    - name: Groove3
+      url: "https://groove3.com"
+      specialty: "DAW and plugin tutorials"
+      coverage:
+        - "All major DAWs"
+        - "Plugin deep dives"
+        - "Mixing techniques"
+      price: "Subscription"
+      level: "All levels"
+
+    - name: Puremix
+      url: "https://puremix.net"
+      specialty: "Professional mixing"
+      format: "Full session breakdowns"
+      price: "Subscription"
+      level: "Intermediate to Advanced"
+
+    - name: Nail The Mix
+      url: "https://nailthemix.com"
+      specialty: "Rock/metal mixing"
+      format: "Monthly mixing challenges"
+      price: "Subscription"
+      level: "Intermediate"
+
+    - name: Syntorial
+      url: "https://syntorial.com"
+      specialty: "Learning synthesis"
+      format: "Interactive training"
+      method: "Learn by ear"
+      price: "One-time purchase"
+      level: "Beginner"
+      notes: "Best way to learn synthesis"
+
+# ==============================================================================
+# BOOKS
+# ==============================================================================
+books:
+  mixing:
+    - title: "Mixing Secrets for the Small Studio"
+      author: "Mike Senior"
+      publisher: "Focal Press"
+      level: "Beginner to Intermediate"
+      topics:
+        - "Home studio mixing"
+        - "Budget-friendly techniques"
+        - "Practical workflows"
+      notes: "Best starting book for mixing"
+
+    - title: "Mixing with Your Mind"
+      author: "Michael Paul Stavrou"
+      level: "Advanced"
+      topics:
+        - "Psychological approach"
+        - "Creative mixing"
+        - "Unconventional techniques"
+      notes: "Mind-expanding read"
+
+    - title: "The Mixing Engineer's Handbook"
+      author: "Bobby Owsinski"
+      publisher: "Cengage"
+      level: "All levels"
+      topics:
+        - "Mixing fundamentals"
+        - "Genre-specific tips"
+        - "Industry insights"
+
+  mastering:
+    - title: "Mastering Audio: The Art and Science"
+      author: "Bob Katz"
+      publisher: "Focal Press"
+      level: "Intermediate to Advanced"
+      topics:
+        - "Mastering techniques"
+        - "Loudness"
+        - "Metering"
+      notes: "The definitive mastering book"
+
+  recording:
+    - title: "Recording Unhinged"
+      author: "Sylvia Massy"
+      level: "All levels"
+      topics:
+        - "Creative recording"
+        - "Unconventional techniques"
+        - "Inspiring stories"
+      notes: "Creativity-focused"
+
+    - title: "Modern Recording Techniques"
+      author: "David Miles Huber"
+      publisher: "Focal Press"
+      level: "Beginner to Intermediate"
+      topics:
+        - "Recording fundamentals"
+        - "Studio setup"
+        - "Microphone techniques"
+
+  synthesis:
+    - title: "Refining Sound"
+      author: "Brian K. Shepard"
+      level: "Beginner to Intermediate"
+      topics:
+        - "Synthesis fundamentals"
+        - "Sound design"
+        - "Practical exercises"
+
+    - title: "Welsh's Synthesizer Cookbook"
+      author: "Fred Welsh"
+      level: "Intermediate"
+      topics:
+        - "Classic synth sounds"
+        - "Programming recipes"
+        - "Sound recreation"
+
+  acoustics:
+    - title: "Master Handbook of Acoustics"
+      author: "F. Alton Everest"
+      level: "Intermediate to Advanced"
+      topics:
+        - "Room acoustics"
+        - "Treatment"
+        - "Studio design"
+
+    - title: "Sound Studio Construction on a Budget"
+      author: "F. Alton Everest"
+      level: "Beginner to Intermediate"
+      topics:
+        - "DIY treatment"
+        - "Budget solutions"
+        - "Practical construction"
+
+  music_theory:
+    - title: "Music Theory for Computer Musicians"
+      author: "Michael Hewitt"
+      level: "Beginner"
+      topics:
+        - "Theory for DAW users"
+        - "Practical application"
+        - "Electronic music focus"
+
+    - title: "Hooktheory"
+      author: "Dave Carlton & Ryan Miyakawa"
+      format: "Interactive book"
+      url: "https://hooktheory.com"
+      level: "Beginner"
+      topics:
+        - "Chord progressions"
+        - "Melody writing"
+        - "Song analysis"
+
+# ==============================================================================
+# PODCASTS
+# ==============================================================================
+podcasts:
+  - name: "The Mastering Show"
+    hosts: "Ian Shepherd"
+    url: "https://themasteringshow.com"
+    topics: ["Mastering", "Loudness", "Industry"]
+    frequency: "Weekly"
+
+  - name: "URM Podcast"
+    hosts: "Eyal Levi & Mitch Rizzo"
+    specialty: "Metal production"
+    topics: ["Mixing", "Recording", "Industry"]
+    frequency: "Weekly"
+
+  - name: "Tape Notes"
+    hosts: "John Kennedy"
+    specialty: "Artist interviews"
+    topics: ["Creative process", "Album making"]
+    frequency: "Monthly"
+
+  - name: "Recording Studio Rockstars"
+    hosts: "Lij Shaw"
+    specialty: "Studio owner interviews"
+    topics: ["Business", "Recording", "Careers"]
+
+  - name: "SoundGym Podcast"
+    hosts: "SoundGym team"
+    specialty: "Audio engineering"
+    topics: ["Ear training", "Mixing", "Careers"]
+
+# ==============================================================================
+# FORUMS & COMMUNITIES
+# ==============================================================================
+communities:
+  forums:
+    - name: "Gearslutz (Gearspace)"
+      url: "https://gearspace.com"
+      focus: "Professional audio gear and techniques"
+      activity: "Very active"
+
+    - name: "Reddit r/audioengineering"
+      url: "https://reddit.com/r/audioengineering"
+      focus: "Recording, mixing, mastering"
+      activity: "Very active"
+
+    - name: "Reddit r/WeAreTheMusicMakers"
+      url: "https://reddit.com/r/WeAreTheMusicMakers"
+      focus: "Music production general"
+      activity: "Very active"
+
+    - name: "KVR Audio"
+      url: "https://kvraudio.com/forum"
+      focus: "Plugins, virtual instruments"
+      activity: "Active"
+
+    - name: "VI-Control"
+      url: "https://vi-control.net"
+      focus: "Virtual instruments, orchestral"
+      activity: "Active"
+
+  discord:
+    - name: "Produce Like A Pro Discord"
+      focus: "General production"
+
+    - name: "EDM Production Discord"
+      focus: "Electronic music"
+
+    - name: "Bedroom Producers Discord"
+      focus: "Home studio production"
+
+# ==============================================================================
+# EAR TRAINING
+# ==============================================================================
+earTraining:
+  - name: SoundGym
+    url: "https://soundgym.co"
+    type: "Web app"
+    features:
+      - "EQ training"
+      - "Compression detection"
+      - "Stereo width"
+      - "Frequency recognition"
+    price: "Free / Premium"
+    notes: "Best ear training platform"
+
+  - name: Quiztones
+    url: "https://quiztones.com"
+    type: "Mobile app"
+    features:
+      - "Frequency recognition"
+      - "EQ training"
+      - "Compression training"
+    price: "Paid"
+
+  - name: TrainYourEars
+    url: "https://trainyourears.com"
+    type: "Desktop app"
+    features:
+      - "Custom training"
+      - "Use your own music"
+      - "Detailed stats"
+    price: "Paid"
+
+  - name: ToneDeaf Test
+    url: "https://tonedeaftest.com"
+    type: "Web"
+    features:
+      - "Pitch recognition"
+      - "Musical aptitude"
+    price: "Free"
+
+# ==============================================================================
+# LEARNING PATHS
+# ==============================================================================
+learningPaths:
+  beginner_producer:
+    duration: "6-12 months"
+    steps:
+      - phase: "Month 1-2"
+        focus: "DAW basics"
+        resources:
+          - "Your DAW's official tutorials"
+          - "YouTube basics videos"
+          - "Making simple beats"
+        goal: "Navigate DAW confidently"
+
+      - phase: "Month 3-4"
+        focus: "Music theory basics"
+        resources:
+          - "Hooktheory"
+          - "YouTube theory channels"
+          - "Music Theory for Computer Musicians (book)"
+        goal: "Understand keys, chords, progressions"
+
+      - phase: "Month 5-6"
+        focus: "Sound design basics"
+        resources:
+          - "Syntorial"
+          - "Vital tutorials"
+          - "Presets as learning tools"
+        goal: "Create basic synth sounds"
+
+      - phase: "Month 7-9"
+        focus: "Mixing fundamentals"
+        resources:
+          - "Mixing Secrets book"
+          - "Dan Worrall videos"
+          - "Practice on own productions"
+        goal: "Understand EQ, compression, balance"
+
+      - phase: "Month 10-12"
+        focus: "Complete songs"
+        resources:
+          - "Finish multiple tracks"
+          - "Get feedback"
+          - "Start developing style"
+        goal: "Release music"
+
+  mixing_engineer:
+    duration: "1-2 years"
+    steps:
+      - phase: "Foundation"
+        focus: "Theory and basics"
+        resources:
+          - "Mixing Secrets book"
+          - "Dan Worrall deep dives"
+          - "SoundGym ear training"
+        duration: "3 months"
+
+      - phase: "Practice"
+        focus: "Mix many songs"
+        resources:
+          - "Cambridge MT multitracks"
+          - "Nail The Mix"
+          - "Mix feedback communities"
+        duration: "6 months"
+
+      - phase: "Specialization"
+        focus: "Develop style"
+        resources:
+          - "Mix With The Masters"
+          - "Genre-specific tutorials"
+          - "Reference track analysis"
+        duration: "6 months"
+
+      - phase: "Professional"
+        focus: "Business and clients"
+        resources:
+          - "Industry podcasts"
+          - "Networking"
+          - "Portfolio building"
+        duration: "Ongoing"
+
+# ==============================================================================
+# FREE MULTITRACKS FOR PRACTICE
+# ==============================================================================
+practiceMultitracks:
+  - name: Cambridge MT
+    url: "https://cambridge-mt.com/ms/mtk"
+    tracks: "400+"
+    genres: "All genres"
+    license: "Educational use"
+    notes: "Best free multitrack resource"
+
+  - name: Telefunken Live from the Lab
+    url: "https://telefunken-elektroakustik.com/live-from-the-lab"
+    tracks: "10+"
+    genres: "Various"
+    quality: "High quality recordings"
+
+  - name: Shure Mic Shootout
+    url: "Archived online"
+    content: "Microphone comparison tracks"
+
+# ==============================================================================
+# SIGNATURE
+# ==============================================================================
+signature: |
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                   ║
+  ║   METABEAST_CC - Learning Resources v1.0.0                       ║
+  ║                                                                   ║
+  ║   Fish Music Inc. / MissionControl96 / NOIZYLAB                  ║
+  ║                                                                   ║
+  ╚══════════════════════════════════════════════════════════════════╝
