@@ -2,1022 +2,1273 @@
   "meta": {
     "catalogName": "Audio Canon (DAWs, Plugins, Instruments)",
     "version": "1.0.0",
-    "generatedAt": "2025-11-25T13:47:00-05:00",
+    "generatedAt": "2025-11-26T17:53:33.365688",
     "owner": "Rob (Fish Music Inc. / MissionControl96 / NOIZYLAB)",
-    "itemCount": 75,
-    "lastAudit": "2025-11-25"
+    "itemCount": 152,
+    "lastAudit": "2025-11-26"
   },
   "stats": {
     "byType": {
       "daw": 12,
-      "instrument": 20,
-      "plugin": 43
+      "instrument": 57,
+      "plugin": 83
     },
     "byCategory": {
       "daw": 12,
-      "synth": 10,
-      "sampler": 4,
-      "drum": 5,
-      "orchestral": 6,
-      "hybrid": 2,
-      "eq": 5,
+      "sampler": 8,
+      "synth": 23,
+      "hybrid": 3,
+      "orchestral": 13,
+      "drum": 10,
+      "eq": 7,
       "compressor": 5,
-      "reverb": 7,
-      "delay": 5,
-      "saturation": 5,
-      "pitch": 5,
-      "spectral": 3,
-      "utility": 4,
-      "limiter": 1,
+      "reverb": 9,
+      "delay": 7,
+      "saturation": 7,
+      "pitch": 7,
+      "spectral": 4,
+      "utility": 7,
+      "limiter": 5,
       "multiband": 1,
-      "channel-strip": 1,
+      "channel-strip": 8,
       "metering": 3,
-      "modulation": 3
+      "modulation": 6,
+      "gate": 3,
+      "stereo": 4
     },
     "byStatus": {
-      "active": 75,
-      "legacy": 0,
-      "discontinued": 0
+      "active": 152
     },
     "byOS": {
-      "macOS": 75,
-      "Windows": 70,
-      "Linux": 6
+      "macOS": 152,
+      "Windows": 149,
+      "Linux": 10
     },
     "byFormat": {
-      "VST3": 65,
-      "AU": 55,
-      "AAX": 50,
+      "VST3": 129,
+      "AU": 127,
+      "AAX": 114,
       "CLAP": 5,
-      "Standalone": 15,
-      "Kontakt": 8
+      "Standalone": 26,
+      "Kontakt": 17
     }
   },
   "items": [
     {
-      "id": "daw-001",
+      "itemId": "daw-001",
       "name": "Ableton Live",
       "type": "daw",
       "category": "daw",
       "developer": "Ableton",
-      "year": 2001,
-      "status": "active",
-      "tags": ["clip", "warp", "performance", "Max for Live"],
-      "url": "https://ableton.com"
+      "status": "active"
     },
     {
-      "id": "daw-002",
+      "itemId": "daw-002",
       "name": "Logic Pro",
       "type": "daw",
       "category": "daw",
       "developer": "Apple",
-      "year": 1993,
-      "status": "active",
-      "tags": ["instruments", "scoring", "Atmos"],
-      "url": "https://apple.com/logic-pro"
+      "status": "active"
     },
     {
-      "id": "daw-003",
+      "itemId": "daw-003",
       "name": "Pro Tools",
       "type": "daw",
       "category": "daw",
       "developer": "Avid",
-      "year": 1989,
-      "status": "active",
-      "tags": ["industry-standard", "mixing", "post-production"],
-      "url": "https://avid.com/pro-tools"
+      "status": "active"
     },
     {
-      "id": "daw-004",
+      "itemId": "daw-004",
       "name": "Cubase",
       "type": "daw",
       "category": "daw",
       "developer": "Steinberg",
-      "year": 1989,
-      "status": "active",
-      "tags": ["MIDI", "composition", "scoring"],
-      "url": "https://steinberg.net/cubase"
+      "status": "active"
     },
     {
-      "id": "daw-005",
+      "itemId": "daw-005",
       "name": "Studio One",
       "type": "daw",
       "category": "daw",
       "developer": "PreSonus",
-      "year": 2009,
-      "status": "active",
-      "tags": ["drag-drop", "mastering", "modern-workflow"],
-      "url": "https://presonus.com/studio-one"
+      "status": "active"
     },
     {
-      "id": "daw-006",
+      "itemId": "daw-006",
       "name": "FL Studio",
       "type": "daw",
       "category": "daw",
       "developer": "Image-Line",
-      "year": 1997,
-      "status": "active",
-      "tags": ["pattern", "lifetime-updates", "hip-hop"],
-      "url": "https://image-line.com"
+      "status": "active"
     },
     {
-      "id": "daw-007",
+      "itemId": "daw-007",
       "name": "Bitwig Studio",
       "type": "daw",
       "category": "daw",
       "developer": "Bitwig",
-      "year": 2014,
-      "status": "active",
-      "tags": ["modular", "MPE", "Linux", "CLAP"],
-      "url": "https://bitwig.com"
+      "status": "active"
     },
     {
-      "id": "daw-008",
+      "itemId": "daw-008",
       "name": "Reaper",
       "type": "daw",
       "category": "daw",
       "developer": "Cockos",
-      "year": 2006,
-      "status": "active",
-      "tags": ["customizable", "lightweight", "affordable"],
-      "url": "https://reaper.fm"
+      "status": "active"
     },
     {
-      "id": "daw-009",
+      "itemId": "daw-009",
       "name": "Reason",
       "type": "daw",
       "category": "daw",
       "developer": "Reason Studios",
-      "year": 2000,
-      "status": "active",
-      "tags": ["rack", "virtual-hardware", "routing"],
-      "url": "https://reasonstudios.com"
+      "status": "active"
     },
     {
-      "id": "daw-010",
+      "itemId": "daw-010",
       "name": "Luna",
       "type": "daw",
       "category": "daw",
       "developer": "Universal Audio",
-      "year": 2020,
-      "status": "active",
-      "tags": ["UAD", "tape-emulation", "console"],
-      "url": "https://uaudio.com/luna"
+      "status": "active"
     },
     {
-      "id": "daw-011",
+      "itemId": "daw-011",
       "name": "Digital Performer",
       "type": "daw",
       "category": "daw",
       "developer": "MOTU",
-      "year": 1990,
-      "status": "active",
-      "tags": ["film-scoring", "chunks", "MIDI"],
-      "url": "https://motu.com/dp"
+      "status": "active"
     },
     {
-      "id": "daw-012",
+      "itemId": "daw-012",
       "name": "Nuendo",
       "type": "daw",
       "category": "daw",
       "developer": "Steinberg",
-      "year": 1999,
-      "status": "active",
-      "tags": ["post-production", "game-audio", "ADR"],
-      "url": "https://steinberg.net/nuendo"
+      "status": "active"
     },
     {
-      "id": "inst-001",
+      "itemId": "inst-001",
       "name": "Kontakt",
       "type": "instrument",
       "category": "sampler",
       "developer": "Native Instruments",
-      "year": 2002,
-      "status": "active",
-      "tags": ["libraries", "scripting", "open-format"],
-      "url": "https://native-instruments.com/kontakt"
+      "status": "active"
     },
     {
-      "id": "inst-002",
+      "itemId": "inst-002",
       "name": "Omnisphere",
       "type": "instrument",
       "category": "synth",
       "developer": "Spectrasonics",
-      "year": 2008,
-      "status": "active",
-      "tags": ["hybrid", "granular", "massive-library"],
-      "url": "https://spectrasonics.net/omnisphere"
+      "status": "active"
     },
     {
-      "id": "inst-003",
+      "itemId": "inst-003",
       "name": "Hybrid Tools Equinox",
       "type": "instrument",
       "category": "hybrid",
       "developer": "8Dio",
-      "year": 2020,
-      "status": "active",
-      "tags": ["rhythm-generator", "trailer", "kits"],
-      "url": "https://8dio.com/hybrid-tools-equinox"
+      "status": "active"
     },
     {
-      "id": "inst-004",
+      "itemId": "inst-004",
       "name": "Serum",
       "type": "instrument",
       "category": "synth",
       "developer": "Xfer Records",
-      "year": 2014,
-      "status": "active",
-      "tags": ["wavetable", "visual", "modulation"],
-      "url": "https://xferrecords.com/serum"
+      "status": "active"
     },
     {
-      "id": "inst-005",
+      "itemId": "inst-005",
       "name": "Diva",
       "type": "instrument",
       "category": "synth",
       "developer": "U-He",
-      "year": 2011,
-      "status": "active",
-      "tags": ["analog-modeling", "vintage", "zero-feedback-delay"],
-      "url": "https://u-he.com/diva"
+      "status": "active"
     },
     {
-      "id": "inst-006",
+      "itemId": "inst-006",
       "name": "Pigments",
       "type": "instrument",
       "category": "synth",
       "developer": "Arturia",
-      "year": 2018,
-      "status": "active",
-      "tags": ["wavetable", "granular", "virtual-analog"],
-      "url": "https://arturia.com/pigments"
+      "status": "active"
     },
     {
-      "id": "inst-007",
+      "itemId": "inst-007",
       "name": "Phase Plant",
       "type": "instrument",
       "category": "synth",
       "developer": "KiloHearts",
-      "year": 2019,
-      "status": "active",
-      "tags": ["modular", "wavetable", "granular"],
-      "url": "https://kilohearts.com/phase-plant"
+      "status": "active"
     },
     {
-      "id": "inst-008",
+      "itemId": "inst-008",
       "name": "Massive X",
       "type": "instrument",
       "category": "synth",
       "developer": "Native Instruments",
-      "year": 2019,
-      "status": "active",
-      "tags": ["wavetable", "bass", "modern"],
-      "url": "https://native-instruments.com/massive-x"
+      "status": "active"
     },
     {
-      "id": "inst-009",
+      "itemId": "inst-009",
       "name": "Zebra",
       "type": "instrument",
       "category": "synth",
       "developer": "U-He",
-      "year": 2004,
-      "status": "active",
-      "tags": ["modular", "film-scoring", "Hans-Zimmer"],
-      "url": "https://u-he.com/zebra"
+      "status": "active"
     },
     {
-      "id": "inst-010",
+      "itemId": "inst-010",
       "name": "Vital",
       "type": "instrument",
       "category": "synth",
       "developer": "Matt Tytel",
-      "year": 2020,
-      "status": "active",
-      "tags": ["wavetable", "free", "open-source", "MPE"],
-      "url": "https://vital.audio"
+      "status": "active"
     },
     {
-      "id": "inst-011",
+      "itemId": "inst-011",
       "name": "Keyscape",
       "type": "instrument",
       "category": "sampler",
       "developer": "Spectrasonics",
-      "year": 2016,
-      "status": "active",
-      "tags": ["keys", "piano", "electric-piano"],
-      "url": "https://spectrasonics.net/keyscape"
+      "status": "active"
     },
     {
-      "id": "inst-012",
+      "itemId": "inst-012",
       "name": "Trilian",
       "type": "instrument",
       "category": "sampler",
       "developer": "Spectrasonics",
-      "year": 2009,
-      "status": "active",
-      "tags": ["bass", "acoustic", "electric"],
-      "url": "https://spectrasonics.net/trilian"
+      "status": "active"
     },
     {
-      "id": "inst-013",
+      "itemId": "inst-013",
       "name": "Falcon",
       "type": "instrument",
       "category": "sampler",
       "developer": "UVI",
-      "year": 2016,
-      "status": "active",
-      "tags": ["hybrid", "sampler", "synth"],
-      "url": "https://uvi.net/falcon"
+      "status": "active"
     },
     {
-      "id": "inst-020",
+      "itemId": "inst-020",
       "name": "BBC Symphony Orchestra",
       "type": "instrument",
       "category": "orchestral",
       "developer": "Spitfire Audio",
-      "year": 2019,
-      "status": "active",
-      "tags": ["orchestral", "full-orchestra", "Maida-Vale"],
-      "url": "https://spitfireaudio.com/bbcso"
+      "status": "active"
     },
     {
-      "id": "inst-021",
+      "itemId": "inst-021",
       "name": "Berlin Series",
       "type": "instrument",
       "category": "orchestral",
       "developer": "Orchestral Tools",
-      "year": 2012,
-      "status": "active",
-      "tags": ["orchestral", "strings", "brass", "Teldex"],
-      "url": "https://orchestraltools.com/berlin-series"
+      "status": "active"
     },
     {
-      "id": "inst-022",
+      "itemId": "inst-022",
       "name": "Hollywood Orchestra Opus",
       "type": "instrument",
       "category": "orchestral",
       "developer": "EastWest",
-      "year": 2021,
-      "status": "active",
-      "tags": ["orchestral", "Hollywood", "complete"],
-      "url": "https://eastwest.com/opus"
+      "status": "active"
     },
     {
-      "id": "inst-023",
+      "itemId": "inst-023",
       "name": "Synchron Series",
       "type": "instrument",
       "category": "orchestral",
       "developer": "Vienna Symphonic Library",
-      "year": 2017,
-      "status": "active",
-      "tags": ["orchestral", "Synchron-Stage", "MIR"],
-      "url": "https://vsl.co.at"
+      "status": "active"
     },
     {
-      "id": "inst-024",
+      "itemId": "inst-024",
       "name": "Albion",
       "type": "instrument",
       "category": "orchestral",
       "developer": "Spitfire Audio",
-      "year": 2011,
-      "status": "active",
-      "tags": ["orchestral", "cinematic", "hybrid"],
-      "url": "https://spitfireaudio.com/albion"
+      "status": "active"
     },
     {
-      "id": "inst-025",
+      "itemId": "inst-025",
       "name": "Metropolis Ark",
       "type": "instrument",
       "category": "orchestral",
       "developer": "Orchestral Tools",
-      "year": 2015,
-      "status": "active",
-      "tags": ["orchestral", "epic", "trailer"],
-      "url": "https://orchestraltools.com/metropolis-ark"
+      "status": "active"
     },
     {
-      "id": "inst-030",
+      "itemId": "inst-030",
       "name": "Superior Drummer",
       "type": "instrument",
       "category": "drum",
       "developer": "Toontrack",
-      "year": 2017,
-      "status": "active",
-      "tags": ["acoustic-drums", "SDX", "tracker"],
-      "url": "https://toontrack.com/superior-drummer"
+      "status": "active"
     },
     {
-      "id": "inst-031",
+      "itemId": "inst-031",
       "name": "Battery",
       "type": "instrument",
       "category": "drum",
       "developer": "Native Instruments",
-      "year": 2004,
-      "status": "active",
-      "tags": ["drum-sampler", "electronic", "acoustic"],
-      "url": "https://native-instruments.com/battery"
+      "status": "active"
     },
     {
-      "id": "inst-032",
+      "itemId": "inst-032",
       "name": "Damage",
       "type": "instrument",
       "category": "drum",
       "developer": "Heavyocity",
-      "year": 2011,
-      "status": "active",
-      "tags": ["cinematic", "percussion", "trailer"],
-      "url": "https://heavyocity.com/damage"
+      "status": "active"
     },
     {
-      "id": "inst-033",
+      "itemId": "inst-033",
       "name": "Gravity",
       "type": "instrument",
       "category": "hybrid",
       "developer": "Heavyocity",
-      "year": 2015,
-      "status": "active",
-      "tags": ["cinematic", "pads", "risers"],
-      "url": "https://heavyocity.com/gravity"
+      "status": "active"
     },
     {
-      "id": "inst-034",
+      "itemId": "inst-034",
       "name": "Action Strikes",
       "type": "instrument",
       "category": "drum",
       "developer": "Native Instruments",
-      "year": 2013,
-      "status": "active",
-      "tags": ["cinematic", "percussion", "ensemble"],
-      "url": "https://native-instruments.com"
+      "status": "active"
     },
     {
-      "id": "plug-001",
+      "itemId": "plug-001",
       "name": "FabFilter Pro-Q",
       "type": "plugin",
       "category": "eq",
       "developer": "FabFilter",
-      "year": 2010,
-      "status": "active",
-      "tags": ["surgical", "linear-phase", "dynamic-bands"],
-      "url": "https://fabfilter.com/pro-q"
+      "status": "active"
     },
     {
-      "id": "plug-002",
+      "itemId": "plug-002",
       "name": "Equilibrium",
       "type": "plugin",
       "category": "eq",
       "developer": "DMG Audio",
-      "year": 2017,
-      "status": "active",
-      "tags": ["mastering", "linear-phase", "M/S"],
-      "url": "https://dmgaudio.com/equilibrium"
+      "status": "active"
     },
     {
-      "id": "plug-003",
+      "itemId": "plug-003",
       "name": "SlickEQ",
       "type": "plugin",
       "category": "eq",
       "developer": "Tokyo Dawn Labs",
-      "year": 2014,
-      "status": "active",
-      "tags": ["mixing", "free-version", "analog-modeling"],
-      "url": "https://tokyodawn.net/slickeq"
+      "status": "active"
     },
     {
-      "id": "plug-004",
+      "itemId": "plug-004",
       "name": "Kirchhoff-EQ",
       "type": "plugin",
       "category": "eq",
       "developer": "Three-Body Technology",
-      "year": 2022,
-      "status": "active",
-      "tags": ["surgical", "spectrum-grab", "innovative"],
-      "url": "https://three-body-tech.com"
+      "status": "active"
     },
     {
-      "id": "plug-005",
+      "itemId": "plug-005",
       "name": "Massenburg DesignWorks MDWEQ",
       "type": "plugin",
       "category": "eq",
       "developer": "Plugin Alliance",
-      "year": 2015,
-      "status": "active",
-      "tags": ["parametric", "mastering", "transparent"],
-      "url": "https://plugin-alliance.com"
+      "status": "active"
     },
     {
-      "id": "plug-010",
+      "itemId": "plug-010",
       "name": "FabFilter Pro-C",
       "type": "plugin",
       "category": "compressor",
       "developer": "FabFilter",
-      "year": 2012,
-      "status": "active",
-      "tags": ["versatile", "sidechain", "visual"],
-      "url": "https://fabfilter.com/pro-c"
+      "status": "active"
     },
     {
-      "id": "plug-011",
+      "itemId": "plug-011",
       "name": "Kotelnikov",
       "type": "plugin",
       "category": "compressor",
       "developer": "Tokyo Dawn Labs",
-      "year": 2012,
-      "status": "active",
-      "tags": ["mastering", "transparent", "free-version"],
-      "url": "https://tokyodawn.net/kotelnikov"
+      "status": "active"
     },
     {
-      "id": "plug-012",
+      "itemId": "plug-012",
       "name": "API 2500",
       "type": "plugin",
       "category": "compressor",
       "developer": "Waves",
-      "year": 2008,
-      "status": "active",
-      "tags": ["bus", "analog-modeling", "punch"],
-      "url": "https://waves.com"
+      "status": "active"
     },
     {
-      "id": "plug-013",
+      "itemId": "plug-013",
       "name": "Shadow Hills Mastering Compressor",
       "type": "plugin",
       "category": "compressor",
       "developer": "Plugin Alliance",
-      "year": 2019,
-      "status": "active",
-      "tags": ["mastering", "optical-VCA", "transformer"],
-      "url": "https://plugin-alliance.com"
+      "status": "active"
     },
     {
-      "id": "plug-014",
+      "itemId": "plug-014",
       "name": "Vertigo VSC-2",
       "type": "plugin",
       "category": "compressor",
       "developer": "Plugin Alliance",
-      "year": 2015,
-      "status": "active",
-      "tags": ["bus", "VCA", "glue"],
-      "url": "https://plugin-alliance.com"
+      "status": "active"
     },
     {
-      "id": "plug-020",
+      "itemId": "plug-020",
       "name": "Valhalla Room",
       "type": "plugin",
       "category": "reverb",
       "developer": "ValhallaDSP",
-      "year": 2011,
-      "status": "active",
-      "tags": ["algorithmic", "lush", "affordable"],
-      "url": "https://valhalladsp.com/valhalla-room"
+      "status": "active"
     },
     {
-      "id": "plug-021",
+      "itemId": "plug-021",
       "name": "Valhalla VintageVerb",
       "type": "plugin",
       "category": "reverb",
       "developer": "ValhallaDSP",
-      "year": 2012,
-      "status": "active",
-      "tags": ["algorithmic", "vintage", "character"],
-      "url": "https://valhalladsp.com/vintageverb"
+      "status": "active"
     },
     {
-      "id": "plug-022",
+      "itemId": "plug-022",
       "name": "Valhalla Supermassive",
       "type": "plugin",
       "category": "reverb",
       "developer": "ValhallaDSP",
-      "year": 2020,
-      "status": "active",
-      "tags": ["algorithmic", "massive", "delay", "free"],
-      "url": "https://valhalladsp.com/supermassive"
+      "status": "active"
     },
     {
-      "id": "plug-023",
+      "itemId": "plug-023",
       "name": "FabFilter Pro-R",
       "type": "plugin",
       "category": "reverb",
       "developer": "FabFilter",
-      "year": 2017,
-      "status": "active",
-      "tags": ["algorithmic", "visual", "EQ-decay"],
-      "url": "https://fabfilter.com/pro-r"
+      "status": "active"
     },
     {
-      "id": "plug-024",
+      "itemId": "plug-024",
       "name": "Altiverb",
       "type": "plugin",
       "category": "reverb",
       "developer": "Audio Ease",
-      "year": 2001,
-      "status": "active",
-      "tags": ["convolution", "impulse-responses", "post-production"],
-      "url": "https://audioease.com/altiverb"
+      "status": "active"
     },
     {
-      "id": "plug-025",
+      "itemId": "plug-025",
       "name": "Seventh Heaven",
       "type": "plugin",
       "category": "reverb",
       "developer": "LiquidSonics",
-      "year": 2017,
-      "status": "active",
-      "tags": ["convolution", "Bricasti", "M7"],
-      "url": "https://liquidsonics.com/seventh-heaven"
+      "status": "active"
     },
     {
-      "id": "plug-026",
+      "itemId": "plug-026",
       "name": "Blackhole",
       "type": "plugin",
       "category": "reverb",
       "developer": "Eventide",
-      "year": 2017,
-      "status": "active",
-      "tags": ["algorithmic", "massive", "creative"],
-      "url": "https://eventideaudio.com/blackhole"
+      "status": "active"
     },
     {
-      "id": "plug-030",
+      "itemId": "plug-030",
       "name": "EchoBoy",
       "type": "plugin",
       "category": "delay",
       "developer": "Soundtoys",
-      "year": 2006,
-      "status": "active",
-      "tags": ["vintage", "analog-modeling", "character"],
-      "url": "https://soundtoys.com/echoboy"
+      "status": "active"
     },
     {
-      "id": "plug-031",
+      "itemId": "plug-031",
       "name": "Valhalla Delay",
       "type": "plugin",
       "category": "delay",
       "developer": "ValhallaDSP",
-      "year": 2018,
-      "status": "active",
-      "tags": ["tape", "diffusion", "vintage"],
-      "url": "https://valhalladsp.com/valhalla-delay"
+      "status": "active"
     },
     {
-      "id": "plug-032",
+      "itemId": "plug-032",
       "name": "H-Delay",
       "type": "plugin",
       "category": "delay",
       "developer": "Waves",
-      "year": 2007,
-      "status": "active",
-      "tags": ["hybrid", "lofi", "filtering"],
-      "url": "https://waves.com/h-delay"
+      "status": "active"
     },
     {
-      "id": "plug-033",
+      "itemId": "plug-033",
       "name": "Timeless",
       "type": "plugin",
       "category": "delay",
       "developer": "FabFilter",
-      "year": 2009,
-      "status": "active",
-      "tags": ["tape", "modulation", "visual"],
-      "url": "https://fabfilter.com/timeless"
+      "status": "active"
     },
     {
-      "id": "plug-034",
+      "itemId": "plug-034",
       "name": "UltraTap",
       "type": "plugin",
       "category": "delay",
       "developer": "Eventide",
-      "year": 2016,
-      "status": "active",
-      "tags": ["multi-tap", "rhythmic", "creative"],
-      "url": "https://eventideaudio.com/ultratap"
+      "status": "active"
     },
     {
-      "id": "plug-040",
+      "itemId": "plug-040",
       "name": "Decapitator",
       "type": "plugin",
       "category": "saturation",
       "developer": "Soundtoys",
-      "year": 2009,
-      "status": "active",
-      "tags": ["analog", "saturation", "character"],
-      "url": "https://soundtoys.com/decapitator"
+      "status": "active"
     },
     {
-      "id": "plug-041",
+      "itemId": "plug-041",
       "name": "Saturn",
       "type": "plugin",
       "category": "saturation",
       "developer": "FabFilter",
-      "year": 2011,
-      "status": "active",
-      "tags": ["multiband", "saturation", "modulation"],
-      "url": "https://fabfilter.com/saturn"
+      "status": "active"
     },
     {
-      "id": "plug-042",
+      "itemId": "plug-042",
       "name": "Tape",
       "type": "plugin",
       "category": "saturation",
       "developer": "Softube",
-      "year": 2013,
-      "status": "active",
-      "tags": ["tape", "saturation", "warmth"],
-      "url": "https://softube.com/tape"
+      "status": "active"
     },
     {
-      "id": "plug-043",
+      "itemId": "plug-043",
       "name": "Trash 2",
       "type": "plugin",
       "category": "saturation",
       "developer": "iZotope",
-      "year": 2012,
-      "status": "active",
-      "tags": ["distortion", "convolution", "creative"],
-      "url": "https://izotope.com/trash"
+      "status": "active"
     },
     {
-      "id": "plug-044",
+      "itemId": "plug-044",
       "name": "Radiator",
       "type": "plugin",
       "category": "saturation",
       "developer": "Soundtoys",
-      "year": 2010,
-      "status": "active",
-      "tags": ["vintage", "tube", "Altec"],
-      "url": "https://soundtoys.com/radiator"
+      "status": "active"
     },
     {
-      "id": "plug-050",
+      "itemId": "plug-050",
       "name": "Melodyne",
       "type": "plugin",
       "category": "pitch",
       "developer": "Celemony",
-      "year": 2001,
-      "status": "active",
-      "tags": ["polyphonic-pitch", "time", "DNA"],
-      "url": "https://celemony.com/melodyne"
+      "status": "active"
     },
     {
-      "id": "plug-051",
+      "itemId": "plug-051",
       "name": "Auto-Tune",
       "type": "plugin",
       "category": "pitch",
       "developer": "Antares",
-      "year": 1997,
-      "status": "active",
-      "tags": ["pitch-correction", "effect", "real-time"],
-      "url": "https://antarestech.com"
+      "status": "active"
     },
     {
-      "id": "plug-052",
+      "itemId": "plug-052",
       "name": "VocAlign",
       "type": "plugin",
       "category": "pitch",
       "developer": "Synchro Arts",
-      "year": 2018,
-      "status": "active",
-      "tags": ["alignment", "time", "doubles"],
-      "url": "https://synchroarts.com/vocalign"
+      "status": "active"
     },
     {
-      "id": "plug-053",
+      "itemId": "plug-053",
       "name": "Revoice Pro",
       "type": "plugin",
       "category": "pitch",
       "developer": "Synchro Arts",
-      "year": 2012,
-      "status": "active",
-      "tags": ["alignment", "pitch", "time", "ADR"],
-      "url": "https://synchroarts.com/revoice-pro"
+      "status": "active"
     },
     {
-      "id": "plug-054",
+      "itemId": "plug-054",
       "name": "Little AlterBoy",
       "type": "plugin",
       "category": "pitch",
       "developer": "Soundtoys",
-      "year": 2014,
-      "status": "active",
-      "tags": ["pitch-shift", "formant", "creative"],
-      "url": "https://soundtoys.com/little-alterboy"
+      "status": "active"
     },
     {
-      "id": "plug-060",
+      "itemId": "plug-060",
       "name": "RX",
       "type": "plugin",
       "category": "spectral",
       "developer": "iZotope",
-      "year": 2008,
-      "status": "active",
-      "tags": ["repair", "spectral", "AI", "de-noise"],
-      "url": "https://izotope.com/rx"
+      "status": "active"
     },
     {
-      "id": "plug-061",
+      "itemId": "plug-061",
       "name": "SpectraLayers",
       "type": "plugin",
       "category": "spectral",
       "developer": "Steinberg",
-      "year": 2012,
-      "status": "active",
-      "tags": ["spectral", "editing", "AI", "unmixing"],
-      "url": "https://steinberg.net/spectralayers"
+      "status": "active"
     },
     {
-      "id": "plug-062",
+      "itemId": "plug-062",
       "name": "De-Breath",
       "type": "plugin",
       "category": "spectral",
       "developer": "Waves",
-      "year": 2012,
-      "status": "active",
-      "tags": ["breath-removal", "vocal", "automatic"],
-      "url": "https://waves.com"
+      "status": "active"
     },
     {
-      "id": "plug-070",
+      "itemId": "plug-070",
       "name": "Ozone",
       "type": "plugin",
       "category": "utility",
       "developer": "iZotope",
-      "year": 2005,
-      "status": "active",
-      "tags": ["mastering", "AI", "suite"],
-      "url": "https://izotope.com/ozone"
+      "status": "active"
     },
     {
-      "id": "plug-071",
+      "itemId": "plug-071",
       "name": "FabFilter Pro-L",
       "type": "plugin",
       "category": "limiter",
       "developer": "FabFilter",
-      "year": 2011,
-      "status": "active",
-      "tags": ["limiter", "mastering", "loudness"],
-      "url": "https://fabfilter.com/pro-l"
+      "status": "active"
     },
     {
-      "id": "plug-072",
+      "itemId": "plug-072",
       "name": "FabFilter Pro-MB",
       "type": "plugin",
       "category": "multiband",
       "developer": "FabFilter",
-      "year": 2013,
-      "status": "active",
-      "tags": ["multiband", "dynamics", "visual"],
-      "url": "https://fabfilter.com/pro-mb"
+      "status": "active"
     },
     {
-      "id": "plug-073",
+      "itemId": "plug-073",
       "name": "Neutron",
       "type": "plugin",
       "category": "channel-strip",
       "developer": "iZotope",
-      "year": 2016,
-      "status": "active",
-      "tags": ["channel-strip", "AI", "mixing-assistant"],
-      "url": "https://izotope.com/neutron"
+      "status": "active"
     },
     {
-      "id": "plug-074",
+      "itemId": "plug-074",
       "name": "SPAN",
       "type": "plugin",
       "category": "metering",
       "developer": "Voxengo",
-      "year": 2007,
-      "status": "active",
-      "tags": ["spectrum-analyzer", "metering", "free"],
-      "url": "https://voxengo.com/span"
+      "status": "active"
     },
     {
-      "id": "plug-075",
+      "itemId": "plug-075",
       "name": "Insight",
       "type": "plugin",
       "category": "metering",
       "developer": "iZotope",
-      "year": 2013,
-      "status": "active",
-      "tags": ["metering", "loudness", "broadcast"],
-      "url": "https://izotope.com/insight"
+      "status": "active"
     },
     {
-      "id": "plug-076",
+      "itemId": "plug-076",
       "name": "bx_meter",
       "type": "plugin",
       "category": "metering",
       "developer": "Plugin Alliance",
-      "year": 2012,
-      "status": "active",
-      "tags": ["metering", "M/S", "stereo", "free"],
-      "url": "https://plugin-alliance.com"
+      "status": "active"
     },
     {
-      "id": "plug-080",
+      "itemId": "plug-080",
       "name": "PhaseMistress",
       "type": "plugin",
       "category": "modulation",
       "developer": "Soundtoys",
-      "year": 2016,
-      "status": "active",
-      "tags": ["phaser", "vintage", "analog"],
-      "url": "https://soundtoys.com/phasemistress"
+      "status": "active"
     },
     {
-      "id": "plug-081",
+      "itemId": "plug-081",
       "name": "MicroShift",
       "type": "plugin",
       "category": "modulation",
       "developer": "Soundtoys",
-      "year": 2014,
-      "status": "active",
-      "tags": ["widening", "stereo", "doubling"],
-      "url": "https://soundtoys.com/microshift"
+      "status": "active"
     },
     {
-      "id": "plug-082",
+      "itemId": "plug-082",
       "name": "Tremolator",
       "type": "plugin",
       "category": "modulation",
       "developer": "Soundtoys",
-      "year": 2010,
-      "status": "active",
-      "tags": ["tremolo", "rhythmic", "gating"],
-      "url": "https://soundtoys.com/tremolator"
+      "status": "active"
+    },
+    {
+      "itemId": "inst-040",
+      "name": "Hive",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "U-He",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-041",
+      "name": "Repro",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "U-He",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-042",
+      "name": "Alchemy",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Apple",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-043",
+      "name": "Sylenth1",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "LennarDigital",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-044",
+      "name": "Surge XT",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Surge Synth Team",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-045",
+      "name": "Analog Lab",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Arturia",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-046",
+      "name": "Avenger",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Vengeance Sound",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-047",
+      "name": "Dune",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Synapse Audio",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-048",
+      "name": "Bazille",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "U-He",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-049",
+      "name": "Spire",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Reveal Sound",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-050",
+      "name": "Retrologue",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Steinberg",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-051",
+      "name": "Wavetable",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Ableton",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-052",
+      "name": "Dexed",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Digital Suburban",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-053",
+      "name": "FM8",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Native Instruments",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-054",
+      "name": "Reaktor",
+      "type": "instrument",
+      "category": "synth",
+      "developer": "Native Instruments",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-055",
+      "name": "LABS",
+      "type": "instrument",
+      "category": "sampler",
+      "developer": "Spitfire Audio",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-060",
+      "name": "Century Series",
+      "type": "instrument",
+      "category": "orchestral",
+      "developer": "8Dio",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-061",
+      "name": "Lacrimosa",
+      "type": "instrument",
+      "category": "orchestral",
+      "developer": "8Dio",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-062",
+      "name": "Novo",
+      "type": "instrument",
+      "category": "orchestral",
+      "developer": "Heavyocity",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-063",
+      "name": "Jaeger",
+      "type": "instrument",
+      "category": "orchestral",
+      "developer": "Audio Imperia",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-064",
+      "name": "Nucleus",
+      "type": "instrument",
+      "category": "orchestral",
+      "developer": "Audio Imperia",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-065",
+      "name": "Spitfire Studio Orchestra",
+      "type": "instrument",
+      "category": "orchestral",
+      "developer": "Spitfire Audio",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-066",
+      "name": "CineStrings",
+      "type": "instrument",
+      "category": "orchestral",
+      "developer": "Cinesamples",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-067",
+      "name": "Mosaic",
+      "type": "instrument",
+      "category": "hybrid",
+      "developer": "Heavyocity",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-068",
+      "name": "Exhale",
+      "type": "instrument",
+      "category": "sampler",
+      "developer": "Output",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-069",
+      "name": "Analog Strings",
+      "type": "instrument",
+      "category": "sampler",
+      "developer": "Output",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-070",
+      "name": "Portal",
+      "type": "instrument",
+      "category": "sampler",
+      "developer": "Output",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-090",
+      "name": "Nectar",
+      "type": "plugin",
+      "category": "channel-strip",
+      "developer": "iZotope",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-091",
+      "name": "Vocal Rider",
+      "type": "plugin",
+      "category": "utility",
+      "developer": "Waves",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-092",
+      "name": "Soothe2",
+      "type": "plugin",
+      "category": "eq",
+      "developer": "Oeksound",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-093",
+      "name": "Spiff",
+      "type": "plugin",
+      "category": "eq",
+      "developer": "Oeksound",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-094",
+      "name": "Vocal Bender",
+      "type": "plugin",
+      "category": "pitch",
+      "developer": "Waves",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-095",
+      "name": "Harmony Engine",
+      "type": "plugin",
+      "category": "pitch",
+      "developer": "Antares",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-100",
+      "name": "SSL Channel Strip",
+      "type": "plugin",
+      "category": "channel-strip",
+      "developer": "Waves",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-101",
+      "name": "Console 1",
+      "type": "plugin",
+      "category": "channel-strip",
+      "developer": "Softube",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-102",
+      "name": "bx_console SSL 4000",
+      "type": "plugin",
+      "category": "channel-strip",
+      "developer": "Plugin Alliance",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-103",
+      "name": "bx_console Neve N",
+      "type": "plugin",
+      "category": "channel-strip",
+      "developer": "Plugin Alliance",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-104",
+      "name": "Virtual Mix Rack",
+      "type": "plugin",
+      "category": "channel-strip",
+      "developer": "Slate Digital",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-105",
+      "name": "InfiniStrip",
+      "type": "plugin",
+      "category": "channel-strip",
+      "developer": "PSP Audioware",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-110",
+      "name": "FabFilter Pro-G",
+      "type": "plugin",
+      "category": "gate",
+      "developer": "FabFilter",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-111",
+      "name": "C1 Gate",
+      "type": "plugin",
+      "category": "gate",
+      "developer": "Waves",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-112",
+      "name": "Oxford Drum Gate",
+      "type": "plugin",
+      "category": "gate",
+      "developer": "Sonnox",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-115",
+      "name": "Ozone Imager",
+      "type": "plugin",
+      "category": "stereo",
+      "developer": "iZotope",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-116",
+      "name": "Wider",
+      "type": "plugin",
+      "category": "stereo",
+      "developer": "Polyverse",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-117",
+      "name": "S1 Stereo Imager",
+      "type": "plugin",
+      "category": "stereo",
+      "developer": "Waves",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-118",
+      "name": "bx_stereomaker",
+      "type": "plugin",
+      "category": "stereo",
+      "developer": "Plugin Alliance",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-120",
+      "name": "Limitless",
+      "type": "plugin",
+      "category": "limiter",
+      "developer": "DMG Audio",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-121",
+      "name": "Invisible Limiter",
+      "type": "plugin",
+      "category": "limiter",
+      "developer": "A.O.M.",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-122",
+      "name": "Weiss DS1-MK3",
+      "type": "plugin",
+      "category": "limiter",
+      "developer": "Softube",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-123",
+      "name": "L2 Ultramaximizer",
+      "type": "plugin",
+      "category": "limiter",
+      "developer": "Waves",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-130",
+      "name": "Crystallizer",
+      "type": "plugin",
+      "category": "delay",
+      "developer": "Soundtoys",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-131",
+      "name": "PrimalTap",
+      "type": "plugin",
+      "category": "delay",
+      "developer": "Soundtoys",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-132",
+      "name": "Panman",
+      "type": "plugin",
+      "category": "modulation",
+      "developer": "Soundtoys",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-133",
+      "name": "FilterFreak",
+      "type": "plugin",
+      "category": "modulation",
+      "developer": "Soundtoys",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-134",
+      "name": "Little Plate",
+      "type": "plugin",
+      "category": "reverb",
+      "developer": "Soundtoys",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-135",
+      "name": "Effect Rack",
+      "type": "plugin",
+      "category": "utility",
+      "developer": "Soundtoys",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-136",
+      "name": "Physion",
+      "type": "plugin",
+      "category": "spectral",
+      "developer": "Eventide",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-137",
+      "name": "MangledVerb",
+      "type": "plugin",
+      "category": "reverb",
+      "developer": "Eventide",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-138",
+      "name": "H3000 Factory",
+      "type": "plugin",
+      "category": "modulation",
+      "developer": "Eventide",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-075",
+      "name": "EZdrummer",
+      "type": "instrument",
+      "category": "drum",
+      "developer": "Toontrack",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-076",
+      "name": "Addictive Drums",
+      "type": "instrument",
+      "category": "drum",
+      "developer": "XLN Audio",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-077",
+      "name": "GetGood Drums",
+      "type": "instrument",
+      "category": "drum",
+      "developer": "GetGood Audio",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-078",
+      "name": "Steven Slate Drums",
+      "type": "instrument",
+      "category": "drum",
+      "developer": "Slate Digital",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-079",
+      "name": "Kick 2",
+      "type": "instrument",
+      "category": "drum",
+      "developer": "Sonic Academy",
+      "status": "active"
+    },
+    {
+      "itemId": "inst-080",
+      "name": "Strezov Sampling Percussion",
+      "type": "instrument",
+      "category": "drum",
+      "developer": "Strezov Sampling",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-140",
+      "name": "RC-20 Retro Color",
+      "type": "plugin",
+      "category": "saturation",
+      "developer": "XLN Audio",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-141",
+      "name": "Vinyl",
+      "type": "plugin",
+      "category": "saturation",
+      "developer": "iZotope",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-142",
+      "name": "Guitar Rig",
+      "type": "plugin",
+      "category": "utility",
+      "developer": "Native Instruments",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-143",
+      "name": "Helix Native",
+      "type": "plugin",
+      "category": "utility",
+      "developer": "Line 6",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-144",
+      "name": "Neural Amp Modeler",
+      "type": "plugin",
+      "category": "utility",
+      "developer": "Neural DSP",
+      "status": "active"
+    },
+    {
+      "itemId": "plug-145",
+      "name": "BIAS FX",
+      "type": "plugin",
+      "category": "utility",
+      "developer": "Positive Grid",
+      "status": "active"
     }
-  ],
-  "developers": {
-    "instruments": [
-      "Native Instruments",
-      "Spectrasonics",
-      "Xfer Records",
-      "U-He",
-      "Arturia",
-      "KiloHearts",
-      "Spitfire Audio",
-      "Orchestral Tools",
-      "Vienna Symphonic Library",
-      "EastWest",
-      "8Dio",
-      "Heavyocity",
-      "Output",
-      "UVI"
-    ],
-    "effects": [
-      "FabFilter",
-      "Soundtoys",
-      "ValhallaDSP",
-      "iZotope",
-      "Waves",
-      "Universal Audio",
-      "Eventide",
-      "Softube",
-      "DMG Audio",
-      "Tokyo Dawn Labs",
-      "Sonnox",
-      "Slate Digital",
-      "PSP Audioware",
-      "Plugin Alliance"
-    ],
-    "daws": [
-      "Ableton",
-      "Apple",
-      "Steinberg",
-      "Avid",
-      "PreSonus",
-      "Cockos",
-      "Bitwig",
-      "Reason Studios",
-      "Magix",
-      "Tracktion",
-      "Universal Audio"
-    ]
-  },
-  "filterOptions": {
-    "types": ["daw", "instrument", "plugin"],
-    "categories": [
-      "daw",
-      "synth",
-      "sampler",
-      "drum",
-      "orchestral",
-      "hybrid",
-      "eq",
-      "compressor",
-      "reverb",
-      "delay",
-      "saturation",
-      "pitch",
-      "spectral",
-      "utility",
-      "limiter",
-      "multiband",
-      "channel-strip",
-      "metering",
-      "modulation"
-    ],
-    "status": ["active", "legacy", "discontinued"],
-    "os": ["macOS", "Windows", "Linux"],
-    "formats": ["VST2", "VST3", "AU", "AAX", "CLAP", "Standalone"]
-  }
+  ]
 }
