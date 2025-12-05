@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-11-01T01:32:54.712766",
+  "ethernet": [
+    {
+      "interface": "en19",
+      "ip": "169.254.33.183",
+      "status": "up",
+      "mac": "92:9d:28:bb:33:87"
+    },
+    {
+      "interface": "en1",
+      "ip": "10.0.0.25",
+      "status": "up",
+      "mac": "82:b9:89:df:86:5a"
+    },
+    {
+      "interface": "en17",
+      "ip": "169.254.239.97",
+      "status": "up",
+      "mac": "96:ec:13:52:34:de"
+    }
+  ],
+  "usb": 27,
+  "hdmi": [
+    "Graphics/Displays:",
+    "Displays:",
+    "Resolution: 6720 x 3780",
+    "Main Display: Yes"
+  ],
+  "network": {
+    "local_ip": "10.0.0.25",
+    "gateway": "10.0.0.1",
+    "network": "10.0.0"
+  },
+  "summary": {}
+}

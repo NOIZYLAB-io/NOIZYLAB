@@ -1,0 +1,29 @@
+name = "mc96-reward-engine"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "mc96-reward-engine-prod"
+
+[env.staging]
+name = "mc96-reward-engine-staging"
+
+[[kv_namespaces]]
+binding = "NOIZY_EVENTS"
+id = "YOUR_KV_NAMESPACE_ID"
+preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID"
+
+[env.production.kv_namespaces]
+binding = "NOIZY_EVENTS"
+id = "YOUR_PROD_KV_NAMESPACE_ID"
+
+[env.staging.kv_namespaces]
+binding = "NOIZY_EVENTS"
+id = "YOUR_STAGING_KV_NAMESPACE_ID"
+
+[vars]
+ENVIRONMENT = "production"
+EMAIL_SERVICE_ENDPOINT = "https://email-service.your-account.workers.dev"
+REWARD_STORAGE_ENDPOINT = "https://reward-storage.your-account.workers.dev"
+

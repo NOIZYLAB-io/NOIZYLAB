@@ -1,0 +1,49 @@
+{
+  "action": "MC96_POPS_ECO_UNIVERSE",
+  "ts": 1762623077,
+  "keywords": [
+    "pop",
+    "pops",
+    "pop-rock",
+    "poprock"
+  ],
+  "roots": {
+    "RESCUE": "/Volumes/4TBSG/_RESCUE",
+    "MASTER": "/Volumes/4TBSG/MASTER_CONSOLIDATED_ARCHIVE",
+    "THE_FAMILY": "/Users/rsp_ms/NOIZYLAB/MC96_Consolidation/THE_FAMILY"
+  },
+  "sections": {
+    "RESCUE_SCAN": {
+      "found": 4,
+      "files": 4,
+      "dirs": 0,
+      "samples": [
+        "/Volumes/4TBSG/_RESCUE/_REPORTS/GET_POPS_report_1762622689.json",
+        "/Volumes/4TBSG/_RESCUE/_REPORTS/LOAD_POPS_SHIRL_LUCY_1762622785.json",
+        "/Volumes/4TBSG/_RESCUE/_REPORTS/POPS_report_1762622524.json",
+        "/Volumes/4TBSG/_RESCUE/Antares/Auto-Tune Pro/Presets/Factory/Damien Lewis/Pop Vox.xml"
+      ]
+    },
+    "FAMILY_RAW": {
+      "profiles_count": 4,
+      "members_count": 4
+    },
+    "FAMILY_POP_RELATED": {
+      "profiles": [],
+      "members": {}
+    },
+    "MASTER_SCAN": {
+      "found": 0,
+      "files": 0,
+      "dirs": 0,
+      "samples": []
+    }
+  },
+  "recommendations": {
+    "next_steps": [
+      "Run with FULL=1 for a deeper MASTER scan if needed.",
+      "Use pops_loader.ensure_assets_for_keywords(['pop']) to stage presets.",
+      "Review FAMILY_POP_RELATED for voices tagged with pop and link to presets."
+    ]
+  }
+}

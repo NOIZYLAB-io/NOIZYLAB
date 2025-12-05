@@ -1,0 +1,61 @@
+steps:
+- device: OMEN
+  error: ''
+  status: completed
+  step: Prep Install Media
+  timestamp: '2025-10-13T11:20:55.111381'
+- device: OMEN
+  error: ''
+  status: completed
+  step: BIOS/UEFI Rituals
+  timestamp: '2025-10-13T11:20:55.125318'
+- device: OMEN
+  error: ''
+  status: completed
+  step: Windows 10 Install
+  timestamp: '2025-10-13T11:20:55.131858'
+- device: OMEN
+  error: ''
+  status: completed
+  step: Post-Install Drivers
+  timestamp: '2025-10-13T11:20:55.138336'
+- device: Inspiron
+  error: ''
+  status: completed
+  step: Prep Install Media
+  timestamp: '2025-10-13T11:20:55.144619'
+- device: Inspiron
+  error: ''
+  status: completed
+  step: BIOS/UEFI Rituals
+  timestamp: '2025-10-13T11:20:55.153522'
+- device: Inspiron
+  error: ''
+  status: completed
+  step: Windows 10 Install
+  timestamp: '2025-10-13T11:20:55.163771'
+- device: Inspiron
+  error: ''
+  status: completed
+  step: Post-Install Drivers
+  timestamp: '2025-10-13T11:20:55.170305'
+- device: D-LINK
+  error: ''
+  status: completed
+  step: Prep Install Media
+  timestamp: '2025-10-13T11:20:55.176863'
+- device: D-LINK
+  error: ''
+  status: completed
+  step: BIOS/UEFI Rituals
+  timestamp: '2025-10-13T11:20:55.183516'
+- device: D-LINK
+  error: ''
+  status: completed
+  step: Windows 10 Install
+  timestamp: '2025-10-13T11:20:55.199467'
+- device: D-LINK
+  error: ''
+  status: completed
+  step: Post-Install Drivers
+  timestamp: '2025-10-13T11:20:55.206435'

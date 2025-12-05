@@ -1,0 +1,48 @@
+# Cloudflare Workers Configuration for NOIZYLAB AI Gateway
+name = "noizylab-ai-gateway"
+main = "cloudflare-ai-gateway-worker.js"
+compatibility_date = "2024-11-26"
+workers_dev = true
+
+# Account details (update with your Cloudflare account ID)
+# Find at: Cloudflare Dashboard → Workers & Pages → Overview
+# account_id = "your-account-id-here"
+
+# Routes (optional - deploy to custom domain)
+# routes = [
+#   { pattern = "ai.noizylab.ca/*", zone_name = "noizylab.ca" }
+# ]
+
+# Environment variables (non-secret)
+[env.production]
+name = "noizylab-ai-gateway-prod"
+
+# Secrets - Set these using: wrangler secret put SECRET_NAME
+# DO NOT put actual secrets here - use wrangler CLI or dashboard
+#
+# To set secrets:
+#   wrangler secret put GEMINI_API_KEY
+#   wrangler secret put CLAUDE_API_KEY
+#   wrangler secret put INTERNAL_AUTH_TOKEN
+#
+# Or set in Cloudflare Dashboard:
+#   Workers & Pages → noizylab-ai-gateway → Settings → Variables and Secrets
+
+# KV Namespaces (optional - for caching/logging)
+# kv_namespaces = [
+#   { binding = "AI_CACHE", id = "your-kv-namespace-id" }
+# ]
+
+# Durable Objects (optional - for rate limiting)
+# durable_objects.bindings = [
+#   { name = "RATE_LIMITER", class_name = "RateLimiter" }
+# ]
+
+# Observability
+[observability]
+enabled = true
+
+# Limits
+[limits]
+cpu_ms = 50000  # 50 seconds CPU time
+

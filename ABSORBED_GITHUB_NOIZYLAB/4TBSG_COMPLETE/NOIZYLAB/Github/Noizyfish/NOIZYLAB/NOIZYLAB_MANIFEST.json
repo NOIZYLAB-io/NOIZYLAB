@@ -1,0 +1,487 @@
+{
+  "created": "2025-11-24T19:44:54.690438",
+  "source": "/Users/m2ultra/NOIZYLAB",
+  "stats": {
+    "total_files": 232319,
+    "total_dirs": 301650,
+    "total_size": 197749231616,
+    "cleaned_files": 31397,
+    "space_freed": 474344251,
+    "broken_links": 609,
+    "duplicates": 0
+  },
+  "structure": {
+    "download_llama_model.py": {
+      "type": "file",
+      "size": 2448
+    },
+    "claude_workspace.json": {
+      "type": "file",
+      "size": 608
+    },
+    "GABRIEL_NETWORK_SENTINEL.py": {
+      "type": "file",
+      "size": 21388
+    },
+    "misc": {
+      "type": "directory",
+      "size": "120K"
+    },
+    "GABRIEL_ULTRA_X10000.py": {
+      "type": "file",
+      "size": 35263
+    },
+    "MUSIC_SAMPLES_CONTINUITY_SCANNER.py": {
+      "type": "file",
+      "size": 15079
+    },
+    "noizylab-os": {
+      "type": "directory",
+      "size": "356K"
+    },
+    "SMART_MIGRATOR.py": {
+      "type": "file",
+      "size": 8345
+    },
+    "FIX_PLAYS.py": {
+      "type": "file",
+      "size": 2375
+    },
+    "CHECK_AGENTS.py": {
+      "type": "file",
+      "size": 3754
+    },
+    "ios-email-setup": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "infra": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "ORGANIZE_EVERYTHING.py": {
+      "type": "file",
+      "size": 5408
+    },
+    "setup_env.py": {
+      "type": "file",
+      "size": 440
+    },
+    "disk_usage_analyzer.py": {
+      "type": "file",
+      "size": 4031
+    },
+    "versions.tf": {
+      "type": "file",
+      "size": 0
+    },
+    "noizylab-knowledge-system": {
+      "type": "directory",
+      "size": "60K"
+    },
+    "EXECUTE_FIX.py": {
+      "type": "file",
+      "size": 240
+    },
+    "ULTIMATE_LAUNCHER.py": {
+      "type": "file",
+      "size": 6688
+    },
+    "FIX_NOW_IMMEDIATE.py": {
+      "type": "file",
+      "size": 2979
+    },
+    "config": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "security": {
+      "type": "directory",
+      "size": "36K"
+    },
+    "FIND_CODEMASTER.py": {
+      "type": "file",
+      "size": 4039
+    },
+    "MIGRATE_CLAUDE_NEEDS.py": {
+      "type": "file",
+      "size": 17105
+    },
+    "mta-sts-policies": {
+      "type": "directory",
+      "size": "12K"
+    },
+    "launch": {
+      "type": "file",
+      "size": 868
+    },
+    "ULTIMATE_12TB_REORGANIZER.py": {
+      "type": "file",
+      "size": 19469
+    },
+    "_CONSOLIDATED_CODE": {
+      "type": "directory",
+      "size": "7.2G"
+    },
+    "ai-aggregator": {
+      "type": "directory",
+      "size": "228K"
+    },
+    "training": {
+      "type": "directory",
+      "size": "80K"
+    },
+    "RUN_AUTOALLOW.py": {
+      "type": "file",
+      "size": 114
+    },
+    "launch-v3": {
+      "type": "file",
+      "size": 3822
+    },
+    "health": {
+      "type": "directory",
+      "size": "20K"
+    },
+    "ANALYZE_VOLUME.py": {
+      "type": "file",
+      "size": 4245
+    },
+    "ULTIMATE_MASTER_ORGANIZER.py": {
+      "type": "file",
+      "size": 27307
+    },
+    "ml-models": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "gabriel": {
+      "type": "directory",
+      "size": "204K"
+    },
+    "cursedoder": {
+      "type": "directory",
+      "size": "64K"
+    },
+    "blocker": {
+      "type": "file",
+      "size": 121
+    },
+    "cloudflare": {
+      "type": "directory",
+      "size": "128K"
+    },
+    "GRF_TEST": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "2026_WORKSPACES": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "tests": {
+      "type": "directory",
+      "size": "32K"
+    },
+    "control-panel": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "workflows": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "GORUNFREEX1000.py": {
+      "type": "file",
+      "size": 3421
+    },
+    "webhooks.db": {
+      "type": "file",
+      "size": 8192
+    },
+    "HEALTH_MONITOR.py": {
+      "type": "file",
+      "size": 8861
+    },
+    "AUTOALLOW.py": {
+      "type": "file",
+      "size": 4924
+    },
+    "AUTO_EXECUTE_TRANSFERS.py": {
+      "type": "file",
+      "size": 4316
+    },
+    "GABRIEL_MEGA_INTELLIGENCE.py": {
+      "type": "file",
+      "size": 21664
+    },
+    "email_intelligence.db": {
+      "type": "file",
+      "size": 0
+    },
+    "FIX_ALL_PLAYS.py": {
+      "type": "file",
+      "size": 6339
+    },
+    "AUTO_EXECUTE_WITH_PREFERENCES.py": {
+      "type": "file",
+      "size": 627
+    },
+    "ultimate-ssh-system": {
+      "type": "directory",
+      "size": "376K"
+    },
+    "MASTER_INTEGRATION.py": {
+      "type": "file",
+      "size": 4911
+    },
+    "integrations": {
+      "type": "directory",
+      "size": "20K"
+    },
+    "MASTER_OVERSEER_AUTO.py": {
+      "type": "file",
+      "size": 9486
+    },
+    "EXECUTE_MASTER_PROCESS.py": {
+      "type": "file",
+      "size": 1426
+    },
+    "GABRIEL_AUTO_OPTIMIZER.py": {
+      "type": "file",
+      "size": 18187
+    },
+    "it_genius_backup_20251122_022410": {
+      "type": "directory",
+      "size": "348K"
+    },
+    "mc96": {
+      "type": "directory",
+      "size": "172K"
+    },
+    "VOLUME_ANALYZER.py": {
+      "type": "file",
+      "size": 3781
+    },
+    "master-dashboard": {
+      "type": "directory",
+      "size": "8.0K"
+    },
+    "CODEMASTER_SYSTEM.py": {
+      "type": "file",
+      "size": 6550
+    },
+    "METABEAST.py": {
+      "type": "file",
+      "size": 21913
+    },
+    "logs": {
+      "type": "directory",
+      "size": "0B"
+    },
+    "claude_integration.py": {
+      "type": "file",
+      "size": 1946
+    },
+    "load_preferences.py": {
+      "type": "file",
+      "size": 1844
+    },
+    "QUICK_ORGANIZE.py": {
+      "type": "file",
+      "size": 3559
+    },
+    "MOVE_MUSIC_SAMPLES.py": {
+      "type": "file",
+      "size": 6793
+    },
+    "ENGR_KEITH.py": {
+      "type": "file",
+      "size": 15533
+    },
+    "mobile": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "UNIFIED_DASHBOARD.py": {
+      "type": "file",
+      "size": 7346
+    },
+    "CODE_ARCHIVE": {
+      "type": "directory",
+      "size": "2.9G"
+    },
+    "email-intelligence": {
+      "type": "directory",
+      "size": "704K"
+    },
+    "ai": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "it_genius": {
+      "type": "directory",
+      "size": "13M"
+    },
+    "AUTO_RUN_NOW.py": {
+      "type": "file",
+      "size": 130
+    },
+    "ADVANCED_AUTOMATION.py": {
+      "type": "file",
+      "size": 9961
+    },
+    "noizylab_2026": {
+      "type": "directory",
+      "size": "171G"
+    },
+    "scripts": {
+      "type": "directory",
+      "size": "18M"
+    },
+    "packages": {
+      "type": "directory",
+      "size": "84K"
+    },
+    "MOVE_AND_CLEAN_CODE.py": {
+      "type": "file",
+      "size": 11778
+    },
+    "FORCE_MOVE_MUSIC_SAMPLES.py": {
+      "type": "file",
+      "size": 2969
+    },
+    "EXECUTE_FIXES.py": {
+      "type": "file",
+      "size": 190
+    },
+    "GABRIEL_DGS1210_MASTER_CONTROL.py": {
+      "type": "file",
+      "size": 22094
+    },
+    "Files": {
+      "type": "directory",
+      "size": "2.2G"
+    },
+    "code-fixer.py": {
+      "type": "file",
+      "size": 3225
+    },
+    "setup_env.sh": {
+      "type": "file",
+      "size": 542
+    },
+    "red-dragon-code": {
+      "type": "directory",
+      "size": "29M"
+    },
+    "MOVE_MUSIC_SAMPLES_DIRECT.py": {
+      "type": "file",
+      "size": 2406
+    },
+    "fishmusicinc-email-setup": {
+      "type": "directory",
+      "size": "108K"
+    },
+    "automation": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "extract_audio_metadata.py": {
+      "type": "file",
+      "size": 4384
+    },
+    "SAFE_ABSORB_PYTHON_PROJECTS.py": {
+      "type": "file",
+      "size": 9817
+    },
+    "manifests": {
+      "type": "directory",
+      "size": "16K"
+    },
+    "llama-models": {
+      "type": "directory",
+      "size": "392M"
+    },
+    "RUN_FIX_NOW.py": {
+      "type": "file",
+      "size": 116
+    },
+    "monitoring": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "SCAN_HEAL_OPTIMIZE.py": {
+      "type": "file",
+      "size": 16657
+    },
+    "performance": {
+      "type": "directory",
+      "size": "8.0K"
+    },
+    "api-docs": {
+      "type": "directory",
+      "size": "4.0K"
+    },
+    "execute_move_now.py": {
+      "type": "file",
+      "size": 661
+    },
+    "EXECUTE_AND_OVERSEE.py": {
+      "type": "file",
+      "size": 3705
+    },
+    "MOVE_TO_12TB.py": {
+      "type": "file",
+      "size": 7582
+    },
+    "IMPROVED_DISK_ANALYZER.py": {
+      "type": "file",
+      "size": 4210
+    },
+    "apps": {
+      "type": "directory",
+      "size": "104K"
+    },
+    "backups": {
+      "type": "directory",
+      "size": "28K"
+    },
+    "_EXECUTE_NOW.py": {
+      "type": "file",
+      "size": 261
+    },
+    "universal-blocker": {
+      "type": "directory",
+      "size": "1.9M"
+    },
+    "SOUND_LIBRARY_INTELLIGENCE": {
+      "type": "directory",
+      "size": "264K"
+    },
+    "GRF_BIGINSTALL": {
+      "type": "directory",
+      "size": "104K"
+    },
+    "analytics": {
+      "type": "directory",
+      "size": "8.0K"
+    },
+    "imessage-spam-filter": {
+      "type": "directory",
+      "size": "40K"
+    },
+    "noizylab_setup.code-workspace": {
+      "type": "file",
+      "size": 43
+    },
+    "run_migration.py": {
+      "type": "file",
+      "size": 1110
+    },
+    "ipad-dev-setup": {
+      "type": "directory",
+      "size": "44K"
+    }
+  }
+}

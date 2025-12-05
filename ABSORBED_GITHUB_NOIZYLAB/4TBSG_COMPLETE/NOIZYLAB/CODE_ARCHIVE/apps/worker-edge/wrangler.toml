@@ -1,0 +1,27 @@
+name = "mc96-worker-edge"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "mc96-worker-edge-prod"
+
+[env.staging]
+name = "mc96-worker-edge-staging"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "mc96-audit"
+database_id = "your-database-id-here"
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "mc96-audit-staging"
+database_id = "your-staging-database-id-here"
+
+[build]
+command = "npm run build"
+
+[vars]
+ENVIRONMENT = "production"
+

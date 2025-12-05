@@ -1,0 +1,8 @@
+{
+  "name": "Neuro_Session_Calm",
+  "tracks": [
+    { "title": "Ocean Calm", "file": "neuro/ocean_calm.mp3" },
+    { "title": "Rain Sanctuary", "file": "neuro/rain_sanctuary.mp3" },
+    { "title": "Soft Piano", "file": "neuro/soft_piano.mp3" }
+  ]
+}

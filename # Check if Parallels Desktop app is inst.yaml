@@ -1,0 +1,8 @@
+# Check if Parallels Desktop app is installed
+ls /Applications | grep -i "Parallels"
+
+# Check the version installed
+prlctl --version
+
+# List all registered virtual machines
+prlctl list --all

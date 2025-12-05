@@ -1,0 +1,198 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "cmajor",
+	"scopeName": "source.cmajor",
+	"patterns": [
+		{
+			"name": "comment.block.cmajor",
+			"begin": "/\\*",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.begin.cmajor"
+				}
+			},
+			"end": "\\*/",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.end.cmajor"
+				}
+			}
+		},
+		{
+			"name": "comment.line.double-slash.cmajor",
+			"begin": "//",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.cmajor"
+				}
+			},
+			"end": "(?=\\n)",
+			"patterns": [
+				{
+					"match": "(\\\\)\\n"
+				}
+			]
+		},
+		{
+			"name": "string.quoted.double.cmajor",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.cmajor",
+					"match": "\\\\."
+				}
+			]
+		},
+		{
+			"name": "entity.name.type.cmajor",
+			"match": "\\b(graph|processor|namespace|let|var|struct|enum|using|input|output|event|value|stream|node|connection|import)\\b"
+		},
+		{
+			"name": "keyword.control.cmajor",
+			"match": "\\b(break|continue|return|if|else|loop|for|while)\\b"
+		},
+		{
+			"name": "storage.type.cmajor",
+			"match": "\\b(const|void|float|float32|float64|int|int32|int64|bool|complex|complex32|complex64|wrap|clamp|string|external)\\b"
+		},
+		{
+			"name": "keyword.operator.increment.cmajor",
+			"match": "\\+\\+"
+		},
+		{
+			"name": "keyword.operator.decrement.cmajor",
+			"match": "--"
+		},
+		{
+			"name": "keyword.other.cmajor",
+			"match": "->|<-"
+		},
+		{
+			"name": "keyword.operator.assignment.compound.cmajor",
+			"match": "\\+=|-=|\\*=|%="
+		},
+		{
+			"name": "keyword.operator.assignment.compound.bitwise.cmajor",
+			"match": "&=|\\^=|<<=|>>>=|>>=|\\|="
+		},
+		{
+			"name": "keyword.other.cmajor",
+			"match": ">>>|>>|<<"
+		},
+		{
+			"name": "keyword.operator.comparison.cmajor",
+			"match": "!=|<=|>=|==|<|>"
+		},
+		{
+			"name": "keyword.operator.logical.cmajor",
+			"match": "!|&&|\\|\\|"
+		},
+		{
+			"name": "keyword.operator.cmajor",
+			"match": "&|\\||\\^|~"
+		},
+		{
+			"name": "punctuation.terminator.cmajor",
+			"match": ";"
+		},
+		{
+			"name": "keyword.operator.assignment.cmajor",
+			"match": "="
+		},
+		{
+			"name": "punctuation.separator.cmajor",
+			"match": "\\.|::"
+		},
+		{
+			"name": "keyword.operator.cmajor",
+			"match": "%|\\*|/|-|\\+"
+		},
+		{
+			"name": "constant.language.cmajor",
+			"match": "\\b(true|false)\\b"
+		},
+		{
+			"name": "constant.numeric.cmajor",
+			"match": "\\b((0(x|X)[0-9a-fA-F]([0-9a-fA-F']*[0-9a-fA-F])?)|(0(b|B)[01]([01']*[01])?)|(([0-9]([0-9']*[0-9])?\\.?[0-9]*([0-9']*[0-9])?)|(\\.[0-9]([0-9']*[0-9])?))((e|E)(\\+|-)?[0-9]([0-9']*[0-9])?)?)(F|f)?\\b"
+		},
+		{
+			"name": "label.cmajor",
+			"match": "\\b([0-9a-zA-Z_]+\\:)"
+		},
+		{
+			"begin": "\\(",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.section.parens.begin.bracket.round.cmajor"
+				}
+			},
+			"end": "\\)|(?=//)|(?=/\\*(?!.*\\\\\\s*\\n))|(?<!\\\\)(?=\\n)",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.parens.end.bracket.round.cmajor"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#preprocessor-rule-conditional-line"
+				}
+			]
+		},
+		{
+			"begin": "{",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.section.block.begin.bracket.curly.cmajor"
+				}
+			},
+			"end": "}",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.section.block.end.bracket.curly.cmajor"
+				}
+			},
+			"name": "meta.block.cmajor",
+			"patterns": [
+				{
+					"include": "#block_innards"
+				}
+			]
+		},
+		{
+			"match": "(\\[)|(\\])",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.begin.bracket.square.cmajor"
+				},
+				"2": {
+					"name": "punctuation.definition.end.bracket.square.cmajor"
+				}
+			}
+		},
+		{
+			"match": "(\\[\\[)|(\\]\\])",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.block.begin.bracket.square.cmajor"
+				},
+				"2": {
+					"name": "punctuation.definition.block.end.bracket.square.cmajor"
+				}
+			}
+		},
+		{
+			"name": "keyword.control.directive.cmajor",
+			"begin": "^##",
+			"end": "(?=\\n)"
+		},
+		{
+			"name": "invalid.illegal.cmajor",
+			"match": "\\b(try|catch|throw|class|default|operator|switch|case)\\b|<-"
+		},
+		{
+			"name": "invalid.illegal.stray-comment-end.cmajor",
+			"match": "\\*/.*\\n"
+		}
+	]
+}

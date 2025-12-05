@@ -1,0 +1,116 @@
+[
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus01.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/9 saxophones chorus01.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus01.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus02.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/9 saxophones chorus02.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus02.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus3.aif",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/AIFF/9 saxophones chorus3.aif",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus3.aif'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus02.aif",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/AIFF/9 saxophones chorus02.aif",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus02.aif'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus01.aif",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/AIFF/9 saxophones chorus01.aif",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/BFA - Big Bad Horns V02 - KLI/Samples/9 099 C/9 Saxophones Chorus01.aif'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe5.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/djembe5.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe5.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe6.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/djembe6.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe6.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djemb8.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/djemb8.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djemb8.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb19.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/doumb19.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb19.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe4.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/djembe4.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe4.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb10.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/doumb10.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb10.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe3.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/djembe3.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe3.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb7.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/doumb7.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb7.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb18.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/doumb18.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb18.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb8.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/doumb8.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb8.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/76 Solo French Horn Ba/Solo French Horn B Samples/Fhtgtdnf E4.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/fhtgtdnf e4.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/76 Solo French Horn Ba/Solo French Horn B Samples/Fhtgtdnf E4.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/69 Solo French Horn Ab/Solo French Horn A Samples2/Fhtgtupp 58.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/fhtgtupp 58.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/69 Solo French Horn Ab/Solo French Horn A Samples2/Fhtgtupp 58.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/69 Solo French Horn Ab/Solo French Horn A Samples2/Fhtgtupp 60.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/fhtgtupp 60.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/69 Solo French Horn Ab/Solo French Horn A Samples2/Fhtgtupp 60.wav'",
+    "stage": "execution"
+  },
+  {
+    "file": "/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/69 Solo French Horn Ab/Solo French Horn A Samples2/Fhtgtupp 56.wav",
+    "dest": "/Volumes/6TB/AUDIO_SAMPLES/Other/fhtgtupp 56.wav",
+    "error": "[Errno 2] No such file or directory: '/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/69 Solo French Horn Ab/Solo French Horn A Samples2/Fhtgtupp 56.wav'",
+    "stage": "execution"
+  }
+]

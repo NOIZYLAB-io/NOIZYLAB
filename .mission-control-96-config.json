@@ -1,0 +1,209 @@
+{
+  "missionControl": {
+    "name": "MISSION_CONTROL_96",
+    "baseStation": "mac-pro-noizylab",
+    "version": "1.0.0",
+    "enabled": true,
+    "description": "Central microphone hub for multi-device audio coordination in NOIZYLAB"
+  },
+
+  "audioCapture": {
+    "device": "USB Audio Interface",
+    "deviceFallback": "Built-in Microphone",
+    "sampleRate": 16000,
+    "channels": 1,
+    "bitDepth": 16,
+    "bufferSize": 512,
+    "latency_ms": 50,
+    "vad": {
+      "enabled": true,
+      "algorithm": "webrtcvad",
+      "silenceThreshold_db": -40,
+      "minimumSpeechDuration_ms": 200,
+      "silenceDuration_before_stop_ms": 800,
+      "aggressiveness": 2
+    }
+  },
+
+  "routing": {
+    "primaryHandler": "mac_pops",
+    "fallbackHandler": "dream_processor",
+    "secondaryHandlers": ["ipad_voice_cli"],
+    "deduplication": {
+      "enabled": true,
+      "window_seconds": 2.0,
+      "algorithm": "audio_fingerprint",
+      "history_size": 100,
+      "min_confidence": 0.95
+    },
+    "sessionTimeout_seconds": 30,
+    "maxConcurrentSessions": 1,
+    "maxQueuedMessages": 10
+  },
+
+  "devices": {
+    "mac_pops": {
+      "hostname": "mac-pro-noizylab.local",
+      "port": 9001,
+      "protocol": "websocket",
+      "role": "primary_controller",
+      "capabilities": [
+        "command_execution",
+        "voice_response",
+        "avatar_display",
+        "creative_input"
+      ],
+      "active": true,
+      "priority": 1
+    },
+    "ipad_voice_cli": {
+      "hostname": "ipad-noizylab.local",
+      "port": 9002,
+      "protocol": "websocket",
+      "role": "secondary_input",
+      "capabilities": [
+        "music_search",
+        "note_taking",
+        "voice_input"
+      ],
+      "active": true,
+      "priority": 2
+    },
+    "iphone_companion": {
+      "hostname": "iphone-noizylab.local",
+      "port": 9003,
+      "protocol": "websocket",
+      "role": "capture_device",
+      "capabilities": [
+        "local_recording",
+        "sync_on_demand"
+      ],
+      "active": false,
+      "priority": 3,
+      "note": "No live processing - stores locally and syncs via WiFi"
+    },
+    "dream_processor": {
+      "hostname": "localhost",
+      "port": 9004,
+      "protocol": "http",
+      "role": "consciousness_handler",
+      "capabilities": [
+        "creative_processing",
+        "consciousness_amplification",
+        "idea_generation"
+      ],
+      "active": true,
+      "priority": 10
+    },
+    "api_server": {
+      "hostname": "localhost",
+      "port": 9005,
+      "protocol": "http",
+      "role": "external_integration",
+      "capabilities": [
+        "http_api",
+        "webhooks",
+        "integrations"
+      ],
+      "active": true,
+      "priority": 10
+    }
+  },
+
+  "networkRouting": {
+    "oneWayStreamingOnly": true,
+    "note": "No audio data sent back from devices to prevent feedback loops",
+    "broadcastMode": "unicast",
+    "note2": "Messages sent to individual devices, not broadcast to all"
+  },
+
+  "security": {
+    "encryptionEnabled": true,
+    "protocol": "TLS 1.3",
+    "authentication": "mDNS + local network only",
+    "certificatePath": "~/.mission-control-96-cert.pem",
+    "rateLimiting": {
+      "enabled": true,
+      "max_requests_per_second": 100,
+      "max_connections_per_device": 2
+    },
+    "note": "All communication restricted to local network (192.168.x.x, 10.0.x.x, 172.16.x.x)"
+  },
+
+  "logging": {
+    "level": "INFO",
+    "levels_available": [
+      "DEBUG",
+      "INFO",
+      "WARNING",
+      "ERROR"
+    ],
+    "rotateDaily": true,
+    "rotateWhenSizeExceeds_mb": 100,
+    "retentionDays": 7,
+    "logPath": "/Users/rsp_ms/NOIZYLAB/logs/mission-control-96",
+    "logFiles": {
+      "hub": "hub.log",
+      "audio_capture": "audio-capture.log",
+      "router": "router.log",
+      "deduplicator": "deduplicator.log",
+      "session_manager": "session-manager.log",
+      "api_server": "api-server.log"
+    }
+  },
+
+  "performance": {
+    "cpuTargetUsage_percent": 15,
+    "memoryTargetUsage_mb": 200,
+    "audioBufferSeconds": 0.5,
+    "networkBandwidthLimit_mbps": 10,
+    "maxAudioChunkSize_kb": 64
+  },
+
+  "features": {
+    "voiceActivityDetection": true,
+    "noiseReduction": true,
+    "echoReduction": true,
+    "autoGainControl": true,
+    "multiDeviceCoordination": true,
+    "sessionLocking": true,
+    "deduplication": true,
+    "healthMonitoring": true,
+    "statisticsCollection": true
+  },
+
+  "integrations": {
+    "healtheworld": {
+      "enabled": true,
+      "commands": [
+        "HEALTHEWORLD AUDIO-HUB START",
+        "HEALTHEWORLD AUDIO-HUB STOP",
+        "HEALTHEWORLD AUDIO-HUB RESTART"
+      ]
+    },
+    "pops": {
+      "enabled": true,
+      "commands": [
+        "pops audio-hub connect",
+        "pops audio-hub status",
+        "pops audio-hub monitor"
+      ]
+    },
+    "getsmart": {
+      "enabled": true,
+      "commands": [
+        "getsmart voice",
+        "getsmart voice --music",
+        "getsmart voice --multidevice"
+      ]
+    }
+  },
+
+  "statusPage": {
+    "enabled": true,
+    "port": 8096,
+    "refreshInterval_seconds": 5,
+    "showMetrics": true,
+    "showLogs": true
+  }
+}

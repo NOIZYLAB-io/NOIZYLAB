@@ -1,0 +1,91 @@
+{
+	"Description": "subscript_type   int类型      1 单功能订阅(月） ， 2：单功能订阅(年)  3 整包订阅，如果没有整包订阅就不需要配置(注：语音转字幕配置为对应的购买小时数,默认单位为hour)",
+	"SubPrices": [
+		{
+			"feature_code": "{A7B500A8-DBC6-4001-B8D0-F3AF7A90E0BE}",
+			"feature_name": "语音转文字",
+            "help_link": "",
+            "buy_link": "https://store.wondershare.com/index.php?submod=checkout&method=index&currency=USD&language=English&sku_id=20022751&ver=v5&verify=93B8C842C8218F573A1C54EC6BC28541",
+			"data": [
+				{
+					"subscript_type": 1,
+                    "buytime":"1 hour",
+					"price": "$4.99",
+                    "priceperhour":"$4.99/hour",
+				},
+				{
+					"subscript_type": 2,
+                    "buytime":"2-5 hour(s)",
+					"price": "$17.45",
+                    "priceperhour":"$3.49/hour",
+				},
+				{
+					"subscript_type": 3,
+                    "buytime":"6-10 hour(s)",
+					"price": "$17.94-$29.99",
+                    "priceperhour": "$2.99/hour",
+				}
+				
+			]
+		},
+        {
+            "feature_code": "{4C095272-F18A-4151-B4C8-FA9470E72BCA}",
+            "feature_name": "PixCut",
+            "help_link": "https://videoconverter.wondershare.com/guide/background-remover.html",
+            "data": [
+ 				{
+					"subscript_type": 1,
+					"price": "$8.99/Month",
+					"description": "100 Credits",
+					"tip": "$0.09/image",
+					"buy_link": "https://store.wondershare.com/index.php?method=index&submod=checkout&pid=8770&license_id=2933&sub_lid=0&currency=USD&language=English&verify=57a9686f95614bb31603512f9c8e80c7"
+				},
+				{
+					"subscript_type": 2,
+					"price": "$14.99/Month",
+					"description": "200 Credits",
+					"tip": "$0.07/image",
+					"buy_link": "https://store.wondershare.com/index.php?method=index&submod=checkout&pid=8770&license_id=2932&sub_lid=0&currency=USD&language=English&verify=3ab4440073dcbee774abf8bba1076b6d"
+				},
+				{
+					"subscript_type": 3,
+					"price": "$24.99/Month",
+					"description": "500 Credits",
+					"tip": "$0.05/image",
+					"buy_link": "https://store.wondershare.com/index.php?method=index&submod=checkout&pid=8770&license_id=2931&sub_lid=0&currency=USD&language=English&verify=0e779fc533ec6aa9b18cc39b58a409e4"
+				},
+				{
+					"subscript_type": 4,
+					"price": "$39.99/Month",
+					"description": "1000 Credits",
+					"tip": "$0.04/image",
+					"buy_link": "https://store.wondershare.com/index.php?method=index&submod=checkout&pid=8770&license_id=2930&sub_lid=0&currency=USD&language=English&verify=ed65c675467c6452b2797b847f886f3a"
+				},
+				{
+					"subscript_type": 5,
+					"price": "$199.99/Year",
+					"description": "5000 Credits",
+					"tip": "$0.04/image",
+					"buy_link": "https://store.wondershare.com/index.php?method=index&submod=checkout&pid=8770&license_id=2929&sub_lid=0&currency=USD&language=English&verify=002715e6cba71598c39c27d5ec5be75d"
+				}
+            ]
+        },
+	],
+    "FunctionFeedbacks": [
+        {"Function_ID":"imageconverter","FeedbackURL":""},
+        {"Function_ID":"fixmediametadata","FeedbackURL":""},
+        {"Function_ID":"gifmaker","FeedbackURL":""},
+        {"Function_ID":"cdburn","FeedbackURL":""},
+        {"Function_ID":"cdconverter","FeedbackURL":""},
+        {"Function_ID":"vrconverter","FeedbackURL":""},
+        {"Function_ID":"trimmer","FeedbackURL":""},
+        {"Function_ID":"watermark","FeedbackURL":""},
+        {"Function_ID":"subtitleeditor","FeedbackURL":""},
+        {"Function_ID":"pixcut","FeedbackURL":""},
+        {"Function_ID":"autoreframe","FeedbackURL":""},
+        {"Function_ID":"aiportrait","FeedbackURL":""},
+        {"Function_ID":"introoutro","FeedbackURL":""},
+        {"Function_ID":"videostabilization","FeedbackURL":""},
+        {"Function_ID":"recorder","FeedbackURL":""}
+    ]
+}

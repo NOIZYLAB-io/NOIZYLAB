@@ -1,0 +1,124 @@
+{
+  "plan_id": "master_org_20251127_001349",
+  "created_at": "2025-11-27T00:13:49.459827",
+  "drives": {
+    "SIDNEY": {
+      "total_files": 884,
+      "by_category": {
+        "code": 0,
+        "music": 0,
+        "video": 883,
+        "images": 0,
+        "documents": 0,
+        "archives": 0,
+        "other": 1
+      },
+      "action": "organize"
+    },
+    "MAG_4TB": {
+      "total_files": 4360646,
+      "by_category": {
+        "code": 21,
+        "music": 154452,
+        "video": 4,
+        "images": 7992,
+        "documents": 1198,
+        "archives": 1,
+        "other": 4196978
+      },
+      "action": "organize"
+    },
+    "6TB": {
+      "total_files": 1798928,
+      "by_category": {
+        "code": 46,
+        "music": 201996,
+        "video": 171,
+        "images": 7558,
+        "documents": 1681,
+        "archives": 57,
+        "other": 1587419
+      },
+      "action": "organize"
+    },
+    "4TBSG": {
+      "total_files": 606200,
+      "by_category": {
+        "code": 6571,
+        "music": 417584,
+        "video": 8672,
+        "images": 5102,
+        "documents": 2771,
+        "archives": 198,
+        "other": 165302
+      },
+      "action": "organize"
+    },
+    "LACIE_4TB": {
+      "total_files": 33006,
+      "by_category": {
+        "code": 6,
+        "music": 6080,
+        "video": 1132,
+        "images": 6530,
+        "documents": 75,
+        "archives": 24,
+        "other": 19159
+      },
+      "action": "organize"
+    },
+    "USERS": {
+      "total_files": 383506,
+      "by_category": {
+        "code": 88616,
+        "music": 1044,
+        "video": 495,
+        "images": 8555,
+        "documents": 70544,
+        "archives": 362,
+        "other": 213890
+      },
+      "action": "organize"
+    }
+  },
+  "organization_rules": {
+    "code_destination": "/Users/m2ultra/NOIZYLAB",
+    "music_destination": "/Users/m2ultra/NOIZYLAB/MEDIA_LIBRARY/Music",
+    "video_destination": "/Users/m2ultra/NOIZYLAB/MEDIA_LIBRARY/Video",
+    "images_destination": "/Users/m2ultra/NOIZYLAB/MEDIA_LIBRARY/Images",
+    "documents_destination": "/Users/m2ultra/NOIZYLAB/Documents",
+    "archives_destination": "/Users/m2ultra/NOIZYLAB/BACKUPS/Archives"
+  },
+  "phases": [
+    {
+      "phase": 1,
+      "name": "Scan all drives",
+      "status": "complete"
+    },
+    {
+      "phase": 2,
+      "name": "Create master structure",
+      "status": "ready"
+    },
+    {
+      "phase": 3,
+      "name": "Organize by category",
+      "status": "ready"
+    },
+    {
+      "phase": 4,
+      "name": "Deduplicate across drives",
+      "status": "ready"
+    },
+    {
+      "phase": 5,
+      "name": "Optimize storage",
+      "status": "ready"
+    },
+    {
+      "phase": 6,
+      "name": "Verify & finalize",
+      "status": "ready"
+    }
+  ]
+}

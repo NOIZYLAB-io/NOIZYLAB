@@ -1,0 +1,41 @@
+{
+  "supported_languages": [
+    "English",
+    "Spanish",
+    "French",
+    "German",
+    "Italian",
+    "Portuguese",
+    "Chinese",
+    "Japanese",
+    "Korean",
+    "Arabic",
+    "Hindi",
+    "Russian",
+    "Dutch",
+    "Polish",
+    "Turkish",
+    "Swedish",
+    "Norwegian",
+    "Danish",
+    "Finnish",
+    "Greek",
+    "Hebrew",
+    "Thai",
+    "Vietnamese",
+    "Indonesian",
+    "And 100+ more languages"
+  ],
+  "translation_features": {
+    "problem_descriptions": "Translate problem descriptions",
+    "solutions": "Translate solutions",
+    "interface": "Full interface translation",
+    "voice": "Voice recognition in multiple languages"
+  },
+  "localization": {
+    "regions": "All regions worldwide",
+    "time_zones": "All time zones",
+    "currencies": "All currencies",
+    "formats": "Local date/time formats"
+  }
+}

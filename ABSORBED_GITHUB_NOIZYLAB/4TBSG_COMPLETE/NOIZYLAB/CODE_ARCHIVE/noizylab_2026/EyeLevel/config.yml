@@ -1,0 +1,19 @@
+ui:
+  opacity: 0.92
+  now_font: 40
+  next_font: 22
+  context_font: 16
+  accent_color: [0.95, 0.25, 0.7]
+  layout: column
+  eye_line: 0.6
+audio:
+  volume: 0.7
+  envelope_ms: 140
+  enable: true
+ritual_colors:
+  Design: [0.95, 0.25, 0.7]
+  Sound: [0.2, 0.8, 0.95]
+  Code:  [0.35, 0.95, 0.6]
+  Share: [0.98, 0.85, 0.3]
+  LifeSaviour: [1.0, 0.15, 0.15]
+  Task: [0.7, 0.7, 0.7]

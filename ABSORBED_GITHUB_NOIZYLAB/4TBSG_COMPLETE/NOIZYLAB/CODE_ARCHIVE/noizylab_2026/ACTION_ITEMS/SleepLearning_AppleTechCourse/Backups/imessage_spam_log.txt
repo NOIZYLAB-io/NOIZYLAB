@@ -1,0 +1,1 @@
+[2025-10-11 13:20:42] DB_ERROR: database - authorization denied

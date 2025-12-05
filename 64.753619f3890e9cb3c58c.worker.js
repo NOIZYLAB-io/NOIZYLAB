@@ -1,0 +1,2 @@
+this.webpackChunk([64],{71:function(e,i){Prism.languages.diff={coord:[/^(?:\*{3}|-{3}|\+{3}).*$/m,/^@@.*@@$/m,/^\d+.*$/m],deleted:/^[-<].*$/m,inserted:/^[+>].*$/m,diff:{pattern:/^!(?!!).+$/m,alias:"important"}}}});
+//# sourceMappingURL=64.753619f3890e9cb3c58c.worker.js.map

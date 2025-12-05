@@ -1,0 +1,23 @@
+name = "ai-super-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[env.production]
+routes = [{ pattern = "ai.noizylab.ca/*", zone_name = "noizylab.ca" }]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "your-database-id"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "your-kv-namespace-id"
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "noizylab-ai-cache"
+
+[ai]
+binding = "AI"
+

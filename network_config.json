@@ -1,0 +1,9 @@
+{
+  "connection_pooling": true,
+  "keep_alive": true,
+  "compression": true,
+  "http2": true,
+  "dns_caching": true,
+  "timeout_optimization": true,
+  "parallel_requests": true
+}

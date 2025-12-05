@@ -1,0 +1,24 @@
+{
+  "core_ml_setup": {
+    "step1": "Install Xcode (already have)",
+    "step2": "Import CoreML framework",
+    "step3": "Use Create ML to train models OR",
+    "step4": "Convert existing models with Core ML Tools",
+    "step5": "Add .mlmodel file to Xcode project",
+    "step6": "Use in Swift code"
+  },
+  "openai_api_setup": {
+    "step1": "Get API key from OpenAI",
+    "step2": "Add to iOS app (securely)",
+    "step3": "Create API service class",
+    "step4": "Make async HTTP requests",
+    "step5": "Handle responses",
+    "step6": "Display results"
+  },
+  "vision_framework": {
+    "step1": "Import Vision framework",
+    "step2": "Create VNRequest",
+    "step3": "Process images",
+    "step4": "Handle results"
+  }
+}

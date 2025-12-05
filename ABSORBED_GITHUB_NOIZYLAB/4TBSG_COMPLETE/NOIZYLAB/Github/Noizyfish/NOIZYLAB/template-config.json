@@ -1,0 +1,96 @@
+{
+  "templates": {
+    "welcome": {
+      "subject": "Welcome to Fish Music Inc! 🎵",
+      "file": "welcome.html",
+      "variables": [
+        "firstName",
+        "dashboardUrl",
+        "facebookUrl",
+        "twitterUrl",
+        "instagramUrl",
+        "linkedinUrl",
+        "unsubscribeUrl",
+        "preferencesUrl",
+        "privacyUrl"
+      ]
+    },
+    "orderConfirmation": {
+      "subject": "Order Confirmation #{{orderNumber}}",
+      "file": "order-confirmation.html",
+      "variables": [
+        "customerName",
+        "orderNumber",
+        "orderDate",
+        "subtotal",
+        "shipping",
+        "tax",
+        "total",
+        "items",
+        "shippingName",
+        "shippingAddress",
+        "shippingCity",
+        "shippingState",
+        "shippingZip",
+        "shippingCountry",
+        "trackingUrl"
+      ]
+    },
+    "supportResponse": {
+      "subject": "Re: {{subject}} [Ticket #{{ticketNumber}}]",
+      "file": "support-response.html",
+      "variables": [
+        "customerName",
+        "ticketNumber",
+        "subject",
+        "status",
+        "priority",
+        "responseMessage",
+        "originalMessage",
+        "agentName",
+        "helpCenterUrl",
+        "faqUrl",
+        "communityUrl",
+        "statusUrl"
+      ]
+    },
+    "passwordReset": {
+      "subject": "Reset Your Password - Fish Music Inc 🔐",
+      "file": "password-reset.html",
+      "variables": [
+        "userName",
+        "resetUrl",
+        "resetCode",
+        "expirationTime"
+      ]
+    },
+    "newsletter": {
+      "subject": "🎵 The Beat - {{monthYear}} Newsletter",
+      "file": "newsletter.html",
+      "variables": [
+        "firstName",
+        "monthYear",
+        "article1Image",
+        "article1Title",
+        "article1Excerpt",
+        "article1Url",
+        "article2Image",
+        "article2Title",
+        "article2Excerpt",
+        "article2Url",
+        "article3Image",
+        "article3Title",
+        "article3Excerpt",
+        "article3Url",
+        "eventsUrl",
+        "topTracks",
+        "facebookUrl",
+        "twitterUrl",
+        "instagramUrl",
+        "spotifyUrl",
+        "unsubscribeUrl",
+        "preferencesUrl"
+      ]
+    }
+  }
+}

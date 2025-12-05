@@ -1,0 +1,22 @@
+======================================
+ACCOUNT 3: Fish Music Inc - Info
+======================================
+
+Email: info@fishmusicinc.com
+Display Name: Info - Fish Music Inc
+Provider: Custom Domain
+
+SERVER SETTINGS:
+- Account Type: IMAP
+- Incoming Server: mail.fishmusicinc.com
+- Incoming Port: 993
+- Encryption: SSL/TLS
+- Outgoing Server: mail.fishmusicinc.com
+- Outgoing Port: 587
+- Encryption: STARTTLS
+- Username: info@fishmusicinc.com
+- Password: [Your password]
+
+Same setup process as Account 2 above.
+
+STATUS: ✓ Ready to configure

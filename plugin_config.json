@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "plugin_directory": "/Users/m2ultra/NOIZYLAB/it_genius/plugins",
+  "auto_load": true,
+  "plugin_types": [
+    "problem_solvers",
+    "ai_trainers",
+    "analytics",
+    "integrations",
+    "custom_tools"
+  ],
+  "api": {
+    "register_plugin": true,
+    "plugin_hooks": true,
+    "event_system": true,
+    "plugin_config": true
+  }
+}

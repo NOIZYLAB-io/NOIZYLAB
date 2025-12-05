@@ -1,0 +1,27 @@
+[
+  {
+    "key": "cmd+shift+b",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Deploy"
+  },
+  {
+    "key": "cmd+shift+t",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Test"
+  },
+  {
+    "key": "cmd+shift+d",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Generate Docs"
+  },
+  {
+    "key": "cmd+shift+r",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Risk Scan"
+  },
+  {
+    "key": "cmd+shift+e",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Export XLS"
+  }
+]

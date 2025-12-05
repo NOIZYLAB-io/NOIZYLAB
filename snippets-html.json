@@ -1,0 +1,62 @@
+{
+    "p5.js CDN": {
+        "prefix": "p5-cdn",
+        "body": "<script src=\"https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js\"></script>",
+        "description": "Script tag for p5.js cdn"
+    },
+    "p5.js min CDN": {
+        "prefix": "p5-cdn-min",
+        "body": "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js\"></script>",
+        "description": "Script tag for p5.js min cdn"
+    },
+    "p5.js Sketch": {
+        "prefix": "p5-sketch",
+        "body": "<script src=\"sketch.js\"></script>",
+        "description": "Script tag for p5.js default sketch.js file"
+    },
+    "p5.js Sound CDN": {
+        "prefix": "p5-cdn-sound",
+        "body": "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.js\"></script>",
+        "description": "Script tag for p5.js sound cdn"
+    },
+    "p5.js Sound min CDN": {
+        "prefix": "p5-cdn-sound-min",
+        "body": "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.min.js\"></script>",
+        "description": "Script tag for p5.js sound min cdn"
+    },
+    "p5.js index.html": {
+        "prefix": "p5-index",
+        "body": [
+            "<html>",
+            "  <head>",
+            "    <script src=\"https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js\"></script>",
+            "    <script src=\"sketch.js\"></script>",
+            "    <title>${title}</title>",
+            "  </head>",
+            "  <body>",
+            "    <main>",
+            "    </main>",
+            "  </body>",
+            "</html>"
+        ],
+        "description": "Default structure for p5.js index.html file"
+    },
+    "p5.js sound index.html": {
+        "prefix": "p5-sound-index",
+        "body": [
+            "<html>",
+            "  <head>",
+            "    <script src=\"https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js\"></script>",
+            "    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/addons/p5.sound.js\"></script>",
+            "    <script src=\"sketch.js\"></script>",
+            "    <title>${title}</title>",
+            "  </head>",
+            "  <body>",
+            "    <main>",
+            "    </main>",
+            "  </body>",
+            "</html>"
+        ],
+        "description": "Default structure for p5.js index.html file"
+    }
+}

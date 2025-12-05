@@ -1,0 +1,8 @@
+2025-10-07 15:24:09,082 DEBUG    root            Loaded Command Group: ['gcloud', 'config']
+2025-10-07 15:24:09,083 DEBUG    root            Loaded Command Group: ['gcloud', 'config', 'virtualenv']
+2025-10-07 15:24:09,088 DEBUG    root            Loaded Command Group: ['gcloud', 'config', 'virtualenv', 'enable']
+2025-10-07 15:24:09,089 DEBUG    root            Running [gcloud.config.virtualenv.enable] with arguments: []
+2025-10-07 15:24:09,089 INFO     ___FILE_ONLY___ Virtual env enabled.
+
+2025-10-07 15:24:09,089 DEBUG    root            Chosen display Format:default
+2025-10-07 15:24:09,090 INFO     root            Display format: "default"

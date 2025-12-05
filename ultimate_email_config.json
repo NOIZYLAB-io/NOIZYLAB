@@ -1,0 +1,53 @@
+{
+  "providers": [
+    {
+      "name": "primary",
+      "smtp_server": "smtp.gmail.com",
+      "smtp_port": 587,
+      "use_tls": true,
+      "from_email": "rsp@noizyfish.com",
+      "from_name": "Rob @ Fish Music Inc",
+      "username": "rsp@noizyfish.com",
+      "password": "YOUR_APP_PASSWORD_HERE",
+      "enabled": true,
+      "priority": 1
+    },
+    {
+      "name": "fishmusicinc",
+      "smtp_server": "smtp.gmail.com",
+      "smtp_port": 587,
+      "use_tls": true,
+      "from_email": "rsp@fishmusicinc.com",
+      "from_name": "Fish Music Inc",
+      "username": "rsp@fishmusicinc.com",
+      "password": "YOUR_APP_PASSWORD_HERE",
+      "enabled": false,
+      "priority": 2
+    },
+    {
+      "name": "sendgrid_fallback",
+      "smtp_server": "smtp.sendgrid.net",
+      "smtp_port": 587,
+      "use_tls": true,
+      "from_email": "rsp@fishmusicinc.com",
+      "from_name": "Fish Music Inc",
+      "username": "apikey",
+      "password": "YOUR_SENDGRID_API_KEY",
+      "enabled": false,
+      "priority": 3
+    }
+  ],
+  "dns_settings": {
+    "check_spf": true,
+    "check_dkim": true,
+    "check_dmarc": true,
+    "auto_validate": true
+  },
+  "email_settings": {
+    "track_opens": false,
+    "track_clicks": false,
+    "auto_retry": true,
+    "max_retries": 3,
+    "log_all_emails": true
+  }
+}

@@ -1,114 +1,115 @@
-# NOISYLABZ Setup Guide
+# NOIZYLAB Tunnel Setup
 
-## 1. Google Workspace Sync
+## 1. Create Tunnel (Cloudflare Dashboard or CLI)
 
-### Local Sync Configuration
+### Option A: Dashboard (Recommended)
+1. Go to: https://one.dash.cloudflare.com
+2. Networks → Tunnels → Create a tunnel
+3. Name: `gabriel-tunnel`
+4. Save the tunnel token
+
+### Option B: CLI (from any machine with wrangler)
 ```bash
-# Install Google Drive for Mac
-# Sync this folder: /Volumes/RSP/NOISYLABZ
-# Set to:
-# - Auto-sync enabled
-# - Real-time updates
-# - Selective sync for projects/
+# Login first
+cloudflared tunnel login
+
+# Create tunnel
+cloudflared tunnel create gabriel-tunnel
+
+# Get tunnel ID
+cloudflared tunnel list
 ```
 
-## 2. Mac Studio Configuration
+## 2. Install cloudflared on GABRIEL (Windows)
 
-### VS Code Workspace Setup
-```json
-{
-  "folders": [
-    {
-      "path": "/Volumes/RSP/NOISYLABZ"
-    }
-  ],
-  "settings": {
-    "files.autoSave": "onFocusChange",
-    "files.exclude": {
-      "**/node_modules": true,
-      "**/.git": false,
-      "**/backups": true
-    }
-  }
-}
+### Download
+```powershell
+# PowerShell (Run as Admin)
+Invoke-WebRequest -Uri "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.msi" -OutFile "$env:TEMP\cloudflared.msi"
+Start-Process msiexec.exe -ArgumentList "/i $env:TEMP\cloudflared.msi /quiet" -Wait
 ```
 
-## 3. Omen Remote Processing
+### Or manual download:
+https://github.com/cloudflare/cloudflared/releases/latest
 
-### SSH Access Configuration
-```bash
-# Add to ~/.ssh/config
-Host omen
-    HostName [omen-ip]
-    User [username]
-    IdentityFile ~/.ssh/omen_key
+## 3. Configure Tunnel on GABRIEL
+
+### Create config file
+Location: `C:\Users\<USER>\.cloudflared\config.yml`
+
+```yaml
+tunnel: <TUNNEL_ID>
+credentials-file: C:\Users\<USER>\.cloudflared\<TUNNEL_ID>.json
+
+ingress:
+  # SSH access
+  - hostname: gabriel-ssh.fishmusicinc.com
+    service: ssh://localhost:22
+  
+  # HTTP service (if any)
+  - hostname: gabriel.fishmusicinc.com
+    service: http://localhost:8080
+  
+  # RDP (optional, via browser)
+  - hostname: gabriel-rdp.fishmusicinc.com
+    service: rdp://localhost:3389
+  
+  # Catch-all (required)
+  - service: http_status:404
 ```
 
-### Usage
-```bash
-# Transfer project to Omen
-rsync -avz ~/NOISYLABZ/projects/[project-name] omen:~/projects/
+### Install as Windows Service
+```powershell
+# Run as Admin
+cloudflared service install
 
-# Run processing
-ssh omen 'cd ~/projects/[project-name] && [process-command]'
-
-# Sync results back
-rsync -avz omen:~/projects/[project-name]/results/ ~/NOISYLABZ/projects/[project-name]/
+# Start the service
+net start cloudflared
 ```
 
-## 4. Automated Backups
+## 4. Create DNS Records
 
-### Local Backup Script
-Create `backups/backup.sh`:
-```bash
-#!/bin/bash
-BACKUP_DIR="/Volumes/RSP/NOISYLABZ/backups"
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-tar -czf "$BACKUP_DIR/noisylabz_$TIMESTAMP.tar.gz" \
-  --exclude='node_modules' \
-  --exclude='.git' \
-  --exclude='backups' \
-  /Volumes/RSP/NOISYLABZ/projects/
-```
+Cloudflare will auto-create CNAME records pointing to your tunnel.
 
-Schedule with cron:
-```bash
-# Daily backup at 2 AM
-0 2 * * * /Volumes/RSP/NOISYLABZ/backups/backup.sh
-```
+Or manually:
+- `gabriel.fishmusicinc.com` → CNAME → `<TUNNEL_ID>.cfargotunnel.com`
 
-## 5. Project Organization
+## 5. Configure Access Application
 
-### Project Template Structure
-Each project in `projects/` should follow:
-```
-[project-name]/
-├── src/
-├── tests/
-├── docs/
-├── .env.example
-├── README.md
-└── .gitignore
-```
+### Dashboard
+1. Access → Applications → Add an application
+2. Self-hosted
+3. Application name: `GABRIEL`
+4. Session duration: 24 hours
+5. Application domain: `gabriel.fishmusicinc.com`
 
-## 6. Git Integration
+### Policies
+- Policy name: `Allow Rob`
+- Include: Email = `rsplowman@icloud.com`
+- Or: Access Group you create
+
+## 6. Test Connection
 
 ```bash
-cd /Volumes/RSP/NOISYLABZ
-git init
-git add .
-git commit -m "Initialize NOISYLABZ workspace"
+# From anywhere
+curl https://gabriel.fishmusicinc.com/health
+
+# SSH (requires Cloudflare WARP or browser-based SSH)
+ssh -o ProxyCommand="cloudflared access ssh --hostname gabriel-ssh.fishmusicinc.com" user@gabriel-ssh.fishmusicinc.com
 ```
 
-## Workflow
+## 7. Worker Integration
 
-1. **Create new project** → Use project template
-2. **Work locally** → Auto-save enabled
-3. **Heavy compute** → Rsync to Omen, execute remotely
-4. **Commit changes** → Push to Git
-5. **Automated backup** → Runs daily
-6. **Google Workspace** → Real-time cloud sync
+The Worker can now route requests to the tunnel:
 
----
-
-**Last Updated**: November 2025
+```javascript
+// In Worker
+const response = await fetch('https://gabriel.fishmusicinc.com/api/command', {
+  method: 'POST',
+  headers: {
+    'CF-Access-Client-Id': env.CF_ACCESS_CLIENT_ID,
+    'CF-Access-Client-Secret': env.CF_ACCESS_CLIENT_SECRET,
+  },
+  body: JSON.stringify({ cmd: 'systeminfo' })
+});
+```

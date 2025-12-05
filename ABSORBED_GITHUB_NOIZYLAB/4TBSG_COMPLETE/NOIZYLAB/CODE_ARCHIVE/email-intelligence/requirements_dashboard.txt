@@ -1,0 +1,23 @@
+# Dashboard & API Requirements
+
+# API Server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+websockets>=12.0
+python-multipart>=0.0.6
+
+# Dashboard
+streamlit>=1.28.0
+plotly>=5.18.0
+pandas>=2.0.0
+
+# AI
+google-generativeai>=0.3.0
+
+# HTTP
+requests>=2.31.0
+aiohttp>=3.9.0
+
+# Data
+numpy>=1.24.0
+

@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-11-22T02:57:15.075139",
+  "cpu": {
+    "overall_percent": 0,
+    "per_core": [
+      0
+    ],
+    "count": 24
+  },
+  "memory": {
+    "total_gb": 192,
+    "used_gb": 0,
+    "available_gb": 192,
+    "percent": 0
+  },
+  "disk": {
+    "total_gb": 2000,
+    "used_gb": 0,
+    "free_gb": 2000,
+    "percent": 0
+  },
+  "network": {
+    "bytes_sent": 0,
+    "bytes_recv": 0,
+    "packets_sent": 0,
+    "packets_recv": 0
+  }
+}

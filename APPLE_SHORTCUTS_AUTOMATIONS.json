@@ -1,0 +1,180 @@
+{
+  "shortcuts_for_noizylab": {
+    "rescue_workflows": {
+      "1_new_rescue_received": {
+        "name": "New RESCUE - Complete Setup",
+        "trigger": "When new rescue email arrives",
+        "actions": [
+          "Get rescue details from email",
+          "Add event to Calendar (2 hours from now)",
+          "Create high-priority Reminder",
+          "Add client to Contacts",
+          "Create Notes entry",
+          "Send confirmation email via Mail.app",
+          "Play notification sound",
+          "Show notification: 'New RESCUE request ready!'"
+        ],
+        "saves_time": "5 minutes per rescue",
+        "one_tap": true
+      },
+      "2_start_rescue_session": {
+        "name": "Start RESCUE Session",
+        "trigger": "Manual tap or scheduled",
+        "actions": [
+          "Pause Music",
+          "Close unnecessary apps (Safari, Messages)",
+          "Open TeamViewer",
+          "Open Calendar to today",
+          "Create new Note for session documentation",
+          "Start timer for billing",
+          "Set Do Not Disturb ON",
+          "Show notification: 'RESCUE session started'"
+        ],
+        "saves_time": "3 minutes setup",
+        "one_tap": true
+      },
+      "3_connect_teamviewer": {
+        "name": "Connect TeamViewer",
+        "trigger": "Manual tap",
+        "actions": [
+          "Get TeamViewer ID from clipboard or prompt",
+          "Open TeamViewer app",
+          "Paste ID automatically",
+          "Show notification: 'Connecting...'"
+        ],
+        "saves_time": "1 minute",
+        "one_tap": true
+      },
+      "4_complete_rescue_session": {
+        "name": "Complete RESCUE Session",
+        "trigger": "Manual tap",
+        "actions": [
+          "Stop timer",
+          "Calculate total hours",
+          "Prompt for outcome (Fixed/Partial/Not Fixed)",
+          "Update Notes with outcome",
+          "If Fixed: Create invoice",
+          "If Fixed: Send payment email",
+          "Add follow-up reminder",
+          "Resume Music",
+          "Turn off Do Not Disturb",
+          "Show summary notification"
+        ],
+        "saves_time": "5 minutes cleanup",
+        "one_tap": true
+      },
+      "5_send_invoice": {
+        "name": "Quick Invoice",
+        "trigger": "Manual tap or voice",
+        "actions": [
+          "Prompt for client email",
+          "Prompt for amount (default $89)",
+          "Generate invoice number",
+          "Send invoice email via Mail.app",
+          "Add to Calendar as payment due",
+          "Create reminder for 3 days",
+          "Show confirmation"
+        ],
+        "saves_time": "3 minutes",
+        "one_tap": true,
+        "voice_trigger": "Hey Siri, send invoice"
+      }
+    },
+    "daily_automations": {
+      "morning_routine": {
+        "name": "NoizyLab Morning Startup",
+        "trigger": "9:00 AM daily",
+        "actions": [
+          "Check Calendar for today's RESCUEs",
+          "Review pending Reminders",
+          "Check email for new requests",
+          "Open NoizyLab Master Control dashboard",
+          "Show summary notification",
+          "If rescues today: Prepare TeamViewer"
+        ],
+        "automated": true
+      },
+      "end_of_day": {
+        "name": "NoizyLab End of Day",
+        "trigger": "9:00 PM daily",
+        "actions": [
+          "Review completed sessions in Notes",
+          "Check unpaid invoices",
+          "Backup data to iCloud",
+          "Create tomorrow's Calendar reminder",
+          "Send summary to yourself via email",
+          "Prepare next day's schedule"
+        ],
+        "automated": true
+      }
+    },
+    "client_management": {
+      "add_new_client": {
+        "name": "Add NoizyLab Client",
+        "trigger": "Manual or voice",
+        "actions": [
+          "Prompt for client name",
+          "Prompt for email",
+          "Prompt for phone (optional)",
+          "Add to Contacts with 'NoizyLab Client' tag",
+          "Create note for client history",
+          "Add reminder to follow up in 1 week",
+          "Show confirmation"
+        ],
+        "voice_trigger": "Hey Siri, add NoizyLab client"
+      },
+      "log_client_interaction": {
+        "name": "Log Client Interaction",
+        "trigger": "Manual",
+        "actions": [
+          "Prompt for client name",
+          "Prompt for interaction notes",
+          "Add to their Contact notes",
+          "Create/update Notes entry",
+          "Timestamp automatically",
+          "Show confirmation"
+        ]
+      }
+    },
+    "payment_workflows": {
+      "payment_received": {
+        "name": "Payment Received",
+        "trigger": "Manual or email notification",
+        "actions": [
+          "Prompt for client name",
+          "Prompt for amount",
+          "Mark invoice as PAID in tracking",
+          "Send thank you email",
+          "Update Contact with total paid",
+          "Create celebration note 🎉",
+          "Show notification: 'Payment received!'"
+        ],
+        "voice_trigger": "Hey Siri, payment received"
+      }
+    }
+  },
+  "integration_benefits": {
+    "time_saved_per_rescue": "15-20 minutes",
+    "manual_steps_eliminated": "30+ clicks",
+    "automation_percentage": "80%",
+    "apps_integrated": 8,
+    "one_tap_workflows": 10
+  },
+  "how_to_create": {
+    "instructions": [
+      "1. Open Shortcuts.app on Mac/iPhone",
+      "2. Click + to create New Shortcut",
+      "3. Add actions from list above",
+      "4. Name it (e.g., 'Start RESCUE Session')",
+      "5. Add to Home Screen or Siri",
+      "6. One tap runs entire workflow!"
+    ],
+    "voice_commands": [
+      "'Hey Siri, start RESCUE session'",
+      "'Hey Siri, send invoice'",
+      "'Hey Siri, add NoizyLab client'",
+      "'Hey Siri, payment received'"
+    ]
+  }
+}
+

@@ -1,0 +1,102 @@
+{
+  "system_name": "NoizyLab Super-Mesh",
+  "version": "1.0.0",
+  "created": "2025-12-01",
+  
+  "machines": {
+    "gabriel": {
+      "name": "GABRIEL",
+      "type": "Mac Studio M2 Ultra",
+      "role": "Primary compute + storage",
+      "lan_ip": "192.168.1.100",
+      "tailscale_ip": "100.x.x.x",
+      "hostname": "gabriel.local",
+      "mtu": 9000,
+      "ssh_port": 22,
+      "smb_enabled": true,
+      "shares": [
+        {
+          "name": "NoizyShare",
+          "path": "/Users/m2ultra/NoizyShare",
+          "protocol": "SMB"
+        }
+      ]
+    },
+    
+    "omen": {
+      "name": "HP-OMEN",
+      "type": "Windows Gaming PC",
+      "role": "Secondary compute + GPU workloads",
+      "lan_ip": "192.168.1.101",
+      "tailscale_ip": "100.x.x.x",
+      "hostname": "omen.local",
+      "mtu": 9014,
+      "ssh_port": 22,
+      "smb_client": true,
+      "mounted_drives": [
+        {
+          "letter": "Z:",
+          "source": "\\\\gabriel.local\\NoizyShare",
+          "auto_mount": true
+        }
+      ]
+    }
+  },
+  
+  "network": {
+    "switch": {
+      "model": "D-Link DGS-1210-10",
+      "name": "MC96",
+      "jumbo_frames": true,
+      "max_mtu": 9216
+    },
+    
+    "tailscale": {
+      "enabled": true,
+      "magic_dns": true,
+      "exit_node": "gabriel",
+      "subnet_routes": ["192.168.0.0/24"]
+    },
+    
+    "optimization": {
+      "jumbo_frames": true,
+      "smb_multichannel": true,
+      "tcp_tuning": true
+    }
+  },
+  
+  "sync": {
+    "engine": "Syncthing",
+    "folders": [
+      {
+        "name": "NoizyProjects",
+        "gabriel_path": "/Users/m2ultra/NoizyProjects",
+        "omen_path": "C:\\Users\\Rob\\NoizyProjects",
+        "versioning": true,
+        "compression": true
+      }
+    ]
+  },
+  
+  "automation": {
+    "task_runner": "Task",
+    "daily_tasks": [
+      "heal",
+      "sync-status",
+      "backup"
+    ],
+    "weekly_tasks": [
+      "update",
+      "diag"
+    ]
+  },
+  
+  "paths": {
+    "gabriel_projects": "/Users/m2ultra/Projects",
+    "gabriel_desktop": "/Users/m2ultra/Desktop",
+    "gabriel_noizylab": "/Users/m2ultra/NOIZYLAB",
+    "omen_projects": "C:\\Users\\Rob\\Projects",
+    "omen_desktop": "C:\\Users\\Rob\\Desktop",
+    "shared_storage": "Z:\\"
+  }
+}

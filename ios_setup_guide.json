@@ -1,0 +1,20 @@
+{
+  "email_setup": {
+    "method1": "Configuration Profile (AirDrop)",
+    "method2": "Manual Setup",
+    "method3": "iOS Shortcuts",
+    "method4": "Apple Configurator 2"
+  },
+  "app_installation": {
+    "method1": "Xcode (Development)",
+    "method2": "TestFlight (Beta)",
+    "method3": "App Store (Production)",
+    "method4": "Web App (PWA)"
+  },
+  "shortcuts_setup": {
+    "step1": "Open Shortcuts app",
+    "step2": "Import shortcuts",
+    "step3": "Add to Siri",
+    "step4": "Add to Home Screen"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "project_info": {
+    "name": "Design Reunion Show",
+    "client": "Gavin Lumsden (Rogers)",
+    "client_email": "gavin@rogers.com",
+    "client_organization": "Rogers Media",
+    "priority": "HIGHEST",
+    "status": "IN_PROGRESS",
+    "description": "Live show recording filmed by Gavin Lumsden with Rogers crew. ROB owes Gavin completion of this mix - CRITICAL personal commitment.",
+    "stems_location": "/Volumes/4TB Lacie/Design 2025",
+    "stems_accessible": true
+  },
+  "workflow": {
+    "phase_1_locate_stems": {
+      "name": "Locate Design 2025 Stems",
+      "tasks": [
+        {
+          "task": "Find 4TB Lacie drive",
+          "status": "complete"
+        },
+        {
+          "task": "Verify Design 2025 folder exists",
+          "status": "pending"
+        },
+        {
+          "task": "Count stem files",
+          "status": "pending"
+        },
+        {
+          "task": "Verify file integrity",
+          "status": "pending"
+        }
+      ],
+      "status": "in_progress"
+    },
+    "phase_2_organize": {
+      "name": "Organize & Import Stems",
+      "tasks": [
+        {
+          "task": "Create project folder structure",
+          "status": "pending"
+        },
+        {
+          "task": "Import stems to working directory",
+          "status": "pending"
+        },
+        {
+          "task": "Back up original stems",
+          "status": "pending"
+        },
+        {
+          "task": "Verify all tracks present",
+          "status": "pending"
+        }
+      ],
+      "status": "pending"
+    },
+    "phase_3_mix": {
+      "name": "Complete Mix",
+      "tasks": [
+        {
+          "task": "Load stems into DAW",
+          "status": "pending"
+        },
+        {
+          "task": "Balance & rough mix",
+          "status": "pending"
+        },
+        {
+          "task": "Process & effects",
+          "status": "pending"
+        },
+        {
+          "task": "Fine-tune mix",
+          "status": "pending"
+        },
+        {
+          "task": "Reference check",
+          "status": "pending"
+        },
+        {
+          "task": "Final mix approval",
+          "status": "pending"
+        }
+      ],
+      "status": "pending"
+    },
+    "phase_4_master": {
+      "name": "Mastering",
+      "tasks": [
+        {
+          "task": "Export stereo mixdown",
+          "status": "pending"
+        },
+        {
+          "task": "Master for video sync",
+          "status": "pending"
+        },
+        {
+          "task": "Quality check",
+          "status": "pending"
+        },
+        {
+          "task": "Backup master files",
+          "status": "pending"
+        }
+      ],
+      "status": "pending"
+    },
+    "phase_5_delivery": {
+      "name": "Deliver to Gavin/Rogers",
+      "tasks": [
+        {
+          "task": "Export final masters (WAV/MP3)",
+          "status": "pending"
+        },
+        {
+          "task": "Sync with Rogers video",
+          "status": "pending"
+        },
+        {
+          "task": "Send to Gavin Lumsden",
+          "status": "pending"
+        },
+        {
+          "task": "Get approval",
+          "status": "pending"
+        },
+        {
+          "task": "Archive project",
+          "status": "pending"
+        }
+      ],
+      "status": "pending"
+    }
+  },
+  "last_updated": "2025-11-29T01:08:29.618778"
+}

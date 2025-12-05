@@ -1,0 +1,91 @@
+[2025-10-02 17:05:41.050852] FISHNET DEMO INITIALIZED - Pre-scanned 0 files
+[2025-10-02 17:05:41.051806] MONITORING STARTED: /Users/rsp_ms/Desktop
+[2025-10-02 17:05:41.051947] MONITORING STARTED: /Users/rsp_ms/Downloads
+[2025-10-02 17:05:41.052046] MONITORING STARTED: /Users/rsp_ms/Music
+[2025-10-02 17:05:54.892903] FISHNET MONITOR STOPPED BY USER
+[2025-10-02 19:47:13.108233] FISHNET DEMO INITIALIZED - Pre-scanned 0 files
+[2025-10-02 19:47:13.108844] MONITORING STARTED: /Users/rsp_ms/Desktop
+[2025-10-02 19:47:13.108965] MONITORING STARTED: /Users/rsp_ms/Downloads
+[2025-10-02 19:47:13.109058] MONITORING STARTED: /Users/rsp_ms/Music
+[2025-10-02 21:29:38.086444] NEW FILE DETECTED: /Users/rsp_ms/Downloads/.com.microsoft.edgemac.N2jBpm
+[2025-10-02 21:29:38.097332] FILE MOVED: /Users/rsp_ms/Downloads/Unconfirmed 462822.crdownload
+[2025-10-02 21:29:38.097558] NEW FILE DETECTED: /Users/rsp_ms/Downloads/Unconfirmed 462822.crdownload
+[2025-10-02 21:29:38.286187] FILE MOVED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304.zip
+[2025-10-02 21:29:38.286367] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304.zip
+[2025-10-02 21:29:38.311483] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304.zip
+[2025-10-02 21:29:42.309538] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/OFL.txt
+[2025-10-02 21:29:42.309667] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/AUTHORS.txt
+[2025-10-02 21:29:42.309836] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/variable/JetBrainsMono[wght].ttf
+[2025-10-02 21:29:42.309912] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/variable/JetBrainsMono-Italic[wght].ttf
+[2025-10-02 21:29:42.310075] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Thin.ttf
+[2025-10-02 21:29:42.310202] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Bold.ttf
+[2025-10-02 21:29:42.310321] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Italic.ttf
+[2025-10-02 21:29:42.310409] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-LightItalic.ttf
+[2025-10-02 21:29:42.310485] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Regular.ttf
+[2025-10-02 21:29:42.310563] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-ExtraLightItalic.ttf
+[2025-10-02 21:29:42.310647] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-ExtraLightItalic.ttf
+[2025-10-02 21:29:42.310716] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-ExtraLight.ttf
+[2025-10-02 21:29:42.310776] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-MediumItalic.ttf
+[2025-10-02 21:29:42.310839] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-ThinItalic.ttf
+[2025-10-02 21:29:42.310912] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-Light.ttf
+[2025-10-02 21:29:42.310990] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-Italic.ttf
+[2025-10-02 21:29:42.311058] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-BoldItalic.ttf
+[2025-10-02 21:29:42.311120] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-SemiBold.ttf
+[2025-10-02 21:29:42.311186] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-SemiBoldItalic.ttf
+[2025-10-02 21:29:42.311252] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-LightItalic.ttf
+[2025-10-02 21:29:42.311324] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Light.ttf
+[2025-10-02 21:29:42.311407] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-MediumItalic.ttf
+[2025-10-02 21:29:42.311472] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-ExtraBold.ttf
+[2025-10-02 21:29:42.311602] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-SemiBold.ttf
+[2025-10-02 21:29:42.311746] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-Regular.ttf
+[2025-10-02 21:29:42.311842] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-Medium.ttf
+[2025-10-02 21:29:42.311950] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-Thin.ttf
+[2025-10-02 21:29:42.312045] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-SemiBoldItalic.ttf
+[2025-10-02 21:29:42.312134] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-ExtraBoldItalic.ttf
+[2025-10-02 21:29:42.312213] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-ExtraBoldItalic.ttf
+[2025-10-02 21:29:42.312284] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-ThinItalic.ttf
+[2025-10-02 21:29:42.312386] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-ExtraBold.ttf
+[2025-10-02 21:29:42.312468] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-ExtraLight.ttf
+[2025-10-02 21:29:42.312537] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-Medium.ttf
+[2025-10-02 21:29:42.312606] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMono-BoldItalic.ttf
+[2025-10-02 21:29:42.312674] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/ttf/JetBrainsMonoNL-Bold.ttf
+[2025-10-02 21:29:42.312741] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Light.woff2
+[2025-10-02 21:29:42.312807] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-ThinItalic.woff2
+[2025-10-02 21:29:42.312879] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-BoldItalic.woff2
+[2025-10-02 21:29:42.312952] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Regular.woff2
+[2025-10-02 21:29:42.313019] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-SemiBold.woff2
+[2025-10-02 21:29:42.313086] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-MediumItalic.woff2
+[2025-10-02 21:29:42.313160] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-ExtraLightItalic.woff2
+[2025-10-02 21:29:42.313230] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Medium.woff2
+[2025-10-02 21:29:42.313302] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-LightItalic.woff2
+[2025-10-02 21:29:42.313355] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-ExtraLight.woff2
+[2025-10-02 21:29:42.313428] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Bold.woff2
+[2025-10-02 21:29:42.313502] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Thin.woff2
+[2025-10-02 21:29:42.313595] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-SemiBoldItalic.woff2
+[2025-10-02 21:29:42.313698] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-ExtraBoldItalic.woff2
+[2025-10-02 21:29:42.313776] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-ExtraBold.woff2
+[2025-10-02 21:29:42.313861] NEW FILE DETECTED: /Users/rsp_ms/Downloads/JetBrainsMono-2.304/fonts/webfonts/JetBrainsMono-Italic.woff2
+[2025-10-02 22:12:08.749151] NEW FILE DETECTED: /Users/rsp_ms/Downloads/.com.microsoft.m365copilot.helper.vA5hMW
+[2025-10-02 22:12:09.101076] FILE MOVED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide.txt.crdownload
+[2025-10-02 22:12:09.101204] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide.txt.crdownload
+[2025-10-02 22:12:09.188910] FILE MOVED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide.txt
+[2025-10-02 22:12:09.189077] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide.txt
+[2025-10-02 22:12:13.780829] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide.txt
+[2025-10-02 22:12:16.498523] NEW FILE DETECTED: /Users/rsp_ms/Downloads/.com.microsoft.m365copilot.helper.PiJWLH
+[2025-10-02 22:12:16.498710] FILE MOVED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (1).txt.crdownload
+[2025-10-02 22:12:16.498829] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (1).txt.crdownload
+[2025-10-02 22:12:16.498923] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (1).txt
+[2025-10-02 22:12:16.499029] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (1).txt
+[2025-10-02 22:12:18.510893] NEW FILE DETECTED: /Users/rsp_ms/Downloads/.com.microsoft.m365copilot.helper.kubmsI
+[2025-10-02 22:12:18.511076] FILE MOVED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (2).txt.crdownload
+[2025-10-02 22:12:18.511240] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (2).txt.crdownload
+[2025-10-02 22:12:18.511376] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (2).txt
+[2025-10-02 22:12:18.511499] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (2).txt
+[2025-10-02 22:12:20.824624] NEW FILE DETECTED: /Users/rsp_ms/Downloads/.com.microsoft.m365copilot.helper.DbvSDH
+[2025-10-02 22:12:20.824869] FILE MOVED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (3).txt.crdownload
+[2025-10-02 22:12:20.825039] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (3).txt.crdownload
+[2025-10-02 22:12:20.825208] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (3).txt
+[2025-10-02 22:12:20.825360] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (3).txt
+[2025-10-02 22:12:25.138180] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide (3).txt
+[2025-10-02 22:13:33.643282] FILE MOVED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide.txt.sb-81ebb33c-hyUNUO
+[2025-10-02 22:13:33.643503] NEW FILE DETECTED: /Users/rsp_ms/Downloads/webador_to_godaddy_migration_guide.txt

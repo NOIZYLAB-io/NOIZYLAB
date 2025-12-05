@@ -1,0 +1,76 @@
+identity:
+  admin_email: "rsplowman@icloud.com"
+  business_email: "rp@fishmusicinc.com"
+  brand: "Fish Music Inc."
+  alias: "R.S Plowman"
+
+domains:
+  - name: "fishmusicinc.com"
+    registrar: "GoDaddy"
+    status: "live"
+    actions:
+      - "Activate Microsoft 365 mailbox rp@fishmusicinc.com"
+      - "Enable auto-renew"
+  - name: "noizy.ai"
+    registrar: "GoDaddy"
+    status: "to_register"
+    actions:
+      - "Register for 2 years + domain privacy + auto-renew"
+      - "Create admin@noizy.ai mailbox after registration"
+  - name: "noizyfish.com"
+    registrar: "Webador"
+    status: "transfer_pending"
+    actions:
+      - "Unlock at Webador + request EPP/Auth code"
+      - "Initiate transfer to GoDaddy"
+
+mailboxes:
+  - address: "rp@fishmusicinc.com"
+    platform: "Microsoft 365"
+    status: "pending_activation"
+  - address: "info@fishmusicinc.com"
+    platform: "Microsoft 365"
+    status: "to_create"
+  - address: "rsp@noizyfish.com"
+    platform: "Microsoft 365"
+    status: "to_create_after_transfer"
+  - address: "admin@noizy.ai"
+    platform: "Microsoft 365"
+    status: "to_create_after_registration"
+
+accounts:
+  - name: "GoDaddy"
+    email: "rp@fishmusicinc.com"
+    url_products: "https://account.godaddy.com/products"
+    url_security: "https://account.godaddy.com/security"
+    twofa: "pending"
+  - name: "Microsoft 365"
+    email: "rsplowman@icloud.com"
+    url_admin: "https://admin.microsoft.com/"
+    url_security: "https://account.microsoft.com/security"
+    twofa: "enabled"
+  - name: "Facebook"
+    email: "rp@fishmusicinc.com"
+    url_security: "https://www.facebook.com/settings?tab=security"
+    twofa: "pending"
+  - name: "Instagram"
+    email: "rp@fishmusicinc.com"
+    url_security: "https://help.instagram.com/566810106808145"
+    twofa: "pending"
+  - name: "LinkedIn"
+    email: "rsplowman@icloud.com"
+    url_security: "https://www.linkedin.com/psettings/security"
+    twofa: "pending"
+  - name: "YouTube"
+    email: "rp@fishmusicinc.com"
+    url_security: "https://myaccount.google.com/security"
+    twofa: "pending"
+  - name: "SoundCloud"
+    email: "rp@fishmusicinc.com"
+    url_security: "https://soundcloud.com/settings/password"
+    twofa: "pending"
+
+settings:
+  backup_vault: true
+  open_in_browser: true
+  log_actions: true

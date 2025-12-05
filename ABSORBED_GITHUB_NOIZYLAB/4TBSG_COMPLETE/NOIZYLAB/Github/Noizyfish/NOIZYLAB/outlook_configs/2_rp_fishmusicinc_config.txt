@@ -1,0 +1,29 @@
+======================================
+ACCOUNT 2: Fish Music Inc - RP
+======================================
+
+Email: rp@fishmusicinc.com
+Display Name: RP - Fish Music Inc
+Provider: Custom Domain
+
+MANUAL SETUP:
+1. File → Add Account → Manual setup
+2. Choose: POP or IMAP
+3. Select: IMAP
+
+SERVER SETTINGS:
+- Account Type: IMAP
+- Incoming Server: mail.fishmusicinc.com
+- Incoming Port: 993
+- Encryption: SSL/TLS
+- Outgoing Server: mail.fishmusicinc.com
+- Outgoing Port: 587
+- Encryption: STARTTLS
+- Username: rp@fishmusicinc.com
+- Password: [Your password]
+
+ADVANCED SETTINGS:
+☑ Outgoing server requires authentication
+☑ Use same settings as incoming
+
+STATUS: ✓ Ready to configure

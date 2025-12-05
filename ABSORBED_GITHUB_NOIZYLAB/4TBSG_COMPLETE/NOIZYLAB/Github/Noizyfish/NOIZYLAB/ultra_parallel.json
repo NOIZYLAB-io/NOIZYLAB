@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "cpu_cores": 24,
+  "max_workers": 96,
+  "thread_pool_size": 192,
+  "process_pool_size": 48,
+  "gpu_acceleration": true,
+  "gpu_cores": 76,
+  "neural_engine": true,
+  "neural_cores": 32,
+  "parallel_strategy": "maximum"
+}

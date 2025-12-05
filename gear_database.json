@@ -1,0 +1,174 @@
+{
+  "UAD_LA-2A": {
+    "name": "UAD_LA-2A",
+    "type": "compressor",
+    "captured": "2025-11-28T03:59:46.077418",
+    "harmonic_dna": {
+      "fundamental_character": "warm_analog",
+      "harmonic_series": [
+        1.0,
+        0.5,
+        0.25,
+        0.125
+      ],
+      "saturation_curve": "gentle_tube_like",
+      "sweet_spot": "2/3_drive"
+    },
+    "dynamic_dna": {
+      "compression_character": "smooth_musical",
+      "attack_response": "fast_but_natural",
+      "release_behavior": "program_dependent",
+      "ratio_curve": "soft_knee"
+    },
+    "transient_dna": {
+      "attack_shaping": "preserved_natural",
+      "sustain_character": "warm_full",
+      "decay_behavior": "musical_tail"
+    },
+    "noise_dna": {
+      "noise_floor": "vintage_character",
+      "hum_profile": "60hz_minimal",
+      "hiss_character": "tape_like_pleasant"
+    },
+    "age_state": {
+      "condition": "well_maintained",
+      "tube_warmth": "optimal",
+      "capacitor_health": "good",
+      "years_of_character": "mature_sweet"
+    },
+    "emotional_character": {
+      "vibe": "vintage_professional",
+      "mojo": "high",
+      "soul": "analog_heart"
+    }
+  },
+  "UAD_1176": {
+    "name": "UAD_1176",
+    "type": "compressor",
+    "captured": "2025-11-28T03:59:46.077426",
+    "harmonic_dna": {
+      "fundamental_character": "warm_analog",
+      "harmonic_series": [
+        1.0,
+        0.5,
+        0.25,
+        0.125
+      ],
+      "saturation_curve": "gentle_tube_like",
+      "sweet_spot": "2/3_drive"
+    },
+    "dynamic_dna": {
+      "compression_character": "smooth_musical",
+      "attack_response": "fast_but_natural",
+      "release_behavior": "program_dependent",
+      "ratio_curve": "soft_knee"
+    },
+    "transient_dna": {
+      "attack_shaping": "preserved_natural",
+      "sustain_character": "warm_full",
+      "decay_behavior": "musical_tail"
+    },
+    "noise_dna": {
+      "noise_floor": "vintage_character",
+      "hum_profile": "60hz_minimal",
+      "hiss_character": "tape_like_pleasant"
+    },
+    "age_state": {
+      "condition": "well_maintained",
+      "tube_warmth": "optimal",
+      "capacitor_health": "good",
+      "years_of_character": "mature_sweet"
+    },
+    "emotional_character": {
+      "vibe": "vintage_professional",
+      "mojo": "high",
+      "soul": "analog_heart"
+    }
+  },
+  "Pultec_EQP-1A": {
+    "name": "Pultec_EQP-1A",
+    "type": "equalizer",
+    "captured": "2025-11-28T03:59:46.077428",
+    "harmonic_dna": {
+      "fundamental_character": "warm_analog",
+      "harmonic_series": [
+        1.0,
+        0.5,
+        0.25,
+        0.125
+      ],
+      "saturation_curve": "gentle_tube_like",
+      "sweet_spot": "2/3_drive"
+    },
+    "dynamic_dna": {
+      "compression_character": "smooth_musical",
+      "attack_response": "fast_but_natural",
+      "release_behavior": "program_dependent",
+      "ratio_curve": "soft_knee"
+    },
+    "transient_dna": {
+      "attack_shaping": "preserved_natural",
+      "sustain_character": "warm_full",
+      "decay_behavior": "musical_tail"
+    },
+    "noise_dna": {
+      "noise_floor": "vintage_character",
+      "hum_profile": "60hz_minimal",
+      "hiss_character": "tape_like_pleasant"
+    },
+    "age_state": {
+      "condition": "well_maintained",
+      "tube_warmth": "optimal",
+      "capacitor_health": "good",
+      "years_of_character": "mature_sweet"
+    },
+    "emotional_character": {
+      "vibe": "vintage_professional",
+      "mojo": "high",
+      "soul": "analog_heart"
+    }
+  },
+  "Ampex_ATR-102": {
+    "name": "Ampex_ATR-102",
+    "type": "tape_machine",
+    "captured": "2025-11-28T03:59:46.077430",
+    "harmonic_dna": {
+      "fundamental_character": "warm_analog",
+      "harmonic_series": [
+        1.0,
+        0.5,
+        0.25,
+        0.125
+      ],
+      "saturation_curve": "gentle_tube_like",
+      "sweet_spot": "2/3_drive"
+    },
+    "dynamic_dna": {
+      "compression_character": "smooth_musical",
+      "attack_response": "fast_but_natural",
+      "release_behavior": "program_dependent",
+      "ratio_curve": "soft_knee"
+    },
+    "transient_dna": {
+      "attack_shaping": "preserved_natural",
+      "sustain_character": "warm_full",
+      "decay_behavior": "musical_tail"
+    },
+    "noise_dna": {
+      "noise_floor": "vintage_character",
+      "hum_profile": "60hz_minimal",
+      "hiss_character": "tape_like_pleasant"
+    },
+    "age_state": {
+      "condition": "well_maintained",
+      "tube_warmth": "optimal",
+      "capacitor_health": "good",
+      "years_of_character": "mature_sweet"
+    },
+    "emotional_character": {
+      "vibe": "vintage_professional",
+      "mojo": "high",
+      "soul": "analog_heart"
+    }
+  }
+}

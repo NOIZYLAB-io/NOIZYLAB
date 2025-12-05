@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-11-08T12:18:10.380454",
+  "operation": "clean_move_all_2025_noizyfish",
+  "source": "/Volumes/4TBSG/2025_NOIZYFISH",
+  "destination": "/Volumes/4TBSG/MASTER_CONSOLIDATED_ARCHIVE",
+  "statistics": {
+    "items_moved": 13,
+    "items_deleted": 7,
+    "items_archived": 0,
+    "total_mb_moved": 198077.54839897156
+  },
+  "status": "completed"
+}

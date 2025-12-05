@@ -1,0 +1,4 @@
+<!-- PXE Rebirth: Windows Unattended Setup -->
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+  <!-- Add your automated setup configuration here -->
+</unattend>

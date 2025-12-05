@@ -1,0 +1,18 @@
+{
+  "setup_steps": [
+    "1. Get API key from https://makersuite.google.com/app/apikey",
+    "2. Set environment variable: export GEMINI_API_KEY='your-key'",
+    "3. Or add to .env file: GEMINI_API_KEY=your-key",
+    "4. Install requests: pip install requests",
+    "5. Use GeminiAI class in your code"
+  ],
+  "usage": {
+    "python": "from gemini_ai import GeminiAI; ai = GeminiAI(); result = ai.solve_problem('problem')",
+    "swift": "let ai = GeminiAI(apiKey: 'key'); let result = try await ai.solveProblem('problem')"
+  },
+  "models": {
+    "gemini-pro": "Text generation, problem solving",
+    "gemini-pro-vision": "Image understanding, multimodal",
+    "gemini-ultra": "Most advanced (when available)"
+  }
+}

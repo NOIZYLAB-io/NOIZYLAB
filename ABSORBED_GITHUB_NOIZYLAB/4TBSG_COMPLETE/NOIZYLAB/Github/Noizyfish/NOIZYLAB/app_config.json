@@ -1,0 +1,26 @@
+{
+  "app_name": "NOIZYLAB",
+  "bundle_id": "com.noizylab.noizylab",
+  "version": "1.0.0",
+  "platform": "iOS 15.0+",
+  "features": {
+    "problem_solver": true,
+    "ai_trainer": true,
+    "analytics": true,
+    "monitoring": true,
+    "voice_interface": true,
+    "offline_mode": true,
+    "push_notifications": true,
+    "biometric_auth": true,
+    "dark_mode": true,
+    "widgets": true
+  },
+  "technologies": {
+    "swiftui": true,
+    "swift": true,
+    "core_data": true,
+    "cloudkit": true,
+    "arkit": true,
+    "siri_shortcuts": true
+  }
+}

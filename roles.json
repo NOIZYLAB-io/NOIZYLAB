@@ -1,0 +1,18 @@
+{
+  "priority_map": {
+    "1": "MacStudio",
+    "2": "OMEN",
+    "3": "MacPro",
+    "4": "Inspiron_Planar"
+  },
+  "role_policies": {
+    "control": {
+      "can_push": true,
+      "auto_pull": true
+    },
+    "worker": {
+      "can_push": false,
+      "auto_pull": true
+    }
+  }
+}

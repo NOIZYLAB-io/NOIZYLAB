@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "max_workers": 24,
+  "cpu_count": 24,
+  "thread_pool_size": 48
+}

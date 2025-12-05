@@ -1,0 +1,38 @@
+I need help setting up my iCloud email (rsplowman@icloud.com) in Gmail. I have an app-specific password: bdzw-ekxx-uhxi-pgym
+
+Please guide me step-by-step through:
+1. Adding rsplowman@icloud.com to Gmail to receive emails
+2. Configuring it to send emails from this address
+3. The correct IMAP and SMTP settings for iCloud
+
+I need the exact settings:
+- IMAP server, port, and security settings
+- SMTP server, port, and security settings
+- Username format (full email or just username)
+- Where to enter the app-specific password
+
+Configuration details I have:
+- Email: rsplowman@icloud.com
+- App-Specific Password: bdzw-ekxx-uhxi-pgym
+- IMAP Server: imap.mail.me.com
+- IMAP Port: 993
+- IMAP Security: SSL/TLS
+- SMTP Server: smtp.mail.me.com
+- SMTP Port: 587
+- SMTP Security: STARTTLS/TLS
+- Username: rsplowman@icloud.com (full email address)
+
+Common issues I want to avoid:
+- Using wrong server (mail.icloud.com vs imap.mail.me.com)
+- Wrong port numbers (110 vs 993)
+- Authentication errors
+- SSL/TLS configuration issues
+
+Please provide clear, step-by-step instructions with the exact values I need to enter in Gmail's interface. Walk me through:
+1. Where to find the settings in Gmail
+2. What to click
+3. What values to enter in each field
+4. How to verify the setup worked
+
+Also provide troubleshooting tips if the connection fails.
+
