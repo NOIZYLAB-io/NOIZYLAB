@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(for:*)",
+      "Bash(do echo '=== $vol ===' ls -la $vol)",
+      "Bash(diskutil unmount:*)",
+      "Bash(networksetup -listallhardwareports:*)",
+      "Bash(networksetup -getMTU:*)",
+      "Bash(system_profiler:*)",
+      "Bash(defaults read:*)",
+      "Bash(plutil:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
