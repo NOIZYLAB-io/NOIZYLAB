@@ -51,3 +51,10 @@ zoom in: key(cmd-=)
 zoom out: key(cmd--)
 high contrast: key(cmd-k cmd-t) sleep(200ms) insert("high contrast") key(enter)
 bigger font: key(cmd-,) sleep(200ms) insert("fontSize") key(enter)
+
+# Command Suite - Quick Actions
+deploy suite: key(cmd-shift-b)
+test suite: key(cmd-shift-t)
+docs suite: key(cmd-shift-d)
+risk scan: key(cmd-shift-r)
+export report: key(cmd-shift-e)
