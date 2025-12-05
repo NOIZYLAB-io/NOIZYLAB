@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+const fs = require('fs')
+const path = require('path')
+
+const target = process.argv[2]
+
+if (!target || !['src', 'dist'].includes(target)) {
+  console.error('Usage: node toggle-main.js <src|dist>')
+  process.exit(1)
+}
+
+const packageJsonPath = path.join(__dirname, 'package.json')
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'))
+
+packageJson.main = `./${target}/extension.js`
+
+fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n')
+
+console.log(`Updated package.json main to: ./${target}/extension.js`)

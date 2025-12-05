@@ -1,0 +1,18 @@
+{
+    "Snippet: Test Procedure": {
+        "prefix": "ttestprocedure",
+        "body": [
+            "[Test]",
+            "procedure ${1:TestMethod}()",
+            "var",
+            "\t",
+            "begin",
+            "\t//[GIVEN] ${2:given}",
+            "\t//[WHEN] ${3:when}",
+            "\t//[THEN] ${4:then}",
+            "\tError('not implemented');",
+            "end;"
+        ],
+        "description": "AL test procedure with GIVEN, WHEN, THEN"
+    }
+}

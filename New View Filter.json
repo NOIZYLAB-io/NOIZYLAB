@@ -1,0 +1,206 @@
+{
+   "" : {
+      "Type" : "UInt",
+      "Value" : 0
+   },
+   "\u0001" : {
+      "Type" : "UInt",
+      "Value" : 1
+   },
+   "\u0002" : {
+      "Type" : "UInt",
+      "Value" : 2
+   },
+   "\u0003" : {
+      "Type" : "UInt",
+      "Value" : 3
+   },
+   "\u0004" : {
+      "Type" : "UInt",
+      "Value" : 4
+   },
+   "\u0005" : {
+      "Type" : "UInt",
+      "Value" : 5
+   },
+   "\u0006" : {
+      "Type" : "UInt",
+      "Value" : 6
+   },
+   "\u0007" : {
+      "Type" : "UInt",
+      "Value" : 7
+   },
+   "\b" : {
+      "Type" : "UInt",
+      "Value" : 8
+   },
+   "\t" : {
+      "Type" : "UInt",
+      "Value" : 9
+   },
+   "\n" : {
+      "Type" : "UInt",
+      "Value" : 10
+   },
+   "\u000B" : {
+      "Type" : "UInt",
+      "Value" : 11
+   },
+   "\f" : {
+      "Type" : "UInt",
+      "Value" : 12
+   },
+   "\r" : {
+      "Type" : "UInt",
+      "Value" : 13
+   },
+   "\u000E" : {
+      "Type" : "UInt",
+      "Value" : 14
+   },
+   "\u000F" : {
+      "Type" : "UInt",
+      "Value" : 15
+   },
+   "\u0010" : {
+      "Type" : "UInt",
+      "Value" : 16
+   },
+   "\u0011" : {
+      "Type" : "UInt",
+      "Value" : 17
+   },
+   "\u0012" : {
+      "Type" : "UInt",
+      "Value" : 18
+   },
+   "\u0013" : {
+      "Type" : "UInt",
+      "Value" : 19
+   },
+   "\u0014" : {
+      "Type" : "UInt",
+      "Value" : 20
+   },
+   "\u0015" : {
+      "Type" : "UInt",
+      "Value" : 21
+   },
+   "\u0016" : {
+      "Type" : "UInt",
+      "Value" : 22
+   },
+   "\u0017" : {
+      "Type" : "UInt",
+      "Value" : 23
+   },
+   "\u0018" : {
+      "Type" : "UInt",
+      "Value" : 24
+   },
+   "\u0019" : {
+      "Type" : "UInt",
+      "Value" : 25
+   },
+   "\u001A" : {
+      "Type" : "UInt",
+      "Value" : 26
+   },
+   "\u001B" : {
+      "Type" : "UInt",
+      "Value" : 27
+   },
+   "\u001C" : {
+      "Type" : "UInt",
+      "Value" : 28
+   },
+   "\u001D" : {
+      "Type" : "UInt",
+      "Value" : 29
+   },
+   "\u001E" : {
+      "Type" : "UInt",
+      "Value" : 30
+   },
+   "\u001F" : {
+      "Type" : "UInt",
+      "Value" : 31
+   },
+   " " : {
+      "Type" : "UInt",
+      "Value" : 32
+   },
+   "!" : {
+      "Type" : "UInt",
+      "Value" : 33
+   },
+   "\"" : {
+      "Type" : "UInt",
+      "Value" : 34
+   },
+   "#" : {
+      "Type" : "UInt",
+      "Value" : 35
+   },
+   "$" : {
+      "Type" : "UInt",
+      "Value" : 36
+   },
+   "%" : {
+      "Type" : "UInt",
+      "Value" : 37
+   },
+   "&" : {
+      "Type" : "UInt",
+      "Value" : 38
+   },
+   "'" : {
+      "Type" : "UInt",
+      "Value" : 39
+   },
+   "(" : {
+      "Type" : "UInt",
+      "Value" : 40
+   },
+   ")" : {
+      "Type" : "UInt",
+      "Value" : 41
+   },
+   "*" : {
+      "Type" : "UInt",
+      "Value" : 42
+   },
+   "+" : {
+      "Type" : "UInt",
+      "Value" : 43
+   },
+   "-" : {
+      "Type" : "UInt",
+      "Value" : 45
+   },
+   "." : {
+      "Type" : "UInt",
+      "Value" : 46
+   },
+   "0" : {
+      "Type" : "UInt",
+      "Value" : 48
+   },
+   "1" : {
+      "Type" : "UInt",
+      "Value" : 49
+   },
+   "6" : {
+      "Type" : "UInt",
+      "Value" : 54
+   },
+   "8" : {
+      "Type" : "UInt",
+      "Value" : 56
+   },
+   ";" : {
+      "Type" : "UInt",
+      "Value" : 59
+   }
+}

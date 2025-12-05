@@ -1,0 +1,7 @@
+[
+  { "key": "cmd+k cmd+f", "command": "editor.action.formatDocument" },
+  { "key": "cmd+shift+d", "command": "workbench.action.duplicateSelection" },
+  { "key": "cmd+shift+enter", "command": "editor.action.insertLineBefore" },
+  { "key": "cmd+enter", "command": "editor.action.insertLineAfter" },
+  { "key": "cmd+shift+l", "command": "editor.action.selectHighlights" }
+]

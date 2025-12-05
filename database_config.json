@@ -1,0 +1,8 @@
+{
+  "connection_pooling": true,
+  "max_connections": 50,
+  "query_cache": true,
+  "index_optimization": true,
+  "batch_operations": true,
+  "async_io": true
+}

@@ -1,237 +1,258 @@
-# NOISYLABZ Quick Start
 
-## 🚀 Getting Started (5 minutes)
+# Quickstart for VSCODE-CODE-COVERAGE
 
-### 1. **Initialize Git** (Optional but Recommended)
-```bash
-cd /Volumes/RSP/NOISYLABZ
-git init
-git add .
-git commit -m "Initialize NOISYLABZ workspace"
-git remote add origin [your-github-repo]
-git push -u origin main
+**Summary**:  This is the QUICKSTART.md document to help users get started with the `ryanluker.vscode-coverage-gutters` "*Coverage Gutters*" extension for VS Code.
+
+## Terminology
+
+*Coverage Gutters* depends uses two files.  It's easy to get the files mixed up and we need to make sure that everone is on the same page when we talk about these files.
+
+<details>
+<summary>Coverage File</summary>
+
+-----
+
+  * LCOV or XML file containing detailed coverage data
+
+* *Coverage Gutters* supports LCOV, CLOVER, COBERTURA, and JACOCO coverage files
+
+* Generation of the coverage file is language specific and is beyond the scope of this extension.
+
+</details>
+
+<details>
+<summary>Coverage Report</summary>
+
+-----
+
+  * HTML file(s) that provides a nice way to view coverage data.
+
+* *Coverage Gutters* does **not** utilize this file.
+
+* Generation of the coverage report is language specific and beyond the scope of this extension.
+
+The extension assumes these two files are located somewhere in your workspace.  There are settings (covered later) to let you customize where **Coverage Gutters** will look for both of these files.
+
+</details>
+
+## Requirements
+
+You need two extensions to get started.  Installation via CLI or Quick Open works best since they use the extension ID to ensure the correct extension is installed.
+
+<details>
+<summary>Coverage Gutters - ryanluker.vscode-coverage-gutters</summary>
+
+-----
+
+    1. CLI install
+
+     * `code --install-extension ryanluker.vscode-coverage-gutters`
+
+  2. Quick Open Install
+
+     * `CTRL-P`  `ext install ryanluker.vscode-coverage-gutters`
+
+  3. Install
+
+     * `CTRL-SHIFT-X` to go to Extensions
+
+     * Search for `coverage gutters`
+
+     * Install the extension by `ryanluker`
+
+  ![Extension search: Coverage Gutters](images/extension_search.png)
+
+</details>
+
+<details>
+<summary>Optional - Live Preview - ms-vscode.live-server</summary>
+
+-----
+
+    1. CLI install
+
+     * `code --install-extension ms-vscode.live-server`
+
+  2. Quick Open Install
+
+     * `CTRL-P`  `ext install ms-vscode.live-server`
+
+  3. GUI Install
+
+     * `CTRL-SHIFT-X` to go to Extensions
+
+     * Search for `live preview`
+
+     * Install the extension by `Microsoft`
+
+  ![Extension search: Live Preview](images/exten_search_live_preview.png)
+
+</details>
+
+After the extensions are installed, you need to get your coverage files.
+
+<details>
+
+<summary>Code coverage file</summary>
+
+-----
+
+    1. Support for the following coverage filenames:
+
+     * `lcov.info`
+     * `cov.xml`
+     * `coverage.xml`
+     * `jacoco.xml`
+     * `coverage.cobertura.xml`
+
+  2. Customizable file name.  You may use any filename you like, but the file must be a Clover, Cobertura, Jacoco, or LCov format file.
+
+  3. Generating a coverage file is language specific.
+
+</details>
+
+## Usage
+
+<details><summary>Generate your coverage file</summary>
+
+-----
+
+  * *How* you generate your coverage file is language specific.
+
+* For example, in .NET the coverage file is generated through unit testing.
+
+</details>
+
+<details><summary>Generate your coverage report</summary>
+
+-----
+
+  * Like the coverage file, generating the HTML report is language specific.
+
+* For example, in .NET there is a  *ReportGenerator* utility.  Other languages may generate the coverage report at the same time as the coverage file.
+
+</details>
+
+<details><summary>Activate code coverage indicators</summary>
+
+-----
+
+  * Pressing `CTRL-SHIFT-7` will colorize the VS Code IDE.  Coloring is transient; when the window becomes hidden it will reset and lose coloring.
+
+</details>
+
+<details><summary>Preview coverage report</summary>
+
+-----
+
+  * Pressing `CTRL-SHIFT-6` will bring up a preview window with the coverage report.
+
+</details>
+
+## Settings
+
+<details><summary>Coverage Base Dir "coverage-gutters.coverageBaseDir"</summary>
+
+-----
+
+* Directory where the **coverage file** is located.
+
+* Default is "`**`" which is the entire workspace.
+
+* To prevent searching through the entire workspace, you can limit **coverage gutters* to a specific folder.
+
+</details>
+
+<details><summary>Coverage File Names "coverage-gutters.coverageFileNames"</summary>
+
+-----
+
+  * JSON array of filenames that are coverage files.
+
+* Default is:
+
+ ```json
+ [
+    "lcov.info",
+    "cov.xml",
+    "coverage.xml",
+    "jacoco.xml",
+    "coverage.cobertura.xml"
+]
 ```
 
-### 2. **Add to Your Shell**
-Edit `~/.zshrc` and add:
-```bash
-source /Volumes/RSP/NOISYLABZ/.config/init.zsh
+* If your coverage report filename isn't listed, this is where you can add it.
+
+</details>
+
+<details><summary>Coverage Report Filename `coverage-gutters.coverageReportFileName`</summary>
+
+-----
+
+  * Points to the `index.htm[l]` of your coverage report.  The is used for `CTRL-SHIFT-6` Preview Coverage Report function.  Since it's possible to have multiple `index.htm[l]` files in web projects, this should explictly set, e.g. "`coverage/**/index.html`"
+
+</details>
+
+<details><summary>Show Gutter Coverage `coverage-gutters.showGutterCoverage`</summary>
+
+-----
+
+  Enables the Green/Red markings in the gutter to indicate code coverage.
+
+  Default is **Enabled**
+
+  ![Coverage in gutter](images/coverage_gutters.png)
+
+  This is known to interfere with setting breakpoints from the GUI (clicking on gutters).  Workarounds is to disable this setting and use `coverage-gutters.showLineCoverage`, or press `F9`the default key to set a breakpoint on the current line.
+
+</details>
+
+<details><summary>Show Line Coverage `coverage-gutters.showLineCoverage`</summary>
+
+-----
+
+  Enables the Green/Red markings underneath each line to indicate code coverage.
+
+  Default is **Disabled**
+
+  ![Coverage in gutter](images/coverage_lines.png)
+
+</details>
+
+## Troubleshooting
+
+<details><summary>Can't find coverage file</summary>
+
+-----
+
+1. Filename must be:
+
+```text
+   lcov.info
+   cov.xml
+   coverage.xml
+   jacoco.xml
+   coverage.cobertura.xml
 ```
 
-Then reload:
-```bash
-source ~/.zshrc
-```
+   If your coverage file is named something else, you can add it to the list of valid coverage filenamed by editing `coverage-gutters.coverageFileNames`.
 
-### 3. **Open in VS Code**
-```bash
-code /Volumes/RSP/NOISYLABZ/NOISYLABZ.code-workspace
-```
+2. File must be in `coverage-gutters.coverageBaseDir` which defaults to "`**`" or any directory.
 
-### 4. **Test Commands**
-```bash
-# Check status
-noisylabz-status
+   By default every directory is recursively scanned for a matching filename.  Coverage files can be found faster by pointing this setting to the directory containing the coverage file.  There must be only one matching coverage file within the `coverage-gutters.coverageBaseDir` search folders.
 
-# Create a new project
-newproject my-first-project
+</details>
 
-# Navigate
-noisylabz
-projects
-```
+<details><summary>Preview report not working</summary>
 
----
+-----
 
-## 📋 Directory Structure Explained
+1. File must be named `index.html`
 
-```
-NOISYLABZ/
-├── .config/              # Configuration scripts
-│   ├── init.zsh         # Shell setup
-│   ├── noisylabz.env    # Environment variables
-│   ├── new-project.sh   # Project generator
-│   └── omen-sync.sh     # Remote sync script
-│
-├── .github/              # GitHub workflows (future)
-│
-├── projects/             # 🔥 ACTIVE PROJECTS GO HERE
-│   ├── project-1/
-│   ├── project-2/
-│   └── ...
-│
-├── archive/              # Old/completed projects
-│
-├── backups/              # Automatic backups
-│   └── *.tar.gz
-│
-├── docs/                 # Documentation
-│   ├── SETUP.md
-│   ├── WORKFLOW.md
-│   └── ...
-│
-├── README.md
-├── .gitignore
-└── NOISYLABZ.code-workspace
-```
+2. Point `coverage-gutters.coverageReportFileName` to the report's index file.
 
----
+3. Ensure that the `ext install ms-vscode.live-server` extension is installed.
 
-## 🔄 Daily Workflow
+   * `CTRL-P`  `ext install ms-vscode.live-server`
 
-### Morning
-```bash
-noisylabz          # Navigate to workspace
-noisylabz-status   # Check status
-```
-
-### Start Working
-```bash
-cd projects/[project-name]
-code .             # Opens in VS Code
-```
-
-### After Editing
-```bash
-git add .
-git commit -m "Update: description"
-```
-
-### Heavy Processing (Omen)
-```bash
-omen-sync          # Send to Omen
-# SSH into Omen and run processes
-omen-pull          # Fetch results back
-```
-
-### Before Sleep
-```bash
-backup             # Manual backup (or automatic nightly)
-```
-
----
-
-## 🔧 Configuration
-
-### Update Omen Access
-Edit `/Volumes/RSP/NOISYLABZ/.config/noisylabz.env`:
-```bash
-export OMEN_HOST="[actual-omen-ip]"
-export OMEN_USER="[your-username]"
-```
-
-### Google Workspace Sync
-1. Install Google Drive for Mac
-2. Go to **Google Drive Preferences**
-3. Select **My Drive** → **Sync Folder**
-4. Choose `/Volumes/RSP/NOISYLABZ`
-5. Enable real-time sync
-
-### Schedule Automatic Backups
-```bash
-# Edit crontab
-crontab -e
-
-# Add this line for daily 2 AM backup:
-0 2 * * * /Volumes/RSP/NOISYLABZ/backups/backup.sh
-```
-
----
-
-## 🎯 Creating Your First Project
-
-```bash
-newproject my-awesome-project
-cd projects/my-awesome-project
-```
-
-Your project will have:
-```
-my-awesome-project/
-├── src/          # Your code
-├── tests/        # Tests
-├── docs/         # Documentation
-├── config/       # Config files
-├── README.md
-└── .gitignore
-```
-
-Edit `README.md` and start coding!
-
----
-
-## 🌐 Multi-Device Workflow
-
-### Mac Studio (Primary)
-- Local development
-- Real-time editing
-- Google Drive sync
-
-### Omen (Heavy Processing)
-```bash
-# Send specific project
-rsync -avz projects/analysis-project/ user@omen:~/projects/
-
-# Run on Omen
-ssh user@omen 'cd ~/projects/analysis-project && python process.py'
-
-# Get results
-rsync -avz user@omen:~/projects/analysis-project/results/ projects/analysis-project/
-```
-
-### Google Workspace (Cloud)
-- All files auto-synced
-- Access from anywhere
-- Backup protection
-
----
-
-## 💾 Backup Strategy
-
-**Automatic**: Daily at 2 AM (if cron configured)
-**Manual**: `backup` command
-**Retention**: 30 days of backups
-**Location**: `/Volumes/RSP/NOISYLABZ/backups/`
-
-Restore a backup:
-```bash
-cd /Volumes/RSP
-tar -xzf NOISYLABZ/backups/noisylabz_backup_20251104_020000.tar.gz
-```
-
----
-
-## ⚡ Pro Tips
-
-1. **Keep It Clean**: Archive projects regularly to `archive/`
-2. **Document Everything**: Update project READMEs
-3. **Commit Often**: Git commits are your insurance policy
-4. **Use Aliases**: Commands like `noisylabz` save time
-5. **Monitor Backups**: Check backup size monthly
-
----
-
-## 🆘 Troubleshooting
-
-### "Command not found: noisylabz"
-```bash
-source /Volumes/RSP/NOISYLABZ/.config/init.zsh
-```
-
-### Backup fails
-```bash
-# Check permissions
-ls -la /Volumes/RSP/NOISYLABZ/backups/
-chmod +x /Volumes/RSP/NOISYLABZ/backups/backup.sh
-```
-
-### Google Sync not working
-- Restart Google Drive for Mac
-- Check `/Volumes/RSP/NOISYLABZ` permissions
-- Ensure folder is in Google Drive
-
----
-
-**Created**: November 2025  
-**Organization**: NOISYLABZ  
-**Environment**: Mac Studio + Omen + Google Workspace
+</details>

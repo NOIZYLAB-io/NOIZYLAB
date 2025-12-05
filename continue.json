@@ -1,0 +1,64 @@
+{
+  "$schema": "https://raw.githubusercontent.com/continuedev/continue/main/configSchema.json",
+  "models": {
+    "careful": {
+      "provider": "anthropic",
+      "model": "claude-3-5-sonnet",
+      "temperature": 0.1,
+      "apiKey": "${ANTHROPIC_API_KEY}"
+    },
+    "docs": {
+      "provider": "anthropic",
+      "model": "claude-3-5-sonnet",
+      "temperature": 0.2,
+      "apiKey": "${ANTHROPIC_API_KEY}"
+    },
+    "tests": {
+      "provider": "anthropic",
+      "model": "claude-3-opus",
+      "temperature": 0.1,
+      "apiKey": "${ANTHROPIC_API_KEY}"
+    },
+    "flow": {
+      "provider": "copilot",
+      "temperature": 0.2
+    },
+    "local": {
+      "provider": "ollama",
+      "model": "mistral-large",
+      "temperature": 0.2
+    }
+  },
+  "context": {
+    "packDefault": [
+      "README.md",
+      "docs/**",
+      "src/**",
+      "tests/**",
+      "configs/context-packs/**"
+    ]
+  },
+  "commands": {
+    "explain": {
+      "model": "careful",
+      "promptPath": "configs/prompts/explain.md"
+    },
+    "refactor": {
+      "model": "careful",
+      "promptPath": "configs/prompts/refactor.md"
+    },
+    "tests": {
+      "model": "tests",
+      "promptPath": "configs/prompts/tests.md"
+    },
+    "docs": {
+      "model": "docs",
+      "promptPath": "configs/prompts/docs.md"
+    }
+  },
+  "tabAutocompleteModel": {
+    "title": "Fast Autocomplete",
+    "provider": "anthropic",
+    "model": "claude-3-haiku-20240307"
+  }
+}

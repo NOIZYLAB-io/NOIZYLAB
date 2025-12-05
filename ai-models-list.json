@@ -1,0 +1,256 @@
+{
+  "ai_genius_version": "1.0.0",
+  "last_updated": "2025-11-24",
+  "description": "EDITABLE AI MODELS LIST - Add/remove/edit any AI you want",
+  
+  "models": {
+    
+    "cursor": {
+      "name": "Cursor AI",
+      "icon": "💻",
+      "description": "AI-powered code editor - GPT-4 integration",
+      "free": true,
+      "category": "coding",
+      "priority": 10,
+      "url": "https://cursor.sh",
+      "hotkey": "cmd+shift+k",
+      "enabled": true,
+      "notes": "Best for: Code completion, refactoring, debugging"
+    },
+    
+    "github-copilot": {
+      "name": "GitHub Copilot++",
+      "icon": "🤖",
+      "description": "AI pair programmer - Enhanced Copilot",
+      "free": false,
+      "category": "coding",
+      "priority": 9,
+      "url": "https://github.com/features/copilot",
+      "cost": "$10/month",
+      "enabled": true,
+      "notes": "Best for: Code generation, documentation, test writing"
+    },
+    
+    "claude-sonnet": {
+      "name": "Claude Sonnet 4",
+      "icon": "⚡",
+      "description": "Best value AI - Excellent for everything",
+      "free": false,
+      "category": "general",
+      "priority": 10,
+      "url": "https://claude.ai",
+      "api": "https://api.anthropic.com/v1/messages",
+      "api_key": "ANTHROPIC_API_KEY",
+      "model_id": "claude-sonnet-4-20250514",
+      "cost_input": "$3 per 1M tokens",
+      "cost_output": "$15 per 1M tokens",
+      "enabled": true,
+      "notes": "Your key: sk-ant-api03-jdXjxMTODL..."
+    },
+    
+    "gemini-flash": {
+      "name": "Gemini 2.0 Flash",
+      "icon": "💎",
+      "description": "FREE - Fastest, massive context, excellent quality",
+      "free": true,
+      "category": "general",
+      "priority": 10,
+      "url": "https://gemini.google.com",
+      "api": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+      "api_key": "GOOGLE_API_KEY",
+      "model_id": "gemini-2.0-flash",
+      "cost_input": "$0.075 per 1M tokens",
+      "cost_output": "$0.30 per 1M tokens",
+      "enabled": true,
+      "notes": "Best for: Speed, long documents, FREE usage"
+    },
+    
+    "chatgpt-free": {
+      "name": "ChatGPT Free",
+      "icon": "🔮",
+      "description": "FREE - GPT-4o mini via web interface",
+      "free": true,
+      "category": "general",
+      "priority": 8,
+      "url": "https://chat.openai.com",
+      "enabled": true,
+      "notes": "Best for: General questions, writing, brainstorming"
+    },
+    
+    "llama-3.3": {
+      "name": "Llama 3.3 70B",
+      "icon": "🦙",
+      "description": "FREE - Open source, runs locally or via Together AI",
+      "free": true,
+      "category": "general",
+      "priority": 9,
+      "url": "https://ollama.ai",
+      "api": "https://api.together.xyz/v1/chat/completions",
+      "api_key": "TOGETHER_API_KEY",
+      "model_id": "meta-llama/Meta-Llama-3.3-70B-Instruct-Turbo",
+      "local_command": "ollama run llama3.3",
+      "enabled": true,
+      "notes": "Best for: Privacy, local processing, offline use"
+    },
+    
+    "perplexity": {
+      "name": "Perplexity AI",
+      "icon": "🔍",
+      "description": "FREE - Search-augmented AI for research",
+      "free": true,
+      "category": "research",
+      "priority": 10,
+      "url": "https://www.perplexity.ai",
+      "api": "https://api.perplexity.ai/chat/completions",
+      "api_key": "PERPLEXITY_API_KEY",
+      "enabled": true,
+      "notes": "Best for: Research, current events, fact checking"
+    },
+    
+    "huggingface": {
+      "name": "HuggingFace Chat",
+      "icon": "🤗",
+      "description": "FREE - Access to multiple open source models",
+      "free": true,
+      "category": "general",
+      "priority": 8,
+      "url": "https://huggingface.co/chat",
+      "api": "https://api-inference.huggingface.co/models/",
+      "api_key": "HUGGINGFACE_API_KEY",
+      "enabled": true,
+      "notes": "Best for: Experimentation, open source, testing"
+    },
+    
+    "poe-ai": {
+      "name": "Poe AI",
+      "icon": "🎭",
+      "description": "FREE - Access Claude, GPT-4, multiple bots",
+      "free": true,
+      "category": "general",
+      "priority": 7,
+      "url": "https://poe.com",
+      "enabled": true,
+      "notes": "Best for: Multiple models, conversation, testing"
+    },
+    
+    "phind": {
+      "name": "Phind",
+      "icon": "🔬",
+      "description": "FREE - AI search for developers",
+      "free": true,
+      "category": "coding",
+      "priority": 9,
+      "url": "https://www.phind.com",
+      "enabled": true,
+      "notes": "Best for: Coding help, documentation, debugging"
+    },
+    
+    "ollama-local": {
+      "name": "Ollama (Local)",
+      "icon": "🏠",
+      "description": "FREE - Run AI models locally on your Mac",
+      "free": true,
+      "category": "local",
+      "priority": 10,
+      "url": "http://localhost:11434",
+      "api": "http://localhost:11434/api/generate",
+      "install": "brew install ollama",
+      "models": ["llama3.3", "codellama", "mistral", "deepseek-coder"],
+      "enabled": true,
+      "notes": "Best for: Privacy, offline, unlimited use"
+    },
+    
+    "codeium": {
+      "name": "Codeium",
+      "icon": "🚀",
+      "description": "FREE - Forever free AI coding assistant",
+      "free": true,
+      "category": "coding",
+      "priority": 8,
+      "url": "https://codeium.com",
+      "enabled": true,
+      "notes": "Best for: Code completion, chat, free forever"
+    },
+    
+    "you-com": {
+      "name": "You.com AI",
+      "icon": "🌐",
+      "description": "FREE - AI search engine with chat",
+      "free": true,
+      "category": "search",
+      "priority": 8,
+      "url": "https://you.com",
+      "enabled": true,
+      "notes": "Best for: Web search, research, summaries"
+    },
+    
+    "lm-studio": {
+      "name": "LM Studio",
+      "icon": "🎬",
+      "description": "FREE - GUI for running local AI models",
+      "free": true,
+      "category": "local",
+      "priority": 9,
+      "url": "https://lmstudio.ai",
+      "api": "http://localhost:1234/v1/chat/completions",
+      "enabled": true,
+      "notes": "Best for: Easy local setup, no coding, privacy"
+    },
+    
+    "blackbox-ai": {
+      "name": "Blackbox AI",
+      "icon": "⬛",
+      "description": "FREE - Code search and generation",
+      "free": true,
+      "category": "coding",
+      "priority": 7,
+      "url": "https://www.blackbox.ai",
+      "enabled": true,
+      "notes": "Best for: Code search, snippets, quick answers"
+    },
+    
+    "tabnine": {
+      "name": "Tabnine",
+      "icon": "📝",
+      "description": "FREE - AI code completion (free tier)",
+      "free": true,
+      "category": "coding",
+      "priority": 7,
+      "url": "https://www.tabnine.com",
+      "enabled": true,
+      "notes": "Best for: Code completion, multi-language"
+    }
+  },
+  
+  "routing_rules": {
+    "code_review": ["cursor", "claude-sonnet", "github-copilot"],
+    "code_generation": ["cursor", "github-copilot", "claude-sonnet", "phind"],
+    "debugging": ["cursor", "phind", "claude-sonnet", "codeium"],
+    "research": ["perplexity", "you-com", "gemini-flash"],
+    "writing": ["claude-sonnet", "chatgpt-free", "gemini-flash"],
+    "analysis": ["claude-sonnet", "gemini-flash", "llama-3.3"],
+    "quick_question": ["gemini-flash", "chatgpt-free", "perplexity"],
+    "long_document": ["gemini-flash", "claude-sonnet"],
+    "offline_needed": ["ollama-local", "lm-studio", "llama-3.3"],
+    "free_only": ["gemini-flash", "perplexity", "ollama-local", "chatgpt-free", "phind", "codeium"]
+  },
+  
+  "hotkeys": {
+    "ask_cursor": "cmd+shift+k",
+    "ask_claude": "cmd+option+c",
+    "ask_gemini": "cmd+option+g",
+    "ask_chatgpt": "cmd+option+t",
+    "ask_perplexity": "cmd+option+p",
+    "ask_local": "cmd+option+l",
+    "smart_route": "cmd+option+a",
+    "compare_all": "cmd+option+m"
+  },
+  
+  "instructions": {
+    "how_to_edit": "Edit this file directly in any text editor. Change enabled to true/false to enable/disable models. Add new models by copying existing format.",
+    "how_to_add_model": "Copy an existing model block, change the values, give it a unique key, save the file.",
+    "how_to_disable": "Set 'enabled: false' for any model you don't want to use",
+    "how_to_change_hotkey": "Edit the hotkeys section with your preferred keyboard shortcuts",
+    "reload": "Save this file, then restart AI GENIUS or refresh the web dashboard"
+  }
+}

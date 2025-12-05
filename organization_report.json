@@ -1,0 +1,172 @@
+{
+  "timestamp": "2025-11-26T20:12:00.400363",
+  "total_files": 137137,
+  "total_size": 432784332641,
+  "total_size_human": "403.06 GB",
+  "categories": {
+    "audio_aif": {
+      "count": 11672,
+      "size": 40113052190,
+      "size_human": "37.36 GB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_NYCPercussionrks 01/Samples/Samples/Sw Toms/FL 0am.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sample CD s/Fuel Past/Verb Now/Audio/Audio Files/Dull Thud, Single, Run.L.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Platnium Accoustic Drums 2a/Samples/Dw   Tomr/Dw 8Flm Fr.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Platnium Accoustic Drums 2a/Samples/Dw  Kick R/Dw Felt Pr.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Platnium Accoustic Drums 2a/Samples/Tamakitr23.7/Crdk17 Pr.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Platnium Accoustic Drums 2a/Samples/Zilda Crashr/Crma16 Fr.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Platnium Accoustic Drums 2a/Samples/Zilda Crashr/Crma18 Pr.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Platnium Accoustic Drums 2a/Samples/Zildk Brcrsr/Crbrk17 Fr.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Akai Audio/Ak Hamburg Loops/Samples/11 Drumsets3/Dsbd9097.aif",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Akai Audio/Ak Hamburg Loops/Samples/11 Drumsets3/Dssnmod4.aif"
+      ]
+    },
+    "kontakt_samples": {
+      "count": 27798,
+      "size": 56695638381,
+      "size_human": "52.80 GB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ FS - Kay 5-String Banjo/String 1/F03 Hard 41.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ FS - Kay 5-String Banjo/String 1/F03 Soft 41.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Emergence Audio/Django Gypsy Jazz Acoustic Guitar/Samples/Lead Mic/ FX Rel Rr2.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Emergence Audio/Django Gypsy Jazz Acoustic Guitar/Samples/Lead Mic/ FX Rel Rr3.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Emergence Audio/Django Gypsy Jazz Acoustic Guitar/Samples/Lead Mic/ FX Rel Rr5.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_KH Diamond Orchestra/Samples All/Samples All/VIS olins/Convnshpc 115.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ WorldBeat Master/WorldBeat/WorldBeat Mediterranean/Instruments/Collected Samples/Cumbus/Cumbus G#5A.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Synclavier Percussion /Samples/029 3 7Mb4/Fingercy 3.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Synclavier Percussionb/Samples/029  3.7MB4/Fingercy.3.ncw",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Synclavier Percussiona/Samples/030 11.7MB4/Fingerc.10 L.ncw"
+      ]
+    },
+    "other": {
+      "count": 4227,
+      "size": 5867055561,
+      "size_human": "5.46 GB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Instruments All/12 Studio VIS olas/Studio Violas2 Samples/Wallpaper/Diamond Tga",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_ProducerzGoldpack1/Tha Premier Vinyl Legends Kit/Dirty_Streetz_Kit/Dirty Streetz Kit",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Prism Instruments ments/Prism Taped - Indie Pop Drums/Prism Taped - Indie Pop Drums/License Agreement/Eula Native Instruments Deutsch Rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Prism Instruments ments/Prism Urban Legends/Prism Urban Legends/License Agreement/Eula Native Instruments Deutsch Rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Music Theory 01/ProjeCT File Backups/Music Theory 01 0logic/Lgdoc/Documentdata",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Sample EDits/Sample EDits bak/Sample EDits 0logic/Lgdoc/Documentdata",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Sample EDits/Sample EDits logic/Lgdoc/Documentdata",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Ew5 Instruments ments Library/Instruments/Stringed Instrumentsb/Cumbus/Cumbus",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Xtc Libraries/Xtc Xx-Large Extreme 150Loops/Effects/Effects",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_SunsetSessions/Drum Loops/Chill Drum 8Bpm/Fills/Fills"
+      ]
+    },
+    "documents": {
+      "count": 1044,
+      "size": 204306613,
+      "size_human": "194.84 MB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Prism Instruments ments/Prism Taped - Indie Pop Drums/Prism Taped - Indie Pop Drums/License Agreement/Eula Native Instruments English.rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Prism Instruments ments/Prism Urban Legends/Prism Urban Legends/License Agreement/Eula Native Instruments English.rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Spitfire Audio/Spitfire Audio - Olafur Arnalds Composer Toolkit/Documentation/License Agreement/Eula Native Instruments ments Deutsch.rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Spitfire Audio/Spitfire Audio - Olafur Arnalds Composer Toolkit/Documentation/License Agreement/Eula Native Instruments ments English.rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Spitfire Audio/Spitfire Audio - Olafur Arnalds Composer Toolkit/Documentation/License Agreement/Eula Native Instruments ments Japanese.rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Spitfire Audio/Spitfire Olafur Arnalds Chamber Evolutions Library/Documentation/License Agreement/Eula Native Instruments ments Deutsch.rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Spitfire Audio/Spitfire Olafur Arnalds Chamber Evolutions Library/Documentation/License Agreement/Eula Native Instruments ments English.rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Spitfire Audio/Spitfire Olafur Arnalds Chamber Evolutions Library/Documentation/License Agreement/Eula Native Instruments ments Japanese.rtf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Circle Drums /Circles Dead 1975/ PRESETS / PRESET INSTALLATION TUTORIAL VIDEOS .pdf",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Circle Drums /Circles Dead V02/Presets/ PRESET INSTALLATION TUTORIAL VIDEOS .pdf"
+      ]
+    },
+    "data": {
+      "count": 2,
+      "size": 510182,
+      "size_human": "498.22 KB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/DOCUMENT_FILES/library_organization_report.csv",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Organized_Libraries/BFA Libraries/Other/BFA_metadata_by_instrument.csv"
+      ]
+    },
+    "kontakt_instruments": {
+      "count": 12713,
+      "size": 1384415146,
+      "size_human": "1.29 GB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/07Bpm Hi ow Reverse.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/07Bpm Reverse Dude 01.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/07Bpm Reverse Dude 02.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/07Bpm Reverse Dude 03.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/10 Body Fills 01 3-4.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/10 Body Fills 02 3-4.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/10 Body Fills 03 3-4.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/10 Body Fills 04 3-4.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/10 Body Fills 05 3-4.nki",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Indie Pop - Kli/Instruments K5/Instruments K5/Drum - Elements/Misc/10 Body Fills 06 3-4.nki"
+      ]
+    },
+    "audio_wav": {
+      "count": 78611,
+      "size": 328455794643,
+      "size_human": "305.90 GB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_MikeChav's Everything V01/Mike Chav's The Drum Arsenal Vol 2/The Drum Arsenal Vol 02 Battery/The Drum Arsenal Vol 2 Battery/Drumarsenal 2 Samples/ FX Perc Nice Lows.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ DSL 01 CIive Smith/ DSL 01 Clive Smith/09 Voice-Like Atmosphere Atonal.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djemb7.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djemb8.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe2.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe3.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe4.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe5.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Djembe6.wav",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Ethnic Percussion/Samples/Doumb10.wav"
+      ]
+    },
+    "presets": {
+      "count": 455,
+      "size": 36977743,
+      "size_human": "35.26 MB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Tone2/Electrax_Sounds/Arp 7/Fishtank EDT.fxp",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Tone2/Electrax_Sounds/Keys/FL 0uffy CI 0Oud s Bt.fxp",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Tone2/Electrax_Sounds/Lead 5/Cosmo Chord EDT.fxp",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/_Tone2/Electrax_Sounds/Vintkeysreal/Electrikeys EDT.fxp",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Samplelogic/CG Organic Atmospheres /Presets - CG Organic Atmospheres/Cores/Multi Core Instruments ments/Multi Core Instruments/Electronic - Effectual/Feeling Good.nka",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Samplelogic/Cinemorph X/Presets Cinemorphx/Presets Cinemorphx/Single Core Instruments/Atmospheres /Stingers/Distant Distort.nka",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/ Samplelogic/Cinemorphx/Cinemorphx/Cores/Single Core Instruments/Atmospheres /Electronic - Effectual/Crystalline.nka",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Output Libraries/Analog Brass And Winds/Snapshots/Analog Brass And Winds/Factory/251-400/Countdown.nksn",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Output Libraries/Analog Brass And Winds/Snapshots/Analog Brass And Winds/Factory/251-400/Detonate.nksn",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Output Libraries/Analog Brass And Winds/Snapshots/Analog Brass And Winds/Factory/401-500/Creation.nksn"
+      ]
+    },
+    "sampler": {
+      "count": 603,
+      "size": 17416958,
+      "size_human": "16.61 MB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sym Of Vox/Sym Vox 04 Popstacks/Sym Vox 04 A/02 M + F Ees/F1+F2 Ees +M.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sym Of Vox/Sym Vox 04 Popstacks/Sym Vox 04 A/02 M + F Ees/F1+F2 Ees +S.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sym Of Vox/Sym Vox 04 Popstacks/Sym Vox 04 A/02 M + F Ees/F1+F2 Ees M.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sym Of Vox/Sym Vox 04 Popstacks/Sym Vox 04 A/02 M + F Ees/F1+F2 Ees S.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sampler Instruments CIean-Up/Vox/Sym Of Vox/Symvox4 Popstacks/Symvox 04 A/02 M + F Ees/F1+F2 Ees M.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sampler Instruments CIean-Up/Vox/Sym Of Vox/Symvox4 Popstacks/Symvox 04 A/02 M + F Ees/F1+F2 Ees S.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sampler Instruments CIean-Up/WorldBeat 0/Abracadabra/Partition F/07-Midifile/Dgis.Ptn5 84.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sampler Instruments CIean-Up/WorldBeat 0/Dig&Primitive/Partition G/Didge 1Bpm/Didge 10A.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sampler Instruments CIean-Up/WorldBeat 0/Dig&Primitive/Partition G/Didge 93 Bpm/Didge 93 D.exs",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Sampler Instruments CIean-Up/WorldBeat 0/Dig&Primitive/Partition I/Didge Riffs/Didge 14D#.exs"
+      ]
+    },
+    "images": {
+      "count": 12,
+      "size": 9165224,
+      "size_human": "8.74 MB",
+      "sample_files": [
+        "/Volumes/4TBSG/KTK 2026 TO SORT/KH Orchestral Collection/KH Diamond Orchestral/Diamond Documentationb/Diamond Brass Woodwinds Manual TVEC3/Cs Ii Items/Images Manual/Division Mixing.png",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Organized_Libraries/_KH Diamond Orchestra/Brass/Division Mixing.png",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Organized_Libraries/_Loot Audio/Ambient/Cover.jpg",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Organized_Libraries/DNZ Motivation Synths/Synth/Diginoiz Motivation Synths Full.jpg",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Organized_Libraries/KH Orchestral Collection/Brass/Cs2 Directory.jpg",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Organized_Libraries/KH Orchestral Collection/Brass/Division Mixing.png",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Organized_Libraries/KH Orchestral Collection/Brass/Divisionmixing.jpg",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/Organized_Libraries/KH Orchestral Collection/String/Fills.png",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/SFX DUPES/__Linear Collection/Si 6000 Sfx Series/Si6037/Si6037.logicx/Alternatives/000/Windowimage.jpg",
+        "/Volumes/4TBSG/KTK 2026 TO SORT/BIG FISH AUDIO/BFA - Big Bad Horns V02 - KLI/BFA - Big Bad Horns V02 - KLIa/Big Bad Horns V02.jpg"
+      ]
+    }
+  },
+  "duplicate_groups": 10071,
+  "errors": []
+}

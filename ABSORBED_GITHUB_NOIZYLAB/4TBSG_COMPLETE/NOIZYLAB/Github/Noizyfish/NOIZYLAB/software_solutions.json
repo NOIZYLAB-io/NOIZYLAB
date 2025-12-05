@@ -1,0 +1,304 @@
+{
+  "operating_systems": {
+    "windows": {
+      "all_versions": [
+        "Windows 11",
+        "Windows 10",
+        "Windows 8.1",
+        "Windows 8",
+        "Windows 7",
+        "Windows Vista",
+        "Windows XP",
+        "Windows 2000",
+        "Windows 98",
+        "Windows 95"
+      ],
+      "common_problems": {
+        "blue_screen": {
+          "causes": [
+            "Driver issues",
+            "Hardware failure",
+            "Memory problems",
+            "Corrupted system files"
+          ],
+          "solutions": [
+            "Run Windows Memory Diagnostic",
+            "Update/rollback drivers",
+            "Check hardware connections",
+            "Run SFC /scannow",
+            "Check Event Viewer for errors",
+            "Safe mode troubleshooting",
+            "System restore",
+            "Clean boot"
+          ],
+          "workarounds": [
+            "Disable automatic restart",
+            "Boot to safe mode",
+            "Use System Recovery Options"
+          ]
+        },
+        "slow_performance": {
+          "solutions": [
+            "Disk cleanup",
+            "Defragmentation",
+            "Disable startup programs",
+            "Check for malware",
+            "Update drivers",
+            "Increase RAM",
+            "Check disk health",
+            "Optimize virtual memory"
+          ]
+        },
+        "boot_issues": {
+          "solutions": [
+            "Boot from recovery media",
+            "Use Startup Repair",
+            "System Restore",
+            "Command Prompt repairs",
+            "Rebuild BCD",
+            "Fix MBR",
+            "Check boot order"
+          ]
+        },
+        "application_crashes": {
+          "solutions": [
+            "Update application",
+            "Reinstall application",
+            "Check compatibility",
+            "Run as administrator",
+            "Check Event Viewer",
+            "Update .NET Framework",
+            "Check dependencies"
+          ]
+        }
+      }
+    },
+    "macos": {
+      "all_versions": [
+        "macOS Sequoia",
+        "Sonoma",
+        "Ventura",
+        "Monterey",
+        "Big Sur",
+        "Catalina",
+        "Mojave",
+        "High Sierra",
+        "Sierra",
+        "El Capitan",
+        "Yosemite",
+        "Mavericks",
+        "Mountain Lion",
+        "Lion",
+        "Snow Leopard",
+        "Leopard",
+        "Tiger",
+        "Panther",
+        "Jaguar",
+        "Puma",
+        "Cheetah"
+      ],
+      "common_problems": {
+        "kernel_panic": {
+          "solutions": [
+            "Reset NVRAM/PRAM",
+            "Safe mode boot",
+            "Check hardware",
+            "Update macOS",
+            "Check Console logs",
+            "Run Apple Diagnostics",
+            "Reset SMC"
+          ]
+        },
+        "slow_performance": {
+          "solutions": [
+            "Clear cache",
+            "Rebuild Spotlight index",
+            "Check Activity Monitor",
+            "Free up disk space",
+            "Reset NVRAM",
+            "Check for malware",
+            "Verify disk permissions"
+          ]
+        },
+        "application_issues": {
+          "solutions": [
+            "Reset application",
+            "Clear application cache",
+            "Reinstall application",
+            "Check Console logs",
+            "Update macOS",
+            "Check compatibility"
+          ]
+        }
+      }
+    },
+    "linux": {
+      "distributions": [
+        "Ubuntu",
+        "Debian",
+        "Fedora",
+        "CentOS",
+        "Arch",
+        "openSUSE",
+        "Mint",
+        "Elementary",
+        "Manjaro",
+        "All others"
+      ],
+      "common_problems": {
+        "boot_issues": {
+          "solutions": [
+            "Boot from live USB",
+            "Repair GRUB",
+            "Check fstab",
+            "Rescue mode",
+            "Check disk",
+            "Repair filesystem"
+          ]
+        },
+        "package_issues": {
+          "solutions": [
+            "Update package lists",
+            "Fix broken packages",
+            "Clear package cache",
+            "Reinstall packages",
+            "Check repositories"
+          ]
+        },
+        "permission_issues": {
+          "solutions": [
+            "Check file permissions",
+            "Use sudo appropriately",
+            "Fix ownership",
+            "Check SELinux/AppArmor"
+          ]
+        }
+      }
+    },
+    "ios": {
+      "all_versions": [
+        "iOS 18",
+        "iOS 17",
+        "iOS 16",
+        "iOS 15",
+        "iOS 14",
+        "iOS 13",
+        "iOS 12",
+        "iOS 11",
+        "iOS 10",
+        "iOS 9",
+        "iOS 8",
+        "iOS 7",
+        "iOS 6",
+        "iOS 5",
+        "iOS 4",
+        "iPhone OS 3",
+        "iPhone OS 2",
+        "iPhone OS 1"
+      ],
+      "common_problems": {
+        "boot_loop": {
+          "solutions": [
+            "Force restart",
+            "DFU mode restore",
+            "Recovery mode restore",
+            "Update iOS",
+            "Check for hardware issues"
+          ]
+        },
+        "battery_drain": {
+          "solutions": [
+            "Check battery health",
+            "Disable background refresh",
+            "Check for rogue apps",
+            "Reset settings",
+            "Update iOS"
+          ]
+        },
+        "app_crashes": {
+          "solutions": [
+            "Update app",
+            "Reinstall app",
+            "Update iOS",
+            "Clear app cache",
+            "Reset app settings"
+          ]
+        }
+      }
+    },
+    "android": {
+      "all_versions": [
+        "Android 14",
+        "Android 13",
+        "Android 12",
+        "Android 11",
+        "Android 10",
+        "Android 9",
+        "Android 8",
+        "Android 7",
+        "Android 6",
+        "Android 5",
+        "Android 4",
+        "Android 3",
+        "Android 2",
+        "Android 1"
+      ],
+      "common_problems": {
+        "boot_loop": {
+          "solutions": [
+            "Boot to recovery",
+            "Wipe cache partition",
+            "Factory reset",
+            "Flash firmware",
+            "Check hardware"
+          ]
+        },
+        "performance_issues": {
+          "solutions": [
+            "Clear cache",
+            "Uninstall unused apps",
+            "Factory reset",
+            "Update Android",
+            "Check for malware"
+          ]
+        }
+      }
+    }
+  },
+  "applications": {
+    "office_suites": {
+      "microsoft_office": "All versions, all issues",
+      "google_workspace": "All issues",
+      "libreoffice": "All issues",
+      "others": "All office suites"
+    },
+    "browsers": {
+      "chrome": "All versions, all issues",
+      "firefox": "All versions, all issues",
+      "safari": "All versions, all issues",
+      "edge": "All versions, all issues",
+      "others": "All browsers"
+    },
+    "media": {
+      "video_players": "All players, all issues",
+      "audio_players": "All players, all issues",
+      "editing_software": "All software, all issues"
+    },
+    "development": {
+      "ides": "All IDEs, all issues",
+      "compilers": "All compilers, all issues",
+      "version_control": "All systems, all issues"
+    },
+    "games": {
+      "all_games": "All games, all platforms, all issues"
+    }
+  },
+  "solution_methodology": {
+    "step_1": "Identify the problem",
+    "step_2": "Check error messages",
+    "step_3": "Search knowledge base",
+    "step_4": "Try standard solutions",
+    "step_5": "Try workarounds",
+    "step_6": "Escalate if needed"
+  }
+}

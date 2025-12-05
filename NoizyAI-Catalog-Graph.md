@@ -1,0 +1,252 @@
+# NOIZY.AI CATALOG GRAPH
+
+> ONE PLACE THAT KNOWS WHO DID WHAT, FOR REAL.
+
+---
+
+## HOW TO USE THIS
+
+- EACH TRACK = ONE SECTION.
+- DON'T CHASE PERFECTION. ROUGH IS BETTER THAN EMPTY.
+- COME BACK AND TIGHTEN LATER.
+
+---
+
+## TRACK TEMPLATE (COPY THIS FOR EACH SONG)
+
+### [TRACK TITLE]
+
+- INTERNAL ID (IF ANY):  
+- YEAR (APPROX IS OK):  
+- PROJECT / ERA:  
+
+#### IDENTIFIERS
+
+- ISRC:
+- ISWC (IF KNOWN):
+- OTHER IDS (LABEL CATALOG #, BANDCAMP, SPOTIFY URL, ETC.):
+
+#### CONTRIBUTORS
+
+- NAME – ROLE(S)
+- NAME – ROLE(S)
+- NAME – ROLE(S)
+
+(ROLES: WRITER / LYRICIST / PRODUCER / MIX / MASTER / PLAYER-[INSTRUMENT] / REMIXER / ENGINEER…)
+
+#### SPLITS (ROUGH IS FINE)
+
+- COMPOSITION (WRITING/LYRICS):
+  - NAME – %  
+  - NAME – %  
+- MASTER (RECORDING OWNERSHIP):
+  - NAME – %  
+  - NAME – %
+
+#### STATUS
+
+- CREDIT COMPLETENESS:
+  - [ ] ROUGH  
+  - [ ] NEEDS CONFIRMATION  
+  - [ ] AGREED BY ALL
+- NOTES:
+  - ANY WEIRDNESS / DISPUTES / "ASK X ABOUT THIS"
+
+---
+
+## ═══════════════════════════════════════════════════════════
+## ROB'S CATALOG – REAL TRACKS
+## ═══════════════════════════════════════════════════════════
+
+---
+
+### DEEP TRANSPORTATION TONE
+
+- INTERNAL ID: FISH-ORIG-001
+- YEAR: ~2000s
+- PROJECT / ERA: FISH MUSIC / AMBIENT EXPLORATIONS
+
+#### IDENTIFIERS
+
+- ISRC: (TO BE ASSIGNED)
+- ISWC: 
+- OTHER IDS: Found in /Volumes/6TB/Sample_Libraries/Audio_Loops/AIFF/
+
+#### CONTRIBUTORS
+
+- ROB PLOWMAN – COMPOSER, PRODUCER, ALL INSTRUMENTS
+
+#### SPLITS (ROUGH IS FINE)
+
+- COMPOSITION (WRITING/LYRICS):
+  - ROB PLOWMAN – 100%
+- MASTER (RECORDING OWNERSHIP):
+  - ROB PLOWMAN – 100%
+
+#### STATUS
+
+- CREDIT COMPLETENESS:
+  - [x] ROUGH  
+  - [ ] NEEDS CONFIRMATION  
+  - [ ] AGREED BY ALL
+- NOTES:
+  - Original work identified by CB_01 via metadata analysis (no commercial tags = Rob's original)
+
+---
+
+### TONES FROM ES VEDRA
+
+- INTERNAL ID: FISH-ORIG-002
+- YEAR: ~2000s
+- PROJECT / ERA: FISH MUSIC / IBIZA SESSIONS
+
+#### IDENTIFIERS
+
+- ISRC: (TO BE ASSIGNED)
+- ISWC:
+- OTHER IDS: Found in /Volumes/6TB/Sample_Libraries/Audio_Loops/AIFF/
+
+#### CONTRIBUTORS
+
+- ROB PLOWMAN – COMPOSER, PRODUCER, SOUND DESIGN
+
+#### SPLITS (ROUGH IS FINE)
+
+- COMPOSITION (WRITING/LYRICS):
+  - ROB PLOWMAN – 100%
+- MASTER (RECORDING OWNERSHIP):
+  - ROB PLOWMAN – 100%
+
+#### STATUS
+
+- CREDIT COMPLETENESS:
+  - [x] ROUGH  
+  - [ ] NEEDS CONFIRMATION  
+  - [ ] AGREED BY ALL
+- NOTES:
+  - Es Vedra = mystical rock island off Ibiza. Rob's ambient field recording/composition.
+
+---
+
+### I JUST WANNA DANCE
+
+- INTERNAL ID: FISH-ORIG-003
+- YEAR: ~1990s-2000s
+- PROJECT / ERA: FISH MUSIC / VOCAL PRODUCTIONS
+
+#### IDENTIFIERS
+
+- ISRC: (TO BE ASSIGNED)
+- ISWC:
+- OTHER IDS: Found in /Volumes/6TB/Sample_Libraries/Audio_Loops/AIFF/
+
+#### CONTRIBUTORS
+
+- ROB PLOWMAN – COMPOSER, PRODUCER
+- (VOCALIST TBD) – VOCALS (IF APPLICABLE)
+
+#### SPLITS (ROUGH IS FINE)
+
+- COMPOSITION (WRITING/LYRICS):
+  - ROB PLOWMAN – 100% (CONFIRM IF COLLABORATOR)
+- MASTER (RECORDING OWNERSHIP):
+  - ROB PLOWMAN – 100%
+
+#### STATUS
+
+- CREDIT COMPLETENESS:
+  - [x] ROUGH  
+  - [ ] NEEDS CONFIRMATION  
+  - [ ] AGREED BY ALL
+- NOTES:
+  - Need to confirm if any vocalist or lyricist collaborated on this track.
+
+---
+
+### DETROIT
+
+- INTERNAL ID: FISH-ORIG-004
+- YEAR: ~2000s
+- PROJECT / ERA: FISH MUSIC / ELECTRONIC
+
+#### IDENTIFIERS
+
+- ISRC: (TO BE ASSIGNED)
+- ISWC:
+- OTHER IDS: Found in /Volumes/6TB/Sample_Libraries/Audio_Loops/AIFF/
+
+#### CONTRIBUTORS
+
+- ROB PLOWMAN – COMPOSER, PRODUCER
+
+#### SPLITS (ROUGH IS FINE)
+
+- COMPOSITION (WRITING/LYRICS):
+  - ROB PLOWMAN – 100%
+- MASTER (RECORDING OWNERSHIP):
+  - ROB PLOWMAN – 100%
+
+#### STATUS
+
+- CREDIT COMPLETENESS:
+  - [x] ROUGH  
+  - [ ] NEEDS CONFIRMATION  
+  - [ ] AGREED BY ALL
+- NOTES:
+  - Detroit techno influence. Original Rob composition.
+
+---
+
+### HUNGERNORM
+
+- INTERNAL ID: FISH-ORIG-005
+- YEAR: ~2000s
+- PROJECT / ERA: FISH MUSIC
+
+#### IDENTIFIERS
+
+- ISRC: (TO BE ASSIGNED)
+- ISWC:
+- OTHER IDS: Found in /Volumes/6TB/Sample_Libraries/Audio_Loops/AIFF/
+
+#### CONTRIBUTORS
+
+- ROB PLOWMAN – COMPOSER, PRODUCER
+
+#### SPLITS (ROUGH IS FINE)
+
+- COMPOSITION (WRITING/LYRICS):
+  - ROB PLOWMAN – 100%
+- MASTER (RECORDING OWNERSHIP):
+  - ROB PLOWMAN – 100%
+
+#### STATUS
+
+- CREDIT COMPLETENESS:
+  - [x] ROUGH  
+  - [ ] NEEDS CONFIRMATION  
+  - [ ] AGREED BY ALL
+- NOTES:
+  - Original work identified via metadata scan.
+
+---
+
+## ═══════════════════════════════════════════════════════════
+## NEXT TRACKS TO ADD
+## ═══════════════════════════════════════════════════════════
+
+- INHARMX_3
+- DIETER_SAMPLE
+- WHOKNOWAS
+- XF_SLICE_1, XF_SLICE_2, XF_SLICE_3
+- STRUM3
+- DESIGN REUNION SHOW TRACKS (PENDING MIX COMPLETION)
+- MCDONALD'S COMMERCIAL WORK
+- MICROSOFT "TINKER" PROJECT
+- FUEL AGENCY PROJECTS
+- DEADWOOD WORK
+
+---
+
+> NOIZY.BRAIN v0.1 – SEEDED DEC 1, 2025
+> "WHO DID WHAT, FOR REAL."

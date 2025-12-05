@@ -1,0 +1,16 @@
+{
+  "screen_replacement": {
+    "iphone": "https://www.youtube.com/results?search_query=iphone+screen+replacement",
+    "ipad": "https://www.youtube.com/results?search_query=ipad+screen+replacement",
+    "macbook": "https://www.youtube.com/results?search_query=macbook+screen+replacement",
+    "laptop": "https://www.youtube.com/results?search_query=laptop+screen+replacement"
+  },
+  "battery_replacement": {
+    "iphone": "https://www.youtube.com/results?search_query=iphone+battery+replacement",
+    "laptop": "https://www.youtube.com/results?search_query=laptop+battery+replacement"
+  },
+  "logic_board": {
+    "macbook": "https://www.youtube.com/results?search_query=macbook+logic+board+repair",
+    "iphone": "https://www.youtube.com/results?search_query=iphone+logic+board+repair"
+  }
+}

@@ -1,0 +1,15 @@
+body {
+  background: radial-gradient(circle, #1a1a1a, #000000);
+  color: #00ffd5;
+  font-family: 'Orbitron', sans-serif;
+}
+.status {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 40px;
+  animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 10px #00ffd5; }
+  to { text-shadow: 0 0 20px #00ffd5; }
+}

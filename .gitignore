@@ -1,45 +1,7 @@
-# ABSORBED archives - on 12TB external
-ABSORBED_*/
-
-# Audio/Video on 12TB external
-*.mp3
 *.wav
-*.aiff
-*.flac
-*.m4a
-*.ogg
-*.aac
-*.mp4
+*.mp3
 *.mov
-*.avi
-*.mkv
-*.wmv
-*.webm
-
-# Media symlinks
-MEDIA/
-
-# venv and Python
-.venv/
-__pycache__/
-*.pyc
+*.mp4
+*.logicx
 .DS_Store
-
-# IDE
-.idea/
-.vscode/
-
-# Logs (except structure)
-logs/*.log
-
-# Temporary
-*.tmp
-*.temp
-
-# Large binaries
-*.dmg
-*.pkg
-*.exe
-*.dll
-*.so
-*.dylib
+node_modules/

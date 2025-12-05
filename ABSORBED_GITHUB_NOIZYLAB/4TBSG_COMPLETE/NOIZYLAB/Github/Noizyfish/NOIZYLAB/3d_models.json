@@ -1,0 +1,39 @@
+{
+  "iphone": {
+    "components": [
+      "Screen",
+      "Battery",
+      "Logic Board",
+      "Camera",
+      "Charging Port"
+    ],
+    "sources": [
+      "iFixit",
+      "GrabCAD",
+      "Apple"
+    ]
+  },
+  "macbook": {
+    "components": [
+      "Display",
+      "Logic Board",
+      "Battery",
+      "Keyboard",
+      "Trackpad"
+    ],
+    "sources": [
+      "iFixit",
+      "GrabCAD",
+      "Apple"
+    ]
+  },
+  "laptop": {
+    "components": [
+      "All components"
+    ],
+    "sources": [
+      "GrabCAD",
+      "Manufacturer"
+    ]
+  }
+}

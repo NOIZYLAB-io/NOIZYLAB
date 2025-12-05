@@ -1,0 +1,7 @@
+2025-12-02T01:04:54 [check] ping M2ULTRA -> OK | machine=M2ULTRA status=OK latency_ms=0.144
+2025-12-02T01:04:54 [check] disk M2ULTRA -> UNKNOWN | machine=M2ULTRA status=UNKNOWN
+2025-12-02T01:04:56 [check] ping GABRIEL -> FAIL | machine=GABRIEL status=FAIL
+2025-12-02T01:04:58 [check] ping MC96 -> FAIL | machine=MC96 status=FAIL
+2025-12-02T01:05:00 [check] ping HP_OMEN -> FAIL | machine=HP_OMEN status=FAIL
+2025-12-02T01:05:02 [check] ping NAS_SYNOLOGY -> FAIL | machine=NAS_SYNOLOGY status=FAIL
+2025-12-02T01:05:02 [status] checked all machines | machines=5

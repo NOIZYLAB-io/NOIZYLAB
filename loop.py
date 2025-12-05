@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 import time
-from realmforge.realm_manager import RealmManager
-from realmforge.soundweave import SoundWeave
-
-class RealmForgeLoop:
+class CelestialLoop:
     def __init__(self):
-        self.rm = RealmManager()
-        self.sw = SoundWeave()
-    def run(self, name, theme):
-        realm = self.rm.create_realm(name, theme)
+        from celestial.orbit import OrbitEngine
+        from celestial.awareness import OmnipresentAwareness
+        self.orbit = OrbitEngine()
+        self.aware = OmnipresentAwareness()
+    def run(self):
         while True:
-            weave = self.sw.weave(realm, "growth + transformation")
-            print("🎼 SOUNDWEAVE:", weave)
-            time.sleep(180)
-    def forge_once(self, name, theme):
-        return self.rm.create_realm(name, theme)
+            print("✨ CELESTIAL:", self.orbit.align())
+            print("🌐 NODES:", self.aware.probe())
+            time.sleep(120)
+    def pulse(self):
+        return {"orbit": self.orbit.align(), "nodes": self.aware.probe()}

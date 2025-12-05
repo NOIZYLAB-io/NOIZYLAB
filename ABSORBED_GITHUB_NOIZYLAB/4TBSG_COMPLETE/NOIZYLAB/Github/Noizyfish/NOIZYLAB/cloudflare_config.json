@@ -1,0 +1,25 @@
+{
+  "email_routing": {
+    "enabled": true,
+    "domains": [
+      {
+        "domain": "noizylab.ca",
+        "catch_all": "help@noizylab.ca",
+        "addresses": [
+          "hello@noizylab.ca",
+          "help@noizylab.ca",
+          "rsp@noizylab.ca"
+        ]
+      },
+      {
+        "domain": "fishmusicinc.com",
+        "catch_all": "info@fishmusicinc.com",
+        "addresses": [
+          "info@fishmusicinc.com",
+          "rp@fishmusicinc.com"
+        ]
+      }
+    ],
+    "worker_endpoint": "https://noizylab-email.your-subdomain.workers.dev"
+  }
+}

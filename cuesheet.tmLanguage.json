@@ -1,0 +1,354 @@
+{
+    "information_for_contributors": [
+        "Link to Regular Expressions rules: ======> https://macromates.com/manual/en/regular_expressions ",
+        "Link to Language Grammars: ==============> https://macromates.com/manual/en/language_grammars ",
+        "Link to CUE Sheet information: ==========> https://wiki.hydrogenaud.io/index.php?title=Cue_sheet "
+    ],
+    "version": "1.0",
+    "name": "Cue File",
+    "scopeName": "source.cuesheet",
+    "injections": {
+        "L:meta.block.repeat.cuesheet": {
+            "patterns": [
+                {
+                    "include": "#repeatParameter"
+                }
+            ]
+        }
+    },
+    "patterns": [
+        { "include": "#CATALOG" },
+        { "include": "#REM" },
+        { "include": "#UPC" },
+        { "include": "#DISCID" },
+        { "include": "#GENRE" },
+        { "include": "#DATE" },
+        { "include": "#DISCNUMBER" },
+        { "include": "#TOTALDISCS" },
+        { "include": "#COMMENT" },
+        { "include": "#CDTEXTFILE" },
+        { "include": "#TRACK" },
+        { "include": "#PERFORMER" },
+        { "include": "#TITLE" },
+        { "include": "#SONGWRITER" },
+        { "include": "#ISRC" },
+        { "include": "#PREGAP" },
+        { "include": "#INDEX" },
+        { "include": "#POSTGAP" },
+        { "include": "#FILE" },
+        { "include": "#FLAGS" }
+        
+    ],
+    "repository": {
+        "REM": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "^((REM\\s{2,}|REM\\w+)|(\\s+REM\\s{2,}|\\s+REM\\w+))|^((\\s+REM)|REM)",
+            "beginCaptures": {
+                "2": { "name": "cuesheet.error" },
+                "3": { "name": "cuesheet.error" },
+                "4": { "name": "cuesheet.REM" },
+                "5": { "name": "cuesheet.REM" }
+            },
+            "end": "\\s",
+            "patterns": [
+                {
+                    "include": "#UPC"
+                },
+                {
+                    "include": "#DISCID"
+                },
+                {
+                    "include": "#GENRE"
+                },
+                {
+                    "include": "#DATE"
+                },
+                {
+                    "include": "#DISCNUMBER"
+                },
+                {
+                    "include": "#TOTALDISCS"
+                },
+                {
+                    "include": "#COMMENT"
+                }
+            ]
+            }]
+        },
+        "CATALOG": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "^(CATALOG)|(CATALOG)",
+            "beginCaptures": {
+                "1": { "name": "cuesheet.CATALOG" },
+                "2": { "name": "cuesheet.error" }
+            },
+            "end": "\\s([0-9]{13})$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.CATALOG.number" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+        "UPC": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "UPC",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.UPC" }
+            },
+            "end": "\\s([0-9]{12,13})$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.UPC.number" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+        "DISCID": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "DISCID",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.DISCID" }
+            },
+            "end": "\\s(\\h{8})$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.DISCID.number" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+        "GENRE": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "((\\s+GENRE)|GENRE)",
+            "beginCaptures": {
+                "1": { "name": "cuesheet.GENRE.disc" },
+                "2": { "name": "cuesheet.GENRE.track" }
+            },
+            "end": "\\s(\"[^\"]+?\")$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.GENRE.string" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+        "DATE": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "((\\s+DATE)|DATE)",
+            "beginCaptures": {
+                "1": { "name": "cuesheet.DATE.disc" },
+                "2": { "name": "cuesheet.DATE.track" }
+            },
+            "end": "\\s(\"[0-9]{1,4}(-[0-9]{2}-[0-9]{2})?\")$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.DATE.string" },
+                "3": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "DISCNUMBER": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "DISCNUMBER",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.DISCNUMBER" }
+            },
+            "end": "\\s([1-9][0-9]*)$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.DISCNUMBER.number" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "TOTALDISCS": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "TOTALDISCS",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.TOTALDISCS" }
+            },
+            "end": "\\s([1-9][0-9]*)$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.TOTALDISCS.number" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "COMMENT": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "((\\s+COMMENT)|COMMENT)",
+            "beginCaptures": {
+                "1": { "name": "cuesheet.COMMENT.disc" },
+                "2": { "name": "cuesheet.COMMENT.track" }
+            },
+            "end": "\\s(\"[^\"]+?\")$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.COMMENT.string" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "CDTEXTFILE": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "^(CDTEXTFILE)|(CDTEXTFILE)",
+            "beginCaptures": {
+                "1": { "name": "cuesheet.CDTEXTFILE" },
+                "2": { "name": "cuesheet.error" }
+            },
+            "end": "\\s(\"[^\"]+?\")$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.CDTEXTFILE.path" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "TRACK": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "TRACK",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.TRACK" }
+            },
+            "end": "\\s([0-9]{2,})\\s(AUDIO|CDG|MODE1/2048|MODE1/2352|MODE2/2336|MODE2/2352|CDI/2336|CDI/2352)$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.TRACK.number"  },
+                "2": { "name": "cuesheet.TRACK.type" },
+                "3": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "PERFORMER": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "^((\\s+PERFORMER)|PERFORMER)",
+            "beginCaptures": {
+                "1": { "name": "cuesheet.PERFORMER.disc" },
+                "2": { "name": "cuesheet.PERFORMER.track" }
+            },
+            "end": "\\s(\"[^\"]+?\")$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.PERFORMER.string" },
+                "2": { "name": "cuesheet.error" }
+            },
+            "name":"token.error-token.cuesheet"
+            }]
+        },
+
+        "TITLE": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "^((\\s+TITLE)|TITLE)",
+            "beginCaptures": {
+                "1": { "name": "cuesheet.TITLE.disc" },
+                "2": { "name": "cuesheet.TITLE.track" }
+            },
+            "end": "\\s(\"[^\"]+?\")$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.TITLE.string" },
+                "2": { "name": "cuesheet.error" }
+            },
+            "name":"token.error-token.cuesheet"
+            }]
+        },
+
+        "SONGWRITER": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "SONGWRITER",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.SONGWRITER"}
+            },
+            "end": "\\s(\"[^\"]+?\")$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.SONGWRITER.string" },
+                "2": { "name": "cuesheet.error" }
+            },
+            "name":"token.error-token.cuesheet"
+            }]
+        },
+
+        "ISRC": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "ISRC",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.ISRC" }
+            },
+            "end": "\\s([a-zA-Z0-9]{5}[0-9]{7})$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.ISRC.number" },
+                "2": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "PREGAP": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "PREGAP",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.PREGAP" }
+            },
+            "end": "\\s((0[0-9]|[1-9][0-9]+):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-6][0-9]|7[0-5]))$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.PREGAP.time" },
+                "5": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "INDEX": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "INDEX",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.INDEX" }
+            },
+            "end": "\\s(0[0-9]|[1-9][0-9])\\s((0[0-9]|[1-9][0-9]+):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-6][0-9]|7[0-5]))$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.INDEX.number" },
+                "2": { "name": "cuesheet.INDEX.time" },
+                "6": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "POSTGAP": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "POSTGAP",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.POSTGAP" }
+            },
+            "end": "\\s((0[0-9]|[1-9][0-9]+):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-6][0-9]|7[0-5]))$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.POSTGAP.time" },
+                "5": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "FILE": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "^(FILE)|(FILE)",
+            "beginCaptures": {
+                "1": { "name": "cuesheet.FILE" },
+                "2": { "name": "cuesheet.error" }
+            },
+            "end": "\\s(\"[^\"]+?\")\\s(BINARY|MOTOROLA|AIFF|WAVE|MP3)$|(.+)*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.FILE.path"  },
+                "2": { "name": "cuesheet.FILE.type" },
+                "3": { "name": "cuesheet.error" }
+            }
+            }]
+        },
+
+        "FLAGS": { "patterns": [{
+            "scope": "cuesheet",
+            "begin": "FLAGS",
+            "beginCaptures": {
+                "0": { "name": "cuesheet.FLAGS" }
+            },
+            "end": "((\\sDCP|\\s4CH|\\sPRE|\\sSCMS)+$|(.+))*$",
+            "endCaptures": {
+                "1": { "name": "cuesheet.FLAGS.type" },
+                "3": { "name": "cuesheet.error" }
+            }
+            }]
+        }
+    }
+}

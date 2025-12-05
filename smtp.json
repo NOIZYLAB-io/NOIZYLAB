@@ -1,0 +1,58 @@
+{
+  "providers": {
+    "gmail": {
+      "host": "smtp.gmail.com",
+      "port": 587,
+      "secure": false,
+      "requireTLS": true,
+      "auth": {
+        "user": "${GMAIL_USER}",
+        "pass": "${GMAIL_APP_PASSWORD}"
+      },
+      "pool": true,
+      "maxConnections": 5,
+      "rateDelta": 1000,
+      "rateLimit": 5
+    },
+    "office365": {
+      "host": "smtp.office365.com",
+      "port": 587,
+      "secure": false,
+      "requireTLS": true,
+      "auth": {
+        "user": "${OFFICE365_USER}",
+        "pass": "${OFFICE365_PASSWORD}"
+      },
+      "pool": true,
+      "maxConnections": 5
+    },
+    "custom": {
+      "host": "${SMTP_HOST}",
+      "port": "${SMTP_PORT}",
+      "secure": "${SMTP_SECURE}",
+      "auth": {
+        "user": "${SMTP_USER}",
+        "pass": "${SMTP_PASSWORD}"
+      }
+    }
+  },
+  "defaultFrom": {
+    "name": "Fish Music Inc",
+    "address": "noreply@fishmusicinc.com"
+  },
+  "replyTo": {
+    "name": "Fish Music Support",
+    "address": "support@fishmusicinc.com"
+  },
+  "settings": {
+    "retryAttempts": 3,
+    "retryDelay": 5000,
+    "timeout": 30000,
+    "dkim": {
+      "enabled": false,
+      "domainName": "fishmusicinc.com",
+      "keySelector": "default",
+      "privateKey": "${DKIM_PRIVATE_KEY}"
+    }
+  }
+}

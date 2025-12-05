@@ -1,0 +1,22 @@
+{
+  "capabilities": {
+    "intent_recognition": true,
+    "entity_extraction": true,
+    "context_understanding": true,
+    "multi_turn_conversation": true,
+    "sentiment_analysis": true
+  },
+  "examples": [
+    "Solve my MacBook screen issue",
+    "Train the team on iPhone repairs",
+    "Show me the analytics dashboard",
+    "What's the system status?",
+    "Backup everything now"
+  ],
+  "features": {
+    "chat_interface": true,
+    "command_line": true,
+    "api_integration": true,
+    "voice_integration": true
+  }
+}

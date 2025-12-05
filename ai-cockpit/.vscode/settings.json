@@ -1,0 +1,30 @@
+{
+  "editor.fontSize": 18,
+  "editor.cursorStyle": "block",
+  "editor.minimap.enabled": false,
+  "editor.smoothScrolling": false,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "on",
+  "editor.inlineSuggest.enabled": true,
+  "workbench.colorTheme": "Default High Contrast",
+  "workbench.sideBar.location": "left",
+  "workbench.statusBar.visible": true,
+  "files.autoSave": "onFocusChange",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableCommitSigning": true,
+  "errorLens.enabled": true,
+  "explorer.openEditors.visible": 0,
+  "telemetry.telemetryLevel": "off",
+  "python.defaultInterpreterPath": "/usr/local/bin/python3",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "continue.enableTabAutocomplete": true,
+  "continue.telemetryEnabled": false,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
+}

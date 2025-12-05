@@ -1,0 +1,1 @@
+{"type":"error","error":{"type":"not_found_error","message":"File not found in container: /mnt/user-data/outputs/GABRIEL_TRANSCENDENT.ps1","details":{"error_visibility":"user_facing"}},"request_id":"req_011CV6fpZsrFuG2DRBwucPak"}

@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "cache_size_gb": 96,
+  "cache_size_bytes": 103079215104,
+  "ttl": 86400,
+  "compression": true,
+  "preload": true,
+  "memory_mapped": true,
+  "persistent_cache": true,
+  "cache_layers": {
+    "l1": "10GB - Hot data",
+    "l2": "30GB - Warm data",
+    "l3": "56GB - Cold data"
+  }
+}

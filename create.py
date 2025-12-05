@@ -1,57 +1,37 @@
-#!/usr/bin/env python3
-"""
-🟪 PURE MAGIC - CREATION ENGINE
-Music + Sound Design + Composition
-Fish Music Inc - CB_01
-🔥 GORUNFREE! 🎸🔥
-"""
+# Copyright (c) 2014-present PlatformIO <contact@platformio.org>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import click
 
-from ai.core import AIEngine
+from platformio.account.client import AccountClient
+from platformio.account.validate import validate_orgname_teamname
 
-class ComposerEngine:
-    """The 'DO ALL THE MUSIC' engine"""
-    def __init__(self):
-        self.ai = AIEngine()
-    
-    def score(self, brief):
-        prompt = f"""Create professional composition plan:
-        - sections, motifs, harmonic arc
-        - instrumentation, tempo map, dynamic pacing
-        - stem breakdown
-        BRIEF: {brief}"""
-        return self.ai.ask(prompt)
-    
-    def theme(self, mood, genre):
-        return self.ai.ask(f"Create theme for mood={mood}, genre={genre}")
-    
-    def variations(self, theme, count=3):
-        return self.ai.ask(f"Create {count} variations of: {theme}")
 
-class SoundDesigner:
-    """Sound design engine"""
-    def __init__(self):
-        self.ai = AIEngine()
-    
-    def design(self, description):
-        return self.ai.ask(f"Design sound: {description}")
-    
-    def texture(self, mood):
-        return self.ai.ask(f"Create texture for mood: {mood}")
-    
-    def fx(self, source, effect_type):
-        return self.ai.ask(f"Apply {effect_type} to {source}")
-
-class ArrangementEngine:
-    """Arrangement and structure"""
-    def __init__(self):
-        self.ai = AIEngine()
-    
-    def arrange(self, brief, duration_mins=3):
-        return self.ai.ask(f"Arrange {duration_mins}min track: {brief}")
-    
-    def structure(self, genre):
-        return self.ai.ask(f"Generate structure for genre: {genre}")
+@click.command("create", short_help="Create a new team")
+@click.argument(
+    "orgname_teamname",
+    metavar="ORGNAME:TEAMNAME",
+    callback=lambda _, __, value: validate_orgname_teamname(value),
+)
+@click.option(
+    "--description",
+)
+def team_create_cmd(orgname_teamname, description):
+    orgname, teamname = orgname_teamname.split(":", 1)
+    client = AccountClient()
+    client.create_team(orgname, teamname, description)
+    return click.secho(
+        "The team %s has been successfully created." % teamname,
+        fg="green",
+    )

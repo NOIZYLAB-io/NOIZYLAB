@@ -1,0 +1,4 @@
+To schedule learning sessions, use macOS Calendar or Reminders:
+1. Open Calendar and create a new event for your study time.
+2. Add a notification to remind you to start your SleepLearning session.
+3. Optionally, use Automator or AppleScript to auto-play a module at a set time.

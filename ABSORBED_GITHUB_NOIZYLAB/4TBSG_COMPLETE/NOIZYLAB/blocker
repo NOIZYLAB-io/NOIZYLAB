@@ -1,0 +1,4 @@
+#!/bin/bash
+# Quick launcher for Universal Blocker
+exec /Users/m2ultra/NOIZYLAB/universal-blocker/setup-blocker.sh "$@"
+

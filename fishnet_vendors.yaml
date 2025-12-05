@@ -1,0 +1,12 @@
+vendors:
+  - name: "Audiobro"
+    account_email: "rp@fishmusicinc.com"
+    products:
+      - title: "LA Scoring Strings"
+        library_paths:
+          - "/Libraries/Instruments/Audiobro/LA_Scoring_Strings"
+      - title: "Legato Sordino"
+        library_paths:
+          - "/Libraries/Instruments/Audiobro/Legato_Sordino"
+
+

@@ -1,0 +1,1 @@
+python3 parallels_setup_checker.py

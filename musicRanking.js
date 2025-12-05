@@ -1,0 +1,1 @@
+import{e as n}from"./chunk-TDKYMMHA.js";import{b as r,c as t,e as a,f as c}from"./chunk-JEKVGCH3.js";import{c as e}from"./chunk-GNTKNYHL.js";var m=e(c(),1),i=e(a(),1),y=(0,m.createRoot)(document.getElementById("root"));r();t(void 0).then(o=>y.render((0,i.jsx)(n,{record:o,max:o.map(d=>d.reduce((p,{playCount:s})=>Math.max(p,s),0)/100)}))).catch(console.error);

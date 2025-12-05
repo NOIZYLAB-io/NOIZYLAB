@@ -1,0 +1,32 @@
+{
+	"title": "Zhanlu SSO Login",
+	"loading": {
+		"title": "Verifying login...",
+		"message": "Please wait, processing your login information"
+	},
+	"logined": {
+		"title": "You are already logged in to Mobile Cloud account",
+		"message": "You are already logged in to Mobile Cloud account, you can return to the IDE client to experience"
+	},
+	"success": {
+		"title": "Login successful",
+		"message": "Account has Zhanlu usage permission, return to IDE client to experience"
+	},
+	"error": {
+		"title": "Login failed",
+		"message": "Login failed, please <a id=\"reloginLink\" href=\"#\">login again</a>",
+		"browser_open_failed": "Failed to open browser",
+		"port_occupied": "Port {{port}} is already in use, cannot start SSO server",
+		"base_url_not_configured": "SSO base URL is not configured, please check rdCloudBaseUrl configuration",
+		"invalid_response": "Server returned invalid response format",
+		"json_parse_failed": "Failed to parse JSON",
+		"verification_failed": "Login verification failed",
+		"no_code": "Authorization code not received",
+		"server_start_failed": "SSO server failed to start: {{message}}"
+	},
+	"alt": {
+		"warning": "Warning icon",
+		"success": "Success icon",
+		"failure": "Failure icon"
+	}
+}

@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+"""
+ENGR Voice Assistant with Forced F5 Hijack
+------------------------------------------
+Hold F5 → Record
+Rel cause it seems to be catching on thisease F5 → Stop & respond with Sarah
+"""
+
+import os
+import queue
+import tempfile
+import threading
+import sounddevice as sd
+import soundfile as sf
+import requests
+from openai import OpenAI
+from pynput import keyboard
+
+# --- Load API keys from environment ---
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
+ELEVENLABS_VOICE_ID = os.getenv("ELEVENLABS_VOICE_ID", "EXAVITQu4vr4xnSDxMaL")  # Sarah default
+
+if not OPENAI_API_KEY or not ELEVENLABS_API_KEY:
+    raise RuntimeError("❌ Missing API keys. Please set OPENAI_API_KEY and ELEVENLABS_API_KEY.")
+
+client = OpenAI(api_key=OPENAI_API_KEY)
+
+# --- Globals ---
+recording = False
+q = queue.Queue()
+temp_wav = None
+
+# --- Recording callback ---
+def callback(indata, frames, time, status):
+    if status:
+        print(status, flush=True)
+    q.put(indata.copy())
+
+# --- Start recording ---
+def start_recording():
+    global temp_wav, recording, q
+    q.queue.clear()
+    temp_wav = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
+    print("🎙️ Recording started...")
+    with sf.SoundFile(temp_wav, mode="w", samplerate=44100,
+                      channels=1, subtype="PCM_16") as file:
+        with sd.InputStream(samplerate=44100, channels=1, callback=callback):
+            while recording:
+                file.write(q.get())
+
+# --- Stop recording & process ---
+def stop_recording():
+    global recording
+    recording = False
+    print("🛑 Recording stopped.")
+    if temp_wav:
+        respond(temp_wav)
+
+# --- Transcribe + GPT + TTS ---
+def respond(wavfile):
+    # Whisper transcription
+    with open(wavfile, "rb") as f:
+        transcript = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=f
+        )
+    text = transcript.text
+    print(f"👂 You said: {text}")
+
+    # GPT reply
+    reply = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": text}]
+    ).choices[0].message.content
+    print(f"🤖 Sarah: {reply}")
+
+    # ElevenLabs TTS
+    tts_url = f"https://api.elevenlabs.io/v1/text-to-speech/{ELEVENLABS_VOICE_ID}"
+    headers = {"xi-api-key": ELEVENLABS_API_KEY, "Content-Type": "application/json"}
+    resp = requests.post(tts_url, headers=headers, json={"text": reply, "voice_settings": {"stability": 0.5, "similarity_boost": 0.7}})
+    if resp.status_code != 200:
+        print("❌ TTS failed:", resp.text)
+        return
+    out_file = tempfile.NamedTemporaryFile(suffix=".mp3", delete=False).name
+    with open(out_file, "wb") as f:
+        f.write(resp.content)
+    os.system(f"afplay {out_file}")
+
+# --- Key events ---
+def on_press(key):
+    global recording
+    if key == keyboard.Key.f5 and not recording:
+        os.system("afplay /System/Library/Sounds/Pop.aiff")  # chime
+        recording = True
+        threading.Thread(target=start_recording, daemon=True).start()
+
+def on_release(key):
+    global recording
+    if key == keyboard.Key.f5 and recording:
+        stop_recording()
+
+# --- Listener with suppress=True (blocks system/VSCode) ---
+print("🚀 ENGR ready. Hold F5 to talk, release to hear Sarah.")
+with keyboard.Listener(on_press=on_press, on_release=on_release, suppress=True) as listener:
+    listener.join()
+
+# --- Install required packages ---
+source ~/ENGR-venv/bin/activate
+pip install sounddevice soundfile requests openai pynput
+

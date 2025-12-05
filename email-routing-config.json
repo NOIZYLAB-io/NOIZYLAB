@@ -1,0 +1,50 @@
+{
+  "noizylab_ca": {
+    "zone_id": "1323e14ace0c8d7362612d5b5c0d41bb",
+    "domain": "noizylab.ca",
+    "dashboard_url": "https://dash.cloudflare.com/1323e14ace0c8d7362612d5b5c0d41bb/noizylab.ca/email/routing/overview",
+    "destination_addresses": [
+      "rspplowman@gmail.com"
+    ],
+    "routing_rules": [
+      {
+        "name": "rsp@noizylab.ca",
+        "match": "rsp@noizylab.ca",
+        "forward_to": "rspplowman@gmail.com"
+      },
+      {
+        "name": "help@noizylab.ca",
+        "match": "help@noizylab.ca",
+        "forward_to": "rspplowman@gmail.com"
+      },
+      {
+        "name": "hello@noizylab.ca",
+        "match": "hello@noizylab.ca",
+        "forward_to": "rspplowman@gmail.com"
+      }
+    ],
+    "catch_all": {
+      "enabled": true,
+      "forward_to": "rspplowman@gmail.com"
+    }
+  },
+  "fishmusicinc_com": {
+    "domain": "fishmusicinc.com",
+    "destination_addresses": [
+      "rspplowman@gmail.com"
+    ],
+    "routing_rules": [
+      {
+        "name": "rp@fishmusicinc.com",
+        "match": "rp@fishmusicinc.com",
+        "forward_to": "rspplowman@gmail.com"
+      },
+      {
+        "name": "info@fishmusicinc.com",
+        "match": "info@fishmusicinc.com",
+        "forward_to": "rspplowman@gmail.com"
+      }
+    ]
+  }
+}
+

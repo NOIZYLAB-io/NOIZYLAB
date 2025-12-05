@@ -1,0 +1,236 @@
+{
+  "components": {
+    "cpu": {
+      "manufacturers": [
+        "Intel",
+        "AMD",
+        "Apple Silicon",
+        "ARM",
+        "All others"
+      ],
+      "problems": {
+        "overheating": {
+          "solutions": [
+            "Check thermal paste",
+            "Clean heatsink",
+            "Replace cooler",
+            "Check case airflow",
+            "Undervolt CPU",
+            "Check mounting pressure"
+          ]
+        },
+        "not_detected": {
+          "solutions": [
+            "Check CPU installation",
+            "Update BIOS",
+            "Check motherboard compatibility",
+            "Check power connections",
+            "Test in another system"
+          ]
+        },
+        "performance_issues": {
+          "solutions": [
+            "Check thermal throttling",
+            "Update drivers",
+            "Check power settings",
+            "Disable power saving",
+            "Check for malware"
+          ]
+        }
+      }
+    },
+    "motherboard": {
+      "all_manufacturers": "All manufacturers, all models",
+      "problems": {
+        "no_post": {
+          "solutions": [
+            "Check power connections",
+            "Clear CMOS",
+            "Check RAM",
+            "Check CPU",
+            "Test PSU",
+            "Check for shorts",
+            "Remove all components and test"
+          ]
+        },
+        "usb_not_working": {
+          "solutions": [
+            "Update drivers",
+            "Check BIOS settings",
+            "Test ports",
+            "Check for physical damage",
+            "Reinstall USB controllers"
+          ]
+        },
+        "audio_issues": {
+          "solutions": [
+            "Update audio drivers",
+            "Check audio settings",
+            "Test with different device",
+            "Check connections",
+            "Reinstall audio drivers"
+          ]
+        }
+      }
+    },
+    "ram": {
+      "all_types": [
+        "DDR",
+        "DDR2",
+        "DDR3",
+        "DDR4",
+        "DDR5",
+        "All speeds"
+      ],
+      "problems": {
+        "not_detected": {
+          "solutions": [
+            "Reseat RAM",
+            "Test individual sticks",
+            "Check compatibility",
+            "Update BIOS",
+            "Test in different slots",
+            "Clean contacts"
+          ]
+        },
+        "errors": {
+          "solutions": [
+            "Run MemTest86",
+            "Test individual sticks",
+            "Check for overheating",
+            "Replace faulty modules",
+            "Check voltage settings"
+          ]
+        }
+      }
+    },
+    "storage": {
+      "all_types": [
+        "HDD",
+        "SSD",
+        "NVMe",
+        "M.2",
+        "SATA",
+        "IDE",
+        "SCSI"
+      ],
+      "problems": {
+        "not_detected": {
+          "solutions": [
+            "Check connections",
+            "Check BIOS settings",
+            "Update drivers",
+            "Test in another system",
+            "Check power",
+            "Try different port/cable"
+          ]
+        },
+        "slow_performance": {
+          "solutions": [
+            "Check health",
+            "Defragment (HDD)",
+            "TRIM (SSD)",
+            "Update firmware",
+            "Check for errors",
+            "Free up space"
+          ]
+        },
+        "failure": {
+          "solutions": [
+            "Data recovery",
+            "Replace drive",
+            "Check SMART status",
+            "Test with different tools"
+          ]
+        }
+      }
+    },
+    "gpu": {
+      "all_manufacturers": [
+        "NVIDIA",
+        "AMD",
+        "Intel",
+        "All others"
+      ],
+      "problems": {
+        "no_display": {
+          "solutions": [
+            "Check connections",
+            "Test with different cable",
+            "Update drivers",
+            "Check power connections",
+            "Test in another system",
+            "Check BIOS settings"
+          ]
+        },
+        "artifacts": {
+          "solutions": [
+            "Check temperature",
+            "Update drivers",
+            "Underclock",
+            "Check for damage",
+            "Replace if faulty"
+          ]
+        },
+        "overheating": {
+          "solutions": [
+            "Clean cooler",
+            "Replace thermal paste",
+            "Improve case airflow",
+            "Undervolt",
+            "Replace cooler"
+          ]
+        }
+      }
+    },
+    "psu": {
+      "all_wattages": "All power supplies",
+      "problems": {
+        "no_power": {
+          "solutions": [
+            "Check wall outlet",
+            "Test PSU",
+            "Check connections",
+            "Test with multimeter",
+            "Replace if faulty"
+          ]
+        },
+        "insufficient_power": {
+          "solutions": [
+            "Calculate power needs",
+            "Upgrade PSU",
+            "Reduce load",
+            "Check efficiency rating"
+          ]
+        }
+      }
+    }
+  },
+  "devices": {
+    "laptops": {
+      "all_manufacturers": "All laptop brands, all models",
+      "common_issues": {
+        "battery": "Replacement, calibration, charging issues",
+        "keyboard": "Replacement, cleaning, key issues",
+        "screen": "Replacement, backlight, display issues",
+        "trackpad": "Replacement, driver issues",
+        "charging": "Port issues, adapter issues",
+        "overheating": "Thermal paste, fan cleaning, ventilation"
+      }
+    },
+    "smartphones": {
+      "all_brands": "All smartphone brands, all models",
+      "common_issues": {
+        "screen": "Replacement, digitizer, LCD",
+        "battery": "Replacement, charging issues",
+        "camera": "Replacement, software issues",
+        "charging_port": "Cleaning, replacement",
+        "water_damage": "Cleaning, component replacement"
+      }
+    },
+    "tablets": {
+      "all_brands": "All tablet brands, all models",
+      "common_issues": "Similar to smartphones"
+    }
+  }
+}

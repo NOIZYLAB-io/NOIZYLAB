@@ -1,0 +1,14 @@
+{
+  "name": "VisionFast",
+  "kind": "modern",
+  "capabilities": [
+    "vision",
+    "text"
+  ],
+  "weights": {
+    "quality": 0.9,
+    "latency": 0.95,
+    "cost": 0.8
+  }
+}
+

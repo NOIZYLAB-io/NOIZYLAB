@@ -1,0 +1,94 @@
+import os
+import subprocess
+import csv
+from rapidfuzz import fuzz
+
+# ---------- CONFIG ----------
+SEARCH_DIR = "/Volumes"   # top-level location of your sound libs
+CATALOG_FILE = "vendor_catalog.csv"  # CSV with vendor filenames + durations
+REPORT_FILE = "metabeast_report.csv"
+MIN_DURATION = 2.0  # ignore tiny files (seconds)
+# ----------------------------
+
+def get_duration(filepath):
+    """Use ffprobe to get audio duration in seconds."""
+    try:
+        result = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries",
+             "format=duration", "-of",
+             "default=noprint_wrappers=1:nokey=1", filepath],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        return float(result.stdout.strip())
+    except Exception:
+        return 0.0
+
+def load_catalog():
+    """Load vendor catalog: expected_filename,duration"""
+    catalog = {}
+    if not os.path.exists(CATALOG_FILE):
+        print(f"⚠️ Catalog file '{CATALOG_FILE}' not found.")
+        return catalog
+    with open(CATALOG_FILE, newline='', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            name = row['filename'].strip().lower()
+            dur = float(row['duration'])
+            catalog[name] = dur
+    return catalog
+
+def scan_library(catalog):
+    matches, mismatches, missing = [], [], list(catalog.keys())
+    for root, _, files in os.walk(SEARCH_DIR):
+        for file in files:
+            if not file.lower().endswith((".wav", ".aiff")):
+                continue
+            filepath = os.path.join(root, file)
+            duration = get_duration(filepath)
+            if duration < MIN_DURATION:
+                continue
+
+            fname = file.lower()
+            if fname in catalog:
+                expected = catalog[fname]
+                if abs(expected - duration) < 0.5:
+                    matches.append((file, "OK", duration, filepath))
+                else:
+                    mismatches.append((file, "Duration mismatch", duration, filepath))
+                if fname in missing:
+                    missing.remove(fname)
+            else:
+                # try fuzzy match
+                best = max(catalog.keys(), key=lambda x: fuzz.ratio(fname, x))
+                score = fuzz.ratio(fname, best)
+                if score > 80:
+                    mismatches.append((file, f"Fuzzy match {best}", duration, filepath))
+                else:
+                    mismatches.append((file, "Not in catalog", duration, filepath))
+
+    return matches, mismatches, missing
+
+def write_report(matches, mismatches, missing):
+    with open(REPORT_FILE, "w", newline='', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        writer.writerow(["Filename", "Status", "Duration", "Path"])
+        for row in matches + mismatches:
+            writer.writerow(row)
+        for miss in missing:
+            writer.writerow([miss, "Missing", "", ""])
+    print(f"✅ Report saved to {REPORT_FILE}")
+
+def main():
+    print("🐉 MetaBeast scanning started...")
+    catalog = load_catalog()
+    if not catalog:
+        print("⚠️ No catalog loaded. Add vendor_catalog.csv first.")
+        return
+    matches, mismatches, missing = scan_library(catalog)
+    write_report(matches, mismatches, missing)
+    print("🎉 MetaBeast finished!")
+
+if __name__ == "__main__":
+    main()

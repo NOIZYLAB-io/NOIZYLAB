@@ -1,0 +1,8 @@
+{
+  "name": "Family_Voices",
+  "tracks": [
+    { "title": "Dad — Morning Blessing", "file": "family/dad_morning.mp3" },
+    { "title": "Mom — Storytime", "file": "family/mom_storytime.mp3" },
+    { "title": "Siblings — Laughter", "file": "family/siblings_laugh.mp3" }
+  ]
+}

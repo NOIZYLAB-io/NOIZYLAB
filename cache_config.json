@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "ttl": 3600,
+  "max_size": "1GB",
+  "compression": true,
+  "preload": true
+}
