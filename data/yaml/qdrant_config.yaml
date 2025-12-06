@@ -1,0 +1,11 @@
+# qdrant.yaml
+
+service:
+  host: 127.0.0.1
+  http_port: 45225
+  grpc_port: 45226
+
+storage:
+  storage_path: /Users/m2ultra/.codemate/.vdb
+  snapshots_path: /Users/m2ultra/.codemate/.vdb\snapshots
+  wal_path: /Users/m2ultra/.codemate/.vdb\wal

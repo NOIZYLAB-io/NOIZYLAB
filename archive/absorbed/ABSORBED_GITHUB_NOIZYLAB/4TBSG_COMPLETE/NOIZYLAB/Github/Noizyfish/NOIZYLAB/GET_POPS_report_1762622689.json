@@ -1,0 +1,44 @@
+{
+  "action": "GET_POPS",
+  "summary": {
+    "found": 1,
+    "copied": 0,
+    "skipped_existing": 1,
+    "errors": 0,
+    "by_vendor": {
+      "Antares": {
+        "found": 1,
+        "copied": 0,
+        "skipped_existing": 1,
+        "errors": 0,
+        "dest": "/Users/rsp_ms/Library/Application Support/Antares/Auto-Tune Pro/Presets/Rescued_Pop"
+      },
+      "Toontrack": {
+        "found": 0,
+        "copied": 0,
+        "skipped_existing": 0,
+        "errors": 0,
+        "dest": "/Users/rsp_ms/Library/Application Support/Toontrack/EZdrummer/Presets/Rescued_Pop"
+      },
+      "Waves": {
+        "found": 0,
+        "copied": 0,
+        "skipped_existing": 0,
+        "errors": 0,
+        "dest": "/Users/Shared/Waves/Plug-In Settings/Rescued_Pop"
+      },
+      "AIR Music Technology": {
+        "found": 0,
+        "copied": 0,
+        "skipped_existing": 0,
+        "errors": 0,
+        "dest": "/Users/rsp_ms/Library/Application Support/AIR Music Technology/Rescued_Pop"
+      }
+    },
+    "timestamp": "2025-11-08T12:24:49.025906"
+  },
+  "dest_hint": {
+    "Antares": "/Users/rsp_ms/Library/Application Support/Antares/Auto-Tune Pro/Presets/Rescued_Pop"
+  },
+  "ts": 1762622689
+}

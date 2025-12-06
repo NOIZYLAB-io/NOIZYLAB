@@ -1,0 +1,16 @@
+[
+  {
+    "key": "alt+backquote",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Run Agent Runner"
+  },
+  {
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "python utilities/noizyfish_snapshot.py\u000D" }
+  },
+  {
+    "key": "backquote",
+    "command": "workbench.action.keepEditor"
+  }
+]
+``

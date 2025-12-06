@@ -1,0 +1,104 @@
+{
+  "domains": {
+    "fishmusicinc.com": {
+      "domain": "fishmusicinc.com",
+      "status": "DNS configuration needed - Cloudflare Error 1000",
+      "notes": "DNS A record needs to be updated in Cloudflare to resolve to a valid IP address",
+      "emails": {
+        "rp": {
+          "email": "rp@fishmusicinc.com",
+          "purpose": "Primary business contact",
+          "status": "active"
+        },
+        "info": {
+          "email": "info@fishmusicinc.com",
+          "purpose": "General information inquiries",
+          "status": "active"
+        }
+      },
+      "email_list": [
+        "rp@fishmusicinc.com",
+        "info@fishmusicinc.com"
+      ],
+      "server_settings": {
+        "imap_default": "mail.fishmusicinc.com",
+        "smtp_default": "mail.fishmusicinc.com",
+        "imap_port": 993,
+        "smtp_port": 587,
+        "security": "SSL/TLS"
+      }
+    },
+    "noizylab.ca": {
+      "domain": "noizylab.ca",
+      "status": "DNS configuration needed - Cloudflare Error 1000",
+      "notes": "DNS A record needs to be updated in Cloudflare to resolve to a valid IP address",
+      "emails": {
+        "rsp": {
+          "email": "rsp@noizylab.ca",
+          "purpose": "Primary contact",
+          "status": "active"
+        },
+        "help": {
+          "email": "help@noizylab.ca",
+          "purpose": "Support/Help desk",
+          "status": "active"
+        },
+        "hello": {
+          "email": "hello@noizylab.ca",
+          "purpose": "General inquiries",
+          "status": "active"
+        }
+      },
+      "email_list": [
+        "rsp@noizylab.ca",
+        "help@noizylab.ca",
+        "hello@noizylab.ca"
+      ],
+      "server_settings": {
+        "imap_default": "mail.noizylab.ca",
+        "smtp_default": "mail.noizylab.ca",
+        "imap_port": 993,
+        "smtp_port": 587,
+        "security": "SSL/TLS"
+      }
+    }
+  },
+  "main_gmail": "rsplowman@gmail.com",
+  "all_emails": [
+    "rsplowman@gmail.com",
+    "rp@fishmusicinc.com",
+    "info@fishmusicinc.com",
+    "rsp@noizylab.ca",
+    "help@noizylab.ca",
+    "hello@noizylab.ca",
+    "rsplowman@icloud.com"
+  ],
+  "all_domains": [
+    "fishmusicinc.com",
+    "noizylab.ca"
+  ],
+  "validation": {
+    "email_format_valid": true,
+    "domain_format_valid": true,
+    "dns_status": "needs_attention",
+    "last_updated": "2025-01-27"
+  },
+  "quick_reference": {
+    "main_gmail": "rsplowman@gmail.com",
+    "fishmusicinc_com_emails": ["rp@fishmusicinc.com", "info@fishmusicinc.com"],
+    "noizylab_ca_emails": ["rsp@noizylab.ca", "help@noizylab.ca", "hello@noizylab.ca"],
+    "icloud_emails": ["rsplowman@icloud.com"]
+  },
+  "gmail_central_setup": {
+    "central_inbox": "rsplowman@gmail.com",
+    "accounts_to_add": [
+      "rp@fishmusicinc.com",
+      "info@fishmusicinc.com",
+      "rsp@noizylab.ca",
+      "help@noizylab.ca",
+      "hello@noizylab.ca",
+      "rsplowman@icloud.com"
+    ]
+  }
+}
+

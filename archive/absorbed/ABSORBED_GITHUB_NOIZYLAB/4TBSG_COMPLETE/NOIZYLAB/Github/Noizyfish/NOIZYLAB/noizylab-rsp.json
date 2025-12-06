@@ -1,0 +1,12 @@
+{
+  "account_type": "IMAP",
+  "email": "rsp@noizylab.ca",
+  "incoming_server": "imap.gmail.com",
+  "incoming_port": 993,
+  "incoming_ssl": true,
+  "outgoing_server": "smtp.gmail.com",
+  "outgoing_port": 587,
+  "outgoing_tls": true,
+  "username": "rsp@noizylab.ca",
+  "password": "USE_APP_PASSWORD"
+}

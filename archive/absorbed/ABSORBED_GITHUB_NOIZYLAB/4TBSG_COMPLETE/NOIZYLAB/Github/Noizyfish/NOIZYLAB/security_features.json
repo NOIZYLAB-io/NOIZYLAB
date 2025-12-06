@@ -1,0 +1,16 @@
+{
+  "layers": {
+    "layer1": "Network security",
+    "layer2": "Application security",
+    "layer3": "Data security",
+    "layer4": "Access control",
+    "layer5": "Monitoring & logging"
+  },
+  "features": {
+    "encryption": "AES-256 at rest, TLS 1.3 in transit",
+    "authentication": "Multi-factor authentication",
+    "authorization": "Role-based access control",
+    "monitoring": "Real-time threat detection",
+    "compliance": "GDPR, HIPAA, SOC 2"
+  }
+}

@@ -1,0 +1,33 @@
+name = "super-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[env.production]
+routes = [{ pattern = "api.noizylab.ca/*", zone_name = "noizylab.ca" }]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "your-database-id"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "your-kv-namespace-id"
+
+[[kv_namespaces]]
+binding = "EVENTS"
+id = "your-events-kv-id"
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "noizylab-storage"
+
+[ai]
+binding = "AI"
+
+[vars]
+MC96_HOOK = "https://your-mc96-webhook-url.com/hook"
+CLAUDE_URL = "https://api.anthropic.com/v1/messages"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+COPILOT_URL = "https://api.copilot.microsoft.com/v1/chat/completions"
+

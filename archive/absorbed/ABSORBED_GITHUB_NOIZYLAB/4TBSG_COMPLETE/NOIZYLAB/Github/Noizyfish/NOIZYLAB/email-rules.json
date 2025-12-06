@@ -1,0 +1,64 @@
+{
+  "rules": [
+    {
+      "name": "Auto-reply for support",
+      "enabled": true,
+      "conditions": {
+        "to": ["support@fishmusicinc.com"],
+        "subject": {
+          "notContains": ["Re:", "RE:"]
+        }
+      },
+      "actions": {
+        "sendAutoReply": true,
+        "template": "support-auto-reply",
+        "markAsRead": false,
+        "addLabel": "auto-replied"
+      }
+    },
+    {
+      "name": "Forward important emails",
+      "enabled": true,
+      "conditions": {
+        "from": ["*@important-client.com"],
+        "or": {
+          "subject": {
+            "contains": ["urgent", "URGENT", "important"]
+          }
+        }
+      },
+      "actions": {
+        "forward": ["manager@fishmusicinc.com"],
+        "addLabel": "urgent",
+        "markAsImportant": true
+      }
+    },
+    {
+      "name": "Archive newsletters",
+      "enabled": true,
+      "conditions": {
+        "from": ["*@newsletter.*", "*@mailing.*"],
+        "subject": {
+          "contains": ["newsletter", "unsubscribe"]
+        }
+      },
+      "actions": {
+        "archive": true,
+        "markAsRead": true,
+        "addLabel": "newsletters"
+      }
+    }
+  ],
+  "filters": {
+    "spam": {
+      "enabled": true,
+      "blacklist": ["spam@example.com"],
+      "whitelist": ["*@fishmusicinc.com", "*@trusted-partner.com"]
+    },
+    "attachments": {
+      "maxSize": 25000000,
+      "allowedExtensions": [".pdf", ".doc", ".docx", ".xls", ".xlsx", ".jpg", ".png", ".zip"],
+      "blockedExtensions": [".exe", ".bat", ".cmd", ".scr"]
+    }
+  }
+}

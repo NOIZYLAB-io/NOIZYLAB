@@ -1,0 +1,106 @@
+/* NoizyVoice Button Styles */
+
+.voice-button-container {
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+/* Pulsing glow effect during recording */
+.voice-pulse {
+  animation: vPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes vPulse {
+  0% {
+    filter: drop-shadow(0 0 4px #00e5ff);
+  }
+  50% {
+    filter: drop-shadow(0 0 18px #00e5ff);
+  }
+  100% {
+    filter: drop-shadow(0 0 4px #00e5ff);
+  }
+}
+
+/* Recording indicator */
+.recording-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mic-icon {
+  animation: micBounce 0.6s infinite alternate ease-in-out;
+}
+
+@keyframes micBounce {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.listening-text {
+  animation: fadeInOut 1.5s infinite ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.recording-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #FF3747;
+  border-radius: 50%;
+  animation: dotPulse 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes dotPulse {
+  from {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Waveform visualization (optional enhancement) */
+.voice-waveform {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 20px;
+}
+
+.wave-bar {
+  width: 3px;
+  background-color: #00E5FF;
+  border-radius: 2px;
+  animation: waveBar 0.5s infinite ease-in-out alternate;
+}
+
+.wave-bar:nth-child(1) { animation-delay: 0s; }
+.wave-bar:nth-child(2) { animation-delay: 0.1s; }
+.wave-bar:nth-child(3) { animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { animation-delay: 0.3s; }
+.wave-bar:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes waveBar {
+  from {
+    height: 4px;
+  }
+  to {
+    height: 16px;
+  }
+}
+

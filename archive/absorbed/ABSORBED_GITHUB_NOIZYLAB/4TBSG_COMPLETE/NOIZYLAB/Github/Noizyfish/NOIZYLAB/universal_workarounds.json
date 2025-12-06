@@ -1,0 +1,74 @@
+{
+  "universal_principles": {
+    "restart": "Restart device/application - fixes 80% of problems",
+    "update": "Update software/drivers - fixes compatibility issues",
+    "reinstall": "Reinstall software - fixes corruption issues",
+    "clean": "Clean cache/temp files - fixes performance issues",
+    "reset": "Reset to defaults - fixes configuration issues",
+    "bypass": "Bypass problematic feature - temporary workaround",
+    "alternative": "Use alternative software/hardware",
+    "downgrade": "Downgrade to previous version",
+    "compatibility_mode": "Run in compatibility mode",
+    "safe_mode": "Boot/run in safe mode"
+  },
+  "software_workarounds": {
+    "application_wont_start": [
+      "Run as administrator",
+      "Compatibility mode",
+      "Reinstall",
+      "Check dependencies",
+      "Update .NET/Visual C++",
+      "Check antivirus",
+      "Safe mode"
+    ],
+    "crashes": [
+      "Update software",
+      "Check for conflicts",
+      "Disable extensions/addons",
+      "Clear cache",
+      "Check logs",
+      "Reinstall"
+    ],
+    "performance": [
+      "Close other applications",
+      "Increase virtual memory",
+      "Defragment",
+      "Clean registry",
+      "Disable visual effects",
+      "Upgrade hardware"
+    ]
+  },
+  "hardware_workarounds": {
+    "component_not_working": [
+      "Reseat component",
+      "Clean contacts",
+      "Try different port/slot",
+      "Update drivers",
+      "Check compatibility",
+      "Test in another system"
+    ],
+    "intermittent_issues": [
+      "Check connections",
+      "Check for overheating",
+      "Test under load",
+      "Check power supply",
+      "Update firmware"
+    ]
+  },
+  "emergency_workarounds": {
+    "system_wont_boot": [
+      "Boot from recovery media",
+      "Safe mode",
+      "Last known good configuration",
+      "System restore",
+      "Repair installation"
+    ],
+    "data_loss": [
+      "Stop using device immediately",
+      "Use data recovery software",
+      "Professional recovery service",
+      "Check backups",
+      "Check cloud sync"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "precompilation": {
+    "enabled": true,
+    "compile_all": true,
+    "optimize_level": 2,
+    "cache_bytecode": true
+  },
+  "zero_copy": {
+    "enabled": true,
+    "memory_view": true,
+    "buffer_protocol": true,
+    "shared_memory": true
+  },
+  "garbage_collection": {
+    "enabled": true,
+    "threshold": [
+      700,
+      10,
+      10
+    ],
+    "disable_for_performance": false,
+    "manual_collection": true
+  },
+  "process_pool": {
+    "enabled": true,
+    "use_processes": true,
+    "max_workers": 24,
+    "chunksize": 1000
+  },
+  "data_prefetching": {
+    "enabled": true,
+    "prefetch_size": 10000,
+    "prefetch_threads": 4,
+    "predictive_prefetch": true
+  }
+}

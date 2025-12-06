@@ -1,8 +1,0 @@
-🔄 Noizy Reconnection started in: /Users/rsp_ms/Desktop/NoizyFish
-Found 5 files to reconnect.
-📁 Moving: noizy_reconnection.py → Noizy/py/noizy_reconnection.py
-📁 Moving: .DS_Store → Misc/unknown/.DS_Store
-📁 Moving: Icon → Icon/unknown/Icon
-📁 Moving: fishnet_vendors.yaml → Fishnet/yaml/fishnet_vendors.yaml
-📁 Moving: .env → Misc/unknown/.env
-✅ Reconnection complete.

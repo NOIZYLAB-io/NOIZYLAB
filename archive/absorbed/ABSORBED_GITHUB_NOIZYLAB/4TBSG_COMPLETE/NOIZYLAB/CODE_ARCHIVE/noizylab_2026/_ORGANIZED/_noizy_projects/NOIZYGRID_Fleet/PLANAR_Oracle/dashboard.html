@@ -1,0 +1,78 @@
+Are <!-- PLANAR Oracle Dashboard: Live Fleet Metrics & Controls -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- AutoKeep: Ensure dashboard.html is backed up and restored if corrupted -->
+    <script>
+        (function autokeepDashboard() {
+            const dashboardPath = '/Users/rsp_ms/Desktop/MissionControl96/NOIZYGRID_Fleet/PLANAR_Oracle/dashboard.html';
+            const backupPath = dashboardPath + '.bak';
+            fetch(dashboardPath)
+                .then(res => res.text())
+                .then(content => {
+                    if (!localStorage.getItem('dashboardBackup')) {
+                        localStorage.setItem('dashboardBackup', content);
+                    }
+                    if (!content || content.length < 100) {
+                        const backup = localStorage.getItem('dashboardBackup');
+                        if (backup) {
+                            // This would require server-side restore in reality
+                            alert('Dashboard corrupted. Please restore from backup.');
+                        }
+                    }
+                });
+        })();
+    </script>
+    <title>NOIZYGRID Fleet Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="thermal_graph.js"></script>
+    <script src="status_icon.js"></script>
+    <script src="alert_mode.js"></script>
+</head>
+<body>
+    <h1>NOIZYGRID Fleet Dashboard</h1>
+    <!-- AutoRun: Automatically refresh dashboard every 5 seconds -->
+    <script>
+        setInterval(() => {
+            location.reload();
+        }, 5000);
+    </script>
+    <div id="fleet-status">
+        <!-- Live metrics and health map will be rendered here -->
+    </div>
+    <div id="controls">
+        <button onclick="triggerHeal()">Heal All Agents</button>
+        <button onclick="triggerSnapshot()">Snapshot Grid</button>
+        <button onclick="triggerUpdate()">Update All Agents</button>
+        <button onclick="triggerPluginLoad()">Load Plugin</button>
+        <button onclick="triggerGridExpand()">Expand Grid</button>
+    </div>
+    <script>
+        // Example: Fetch and render live metrics
+        async function fetchMetrics() {
+            const res = await fetch('/api/fleet_metrics');
+            const data = await res.json();
+            document.getElementById('fleet-status').innerHTML = JSON.stringify(data, null, 2);
+        }
+        setInterval(fetchMetrics, 5000);
+        fetchMetrics();
+
+        function triggerHeal() {
+            fetch('/api/heal_all', {method: 'POST'});
+        }
+        function triggerSnapshot() {
+            fetch('/api/snapshot_grid', {method: 'POST'});
+        }
+        function triggerUpdate() {
+            fetch('/api/update_all', {method: 'POST'});
+        }
+        function triggerPluginLoad() {
+            fetch('/api/plugin_load', {method: 'POST'});
+        }
+        function triggerGridExpand() {
+            fetch('/api/grid_expand', {method: 'POST'});
+        }
+    </script>
+</body>
+</html>

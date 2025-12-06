@@ -1,4 +1,0 @@
-<!-- Windows unattended setup answer file for NoizyWin installer -->
-<unattend xmlns="urn:schemas-microsoft-com:unattend">
-  <!-- Add your custom settings here -->
-</unattend>

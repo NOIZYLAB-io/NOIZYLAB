@@ -1,0 +1,17 @@
+{
+  "smtp": {
+    "server": "smtp.office365.com",
+    "port": 587,
+    "username": "",
+    "password": "",
+    "use_tls": true
+  },
+  "identities": {
+    "personal": {
+      "name": "NoizyLab",
+      "email": "",
+      "signature": "\n\n--\nNoizyLab"
+    }
+  }
+}
+

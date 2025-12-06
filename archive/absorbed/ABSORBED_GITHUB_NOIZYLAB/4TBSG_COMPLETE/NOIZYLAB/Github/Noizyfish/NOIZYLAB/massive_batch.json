@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "batch_size": 100000,
+  "parallel_batches": 96,
+  "memory_buffer_gb": 20,
+  "features": {
+    "streaming": true,
+    "pipeline": true,
+    "async_io": true,
+    "zero_copy": true
+  }
+}
