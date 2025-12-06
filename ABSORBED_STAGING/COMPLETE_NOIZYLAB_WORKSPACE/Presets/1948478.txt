@@ -1,3 +1,0 @@
-<root active="true" stereo="true" effect="Gain">
-    <VValue name="Amp" type="string" value="-6.01 dB" />
-</root>

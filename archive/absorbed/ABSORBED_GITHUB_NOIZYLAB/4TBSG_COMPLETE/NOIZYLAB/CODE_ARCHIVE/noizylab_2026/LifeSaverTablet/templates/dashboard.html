@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LifeSaver Tablet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>LifeSaver Tablet</h1>
+        <div class="mode {{ status.mode }}">
+            <span>Mode:</span>
+            <strong>{{ status.mode|capitalize }}</strong>
+        </div>
+    </header>
+
+    <section class="grid">
+                <a class="btn primary" href="{{ url_for('ritual_align') }}" aria-label="Align Ecosystem">
+                        <span class="title">Align Ecosystem</span>
+                        <span class="desc">Tree + Organize + Mail + Archive</span>
+                        {% if status.align_running %}
+                        <span class="status">Running...</span>
+                        {% else %}
+                        <span class="status">Last: {{ status.last_align or "—" }}</span>
+                        {% endif %}
+                </a>
+
+                <a class="btn creative" href="{{ url_for('creative') }}" aria-label="Creative Mode">
+                    <span class="title">Creative Mode</span>
+                    <span class="desc">Code • Design • Sound • Share</span>
+                </a>
+
+        <a class="btn" href="{{ url_for('ritual_archive') }}" aria-label="Archive Designer Assets">
+            <span class="title">Archive Designer Assets</span>
+            <span class="desc">Sidecar metadata</span>
+            <span class="status">Last: {{ status.last_archive or "—" }}</span>
+        </a>
+
+        <a class="btn emergency" href="{{ url_for('mode_emergency') }}" aria-label="Emergency Mode">
+            <span class="title">Emergency Mode</span>
+            <span class="desc">Comms, maps, power</span>
+        </a>
+
+        <a class="btn emotech" href="{{ url_for('mode_emotech') }}" aria-label="Emotional Tech Mode">
+            <span class="title">Emotional Tech</span>
+            <span class="desc">Voices, neuroacoustics</span>
+        </a>
+
+        <a class="btn creative" href="{{ url_for('mode_creative') }}" aria-label="Creative Mode">
+            <span class="title">Creative Cockpit</span>
+            <span class="desc">VS Code, Designer, Copilot</span>
+        </a>
+
+        <a class="btn" href="{{ url_for('designer_prompt', pack='NoizyRubber_Revival') }}" aria-label="Designer Prompt">
+            <span class="title">Generate Designer Prompt</span>
+            <span class="desc">NoizyRubber Revival</span>
+        </a>
+
+            <!-- VS Code Genie Bridge Controls -->
+            <a class="btn creative" href="{{ url_for('vsc_run_task', label='Genie: Align') }}" aria-label="Run VS Code Genie Align">
+                <span class="title">VS Code: Run Genie Align</span>
+                <span class="desc">Run Task in VS Code</span>
+            </a>
+
+            <a class="btn" href="{{ url_for('vsc_terminal') }}?cmd=python%20noizy_genie_all.py%20align&cwd={{ status.get('workspace_dir','') }}" aria-label="VS Code Terminal Align">
+                <span class="title">VS Code Terminal: Align</span>
+                <span class="desc">Run in Terminal</span>
+            </a>
+
+            <a class="btn" href="{{ url_for('vsc_paste') }}?text={{ 'Alignment ritual initiated' | urlencode }}" aria-label="Paste into Editor">
+                <span class="title">VS Code: Paste Ritual Note</span>
+                <span class="desc">Insert text at cursor</span>
+            </a>
+
+            <a class="btn" href="{{ url_for('vsc_run_command', cmd_id='workbench.action.files.save') }}" aria-label="Save All">
+                <span class="title">VS Code: Save All</span>
+                <span class="desc">Persist changes</span>
+            </a>
+    </section>
+
+    <footer>
+        <div class="power">
+            <div>Battery: <strong>{{ status.power.battery_pct if status.power.battery_pct is not none else "—" }}%</strong></div>
+            <div>Solar: <strong>{{ status.power.solar_input_w if status.power.solar_input_w is not none else "—" }} W</strong></div>
+            <div>Grid: <strong>{{ "Online" if status.power.grid else "Offgrid" }}</strong></div>
+        </div>
+        <a class="btn small" href="{{ url_for('dashboard') }}" aria-label="Refresh">Refresh</a>
+    </footer>
+</body>
+</html>

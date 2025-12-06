@@ -1,0 +1,383 @@
+[
+  {
+    "command": "Record",
+    "key": "R",
+    "touchbar": "5⃣"
+  },
+  {
+    "command": "Record Repeat",
+    "key": "",
+    "touchbar": ""
+  },
+  {
+    "command": "Discard Recording and Return to Last Play Position",
+    "key": "⌘.",
+    "touchbar": ""
+  },
+  {
+    "command": "Play",
+    "key": "⌅",
+    "touchbar": ""
+  },
+  {
+    "command": "Pause",
+    "key": ".",
+    "touchbar": ""
+  },
+  {
+    "command": "Stop",
+    "key": "0",
+    "touchbar": ""
+  },
+  {
+    "command": "Play or Stop",
+    "key": "˽",
+    "touchbar": "4⃣"
+  },
+  {
+    "command": "Preview Selection-Based Processing",
+    "key": "⌥⇧˽",
+    "touchbar": ""
+  },
+  {
+    "command": "Rewind",
+    "key": "⌥Q",
+    "touchbar": ""
+  },
+  {
+    "command": "Forward",
+    "key": "⌥W",
+    "touchbar": ""
+  },
+  {
+    "command": "Fast Rewind",
+    "key": "⇧,",
+    "touchbar": ""
+  },
+  {
+    "command": "Fast Forward",
+    "key": "⇧.",
+    "touchbar": ""
+  },
+  {
+    "command": "Rewind by Transient",
+    "key": "⌃Q",
+    "touchbar": ""
+  },
+  {
+    "command": "Forward by Transient",
+    "key": "⌃W",
+    "touchbar": ""
+  },
+  {
+    "command": "Rewind one Frame",
+    "key": "⌥E",
+    "touchbar": ""
+  },
+  {
+    "command": "Forward one Frame",
+    "key": "⌥R",
+    "touchbar": ""
+  },
+  {
+    "command": "Go to Position…",
+    "key": "=",
+    "touchbar": ""
+  },
+  {
+    "command": "Set Punch In Locator by Playhead",
+    "key": "⌃⌥⌘I",
+    "touchbar": ""
+  },
+  {
+    "command": "Set Punch In Locator by Rounded Playhead",
+    "key": "⌃⌥⇧⌘I",
+    "touchbar": ""
+  },
+  {
+    "command": "Set Punch Out Locator by Playhead",
+    "key": "⌃⌥⌘O",
+    "touchbar": ""
+  },
+  {
+    "command": "Set Punch Out Locator Point by Rounded Playhead",
+    "key": "⌃⌥⇧⌘O",
+    "touchbar": ""
+  },
+  {
+    "command": "Set Locators/Loop by Regions/Events/Marquee and Enable Cycle/Loop",
+    "key": "⌘U",
+    "touchbar": ""
+  },
+  {
+    "command": "Play from Selection",
+    "key": "⇧˽",
+    "touchbar": "2⃣"
+  },
+  {
+    "command": "Move Locators Forward by Cycle Length / Loop Forward by Loop Length",
+    "key": "⇧⌘.",
+    "touchbar": "8⃣"
+  },
+  {
+    "command": "Move Locators Backwards by Cycle Length / Loop Backwards by Loop Length",
+    "key": "⇧⌘,",
+    "touchbar": "7⃣"
+  },
+  {
+    "command": "Toggle Cycle Mode",
+    "key": "C",
+    "touchbar": "6⃣"
+  },
+  {
+    "command": "Go to Selection Start",
+    "key": "⌃⤒",
+    "touchbar": "1⃣"
+  },
+  {
+    "command": "Go to Beginning",
+    "key": "↩",
+    "touchbar": "3⃣"
+  },
+  {
+    "command": "Delete Marker",
+    "key": "⌥⌫",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Marker List",
+    "key": "⌃`",
+    "touchbar": ""
+  },
+  {
+    "command": "Go to Previous Marker",
+    "key": "⌥Z",
+    "touchbar": ""
+  },
+  {
+    "command": "Go to Next Marker",
+    "key": "⌥X",
+    "touchbar": ""
+  },
+  {
+    "command": "Go to Marker Number…",
+    "key": "⌥/",
+    "touchbar": ""
+  },
+  {
+    "command": "Rename Marker",
+    "key": "⇧'",
+    "touchbar": ""
+  },
+  {
+    "command": "Toggle Metronome Click",
+    "key": "K",
+    "touchbar": ""
+  },
+  {
+    "command": "Toggle Count-in",
+    "key": "⇧K",
+    "touchbar": ""
+  },
+  {
+    "command": "Mute off for all",
+    "key": "⌃⇧M",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Settings…",
+    "key": "⌘,",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Event List…",
+    "key": "⌘7",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Score Editor…",
+    "key": "⌘5",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Step Sequencer…",
+    "key": "⌘3",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Transform…",
+    "key": "⌘9",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Piano Roll…",
+    "key": "⌘4",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Environment…",
+    "key": "⌘0",
+    "touchbar": ""
+  },
+  {
+    "command": "Open Project Audio…",
+    "key": "⌘8",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Musical Typing…",
+    "key": "⌘K",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Mixer",
+    "key": "X",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Smart Controls",
+    "key": "B",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Score Editor",
+    "key": "N",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Loop Browser",
+    "key": "O",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Library",
+    "key": "Y",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Colors",
+    "key": "⌥C",
+    "touchbar": "⇧1⃣"
+  },
+  {
+    "command": "Enter/Exit Full Screen",
+    "key": "⌃⌘F",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Tuner",
+    "key": "",
+    "touchbar": "⇧2⃣"
+  },
+  {
+    "command": "Open Movie…",
+    "key": "⌥⌘O",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Groups Window",
+    "key": "⌥⇧G",
+    "touchbar": "⇧6⃣"
+  },
+  {
+    "command": "Enable/Disable Groups",
+    "key": "⇧G",
+    "touchbar": "⌃5⃣"
+  },
+  {
+    "command": "Show/Hide Automation",
+    "key": "A",
+    "touchbar": "⌃1⃣"
+  },
+  {
+    "command": "New Audio Track",
+    "key": "",
+    "touchbar": "⌃6⃣"
+  },
+  {
+    "command": "New Software Instrument Track",
+    "key": "⌥⌘S",
+    "touchbar": "⌃7⃣"
+  },
+  {
+    "command": "New Session Player SI Track…",
+    "key": "⌥⌘P",
+    "touchbar": "⌃8⃣"
+  },
+  {
+    "command": "Delete Track",
+    "key": "⌘⌫",
+    "touchbar": ""
+  },
+  {
+    "command": "Delete unused Tracks",
+    "key": "⇧⌘⌫",
+    "touchbar": ""
+  },
+  {
+    "command": "Join Regions/Notes",
+    "key": "⌘J",
+    "touchbar": "⌘4⃣"
+  },
+  {
+    "command": "Split Regions/Events at Locators or Marquee Selection",
+    "key": "",
+    "touchbar": "⌘2⃣"
+  },
+  {
+    "command": "Repeat Regions/Cells/Events",
+    "key": "⌘R",
+    "touchbar": "⌘5⃣"
+  },
+  {
+    "command": "Quantize Selected Regions/Cells/Events",
+    "key": "",
+    "touchbar": "⌘6⃣"
+  },
+  {
+    "command": "Shuffle Left",
+    "key": "⌥[",
+    "touchbar": "⌘7⃣"
+  },
+  {
+    "command": "Shuffle Right",
+    "key": "⌥]",
+    "touchbar": "⌘8⃣"
+  },
+  {
+    "command": "Bounce…",
+    "key": "⌘B",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Flex Pitch/Time",
+    "key": "⌘F",
+    "touchbar": "⌃4⃣"
+  },
+  {
+    "command": "Show/Hide List Editors",
+    "key": "D",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Browsers",
+    "key": "F",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Output Track",
+    "key": "⇧⌘M",
+    "touchbar": ""
+  },
+  {
+    "command": "Create Volume Fade-Out on Main Output",
+    "key": "",
+    "touchbar": ""
+  },
+  {
+    "command": "Show/Hide Note Pad",
+    "key": "⌃⇧P",
+    "touchbar": ""
+  }
+  // ...and so on for all commands in your file
+]

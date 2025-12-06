@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Fish Music Inc</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: 300;
+        }
+        .content {
+            padding: 40px 30px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .content h2 {
+            color: #667eea;
+            font-size: 24px;
+            margin-top: 0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .features {
+            margin: 30px 0;
+        }
+        .feature {
+            margin: 15px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .feature:before {
+            content: "♪";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 20px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666666;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .social-links {
+            margin: 20px 0;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>🎵 Fish Music Inc</h1>
+        </div>
+        
+        <div class="content">
+            <h2>Welcome to Fish Music Inc!</h2>
+            
+            <p>Hi {{firstName}},</p>
+            
+            <p>We're thrilled to have you join our community of music lovers! Fish Music Inc is your gateway to an incredible world of music, artists, and experiences.</p>
+            
+            <div class="features">
+                <div class="feature">Access to exclusive content and releases</div>
+                <div class="feature">Connect with artists and fellow music enthusiasts</div>
+                <div class="feature">Early bird tickets to concerts and events</div>
+                <div class="feature">Personalized recommendations just for you</div>
+            </div>
+            
+            <p>Ready to dive in? Get started by exploring your personalized dashboard:</p>
+            
+            <center>
+                <a href="{{dashboardUrl}}" class="cta-button">Explore Your Dashboard</a>
+            </center>
+            
+            <p>If you have any questions, our support team is always here to help. Just reply to this email or visit our help center.</p>
+            
+            <p>Let the music play! 🎶</p>
+            
+            <p>
+                Best regards,<br>
+                <strong>The Fish Music Inc Team</strong>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <div class="social-links">
+                <a href="{{facebookUrl}}">Facebook</a> |
+                <a href="{{twitterUrl}}">Twitter</a> |
+                <a href="{{instagramUrl}}">Instagram</a> |
+                <a href="{{linkedinUrl}}">LinkedIn</a>
+            </div>
+            
+            <p>
+                Fish Music Inc<br>
+                123 Music Street, Suite 456<br>
+                Los Angeles, CA 90001
+            </p>
+            
+            <p>
+                <a href="{{unsubscribeUrl}}">Unsubscribe</a> |
+                <a href="{{preferencesUrl}}">Email Preferences</a> |
+                <a href="{{privacyUrl}}">Privacy Policy</a>
+            </p>
+            
+            <p style="margin-top: 20px; font-size: 12px; color: #999;">
+                You're receiving this email because you signed up for Fish Music Inc.<br>
+                © 2025 Fish Music Inc. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,1 +1,0 @@
-chmod +x ~/Desktop/noizy_full_setup.sh

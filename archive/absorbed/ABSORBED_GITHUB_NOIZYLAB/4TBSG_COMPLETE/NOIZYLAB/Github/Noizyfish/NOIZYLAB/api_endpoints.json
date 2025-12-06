@@ -1,0 +1,34 @@
+{
+  "problem_solver": {
+    "POST": "/api/v1/problems/solve",
+    "GET": "/api/v1/problems/{id}",
+    "description": "Solve problems using all AI systems"
+  },
+  "ai_trainer": {
+    "POST": "/api/v1/training/train",
+    "GET": "/api/v1/training/modules",
+    "description": "AI training modules"
+  },
+  "analytics": {
+    "GET": "/api/v1/analytics/metrics",
+    "description": "Analytics and metrics"
+  },
+  "quantum": {
+    "POST": "/api/v1/quantum/solve",
+    "description": "Quantum computing solutions"
+  },
+  "blockchain": {
+    "POST": "/api/v1/blockchain/verify",
+    "GET": "/api/v1/blockchain/chain",
+    "description": "Blockchain verification"
+  },
+  "monitoring": {
+    "GET": "/api/v1/monitoring/health",
+    "description": "System monitoring"
+  },
+  "resources": {
+    "GET": "/api/v1/resources/status",
+    "POST": "/api/v1/resources/optimize",
+    "description": "Resource management"
+  }
+}

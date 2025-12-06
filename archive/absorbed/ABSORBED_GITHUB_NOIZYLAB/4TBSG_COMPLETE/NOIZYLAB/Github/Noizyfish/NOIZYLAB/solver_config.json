@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "capabilities": {
+    "software": "ALL operating systems, ALL applications, ALL versions",
+    "hardware": "ALL manufacturers, ALL models, ALL components",
+    "problems": "ANY problem, ANY issue, ANY error",
+    "solutions": "Solutions, workarounds, fixes, patches"
+  },
+  "last_updated": "2025-11-22T02:33:31.462059"
+}

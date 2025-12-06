@@ -1,0 +1,7 @@
+{
+  "lazy_imports": true,
+  "preload_cache": true,
+  "skip_unused_modules": true,
+  "parallel_initialization": true,
+  "minimal_imports": true
+}

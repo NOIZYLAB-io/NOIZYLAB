@@ -1,7 +1,0 @@
-{
-  "terminal.integrated.profiles.osx": {
-    "zsh": { "path": "/bin/zsh" },
-    "Python venv": { "path": "/bin/zsh", "args": ["-l"], "env": { "VIRTUAL_ENV": "${workspaceFolder}/.venv" } }
-  },
-  "terminal.integrated.defaultProfile.osx": "zsh"
-}

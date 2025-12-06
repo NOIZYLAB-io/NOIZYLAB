@@ -1,3 +1,0 @@
-#!/bin/bash
-# Linux post-install branding script
-# ...branding commands...

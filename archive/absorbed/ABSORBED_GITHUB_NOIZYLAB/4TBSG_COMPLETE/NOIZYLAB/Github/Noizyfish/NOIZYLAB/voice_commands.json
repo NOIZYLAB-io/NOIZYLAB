@@ -1,0 +1,25 @@
+{
+  "problem_solving": [
+    "Solve problem",
+    "Fix issue",
+    "Troubleshoot",
+    "Find solution"
+  ],
+  "system_control": [
+    "Show dashboard",
+    "Check status",
+    "Run backup",
+    "Optimize system"
+  ],
+  "information": [
+    "What's the status",
+    "Show metrics",
+    "Display analytics",
+    "Check resources"
+  ],
+  "training": [
+    "Start training",
+    "Show modules",
+    "Train team"
+  ]
+}

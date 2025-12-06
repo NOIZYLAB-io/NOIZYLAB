@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-EU4bjT69Y19YS7j+qNgXbl4E5R8tjXzXp38nrkT/0QI='; style-src 'self' 'sha256-XVO4mulUc8OoXv5bP/brVUUQmnRi3C6ey5BJ9u1rlck=' 'sha256-IJTDsFRAVCv3A6HgnXf0ckA0ksF5N5ERbc4UtLK+bT4='" />
+    <title>Fastmail</title>
+    <!-- prettier-ignore -->
+    <style>blockquote,body,button,code,dd,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,li,ol,p,pre,select,textarea,ul{margin:0;padding:0}fieldset,iframe,img{border:0}button{border-radius:0}abbr,acronym{border:0;font-feature-settings:normal;font-variant:normal;-webkit-text-decoration:none;text-decoration:none}:focus{outline:none}:-moz-submit-invalid,:-moz-ui-invalid,:invalid{box-shadow:none}ol,ul{list-style:none}textarea{resize:none}body{line-height:1.35}a,button,div,span{-webkit-tap-highlight-color:rgba(0,0,0,0)}address,button,caption,cite,code,em,h1,h2,h3,h4,h5,h6,input,pre,select,strong,textarea{color:inherit;font:inherit;letter-spacing:inherit;text-align:inherit}option{text-align:left}pre{overflow-wrap:break-word;white-space:pre-wrap;word-wrap:break-word}table:not([cellspacing]):not([width]){border-collapse:collapse;border-spacing:0;width:100%}:where(table:not([cellpadding]) th,table:not([cellpadding]) td){padding:0}iframe{width:100%}button::-moz-focus-inner{border:0;padding:0}@media screen{body,html{cursor:default;height:100%;overflow:hidden;position:relative}.u-fillparent{bottom:0;left:0;position:absolute;right:0;top:0}.u-fillparent>h1{background-position:50% 100%;font-size:202.72865295%;padding-bottom:22px;position:absolute;text-align:center;top:33%;width:100%}}#bootstrap-page{background:#fff}.prefersdark #bootstrap-page{background:#121416}@media (prefers-color-scheme:dark){#bootstrap-page{background:#121416}}</style>
+    <!-- prettier-ignore -->
+    <style>html,body{margin:0;height:100%}@keyframes s1{0%,50%{opacity:0}}@keyframes s2{0%,50%{transform:scale(.8)}}#loading-error{animation:2s s1;width:100%;height:100%;background-color:#f6f6f6;position:relative}#loading-error p{margin:20px 0}#loading-error li{margin:10px 0}.v-Error{box-sizing:border-box;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);padding:20px 50px 30px;width:100%;max-width:450px;line-height:1.5;background:#fff;font-size:16px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;box-shadow:0 3px 12px #0003}.v-Error-emoji{font-size:5em;text-align:center;margin-top:0}.v-Error-heading{font-size:1.265625em;font-weight:700}</style>
+  </head>
+  <body>
+    <div id="loading-error">
+      <div class="v-Error">
+        <p class="v-Error-emoji">🤕</p>
+        <h1 class="v-Error-heading">Hmm, something’s not right.<br />We couldn’t load Fastmail for you.</h1>
+        <p>This could be due to a slow or unresponsive internet connection. Please check your internet connection and <a id="retry" href="">try again</a>.</p>
+        <p>For further assistance, please <a href="https://support.fastmail.com/support/" target="_blank">contact support</a>.</p>
+      </div>
+    </div>
+    <!-- prettier-ignore -->
+    <script>document.getElementById("retry").addEventListener("click",e=>{e.preventDefault(),window.electron.retryLoad()});</script>
+  </body>
+</html>

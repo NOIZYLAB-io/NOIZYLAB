@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "preload_all": true,
+  "memory_allocation_gb": 30,
+  "preload_items": {
+    "all_databases": true,
+    "all_models": true,
+    "all_caches": true,
+    "all_knowledge": true,
+    "all_solutions": true
+  },
+  "startup_preload": true
+}

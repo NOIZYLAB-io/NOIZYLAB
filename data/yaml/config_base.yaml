@@ -1,0 +1,20 @@
+# Qdrant Configuration
+host: localhost
+port: 45214
+
+# Path options - choose one approach:
+
+# Option 1: Use a template string that your Python code can expand
+path: "~//.codemate/.vdb"
+
+# Option 2: Use a special marker that your code can detect and replace
+# path: "${HOME}/.codemate/.vdb"
+
+# Option 3: Leave as a string literal and handle in Python
+# path: "Path.home() / '.codemate' / '.vdb'"
+
+# Additional configuration options you might want:
+# timeout: 30
+# max_retries: 3
+# collection_name: "default"
+# vector_size: 384
