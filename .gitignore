@@ -1,7 +1,61 @@
-*.wav
+# 🔒 CLEAN REPO POLICY - M2-Ultra Production Only
+# Large files, backups, and system bloat NOT in git
+# Originals stored in GitHub or Google Drive
+
+# System backups
+CODE_MASTER/
+ABSORBED_*/
+COMPLETE_NOIZYLAB_*/
+VOLUME_SCAN_LOG.json
+deep_scan_*.json
+
+# Large media (audio/video on Google Drive)
 *.mp3
-*.mov
 *.mp4
-*.logicx
-.DS_Store
+*.wav
+*.flac
+*.mov
+*.mkv
+*.dmg
+*.iso
+
+# Large binaries
+*.whl
+*.pkg
+*.exe
+*.dll
+*.so
+
+# Node/Python bloat
 node_modules/
+__pycache__/
+*.egg-info/
+.venv/
+venv/
+.env
+
+# IDE bloat
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temp files
+*.tmp
+*.log
+.DS_Store
+thumbs.db
+
+# Large JSON data (>5MB)
+*_core.json
+*.metadata.json
+*prices*.json
+*command*.json
+
+# AWS SDK bloat (keep code, remove bundles)
+dist/
+build/
+coverage/
+.next/
+out/
+

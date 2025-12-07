@@ -1,4 +1,0 @@
-{
-  "remote.SSH.remotePlatform": { "myserver": "linux" },
-  "remote.SSH.useLocalServer": true
-}
