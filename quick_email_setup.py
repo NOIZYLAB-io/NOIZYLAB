@@ -98,7 +98,7 @@ class QuickEmailSetup:
         print("SMTP Server: smtp.office365.com")
         print("SMTP Port: 587 (STARTTLS)")
         print("Username: rsplowman@outlook.com")
-        print("Password: [M365 Password or App Password]")
+        print("Password: (Use your M365 Password or App Password)")
         
         print("\nSTEP 3: App-Specific Password (if 2FA enabled)")
         print("-" * 70)
