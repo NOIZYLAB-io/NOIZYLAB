@@ -1,0 +1,45 @@
+name = "noizylab"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# YOUR EXISTING D1 DATABASE
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-repairs"
+database_id = "2bd4aa06-f9b2-4761-b235-e92e8a21fe45"
+
+# RATE LIMITER KV (uses your existing namespace)
+[[kv_namespaces]]
+binding = "RATE_LIMITER"
+id = "83fdd2e927104c59947bd3dbf31c401f"
+
+# AUDIT LOG KV (optional - for logging)
+# [[kv_namespaces]]
+# binding = "AUDIT_LOG"
+# id = "YOUR_KV_NAMESPACE_ID"
+
+[vars]
+SITE_URL = "https://noizylab.ca"
+
+# ═══════════════════════════════════════════════════════════════
+# SECRETS TO ADD (run these commands after deploying):
+#
+# REQUIRED:
+#   wrangler secret put ADMIN_PASSWORD
+#   (Enter a strong password for admin access)
+#
+# FOR PAYMENTS:
+#   wrangler secret put STRIPE_SECRET_KEY
+#   (Get from stripe.com → Developers → API Keys)
+#
+# FOR WEBHOOK SECURITY:
+#   wrangler secret put STRIPE_WEBHOOK_SECRET
+#   (Get from stripe.com → Webhooks → Your endpoint → Signing secret)
+#
+# ═══════════════════════════════════════════════════════════════
+
+# Uncomment when domain is configured:
+# routes = [
+#   { pattern = "noizylab.ca/*", zone_name = "noizylab.ca" },
+#   { pattern = "www.noizylab.ca/*", zone_name = "noizylab.ca" }
+# ]
