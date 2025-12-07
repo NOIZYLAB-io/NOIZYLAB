@@ -9,7 +9,14 @@
       "Bash(networksetup -getMTU:*)",
       "Bash(system_profiler:*)",
       "Bash(defaults read:*)",
-      "Bash(plutil:*)"
+      "Bash(plutil:*)",
+      "Bash(dig:*)",
+      "Bash(open \"https://dash.cloudflare.com\")",
+      "Bash(open \"https://appleid.apple.com/account/manage\")",
+      "Bash(claude --version:*)",
+      "Bash(npm install:*)",
+      "Bash(/opt/homebrew/bin/brew:*)",
+      "Bash(/usr/local/bin/brew --version)"
     ],
     "deny": [],
     "ask": []
