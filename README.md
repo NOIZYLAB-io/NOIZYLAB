@@ -1,26 +1,31 @@
+# Repo Maintenance Worker
 
-The `authRecord.json` file is created after authenticating to an Azure subscription from Visual Studio Code (VS Code). For example, via the **Azure: Sign In** command in Command Palette. The directory in which the file resides matches the unique identifier of the [Azure Resources extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureresourcegroups) responsible for writing the file.
+This contains a scheduled GitHub Actions workflow and a script to help maintain remote branches and run a local git gc in the Actions runner.
 
-### Purpose of `authRecord.json`
+Default behavior:
+- Runs weekly (configurable in .github/workflows/maintenance.yml).
+- Dry-run mode by default (no deletions). To actually delete branches, run the workflow with workflow_dispatch and set execute=true.
+- Identifies branches that are merged into the default branch OR have last commit older than KEEP_DAYS (default 30).
+- Never deletes protected branches or the repository default branch.
 
-This file plays a key role in enabling a seamless single sign-on experience in the local development environment for VS Code customers. The file is used to persist a serialized representation of an [AuthenticationRecord](https://learn.microsoft.com/javascript/api/@azure/identity/authenticationrecord?view=azure-node-latest) object, which includes metadata about a previously authenticated user session. More specifically, the file:
+Configuration (via workflow dispatch inputs or editing the workflow):
+- execute: 'true' to actually delete candidate branches (default: 'false').
+- keep_days: branches with last commit newer than this are kept (default: 30).
+- protected_branches: comma-separated list of extra branch names to protect.
+- allow_prune: whether to run git remote prune and git gc (default: true).
 
-- Allows products like the Azure Identity SDK and Azure MCP Server to reuse authentication state without prompting the user to sign in again.
-- Enables the Azure Identity SDK's `DefaultAzureCredential()` chain to automatically authenticate users in dev loops, especially when running inside VS Code.
+Safety notes:
+- The workflow uses GITHUB_TOKEN to authenticate and delete branches. Branch protection rules are enforced by GitHub.
+- This does NOT rewrite history or remove large files from the remote. For history rewrites you must intentionally run a different process and coordinate with collaborators.
+- Test in a sandbox repository / run as dry-run before enabling execute=true.
 
-### What it contains
+Defaults I will use for the PR unless you tell me otherwise:
+- Branch name: maintenance/cleanup-worker
+- PR title: Add scheduled repo maintenance workflow
+- schedule: weekly, Sunday 03:00 UTC
+- keep_days: 30
+- protected_branches: main,master
+- execute (dry-run): false
+- allow_prune: true
 
-The file does **not** contain access tokens or secrets. This design avoids the security risks associated with storing sensitive credentials on disk. The table below describes the file's properties.
-
-| Key             | Description                                                         |
-|-----------------|---------------------------------------------------------------------|
-| `authority`     | The Microsoft Entra authority used for authentication               |
-| `clientId`      | The client ID of the app that performed the original authentication |
-| `tenantId`      | The associated Microsoft Entra tenant ID                            |
-| `username`      | The username of the logged in account                               |
-| `homeAccountId` | A unique identifier for the account                                 |
-
-### Security considerations
-
-- The user profile's `.azure` directory is already used by other products, such as MSAL and Azure CLI to store metadata in `msal_token_cache.bin` and `azureProfile.json`, respectively.
-- While `authRecord.json` itself isn't inherently dangerous, it should still be excluded from source control. A preconfigued `.gitignore` file is written alongside the file for that purpose.
+Please create a branch named maintenance/cleanup-worker and open a PR with these three files added at the specified paths. Keep the workflow in dry-run (execute=false) by default. Please add a brief PR description explaining the safety defaults and how to enable deletions via workflow_dispatch.
