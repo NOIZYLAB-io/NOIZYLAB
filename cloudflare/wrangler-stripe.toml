@@ -1,0 +1,23 @@
+name = "noizylab-stripe-payments"
+main = "stripe-payment-worker.js"
+compatibility_date = "2024-12-01"
+account_id = "5ba03939f87a498d0bbed185ee123946"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "PAYMENTS"
+id = "7ac8f6ab1a0144c1bdbcb11fb69983a2"
+
+[[kv_namespaces]]
+binding = "WEBHOOKS"
+id = "2472c72eaf0d4889b7d5a6c7f830e924"
+
+# Environment variables
+[vars]
+STRIPE_MODE = "test"  # or "live"
+BASE_REPAIR_PRICE = "89.00"
+
+# Secrets (set with: wrangler secret put <NAME>)
+# - STRIPE_SECRET_KEY
+# - STRIPE_PUBLISHABLE_KEY
+# - STRIPE_WEBHOOK_SECRET

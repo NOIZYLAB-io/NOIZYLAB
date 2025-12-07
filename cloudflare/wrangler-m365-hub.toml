@@ -1,0 +1,25 @@
+name = "noizylab-m365-hub"
+main = "m365-hub-worker.js"
+compatibility_date = "2024-12-01"
+account_id = "5ba03939f87a498d0bbed185ee123946"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "EMAIL_QUEUE"
+id = "7ac8f6ab1a0144c1bdbcb11fb69983a2"
+
+[[kv_namespaces]]
+binding = "CALENDAR_EVENTS"
+id = "431ae8ffb1644cad8b499656e87fad83"
+
+# Environment variables
+[vars]
+HUB_EMAIL = "rsplowman@outlook.com"
+SMTP_SERVER = "smtp.office365.com"
+SMTP_PORT = "587"
+
+# Secrets (set with: wrangler secret put <NAME>)
+# - M365_PASSWORD - Microsoft 365 password
+# - M365_CLIENT_ID - Azure AD app client ID
+# - M365_CLIENT_SECRET - Azure AD app client secret
+# - M365_TENANT_ID - Azure AD tenant ID
