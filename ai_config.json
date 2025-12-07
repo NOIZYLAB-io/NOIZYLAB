@@ -1,9 +1,0 @@
-{
-  "gpu_acceleration": true,
-  "tensor_optimization": true,
-  "model_caching": true,
-  "batch_processing": true,
-  "quantization": true,
-  "inference_optimization": true,
-  "memory_efficient": true
-}

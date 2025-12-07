@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkechoapi_for_vscode=self.webpackChunkechoapi_for_vscode||[]).push([[5089],{805089:(e,c,o)=>{o.r(c),o.d(c,{default:()=>t});var s=o(778291),n=o(166166),r=o(676118),a=o(474848);const t=function(){var e=(0,s.Bd)().t;return(0,a.jsx)(r.K,{children:(0,a.jsx)(n.A,{description:e("common.nodata")})})}}}]);

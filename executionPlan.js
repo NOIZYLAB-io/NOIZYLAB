@@ -1,1 +1,0 @@
-import{a as i,b as m}from"./chunk-GDMJNRPP.js";import{a as t}from"./chunk-ZI34IKBE.js";import{c as o,f as n,p as r}from"./chunk-M3U674VW.js";var d=o(n());var e=o(r());d.default.createRoot(document.getElementById("root")).render((0,e.jsx)(t,{children:(0,e.jsx)(i,{children:(0,e.jsx)(m,{})})}));
