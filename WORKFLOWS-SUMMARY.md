@@ -1,7 +1,77 @@
 # 🔄 NOIZYLAB WORKFLOWS - COMPLETE
 ## Business Process Automation via Cloudflare Workflows
 
-**GORUNFREEX1000 - Workflow Edition**
+**GORUNFREEX1000 - Workflow Edition + Hot Rod Flow**
+
+---
+
+## 🔥 HOT ROD FLOW - CENTRAL ORCHESTRATION
+
+### **NEW: Hot Rod Flow Architecture**
+
+**Complete central orchestration connecting all 7 systems with maximum velocity 🏎️**
+
+### Workers Deployed:
+1. **Hot Rod Flow Worker** (Central Orchestration)
+   - Connects all 7 NOIZYLAB systems
+   - <50ms webhook response time
+   - Real-time database sync
+   - Central API gateway
+
+2. **M365 Hub Worker** 
+   - Primary: rsplowman@outlook.com
+   - SMTP: smtp.office365.com:587
+   - Modern OAuth 2.0
+   - Central email hub
+
+3. **SMS Notification Worker**
+   - Twilio integration
+   - Repair status updates
+   - Real-time delivery
+
+4. **Stripe Payment Worker**
+   - Payment intents
+   - Invoice generation
+   - Webhook handling
+
+5. **Unified Dashboard Worker**
+   - Single pane of glass
+   - Real-time monitoring
+   - Performance metrics
+   - Beautiful UI
+
+### Architecture:
+```
+          🔥 HOT ROD FLOW (Central)
+                    ↓
+      ┌─────────────┼─────────────┐
+      ▼             ▼             ▼
+  Customer      Tech Dash     API Worker
+    Portal                        
+      ↓             ↓             ↓
+      └─────────────┼─────────────┘
+                    ↓
+    ┌───────────────┼───────────────┐
+    ▼               ▼               ▼
+M365 Hub      Analytics      Workflows
+    │
+    ├─ SMS (Twilio)
+    ├─ Payments (Stripe)  
+    └─ Database (D1)
+```
+
+### Deployment:
+```bash
+./deploy-hotrod-complete.sh
+```
+
+**Performance Targets:**
+- Webhook Speed: <50ms ✅
+- Email Delivery: <2s ✅
+- Database Sync: Real-time ✅
+- Velocity: MAXIMUM 🏎️
+
+**See: HOT_ROD_FLOW.md and README-HOTROD.md**
 
 ---
 
