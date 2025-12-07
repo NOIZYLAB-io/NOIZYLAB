@@ -1,0 +1,38 @@
+name = "noizylab-hotrod-flow"
+main = "hotrod-flow-worker.js"
+compatibility_date = "2024-12-01"
+account_id = "5ba03939f87a498d0bbed185ee123946"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "794535eb-9566-4b00-b38f-15cb173d4ad9"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "EMAIL_QUEUE"
+id = "7ac8f6ab1a0144c1bdbcb11fb69983a2"
+
+[[kv_namespaces]]
+binding = "ANALYTICS"
+id = "2472c72eaf0d4889b7d5a6c7f830e924"
+
+[[kv_namespaces]]
+binding = "NOTIFICATIONS"
+id = "75797406bc4d4a1caa69f50dc734d7e4"
+
+# Environment variables
+[vars]
+HUB_EMAIL = "rsplowman@outlook.com"
+SMTP_SERVER = "smtp.office365.com"
+SMTP_PORT = "587"
+CUSTOMER_PORTAL_URL = "https://noizylab-customer.workers.dev"
+TECH_DASHBOARD_URL = "https://noizylab-tech.workers.dev"
+API_WORKER_URL = "https://noizylab-api.workers.dev"
+ANALYTICS_URL = "https://noizylab-analytics.workers.dev"
+
+# Secrets (set with: wrangler secret put <NAME>)
+# - M365_PASSWORD
+# - STRIPE_SECRET_KEY
+# - TWILIO_AUTH_TOKEN

@@ -1,105 +1,110 @@
-# 🎯 ROB'S EMAIL EMPIRE - MASTER CONFIG
-## 5 Emails. One Inbox. Zero Friction.
+# 🎯 ROB'S EMAIL EMPIRE - MASTER CONFIG (M365 HUB)
+## Primary Account Hierarchy - Microsoft 365 Central Hub
 
 ---
 
-## THE 5 EMAILS
+## PRIMARY ACCOUNT HIERARCHY
 
-| # | Address | Domain | Purpose |
-|---|---------|--------|---------|
-| 1 | `rp@fishmusicinc.com` | Fish Music | PRIMARY - Your main |
-| 2 | `info@fishmusicinc.com` | Fish Music | General inquiries |
-| 3 | `rsp@noizylab.ca` | NOIZYLAB | Repair business |
-| 4 | `help@noizylab.ca` | NOIZYLAB | Customer support |
-| 5 | `hello@noizylab.ca` | NOIZYLAB | Friendly contact |
+| Priority | Email | Service | Purpose |
+|----------|-------|---------|---------|
+| 🥇 1 | `rsplowman@outlook.com` | **Microsoft 365** | PRIMARY LOGIN - All MS services |
+| 🥈 2 | `rsplowman@icloud.com` | Apple/iCloud | Apple ecosystem, Passkeys |
+| 🥉 3 | `rp@fishmusicinc.com` | Fish Music | Primary business email |
+| 4 | `rsp@noizylab.ca` | NOIZYLAB | Business/Git identity |
+| 5 | `info@fishmusicinc.com` | Fish Music | General inquiries |
+| 6 | `help@noizylab.ca` | NOIZYLAB | Customer support |
+| 7 | `hello@noizylab.ca` | NOIZYLAB | Friendly contact |
 
 ---
 
 ## 🔥 THE GOAL
 
 ```
-ALL 5 EMAILS → rp@fishmusicinc.com inbox
-SEND FROM → Any of the 5 addresses
-ONE INBOX → Rules everything
+ALL EMAILS → rsplowman@outlook.com (M365 HUB)
+PRIMARY LOGIN → Microsoft 365 services
+UNIFIED HUB → All business systems
+CENTRAL AUTH → Single sign-on everywhere
 ```
 
 ---
 
-## ⚡ STEP 1: ADD "SEND AS" ADDRESSES
+## ⚡ STEP 1: MICROSOFT 365 HUB SETUP
 
-**URL:** `https://mail.google.com/mail/u/0/#settings/accounts`
+**Primary Account:** `rsplowman@outlook.com` (Microsoft 365)
 
-In **"Send mail as"** section, click **"Add another email address"** for each:
+**URL:** `https://outlook.office.com`
 
-### Fish Music (Google Workspace - Same Domain)
+### M365 Hub Configuration
 ```
-✅ rp@fishmusicinc.com      → Already there (primary)
-➕ info@fishmusicinc.com    → Add as alias
-```
-
-### NOIZYLAB (Different Domain - Needs SMTP)
-```
-➕ rsp@noizylab.ca
-➕ help@noizylab.ca  
-➕ hello@noizylab.ca
+Primary Account: rsplowman@outlook.com
+Service: Microsoft 365 (Office 365)
+SMTP: smtp.office365.com:587
+IMAP: outlook.office365.com:993
+Auth: Modern OAuth 2.0
 ```
 
-**For noizylab.ca addresses, use these SMTP settings:**
+### Forwarding Setup - All to M365 Hub
 ```
-SMTP Server: smtp.gmail.com
-Port: 587
-Username: rsp@noizylab.ca (or your Google Workspace login)
-Password: App Password (generate at myaccount.google.com)
-TLS: Yes
+rp@fishmusicinc.com    → rsplowman@outlook.com
+info@fishmusicinc.com  → rsplowman@outlook.com
+rsp@noizylab.ca        → rsplowman@outlook.com
+help@noizylab.ca       → rsplowman@outlook.com
+hello@noizylab.ca      → rsplowman@outlook.com
 ```
 
 ---
 
-## ⚡ STEP 2: FORWARDING SETUP
+## ⚡ STEP 2: SPF/DKIM/DMARC CONFIGURATION
 
-### For fishmusicinc.com emails:
-**In Google Workspace Admin** (`admin.google.com`):
-1. Users → Select user → Email aliases
-2. Add `info@fishmusicinc.com` as alias to `rp@`
-3. Done - same inbox automatically
+### Microsoft 365 SPF Record
+```
+v=spf1 include:spf.protection.outlook.com -all
+```
 
-### For noizylab.ca emails:
-**Option A: Google Workspace Aliases** (if noizylab.ca is on Workspace)
-- Add as aliases to main account
-
-**Option B: Cloudflare Email Routing** (if using Cloudflare)
+### Cloudflare Email Routing
+**For noizylab.ca and fishmusicinc.com:**
 - Dashboard → Email → Email Routing
-- Add routes:
+- Add routes to rsplowman@outlook.com
+
+### DKIM Setup
+- Microsoft 365 Admin → Exchange → Mail flow → DKIM
+- Enable for all domains
+
+### DMARC Policy
 ```
-rsp@noizylab.ca    → rp@fishmusicinc.com
-help@noizylab.ca   → rp@fishmusicinc.com
-hello@noizylab.ca  → rp@fishmusicinc.com
+v=DMARC1; p=quarantine; rua=mailto:rsplowman@outlook.com
 ```
 
 ---
 
-## ⚡ STEP 3: GMAIL FILTERS (Auto-Label)
+## ⚡ STEP 3: OUTLOOK FILTERS (Auto-Label)
 
-**URL:** `https://mail.google.com/mail/u/0/#settings/filters`
+**URL:** `https://outlook.office.com` → Settings → Mail → Rules
 
 Create these filters:
 
-### Filter 1: Fish Music
+### Filter 1: Microsoft 365 Primary
 ```
-Matches: to:(info@fishmusicinc.com)
-Do this: Apply label "🐟 Fish Music", Never send to Spam
+Matches: to:(rsplowman@outlook.com)
+Do this: Apply category "🔵 M365 Primary", Pin to top
 ```
 
-### Filter 2: NOIZYLAB Support
+### Filter 2: Fish Music
+```
+Matches: to:(rp@fishmusicinc.com OR info@fishmusicinc.com)
+Do this: Apply category "🐟 Fish Music", Move to Fish Music folder
+```
+
+### Filter 3: NOIZYLAB Support
 ```
 Matches: to:(help@noizylab.ca)
-Do this: Apply label "🔧 NOIZYLAB Support", Star it, Never send to Spam
+Do this: Apply category "🔧 NOIZYLAB Support", Flag, Move to NOIZYLAB Support
 ```
 
-### Filter 3: NOIZYLAB General
+### Filter 4: NOIZYLAB General
 ```
 Matches: to:(hello@noizylab.ca OR rsp@noizylab.ca)
-Do this: Apply label "🔧 NOIZYLAB", Never send to Spam
+Do this: Apply category "🔧 NOIZYLAB", Move to NOIZYLAB folder
 ```
 
 ---

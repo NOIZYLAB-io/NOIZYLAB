@@ -26,7 +26,24 @@ class OutlookSetup:
     
     def create_outlook_config(self, email: str, domain: str = None):
         """Create Outlook configuration"""
-        if domain == "gmail.com" or not domain:
+        if domain == "outlook.com" or email.endswith("@outlook.com"):
+            # Microsoft 365 Primary Hub
+            config = {
+                "account_type": "Exchange/M365",
+                "email": email,
+                "server": "outlook.office365.com",
+                "incoming_server": "outlook.office365.com",
+                "incoming_port": 993,
+                "incoming_ssl": True,
+                "outgoing_server": "smtp.office365.com",
+                "outgoing_port": 587,
+                "outgoing_tls": True,
+                "username": email,
+                "auth_method": "Modern OAuth 2.0",
+                "priority": 1,
+                "description": "PRIMARY M365 HUB - All services"
+            }
+        elif domain == "gmail.com" or not domain:
             config = {
                 "account_type": "IMAP",
                 "email": email,
@@ -72,9 +89,18 @@ class OutlookSetup:
         
         configs = []
         
-        # Primary Gmail
+        # M365 Primary Hub - FIRST PRIORITY
+        m365_email = "rsplowman@outlook.com"
+        config = self.create_outlook_config(m365_email, "outlook.com")
+        config_path = configs_dir / "m365-primary-hub.json"
+        with open(config_path, 'w') as f:
+            json.dump(config, f, indent=2)
+        configs.append(("M365 Primary Hub", config_path))
+        console.print(f"[green]✅ M365 Hub config: {m365_email} (PRIMARY)[/green]")
+        
+        # Primary Gmail (if exists)
         primary = emails_data.get("google_account", {}).get("primary", "")
-        if primary:
+        if primary and primary != m365_email:
             config = self.create_outlook_config(primary, "gmail.com")
             config_path = configs_dir / "gmail-primary.json"
             with open(config_path, 'w') as f:
