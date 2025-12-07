@@ -1,55 +1,57 @@
 # 🎯 ROB'S EMAIL EMPIRE - MASTER CONFIG
-## 5 Emails. One Inbox. Zero Friction.
+## 6 Emails. One Inbox. Zero Friction.
 
 ---
 
-## THE 5 EMAILS
+## THE 6 EMAILS
 
 | # | Address | Domain | Purpose |
 |---|---------|--------|---------|
-| 1 | `rp@fishmusicinc.com` | Fish Music | PRIMARY - Your main |
-| 2 | `info@fishmusicinc.com` | Fish Music | General inquiries |
-| 3 | `rsp@noizylab.ca` | NOIZYLAB | Repair business |
-| 4 | `help@noizylab.ca` | NOIZYLAB | Customer support |
-| 5 | `hello@noizylab.ca` | NOIZYLAB | Friendly contact |
+| 1 | `rsplowman@outlook.com` | Microsoft 365 | PRIMARY M365 LOGIN |
+| 2 | `rp@fishmusicinc.com` | Fish Music | Business email |
+| 3 | `info@fishmusicinc.com` | Fish Music | General inquiries |
+| 4 | `rsp@noizylab.ca` | NOIZYLAB | Repair business |
+| 5 | `help@noizylab.ca` | NOIZYLAB | Customer support |
+| 6 | `hello@noizylab.ca` | NOIZYLAB | Friendly contact |
 
 ---
 
 ## 🔥 THE GOAL
 
 ```
-ALL 5 EMAILS → rp@fishmusicinc.com inbox
-SEND FROM → Any of the 5 addresses
-ONE INBOX → Rules everything
+ALL 6 EMAILS → rsplowman@outlook.com inbox
+SEND FROM → Any of the 6 addresses
+ONE INBOX → Microsoft 365 rules everything
 ```
 
 ---
 
 ## ⚡ STEP 1: ADD "SEND AS" ADDRESSES
 
-**URL:** `https://mail.google.com/mail/u/0/#settings/accounts`
+**URL:** `https://outlook.office365.com/mail/options/mail/accounts`
 
-In **"Send mail as"** section, click **"Add another email address"** for each:
+In **"Connected accounts"** or **"Send from another address"** section:
 
-### Fish Music (Google Workspace - Same Domain)
+### Primary Account
 ```
-✅ rp@fishmusicinc.com      → Already there (primary)
-➕ info@fishmusicinc.com    → Add as alias
-```
-
-### NOIZYLAB (Different Domain - Needs SMTP)
-```
-➕ rsp@noizylab.ca
-➕ help@noizylab.ca  
-➕ hello@noizylab.ca
+✅ rsplowman@outlook.com   → Primary M365 account
 ```
 
-**For noizylab.ca addresses, use these SMTP settings:**
+### Business Domains (Setup forwarding or aliases)
 ```
-SMTP Server: smtp.gmail.com
+➕ rp@fishmusicinc.com     → Add as send-as
+➕ info@fishmusicinc.com   → Add as send-as
+➕ rsp@noizylab.ca         → Add as send-as
+➕ help@noizylab.ca        → Add as send-as
+➕ hello@noizylab.ca       → Add as send-as
+```
+
+**For custom domain addresses, use these SMTP settings:**
+```
+SMTP Server: smtp.office365.com
 Port: 587
-Username: rsp@noizylab.ca (or your Google Workspace login)
-Password: App Password (generate at myaccount.google.com)
+Username: rsplowman@outlook.com
+Password: M365 Password or App Password
 TLS: Yes
 ```
 
@@ -57,54 +59,67 @@ TLS: Yes
 
 ## ⚡ STEP 2: FORWARDING SETUP
 
-### For fishmusicinc.com emails:
-**In Google Workspace Admin** (`admin.google.com`):
-1. Users → Select user → Email aliases
-2. Add `info@fishmusicinc.com` as alias to `rp@`
-3. Done - same inbox automatically
-
-### For noizylab.ca emails:
-**Option A: Google Workspace Aliases** (if noizylab.ca is on Workspace)
-- Add as aliases to main account
+### For all business emails:
+**Option A: Microsoft 365 Email Forwarding**
+- In your domain's email admin (cPanel, Google Workspace, etc.)
+- Set up forwarding rules:
+```
+rp@fishmusicinc.com    → rsplowman@outlook.com
+info@fishmusicinc.com  → rsplowman@outlook.com
+rsp@noizylab.ca        → rsplowman@outlook.com
+help@noizylab.ca       → rsplowman@outlook.com
+hello@noizylab.ca      → rsplowman@outlook.com
+```
 
 **Option B: Cloudflare Email Routing** (if using Cloudflare)
 - Dashboard → Email → Email Routing
-- Add routes:
-```
-rsp@noizylab.ca    → rp@fishmusicinc.com
-help@noizylab.ca   → rp@fishmusicinc.com
-hello@noizylab.ca  → rp@fishmusicinc.com
-```
+- Add routes to rsplowman@outlook.com
 
 ---
 
-## ⚡ STEP 3: GMAIL FILTERS (Auto-Label)
+## ⚡ STEP 3: OUTLOOK FILTERS (Auto-Label)
 
-**URL:** `https://mail.google.com/mail/u/0/#settings/filters`
+**URL:** `https://outlook.office365.com/mail/options/mail/rules`
 
-Create these filters:
+Create these rules:
 
 ### Filter 1: Fish Music
 ```
-Matches: to:(info@fishmusicinc.com)
-Do this: Apply label "🐟 Fish Music", Never send to Spam
+When email arrives:
+- To: rp@fishmusicinc.com OR info@fishmusicinc.com
+Move to folder: 🐟 Fish Music
+Mark as important
 ```
 
 ### Filter 2: NOIZYLAB Support
 ```
-Matches: to:(help@noizylab.ca)
-Do this: Apply label "🔧 NOIZYLAB Support", Star it, Never send to Spam
+When email arrives:
+- To: help@noizylab.ca
+Move to folder: 🔧 NOIZYLAB Support
+Star it
+Mark as important
 ```
 
 ### Filter 3: NOIZYLAB General
 ```
-Matches: to:(hello@noizylab.ca OR rsp@noizylab.ca)
-Do this: Apply label "🔧 NOIZYLAB", Never send to Spam
+When email arrives:
+- To: hello@noizylab.ca OR rsp@noizylab.ca
+Move to folder: 🔧 NOIZYLAB
 ```
 
 ---
 
 ## ⚡ STEP 4: PROFESSIONAL SIGNATURES
+
+### For rsplowman@outlook.com
+```
+--
+Rob Plowman
+Microsoft 365 Primary Account
+
+🌐 noizylab.ca | fishmusicinc.com
+📧 rsplowman@outlook.com
+```
 
 ### For rp@fishmusicinc.com
 ```
@@ -168,6 +183,10 @@ Professional CPU Repair Services
 ║                    ROB'S EMAIL EMPIRE                        ║
 ╠═══════════════════════════════════════════════════════════════╣
 ║                                                               ║
+║  MICROSOFT 365 PRIMARY                                        ║
+║  ────────────────────                                         ║
+║  rsplowman@outlook.com    → PRIMARY M365 LOGIN               ║
+║                                                               ║
 ║  FISH MUSIC INC                                               ║
 ║  ─────────────                                                ║
 ║  rp@fishmusicinc.com      → Primary business                 ║
@@ -179,7 +198,7 @@ Professional CPU Repair Services
 ║  help@noizylab.ca         → Customer support                 ║
 ║  hello@noizylab.ca        → New customer contact             ║
 ║                                                               ║
-║  ALL → rp@fishmusicinc.com (ONE INBOX)                       ║
+║  ALL → rsplowman@outlook.com (ONE INBOX)                     ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 ```
@@ -191,15 +210,18 @@ Professional CPU Repair Services
 After setup, test each:
 
 ```
-□ Send test TO info@fishmusicinc.com → Arrives in rp@ inbox?
-□ Send test TO rsp@noizylab.ca → Arrives in rp@ inbox?
-□ Send test TO help@noizylab.ca → Arrives in rp@ inbox?
-□ Send test TO hello@noizylab.ca → Arrives in rp@ inbox?
+□ Send test TO rsplowman@outlook.com → Arrives in inbox?
+□ Send test TO rp@fishmusicinc.com → Arrives in Outlook inbox?
+□ Send test TO info@fishmusicinc.com → Arrives in Outlook inbox?
+□ Send test TO rsp@noizylab.ca → Arrives in Outlook inbox?
+□ Send test TO help@noizylab.ca → Arrives in Outlook inbox?
+□ Send test TO hello@noizylab.ca → Arrives in Outlook inbox?
+□ Reply FROM rp@ → Shows correct sender?
 □ Reply FROM info@ → Shows correct sender?
 □ Reply FROM rsp@ → Shows correct sender?
 □ Reply FROM help@ → Shows correct sender?
 □ Reply FROM hello@ → Shows correct sender?
-□ Labels applied automatically?
+□ Folders/Rules applied automatically?
 □ Signatures showing correctly?
 ```
 
@@ -207,6 +229,6 @@ After setup, test each:
 
 ## 🚀 DONE = EMAIL EMPIRE COMPLETE
 
-One inbox. Five identities. Zero friction.
+One inbox. Six identities. Microsoft 365 primary. Zero friction.
 
 **GORUNFREE ✓**

@@ -12,35 +12,35 @@ echo ""
 OUTPUT_DIR="/Volumes/4TBSG/NOIZYLAB/Github/Noizyfish/NOIZYLAB/outlook_configs"
 mkdir -p "$OUTPUT_DIR"
 
-# ==================== ACCOUNT 1: Gmail ====================
-cat > "$OUTPUT_DIR/1_rsplowman_gmail_config.txt" << 'EOF'
+# ==================== ACCOUNT 1: Microsoft 365 ====================
+cat > "$OUTPUT_DIR/1_rsplowman_outlook_config.txt" << 'EOF'
 ======================================
-ACCOUNT 1: Gmail (PRIMARY)
+ACCOUNT 1: Microsoft 365 (PRIMARY)
 ======================================
 
-Email: rsplowman@gmail.com
+Email: rsplowman@outlook.com
 Display Name: R Plowman
-Provider: Gmail
+Provider: Microsoft 365
 
 SETUP METHOD: OAuth (Recommended)
 1. File → Add Account
-2. Enter: rsplowman@gmail.com
+2. Enter: rsplowman@outlook.com
 3. Click "Connect"
-4. Sign in with Google
+4. Sign in with Microsoft
 5. Allow Outlook access
 
 MANUAL SETTINGS (if OAuth fails):
 - Account Type: IMAP
-- Incoming Server: imap.gmail.com
+- Incoming Server: outlook.office365.com
 - Incoming Port: 993
 - Encryption: SSL/TLS
-- Outgoing Server: smtp.gmail.com
+- Outgoing Server: smtp.office365.com
 - Outgoing Port: 587
 - Encryption: STARTTLS
 - Authentication: Required
 
 APP PASSWORD OPTION:
-1. Go to: https://myaccount.google.com/apppasswords
+1. Go to: https://account.microsoft.com/security
 2. Generate app password for "Outlook"
 3. Use this password in Outlook
 
@@ -231,7 +231,7 @@ cat > "$OUTPUT_DIR/MASTER_SETUP_GUIDE.md" << 'EOF'
 
 ## 📧 ACCOUNTS TO CONFIGURE
 
-1. **rsplowman@gmail.com** (Gmail - PRIMARY)
+1. **rsplowman@outlook.com** (Microsoft 365 - PRIMARY)
 2. **rp@fishmusicinc.com** (Fish Music Inc)
 3. **info@fishmusicinc.com** (Fish Music Inc)
 4. **rsp@noizylab.ca** (Noizylab)
@@ -257,7 +257,7 @@ cat > "$OUTPUT_DIR/MASTER_SETUP_GUIDE.md" << 'EOF'
 ## 📋 SETUP ORDER (Recommended)
 
 **Start with Primary:**
-1. Gmail (rsplowman@gmail.com) - OAuth
+1. Microsoft 365 (rsplowman@outlook.com) - OAuth
 
 **Then Business Emails:**
 2. rp@fishmusicinc.com
@@ -273,8 +273,8 @@ cat > "$OUTPUT_DIR/MASTER_SETUP_GUIDE.md" << 'EOF'
 
 ## 🔐 PASSWORDS NEEDED
 
-### Gmail:
-- Option 1: Regular Gmail password + OAuth
+### Microsoft 365:
+- Option 1: Regular M365 password + OAuth
 - Option 2: App-specific password
 
 ### Fish Music Inc (both accounts):
@@ -293,7 +293,7 @@ cat > "$OUTPUT_DIR/MASTER_SETUP_GUIDE.md" << 'EOF'
 
 | Domain | IMAP Server | SMTP Server | Ports |
 |--------|-------------|-------------|-------|
-| Gmail | imap.gmail.com | smtp.gmail.com | 993/587 |
+| Microsoft 365 | outlook.office365.com | smtp.office365.com | 993/587 |
 | Fish Music | mail.fishmusicinc.com | mail.fishmusicinc.com | 993/587 |
 | Noizylab | mail.noizylab.ca | mail.noizylab.ca | 993/587 |
 | iCloud | imap.mail.me.com | smtp.mail.me.com | 993/587 |
@@ -336,7 +336,7 @@ cat > "$OUTPUT_DIR/MASTER_SETUP_GUIDE.md" << 'EOF'
 ✓ Use correct port numbers
 
 ### "Authentication failed"
-✓ Gmail: Use OAuth or app password
+✓ Microsoft 365: Use OAuth or app password
 ✓ iCloud: MUST use app-specific password
 ✓ Custom domains: Verify password
 ✓ Username = full email address
@@ -392,7 +392,7 @@ If you need help:
 ---
 
 **All configuration files are in this directory!**
-**Start with Account 1 (Gmail) and work through each one.**
+**Start with Account 1 (Microsoft 365) and work through each one.**
 
 ✅ Ready to set up all 7 email accounts!
 EOF
@@ -404,7 +404,7 @@ OUTLOOK SETUP - QUICK REFERENCE
 ========================================
 
 ALL ACCOUNTS (7):
-1. rsplowman@gmail.com
+1. rsplowman@outlook.com
 2. rp@fishmusicinc.com
 3. info@fishmusicinc.com
 4. rsp@noizylab.ca
@@ -420,12 +420,12 @@ IMAP: 993 (SSL/TLS)
 SMTP: 587 (STARTTLS)
 
 SPECIAL REQUIREMENTS:
-- Gmail: OAuth or app password
+- Microsoft 365: OAuth or app password
 - iCloud: App-specific password (REQUIRED)
 - Custom domains: Regular passwords
 
 GENERATE APP PASSWORDS:
-Gmail: https://myaccount.google.com/apppasswords
+Microsoft 365: https://account.microsoft.com/security
 iCloud: https://appleid.apple.com
 
 ========================================
