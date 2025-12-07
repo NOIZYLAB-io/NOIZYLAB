@@ -1,8 +1,0 @@
-{
-  "timestamp": "2025-11-04T03:50:35.639143",
-  "inspiron_ip": "10.0.0.25",
-  "omen_ip": "10.0.10.12",
-  "mac_studio_ip": "10.0.10.10",
-  "network_optimized": true,
-  "vlan_config": "active"
-}
