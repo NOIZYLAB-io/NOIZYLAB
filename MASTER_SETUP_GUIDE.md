@@ -1,17 +1,17 @@
 # MICROSOFT OUTLOOK - COMPLETE SETUP GUIDE
-## All 7 Email Accounts
+## All Email Accounts - M365 Hub Central
 
 ---
 
-## 📧 ACCOUNTS TO CONFIGURE
+## 📧 ACCOUNTS TO CONFIGURE (PRIORITY ORDER)
 
-1. **rsplowman@gmail.com** (Gmail - PRIMARY)
-2. **rp@fishmusicinc.com** (Fish Music Inc)
-3. **info@fishmusicinc.com** (Fish Music Inc)
-4. **rsp@noizylab.ca** (Noizylab)
-5. **help@noizylab.ca** (Noizylab)
-6. **hello@noizylab.ca** (Noizylab)
-7. **rsplowman@icloud.com** (iCloud)
+1. **rsplowman@outlook.com** (Microsoft 365 - PRIMARY HUB)
+2. **rsplowman@icloud.com** (iCloud - Apple ecosystem)
+3. **rp@fishmusicinc.com** (Fish Music Inc)
+4. **info@fishmusicinc.com** (Fish Music Inc)
+5. **rsp@noizylab.ca** (Noizylab)
+6. **help@noizylab.ca** (Noizylab)
+7. **hello@noizylab.ca** (Noizylab)
 
 ---
 
@@ -30,26 +30,30 @@
 
 ## 📋 SETUP ORDER (Recommended)
 
-**Start with Primary:**
-1. Gmail (rsplowman@gmail.com) - OAuth
+**Start with M365 Hub (Primary):**
+1. Outlook (rsplowman@outlook.com) - M365 OAuth
+
+**Then Apple Ecosystem:**
+2. iCloud (rsplowman@icloud.com) - App Password
 
 **Then Business Emails:**
-2. rp@fishmusicinc.com
-3. info@fishmusicinc.com
-4. rsp@noizylab.ca
-5. help@noizylab.ca
-6. hello@noizylab.ca
-
-**Finally Cloud:**
-7. iCloud (rsplowman@icloud.com) - App Password
+3. rp@fishmusicinc.com
+4. info@fishmusicinc.com
+5. rsp@noizylab.ca
+6. help@noizylab.ca
+7. hello@noizylab.ca
 
 ---
 
 ## 🔐 PASSWORDS NEEDED
 
-### Gmail:
-- Option 1: Regular Gmail password + OAuth
-- Option 2: App-specific password
+### Microsoft 365 (Primary Hub):
+- rsplowman@outlook.com: M365 password + Modern OAuth
+- Full Microsoft 365 integration
+
+### iCloud:
+- App-specific password (REQUIRED)
+  Generate at: https://appleid.apple.com
 
 ### Fish Music Inc (both accounts):
 - Email account passwords
@@ -57,20 +61,16 @@
 ### Noizylab (all 3 accounts):
 - Email account passwords
 
-### iCloud:
-- App-specific password (REQUIRED)
-  Generate at: https://appleid.apple.com
-
 ---
 
 ## ⚙️ SERVER SETTINGS QUICK REFERENCE
 
 | Domain | IMAP Server | SMTP Server | Ports |
 |--------|-------------|-------------|-------|
-| Gmail | imap.gmail.com | smtp.gmail.com | 993/587 |
-| Fish Music | mail.fishmusicinc.com | mail.fishmusicinc.com | 993/587 |
-| Noizylab | mail.noizylab.ca | mail.noizylab.ca | 993/587 |
+| Microsoft 365 | outlook.office365.com | smtp.office365.com | 993/587 |
 | iCloud | imap.mail.me.com | smtp.mail.me.com | 993/587 |
+| Fish Music | imap.gmail.com | smtp.gmail.com | 993/587 |
+| Noizylab | imap.gmail.com | smtp.gmail.com | 993/587 |
 
 **All accounts:**
 - IMAP Port: 993 (SSL/TLS)

@@ -34,11 +34,11 @@ class EmailSender:
         return {
             "smtp_server": os.getenv("SMTP_SERVER", "smtp.office365.com"),
             "smtp_port": int(os.getenv("SMTP_PORT", "587")),
-            "username": os.getenv("EMAIL_USERNAME", ""),
+            "username": os.getenv("EMAIL_USERNAME", "rsplowman@outlook.com"),
             "password": os.getenv("EMAIL_PASSWORD", ""),
             "use_tls": True,
-            "from_email": os.getenv("FROM_EMAIL", ""),
-            "from_name": os.getenv("FROM_NAME", "NoizyLab")
+            "from_email": os.getenv("FROM_EMAIL", "rsplowman@outlook.com"),
+            "from_name": os.getenv("FROM_NAME", "Rob Plowman - NoizyLab")
         }
     
     def save_config(self):

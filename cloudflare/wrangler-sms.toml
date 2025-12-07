@@ -1,0 +1,17 @@
+name = "noizylab-sms-notifications"
+main = "sms-notification-worker.js"
+compatibility_date = "2024-12-01"
+account_id = "5ba03939f87a498d0bbed185ee123946"
+
+# KV Namespace
+[[kv_namespaces]]
+binding = "SMS_QUEUE"
+id = "75797406bc4d4a1caa69f50dc734d7e4"
+
+# Environment variables
+[vars]
+TWILIO_FROM_NUMBER = "+1234567890"  # Set your Twilio number
+
+# Secrets (set with: wrangler secret put <NAME>)
+# - TWILIO_ACCOUNT_SID
+# - TWILIO_AUTH_TOKEN
