@@ -38,6 +38,23 @@
 - Configuration
 - Databases
 
+### **🔥 Central Hub (Hot Rod Flow)**:
+- **Primary Email:** rsplowman@outlook.com (M365)
+- **Platform:** Microsoft 365
+- **SMTP:** smtp.office365.com:587
+- **IMAP:** outlook.office365.com:993
+- **Connected Accounts:**
+  - rsplowman@outlook.com (PRIMARY)
+  - rsplowman@icloud.com (Apple)
+  - rp@fishmusicinc.com (Fish Music)
+  - rsp@noizylab.ca (NOIZYLAB)
+- **Velocity:** MAXIMUM 🏎️
+- **Systems Connected:** 7
+- **Email Flow:**
+  ```
+  All business emails → rsplowman@outlook.com → Unified Inbox
+  ```
+
 ---
 
 ## 🚀 **LAUNCH EVERYTHING**

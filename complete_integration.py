@@ -23,6 +23,13 @@ class CompleteIntegration:
         print("="*80)
 
         integration = {
+            "hot_rod_flow": {
+                "hub": "rsplowman@outlook.com",
+                "velocity": "maximum",
+                "systems_connected": 7,
+                "webhook_speed": "<50ms",
+                "email_delivery": "<2s"
+            },
             "all_systems": {
                 "connected": True,
                 "shared_data": True,
