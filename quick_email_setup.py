@@ -41,8 +41,8 @@ class QuickEmailSetup:
             print("🚀 QUICK EMAIL SETUP WIZARD")
             print("="*70)
             print("\nYour Email Accounts:")
-            print("  1. Gmail → Mac Mail Setup")
-            print("  2. rsplowman@icloud.com → Add to Gmail Account")
+            print("  1. rsplowman@outlook.com → Microsoft 365 Primary Setup")
+            print("  2. rsplowman@icloud.com → Add to Services")
             print("  3. rsp@noizylab.ca → Setup")
             print("  4. help@noizylab.ca → Setup")
             print("  5. rp@fishmusicinc.com → Check Verification Emails")
@@ -54,9 +54,9 @@ class QuickEmailSetup:
             choice = input("\nSelect option: ").strip()
             
             if choice == "1":
-                self.gmail_macmail()
+                self.m365_setup()
             elif choice == "2":
-                self.add_icloud_to_gmail()
+                self.add_icloud_to_services()
             elif choice == "3":
                 self.setup_noizylab("rsp@noizylab.ca")
             elif choice == "4":
@@ -74,6 +74,82 @@ class QuickEmailSetup:
             
             if choice != "0":
                 input("\nPress Enter to continue...")
+    
+    def m365_setup(self):
+        """Microsoft 365 in Email Client setup"""
+        print("\n" + "="*70)
+        print("📧 MICROSOFT 365 PRIMARY SETUP")
+        print("="*70)
+        
+        print("\nSTEP 1: Configure Microsoft 365")
+        print("-" * 70)
+        print("1. Open your email client (Outlook, Mail app, etc.)")
+        print("2. Go to: Settings → Accounts")
+        print("3. Add Account → Microsoft 365")
+        print("4. Sign in with rsplowman@outlook.com")
+        print("5. Allow access when prompted")
+        
+        input("\n✅ Press Enter when M365 is configured...")
+        
+        print("\nSTEP 2: Manual Settings (if auto-config fails)")
+        print("-" * 70)
+        print("IMAP Server: outlook.office365.com")
+        print("IMAP Port: 993 (SSL/TLS)")
+        print("SMTP Server: smtp.office365.com")
+        print("SMTP Port: 587 (STARTTLS)")
+        print("Username: rsplowman@outlook.com")
+        print("Password: [M365 Password or App Password]")
+        
+        print("\nSTEP 3: App-Specific Password (if 2FA enabled)")
+        print("-" * 70)
+        has_2fa = input("Do you have 2-Factor Authentication? (y/n): ").strip().lower()
+        
+        if has_2fa == 'y':
+            print("\n1. Go to: https://account.microsoft.com/security")
+            print("2. Click 'Advanced security options'")
+            print("3. Under 'App passwords', generate new password")
+            print("4. Use this password in your email client")
+            app_pass = input("\nPaste app password (or press Enter to skip): ").strip()
+            if app_pass:
+                self.config["m365_app_password"] = app_pass
+                self.save_config()
+        
+        m365 = "rsplowman@outlook.com"
+        self.config["accounts"]["m365_primary"] = {
+            "email": m365,
+            "imap": "outlook.office365.com:993",
+            "smtp": "smtp.office365.com:587",
+            "status": "configured"
+        }
+        self.save_config()
+        print("✅ Microsoft 365 configuration saved!")
+        
+        print("\n" + "="*70)
+    
+    def add_icloud_to_services(self):
+        """Add iCloud email to various services"""
+        print("\n" + "="*70)
+        print("📧 ADD rsplowman@icloud.com TO SERVICES")
+        print("="*70)
+        
+        print("\nThis email should be used for:")
+        print("- Apple services and iCloud")
+        print("- Passkey authentication")
+        print("- Apple ecosystem services")
+        
+        print("\nFor Microsoft services, use: rsplowman@outlook.com")
+        print("For general services, choose based on compatibility")
+        
+        confirm = input("\nHave you set up rsplowman@icloud.com where needed? (y/n): ").strip().lower()
+        if confirm == 'y':
+            if "rsplowman@icloud.com" not in self.config.get("configured_emails", []):
+                if "configured_emails" not in self.config:
+                    self.config["configured_emails"] = []
+                self.config["configured_emails"].append("rsplowman@icloud.com")
+                self.save_config()
+            print("✅ Saved to configuration!")
+        
+        print("\n" + "="*70)
     
     def gmail_macmail(self):
         """Gmail in Mac Mail setup"""
@@ -359,17 +435,17 @@ class QuickEmailSetup:
         
         input("\nPress Enter to start...")
         
-        # 1. Gmail in Mac Mail
+        # 1. Microsoft 365 Primary
         print("\n" + "="*70)
-        print("STEP 1: Gmail in Mac Mail")
+        print("STEP 1: Microsoft 365 Primary")
         print("="*70)
-        self.gmail_macmail()
+        self.m365_setup()
         
-        # 2. Add iCloud to Gmail
+        # 2. Add iCloud to services
         print("\n" + "="*70)
-        print("STEP 2: Add rsplowman@icloud.com to Gmail")
+        print("STEP 2: Configure rsplowman@icloud.com")
         print("="*70)
-        self.add_icloud_to_gmail()
+        self.add_icloud_to_services()
         
         # 3. Setup noizylab.ca emails
         print("\n" + "="*70)

@@ -182,17 +182,18 @@ hx# PASSKEY MASTERLIST
 
 ## EMAIL CONSOLIDATION
 
-### Current Emails (Consolidate to rsplowman@icloud.com):
-| Email | Purpose | Action |
-|-------|---------|--------|
-| rsplowman@icloud.com | **PRIMARY - KEEP** | Main identity |
-| rsp@noizyfish.com | Business/Git commits | Keep for business |
-| [other emails] | Legacy | Migrate & delete |
+### Primary Account Hierarchy:
+| Priority | Email | Service | Purpose |
+|----------|-------|---------|---------|
+| 🥇 **1** | `rsplowman@outlook.com` | **Microsoft 365** | PRIMARY M365 LOGIN - All Microsoft services |
+| 🥈 **2** | `rsplowman@icloud.com` | Apple/iCloud | Apple ecosystem, Passkeys |
+| 🥉 **3** | `rp@fishmusicinc.com` | Fish Music | Primary business email |
+| **4** | `rsp@noizylab.ca` | NOIZYLAB | Business/Git commits identity |
 
 ### Email Forwarding:
-- Set all secondary emails to forward to rsplowman@icloud.com
-- Update service accounts to use rsplowman@icloud.com
-- Keep rsp@noizyfish.com for NOIZYLAB business communications
+- Set all business emails to forward to rsplowman@outlook.com
+- Use rsplowman@icloud.com for Apple services and passkeys
+- Keep rsp@noizylab.ca for NOIZYLAB business communications and Git identity
 
 ---
 
@@ -200,11 +201,12 @@ hx# PASSKEY MASTERLIST
 
 ```bash
 # For NOIZYLAB business commits:
-git config --global user.email "rsp@noizyfish.com"
+git config --global user.email "rsp@noizylab.ca"
 git config --global user.name "Rob Plowman"
 
-# GitHub login: rsplowman@icloud.com + Passkey
-# Commits: rsp@noizyfish.com (business identity)
+# GitHub login: Use rsplowman@icloud.com with Passkey
+# Microsoft services: Use rsplowman@outlook.com
+# Commits: rsp@noizylab.ca (business identity)
 ```
 
 ---
@@ -223,9 +225,11 @@ git config --global user.name "Rob Plowman"
 ### Update Email:
 ```
 1. Settings → Account / Profile
-2. Change email to rsplowman@icloud.com
-3. Verify via iCloud email
-4. Remove old email
+2. Prioritize these emails:
+   - rsplowman@outlook.com (for Microsoft services)
+   - rsplowman@icloud.com (for Apple services and passkeys)
+3. Verify via respective email providers
+4. Remove old emails where applicable
 ```
 
 ---
@@ -233,7 +237,10 @@ git config --global user.name "Rob Plowman"
 ## SERVICES WITHOUT PASSKEY SUPPORT
 
 For these, use:
-1. **Email:** rsplowman@icloud.com
+1. **Email Priority:**
+   - Microsoft services: rsplowman@outlook.com
+   - Apple services: rsplowman@icloud.com
+   - General services: Choose based on service compatibility
 2. **Password:** iCloud Keychain generated (random, unique)
 3. **2FA:** Apple's built-in codes (Settings → Passwords → site → Set Up Verification Code)
 4. **NO SMS 2FA** - Security risk
@@ -267,7 +274,8 @@ For these, use:
 ## THE ENDGAME
 
 ```
-✅ ONE EMAIL: rsplowman@icloud.com
+✅ PRIMARY LOGIN: rsplowman@outlook.com (Microsoft 365)
+✅ APPLE SERVICES: rsplowman@icloud.com (iCloud + Passkeys)
 ✅ ONE AUTH: Apple Passkeys (Face ID / Touch ID)
 ✅ ONE SYNC: iCloud Keychain across all devices
 ✅ ZERO PASSWORDS: Where passkeys supported
@@ -275,4 +283,4 @@ For these, use:
 ✅ 84+ SERVICES: All consolidated
 ```
 
-**GORUNFREE. ONE IDENTITY. APPLE EVERYWHERE.**
+**GORUNFREE. DUAL IDENTITY. MICROSOFT + APPLE EVERYWHERE.**
