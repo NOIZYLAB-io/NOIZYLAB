@@ -1,0 +1,44 @@
+name = "noizylab-hotrod-flow"
+main = "hotrod-flow-worker.js"
+compatibility_date = "2024-01-01"
+node_compat = true
+
+[vars]
+ENVIRONMENT = "production"
+HUB_EMAIL = "rsplowman@outlook.com"
+SMTP_SERVER = "smtp.office365.com"
+SMTP_PORT = "587"
+IMAP_SERVER = "outlook.office365.com"
+IMAP_PORT = "993"
+
+# D1 Database binding
+# To create: wrangler d1 create noizylab-hotrod
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-hotrod"
+database_id = "your-database-id"  # Replace with actual ID after creation
+
+# KV Namespaces
+# To create: wrangler kv:namespace create EMAIL_QUEUE
+[[kv_namespaces]]
+binding = "EMAIL_QUEUE"
+id = "your-email-queue-kv-id"  # Replace with actual ID after creation
+
+# To create: wrangler kv:namespace create ANALYTICS
+[[kv_namespaces]]
+binding = "ANALYTICS"
+id = "your-analytics-kv-id"  # Replace with actual ID after creation
+
+# To create: wrangler kv:namespace create NOTIFICATIONS
+[[kv_namespaces]]
+binding = "NOTIFICATIONS"
+id = "your-notifications-kv-id"  # Replace with actual ID after creation
+
+# Scheduled triggers for maintenance and sync
+[triggers]
+crons = ["*/5 * * * *"]  # Run every 5 minutes
+
+# Route configuration
+[[routes]]
+pattern = "hotrod.noizylab.ca/*"
+zone_name = "noizylab.ca"

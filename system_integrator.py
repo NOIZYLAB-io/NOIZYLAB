@@ -23,6 +23,13 @@ class SystemIntegrator:
         print("="*80)
 
         integrations = {
+            "m365_hub": {
+                "email": "rsplowman@outlook.com",
+                "smtp": "smtp.office365.com:587",
+                "imap": "outlook.office365.com:993",
+                "uses": ["all_systems"],
+                "provides": ["unified_email", "central_auth", "flow_control"]
+            },
             "problem_solver": {
                 "uses": [
                     "quantum_computing",
