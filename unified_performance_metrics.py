@@ -10,6 +10,8 @@
 ║   Task execution timing and success rates                                 ║
 ║   Prometheus-compatible metrics export                                    ║
 ║   JSON REST API for dashboard integration                                 ║
+║   Performance optimization recommendations                                ║
+║   Bandwidth throttling management                                         ║
 ║                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════╝
 """
@@ -460,8 +462,151 @@ class UnifiedMetricsCollector:
             "health": self.get_cluster_health(),
             "grpc": self.get_grpc_summary(),
             "file_sync": self.get_file_sync_summary(),
-            "system": self.get_system_summary()
+            "system": self.get_system_summary(),
+            "recommendations": self.get_optimization_recommendations()
         }, indent=2)
+    
+    def get_optimization_recommendations(self) -> List[Dict]:
+        """Generate performance optimization recommendations"""
+        recommendations = []
+        
+        # Check gRPC latency
+        grpc_summary = self.get_grpc_summary()
+        if grpc_summary.get("avg_latency_ms", 0) > 100:
+            recommendations.append({
+                "component": "gRPC",
+                "severity": "warning",
+                "message": f"High gRPC latency: {grpc_summary['avg_latency_ms']:.1f}ms. Consider increasing thread pool size.",
+                "recommended_action": "Increase gRPC max concurrent streams"
+            })
+        
+        # Check file sync throughput
+        file_sync_summary = self.get_file_sync_summary()
+        if file_sync_summary.get("avg_upload_mbps", 0) < 10:
+            recommendations.append({
+                "component": "FileSync",
+                "severity": "info",
+                "message": f"Low upload throughput: {file_sync_summary['avg_upload_mbps']:.1f} Mbps",
+                "recommended_action": "Consider using faster network or compression"
+            })
+        
+        # Check system resources
+        system_summary = self.get_system_summary()
+        for node, metrics in system_summary.items():
+            if metrics.get("avg_cpu", 0) > 80:
+                recommendations.append({
+                    "component": f"System[{node}]",
+                    "severity": "warning",
+                    "message": f"High CPU usage: {metrics['avg_cpu']:.1f}%",
+                    "recommended_action": "Distribute workload or optimize hot functions"
+                })
+            
+            if metrics.get("avg_memory", 0) > 85:
+                recommendations.append({
+                    "component": f"System[{node}]",
+                    "severity": "warning",
+                    "message": f"High memory usage: {metrics['avg_memory']:.1f}%",
+                    "recommended_action": "Reduce in-flight operations or increase RAM"
+                })
+        
+        return recommendations
+
+# ═══════════════════════════════════════════════════════════════════════════
+# BANDWIDTH THROTTLING MANAGER
+# ═══════════════════════════════════════════════════════════════════════════
+
+class BandwidthThrottler:
+    """Manage bandwidth throttling for large transfers"""
+    
+    def __init__(self, max_bandwidth_mbps: float = 100.0):
+        self.max_bandwidth_mbps = max_bandwidth_mbps
+        self.max_bandwidth_bytes_sec = max_bandwidth_mbps * 1_000_000 / 8
+        self.current_usage_bytes = 0
+        self.last_reset_time = time.time()
+        self.transfer_history = deque(maxlen=100)
+        self.logger = logging.getLogger("BandwidthThrottler")
+    
+    async def acquire_bandwidth(self, bytes_needed: int) -> None:
+        """Wait until sufficient bandwidth is available"""
+        start_time = time.time()
+        
+        while True:
+            elapsed = time.time() - self.last_reset_time
+            if elapsed >= 1.0:
+                # Reset window
+                self.current_usage_bytes = 0
+                self.last_reset_time = time.time()
+            
+            available = self.max_bandwidth_bytes_sec - self.current_usage_bytes
+            
+            if available >= bytes_needed:
+                self.current_usage_bytes += bytes_needed
+                self.transfer_history.append({
+                    "timestamp": datetime.now(),
+                    "bytes": bytes_needed,
+                    "wait_ms": (time.time() - start_time) * 1000
+                })
+                return
+            
+            # Wait before retrying
+            wait_time = (bytes_needed - available) / self.max_bandwidth_bytes_sec
+            await asyncio.sleep(min(wait_time, 0.01))
+    
+    def get_current_usage_mbps(self) -> float:
+        """Get current bandwidth usage in Mbps"""
+        return (self.current_usage_bytes * 8) / 1_000_000
+    
+    def get_stats(self) -> Dict:
+        """Get bandwidth throttler statistics"""
+        return {
+            "max_bandwidth_mbps": self.max_bandwidth_mbps,
+            "current_usage_mbps": self.get_current_usage_mbps(),
+            "transfers_tracked": len(self.transfer_history),
+            "avg_transfer_bytes": sum(t["bytes"] for t in self.transfer_history) / len(self.transfer_history) if self.transfer_history else 0,
+            "avg_wait_ms": sum(t["wait_ms"] for t in self.transfer_history) / len(self.transfer_history) if self.transfer_history else 0
+        }
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PER-COMPONENT LATENCY TRACKER
+# ═══════════════════════════════════════════════════════════════════════════
+
+class LatencyTracker:
+    """Track latency per component"""
+    
+    def __init__(self, component_name: str, max_samples: int = 1000):
+        self.component_name = component_name
+        self.latencies = deque(maxlen=max_samples)
+        self.logger = logging.getLogger(f"LatencyTracker[{component_name}]")
+    
+    async def measure(self, coro):
+        """Measure coroutine execution time"""
+        start = time.time()
+        try:
+            result = await coro
+            elapsed_ms = (time.time() - start) * 1000
+            self.latencies.append(elapsed_ms)
+            return result
+        except Exception as e:
+            elapsed_ms = (time.time() - start) * 1000
+            self.latencies.append(elapsed_ms)
+            raise
+    
+    def get_stats(self) -> Dict:
+        """Get latency statistics"""
+        if not self.latencies:
+            return {"component": self.component_name, "samples": 0}
+        
+        sorted_lat = sorted(self.latencies)
+        return {
+            "component": self.component_name,
+            "samples": len(self.latencies),
+            "min_ms": sorted_lat[0],
+            "max_ms": sorted_lat[-1],
+            "mean_ms": sum(self.latencies) / len(self.latencies),
+            "median_ms": sorted_lat[len(sorted_lat) // 2],
+            "p95_ms": sorted_lat[int(len(sorted_lat) * 0.95)],
+            "p99_ms": sorted_lat[int(len(sorted_lat) * 0.99)]
+        }
 
 # ═══════════════════════════════════════════════════════════════════════════
 # EXAMPLE USAGE

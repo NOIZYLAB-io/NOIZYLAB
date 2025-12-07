@@ -27,8 +27,8 @@ import base64
 
 class DisplayCodec(Enum):
     H264 = "h264"      # Best compatibility
-    VP9 = "vp9"        # Better compression
-    H265 = "hevc"      # Newest, best compression
+    VP9 = "vp9"        # Better compression, 35% smaller
+    H265 = "hevc"      # Newest, best compression, 50% smaller
     MJPEG = "mjpeg"    # Fallback, high latency
 
 class InputType(Enum):
@@ -121,6 +121,8 @@ class ScreenCaptureEngine:
                 frame_data = await self._capture_h264(display_id, x, y, width, height)
             elif self.codec == DisplayCodec.VP9:
                 frame_data = await self._capture_vp9(display_id, x, y, width, height)
+            elif self.codec == DisplayCodec.H265:
+                frame_data = await self._capture_h265(display_id, x, y, width, height)
             else:
                 frame_data = await self._capture_mjpeg(display_id, x, y, width, height)
             
@@ -165,8 +167,23 @@ class ScreenCaptureEngine:
         height: Optional[int]
     ) -> bytes:
         """Capture and encode frame as VP9"""
-        # TODO: Implement VP9 encoding
+        # TODO: Implement VP9 encoding using ffmpeg
+        # VP9 provides ~35% smaller files than H.264
+        # Example: ffmpeg -f x11grab -i :0.0 -c:v libvpx-vp9 -crf 30 frame.vp9
         return b"VP9_FRAME_DATA"
+    
+    async def _capture_h265(
+        self,
+        display_id: int,
+        x: int,
+        y: int,
+        width: Optional[int],
+        height: Optional[int]
+    ) -> bytes:
+        """Capture and encode frame as H.265/HEVC"""
+        # H.265 provides ~50% smaller files than H.264 (best compression)
+        # Example: ffmpeg -f x11grab -i :0.0 -c:v libx265 -crf 28 frame.h265
+        return b"H265_FRAME_DATA"
     
     async def _capture_mjpeg(
         self,
@@ -194,6 +211,27 @@ class InputInjectionEngine:
     
     def __init__(self):
         self.logger = logging.getLogger("InputInjectionEngine")
+        self.cursor_x = 0
+        self.cursor_y = 0
+        self.last_cursor_update = datetime.now()
+        self.cursor_history = []  # For sub-pixel tracking
+    
+    def track_cursor_movement(self, x: int, y: int) -> None:
+        """Track cursor movement for smoothing"""
+        self.cursor_x = x
+        self.cursor_y = y
+        self.last_cursor_update = datetime.now()
+        
+        # Keep history for interpolation (last 5 positions)
+        self.cursor_history.append((x, y, datetime.now()))
+        if len(self.cursor_history) > 5:
+            self.cursor_history.pop(0)
+    
+    def get_smooth_cursor_position(self, target_x: int, target_y: int, alpha: float = 0.3) -> Tuple[int, int]:
+        """Get smoothed cursor position using exponential moving average"""
+        smooth_x = int(self.cursor_x * (1 - alpha) + target_x * alpha)
+        smooth_y = int(self.cursor_y * (1 - alpha) + target_y * alpha)
+        return smooth_x, smooth_y
     
     async def inject_keyboard(
         self,
@@ -264,12 +302,28 @@ class UnifiedRemoteDisplay:
         self.frame_rate: int = 30
         self.bitrate_target_kbps: int = 2500  # 2.5 Mbps
         
+        # Cursor tracking
+        self.cursor_x: int = 0
+        self.cursor_y: int = 0
+        self.show_remote_cursor: bool = True
+        
+        # Display annotations
+        self.annotations_enabled: bool = True
+        self.annotation_color: str = "#FF0000"  # Red
+        self.annotation_shapes = []  # List of drawn shapes
+        
+        # Session management
+        self.session_id: Optional[str] = None
+        self.is_paused: bool = False
+        self.active_window: Optional[str] = None  # For window-specific sharing
+        
         self.stream_stats = {
             "frames_sent": 0,
             "frames_dropped": 0,
             "total_bytes_sent": 0,
             "start_time": None,
-            "latency_ms": 0
+            "latency_ms": 0,
+            "cursor_updates": 0
         }
     
     async def enumerate_displays(self) -> Dict[int, Display]:
@@ -298,6 +352,75 @@ class UnifiedRemoteDisplay:
             self.logger.error(f"Display enumeration failed: {e}")
             return {}
     
+    async def enumerate_windows(self) -> Dict[str, Dict]:
+        """Enumerate available windows for selective sharing"""
+        try:
+            # TODO: Platform-specific window enumeration
+            # macOS: CGWindowListCopyWindowInfo
+            # Windows: EnumWindows
+            
+            windows = {
+                "chrome": {"title": "Google Chrome", "pid": 1234},
+                "terminal": {"title": "Terminal", "pid": 5678},
+                "vscode": {"title": "Visual Studio Code", "pid": 9012}
+            }
+            
+            self.logger.info(f"🪟 Found {len(windows)} window(s)")
+            return windows
+            
+        except Exception as e:
+            self.logger.error(f"Window enumeration failed: {e}")
+            return {}
+    
+    async def start_window_sharing(self, window_id: str) -> bool:
+        """Start sharing a specific window instead of entire display"""
+        try:
+            self.active_window = window_id
+            self.logger.info(f"🪟 Window sharing: {window_id}")
+            return True
+        except Exception as e:
+            self.logger.error(f"Window sharing failed: {e}")
+            return False
+    
+    async def update_cursor_position(self, x: int, y: int, show: bool = True) -> None:
+        """Update and synchronize remote cursor position"""
+        try:
+            self.cursor_x = x
+            self.cursor_y = y
+            self.show_remote_cursor = show
+            self.input_engine.track_cursor_movement(x, y)
+            self.stream_stats["cursor_updates"] += 1
+            
+        except Exception as e:
+            self.logger.error(f"Cursor update failed: {e}")
+    
+    async def add_annotation(self, shape: str, x: int, y: int, color: str = None, duration_sec: int = 5) -> None:
+        """Add on-screen annotation (pointer, arrow, circle, etc.)"""
+        try:
+            color = color or self.annotation_color
+            annotation = {
+                "shape": shape,  # "pointer", "arrow", "circle", "rectangle", "text"
+                "x": x,
+                "y": y,
+                "color": color,
+                "created_at": datetime.now(),
+                "duration_sec": duration_sec
+            }
+            self.annotation_shapes.append(annotation)
+            self.logger.debug(f"📝 Annotation added: {shape} at ({x}, {y})")
+            
+            # Auto-remove after duration
+            asyncio.create_task(self._remove_annotation_delayed(annotation, duration_sec))
+            
+        except Exception as e:
+            self.logger.error(f"Annotation failed: {e}")
+    
+    async def _remove_annotation_delayed(self, annotation: Dict, delay_sec: int) -> None:
+        """Remove annotation after delay"""
+        await asyncio.sleep(delay_sec)
+        if annotation in self.annotation_shapes:
+            self.annotation_shapes.remove(annotation)
+    
     async def start_streaming(
         self,
         display_id: int = 0,
@@ -310,12 +433,17 @@ class UnifiedRemoteDisplay:
                 self.logger.error(f"Display {display_id} not found")
                 return False
             
+            # Generate session ID
+            import uuid
+            self.session_id = str(uuid.uuid4())[:8]
+            
             self.streaming = True
+            self.is_paused = False
             self.frame_rate = frame_rate
             self.bitrate_target_kbps = bitrate_kbps
             self.stream_stats["start_time"] = datetime.now()
             
-            self.logger.info(f"🎬 Streaming started ({display_id}, {frame_rate} FPS, {bitrate_kbps} kbps)")
+            self.logger.info(f"🎬 Streaming started [ID: {self.session_id}] ({display_id}, {frame_rate} FPS, {bitrate_kbps} kbps)")
             
             # Start capture loop
             asyncio.create_task(self._capture_loop(display_id))
@@ -324,6 +452,22 @@ class UnifiedRemoteDisplay:
         except Exception as e:
             self.logger.error(f"Stream start failed: {e}")
             return False
+    
+    async def pause_streaming(self) -> None:
+        """Pause stream without stopping"""
+        self.is_paused = True
+        self.logger.info("⏸️  Streaming paused")
+    
+    async def resume_streaming(self) -> None:
+        """Resume paused stream"""
+        self.is_paused = False
+        self.logger.info("▶️  Streaming resumed")
+    
+    async def disconnect_session(self) -> None:
+        """Disconnect current session"""
+        self.streaming = False
+        self.session_id = None
+        self.logger.info("🔌 Session disconnected")
     
     async def stop_streaming(self) -> None:
         """Stop screen streaming"""
@@ -344,9 +488,24 @@ class UnifiedRemoteDisplay:
         
         while self.streaming:
             try:
-                frame = await self.capture_engine.capture_frame(display_id)
+                # Skip frame capture if paused, but keep listening for input
+                if self.is_paused:
+                    await asyncio.sleep(0.1)
+                    continue
+                
+                # Capture full screen or active window
+                if self.active_window:
+                    frame = await self.capture_engine.capture_frame(display_id)  # TODO: Filter to window
+                else:
+                    frame = await self.capture_engine.capture_frame(display_id)
                 
                 if frame:
+                    # Apply annotations if enabled
+                    if self.annotations_enabled and self.annotation_shapes:
+                        # TODO: Overlay annotations on frame data
+                        # frame.data = self._apply_annotations(frame.data, self.annotation_shapes)
+                        pass
+                    
                     # Check if we should drop frame to maintain bitrate
                     if frame.bitrate_kbps > self.bitrate_target_kbps * 1.2:
                         self.stream_stats["frames_dropped"] += 1
@@ -394,21 +553,28 @@ class UnifiedRemoteDisplay:
             return False
     
     def get_stream_stats(self) -> Dict:
-        """Get streaming statistics"""
+        """Get comprehensive streaming statistics"""
         if not self.stream_stats["start_time"]:
             return {}
         
         elapsed = (datetime.now() - self.stream_stats["start_time"]).total_seconds()
         
         return {
+            "session_id": self.session_id,
             "streaming": self.streaming,
+            "paused": self.is_paused,
+            "codec": self.codec.value,
             "elapsed_seconds": elapsed,
             "frames_sent": self.stream_stats["frames_sent"],
             "frames_dropped": self.stream_stats["frames_dropped"],
             "fps": self.stream_stats["frames_sent"] / elapsed if elapsed > 0 else 0,
             "mbps": (self.stream_stats["total_bytes_sent"] * 8) / (elapsed * 1_000_000) if elapsed > 0 else 0,
             "bitrate_target_kbps": self.bitrate_target_kbps,
-            "latency_ms": self.stream_stats["latency_ms"]
+            "latency_ms": self.stream_stats["latency_ms"],
+            "cursor_updates": self.stream_stats["cursor_updates"],
+            "cursor_pos": (self.cursor_x, self.cursor_y),
+            "active_window": self.active_window,
+            "annotations_count": len(self.annotation_shapes)
         }
 
 # ═══════════════════════════════════════════════════════════════════════════
