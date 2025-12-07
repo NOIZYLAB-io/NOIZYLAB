@@ -26,21 +26,21 @@ class OutlookSetup:
     
     def create_outlook_config(self, email: str, domain: str = None):
         """Create Outlook configuration"""
-        if domain == "gmail.com" or not domain:
+        if domain == "outlook.com" or not domain:
             config = {
                 "account_type": "IMAP",
                 "email": email,
-                "incoming_server": "imap.gmail.com",
+                "incoming_server": "outlook.office365.com",
                 "incoming_port": 993,
                 "incoming_ssl": True,
-                "outgoing_server": "smtp.gmail.com",
+                "outgoing_server": "smtp.office365.com",
                 "outgoing_port": 587,
                 "outgoing_tls": True,
                 "username": email,
-                "password": "USE_APP_PASSWORD"
+                "password": "USE_M365_PASSWORD"
             }
         else:
-            # Custom domain (Google Workspace)
+            # Custom domain (Google Workspace or other)
             config = {
                 "account_type": "IMAP",
                 "email": email,
@@ -72,15 +72,14 @@ class OutlookSetup:
         
         configs = []
         
-        # Primary Gmail
-        primary = emails_data.get("google_account", {}).get("primary", "")
-        if primary:
-            config = self.create_outlook_config(primary, "gmail.com")
-            config_path = configs_dir / "gmail-primary.json"
-            with open(config_path, 'w') as f:
-                json.dump(config, f, indent=2)
-            configs.append(("Gmail Primary", config_path))
-            console.print(f"[green]✅ Gmail config: {primary}[/green]")
+        # Primary Microsoft 365
+        primary = "rsplowman@outlook.com"
+        config = self.create_outlook_config(primary, "outlook.com")
+        config_path = configs_dir / "m365-primary.json"
+        with open(config_path, 'w') as f:
+            json.dump(config, f, indent=2)
+        configs.append(("Microsoft 365 Primary", config_path))
+        console.print(f"[green]✅ Microsoft 365 config: {primary}[/green]")
         
         # NoizyLab
         for email in emails_data.get("noizylab_emails", []):
@@ -108,23 +107,23 @@ class OutlookSetup:
 
 ## Add Email Account
 
-### For Gmail:
+### For Microsoft 365:
 1. Outlook → Preferences → Accounts
 2. Click "+" → New Account
-3. Enter email address
+3. Enter email address: rsplowman@outlook.com
 4. Select "IMAP"
 5. Enter:
-   - Incoming: imap.gmail.com:993 (SSL)
-   - Outgoing: smtp.gmail.com:587 (TLS)
-   - Username: your@email.com
-   - Password: App Password
+   - Incoming: outlook.office365.com:993 (SSL)
+   - Outgoing: smtp.office365.com:587 (TLS)
+   - Username: rsplowman@outlook.com
+   - Password: M365 Password or App Password
 
 ### For Custom Domains (NoizyLab/Fish Music):
-Same settings as Gmail (using Google Workspace)
+Check if using Google Workspace or other provider
 
 ## App Passwords
-Use Gmail App Passwords for all accounts:
-https://myaccount.google.com/apppasswords
+- Microsoft 365: https://account.microsoft.com/security
+- Google Workspace: https://myaccount.google.com/apppasswords
 """
         
         guide_path = configs_dir / "SETUP_GUIDE.md"

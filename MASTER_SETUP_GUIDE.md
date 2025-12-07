@@ -5,7 +5,7 @@
 
 ## 📧 ACCOUNTS TO CONFIGURE
 
-1. **rsplowman@gmail.com** (Gmail - PRIMARY)
+1. **rsplowman@outlook.com** (Microsoft 365 - PRIMARY)
 2. **rp@fishmusicinc.com** (Fish Music Inc)
 3. **info@fishmusicinc.com** (Fish Music Inc)
 4. **rsp@noizylab.ca** (Noizylab)
@@ -31,7 +31,7 @@
 ## 📋 SETUP ORDER (Recommended)
 
 **Start with Primary:**
-1. Gmail (rsplowman@gmail.com) - OAuth
+1. Microsoft 365 (rsplowman@outlook.com) - OAuth
 
 **Then Business Emails:**
 2. rp@fishmusicinc.com
@@ -47,8 +47,8 @@
 
 ## 🔐 PASSWORDS NEEDED
 
-### Gmail:
-- Option 1: Regular Gmail password + OAuth
+### Microsoft 365:
+- Option 1: Regular M365 password + OAuth
 - Option 2: App-specific password
 
 ### Fish Music Inc (both accounts):
@@ -67,7 +67,7 @@
 
 | Domain | IMAP Server | SMTP Server | Ports |
 |--------|-------------|-------------|-------|
-| Gmail | imap.gmail.com | smtp.gmail.com | 993/587 |
+| Microsoft 365 | outlook.office365.com | smtp.office365.com | 993/587 |
 | Fish Music | mail.fishmusicinc.com | mail.fishmusicinc.com | 993/587 |
 | Noizylab | mail.noizylab.ca | mail.noizylab.ca | 993/587 |
 | iCloud | imap.mail.me.com | smtp.mail.me.com | 993/587 |
@@ -90,9 +90,9 @@
    - 📁 Personal (Gmail/iCloud)
 
 ### Color Categories:
+- 🔵 Microsoft 365 / Personal
 - 🟢 Fish Music Inc emails
-- 🔵 Noizylab emails
-- 🟡 Personal emails
+- 🟠 Noizylab emails
 
 ### Rules (Optional):
 - Auto-categorize by sender domain
@@ -110,7 +110,7 @@
 ✓ Use correct port numbers
 
 ### "Authentication failed"
-✓ Gmail: Use OAuth or app password
+✓ Microsoft 365: Use OAuth or app password
 ✓ iCloud: MUST use app-specific password
 ✓ Custom domains: Verify password
 ✓ Username = full email address
@@ -166,6 +166,6 @@ If you need help:
 ---
 
 **All configuration files are in this directory!**
-**Start with Account 1 (Gmail) and work through each one.**
+**Start with Account 1 (Microsoft 365) and work through each one.**
 
 ✅ Ready to set up all 7 email accounts!
