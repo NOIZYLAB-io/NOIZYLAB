@@ -164,7 +164,7 @@ async function handleCreateIntent(request, env) {
   }
 
   // In production, call Stripe API to create payment intent
-  const intentId = `pi_${crypto.randomUUID().replace(/-/g, '')}`;
+  const intentId = `test_pi_${crypto.randomUUID().replace(/-/g, '')}`;  // test_ prefix for clarity
   const clientSecret = `${intentId}_secret_${crypto.randomUUID().replace(/-/g, '')}`;
 
   const intent = {
@@ -180,7 +180,8 @@ async function handleCreateIntent(request, env) {
     metadata: {
       repair_id: data.repair_id,
       service: 'CPU Repair',
-      base_price: '89.00'
+      base_price: '89.00',
+      test_mode: true  // Clearly indicate this is test mode
     }
   };
 

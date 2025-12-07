@@ -168,6 +168,15 @@ async function handleSendEmail(request, env) {
     );
   }
 
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(data.to)) {
+    return new Response(
+      JSON.stringify({ error: 'Invalid email address format' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
   // Prepare email
   const email = {
     id: crypto.randomUUID(),

@@ -257,6 +257,18 @@ async function createRepairFlow(request, env) {
     );
   }
 
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(data.customer_email)) {
+    return new Response(
+      JSON.stringify({ error: 'Invalid email address' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // Sanitize input fields to prevent data integrity issues
+  const sanitize = (str) => String(str).substring(0, 500); // Limit length
+  
   const repairId = crypto.randomUUID();
   const timestamp = new Date().toISOString();
 
@@ -268,11 +280,11 @@ async function createRepairFlow(request, env) {
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).bind(
     repairId,
-    data.customer_name || 'Unknown',
+    sanitize(data.customer_name || 'Unknown'),
     data.customer_email,
-    data.customer_phone || '',
-    data.device_type,
-    data.issue,
+    sanitize(data.customer_phone || ''),
+    sanitize(data.device_type),
+    sanitize(data.issue),
     data.urgency || 'normal',
     'received',
     timestamp

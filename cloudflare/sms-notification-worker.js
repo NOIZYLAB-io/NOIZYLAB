@@ -198,16 +198,22 @@ async function handleRepairUpdate(request, env) {
     );
   }
 
+  // Sanitize inputs to prevent SMS injection
+  const sanitizeForSMS = (str) => String(str).replace(/[^\w\s\-]/g, '').substring(0, 100);
+  const repairId = sanitizeForSMS(data.repair_id);
+  const trackingNumber = data.tracking_number ? sanitizeForSMS(data.tracking_number) : 'See email';
+
   // Create status update message
   const messages = {
-    received: `NOIZYLAB: We've received your repair (${data.repair_id}). We'll start diagnosis soon!`,
-    in_progress: `NOIZYLAB: Your repair (${data.repair_id}) is now being worked on by our tech team.`,
-    completed: `NOIZYLAB: Great news! Your repair (${data.repair_id}) is complete. Check your email for details.`,
-    ready_for_pickup: `NOIZYLAB: Your repair (${data.repair_id}) is ready! Please check your email for pickup details.`,
-    shipped: `NOIZYLAB: Your repaired device (${data.repair_id}) has been shipped! Track: ${data.tracking_number || 'See email'}`
+    received: `NOIZYLAB: We've received your repair (${repairId}). We'll start diagnosis soon!`,
+    in_progress: `NOIZYLAB: Your repair (${repairId}) is now being worked on by our tech team.`,
+    completed: `NOIZYLAB: Great news! Your repair (${repairId}) is complete. Check your email for details.`,
+    ready_for_pickup: `NOIZYLAB: Your repair (${repairId}) is ready! Please check your email for pickup details.`,
+    shipped: `NOIZYLAB: Your repaired device (${repairId}) has been shipped! Track: ${trackingNumber}`
   };
 
-  const message = data.custom_message || messages[data.status] || `NOIZYLAB: Update on repair ${data.repair_id}: ${data.status}`;
+  const message = data.custom_message ? sanitizeForSMS(data.custom_message) : 
+                  messages[data.status] || `NOIZYLAB: Update on repair ${repairId}: ${data.status}`;
 
   // Send SMS
   const smsId = crypto.randomUUID();
@@ -216,7 +222,7 @@ async function handleRepairUpdate(request, env) {
     to: data.phone,
     from: env.TWILIO_FROM_NUMBER,
     message: message,
-    repair_id: data.repair_id,
+    repair_id: repairId,
     status_update: data.status,
     timestamp: new Date().toISOString()
   };
