@@ -1,0 +1,77 @@
+name: Repo Maintenance - Branch Cleanup & GC
+
+on:
+  schedule:
+    # Default: weekly on Sunday at 03:00 UTC — edit as needed
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    inputs:
+      execute:
+        description: 'true to actually delete branches; otherwise dry-run'
+        required: false
+        default: 'false'
+      keep_days:
+        description: 'Keep branches with last commit newer than this many days (0 = ignore age)'
+        required: false
+        default: '30'
+      protected_branches:
+        description: 'Comma-separated list of branches to never delete (in addition to default branch)'
+        required: false
+        default: 'main,master'
+      allow_prune:
+        description: 'If true allow git remote prune and git gc (default: true)'
+        required: false
+        default: 'true'
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      checks: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine default branch
+        id: repo_info
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const repo = context.repo;
+            const r = await github.rest.repos.get({ owner: repo.owner, repo: repo.repo });
+            return { default_branch: r.data.default_branch };
+
+      - name: Configure inputs
+        run: |
+          echo "DEFAULT_BRANCH=${{ steps.repo_info.outputs.default_branch }}" > $GITHUB_ENV
+          echo "EXECUTE=${{ github.event.inputs.execute || 'false' }}" > $GITHUB_ENV
+          echo "KEEP_DAYS=${{ github.event.inputs.keep_days || '30' }}" > $GITHUB_ENV
+          echo "PROTECTED_CSV=${{ github.event.inputs.protected_branches || 'main,master' }}" > $GITHUB_ENV
+          echo "ALLOW_PRUNE=${{ github.event.inputs.allow_prune || 'true' }}" > $GITHUB_ENV
+          echo "REPO_URL=https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" > $GITHUB_ENV
+
+      - name: Show configuration
+        run: |
+          echo "Default branch: $DEFAULT_BRANCH"
+          echo "Execute deletions: $EXECUTE"
+          echo "Keep days: $KEEP_DAYS"
+          echo "Protected branches (csv): $PROTECTED_CSV"
+          echo "Allow prune/gc: $ALLOW_PRUNE"
+
+      - name: Make cleanup script executable
+        run: chmod +x ./scripts/cleanup.sh
+
+      - name: Run cleanup (dry-run by default)
+        env:
+          DEFAULT_BRANCH: ${{ env.DEFAULT_BRANCH }}
+          EXECUTE: ${{ env.EXECUTE }}
+          KEEP_DAYS: ${{ env.KEEP_DAYS }}
+          PROTECTED_CSV: ${{ env.PROTECTED_CSV }}
+          ALLOW_PRUNE: ${{ env.ALLOW_PRUNE }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_URL: ${{ env.REPO_URL }}
+        run: |
+          ./scripts/cleanup.sh
