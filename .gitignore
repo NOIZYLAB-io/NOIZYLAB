@@ -1,3 +1,4 @@
+# Audio/Video
 *.wav
 *.mp3
 *.mov
@@ -6,18 +7,39 @@
 *.flac
 *.aif
 *.aiff
+*.m4a
+*.ogg
+
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Dependencies
 node_modules/
 .venv/
+venv/
 __pycache__/
 *.pyc
+
+# Environment
 .env
+.env.local
+
+# Logs
 *.log
-PROJECTS/repairrob_staging/data/raw_wavs/
+logs/
+
+# Data directories (large files)
 PROJECTS/*/data/raw_wavs/
 PROJECTS/*/data/dataset/
 PROJECTS/*/data/curated/
-logs/
+
+# Catalogs (generated, large)
+docs/*_CATALOG.md
+
+# Temporary
 *.tmp
 *.bak
 mission-run-*/
+archives/
