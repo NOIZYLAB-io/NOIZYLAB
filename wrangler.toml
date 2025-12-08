@@ -9,4 +9,4 @@ ENV = "prod"
 enabled = true
 
 [placement]
-binding = "smart"
+mode = "smart"
