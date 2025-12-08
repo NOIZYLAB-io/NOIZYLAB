@@ -1,3 +1,72 @@
+**Parallels + Jumbo Frames + D-Link DGS‑1210‑10 Integration**
+
+- **Goal:** Maximize ClaudeWorkers knowledge flow and I/O performance by standardizing jumbo frames (MTU 9000), optimizing Parallels Desktop networking/storage, and aligning switch and macOS hosts for end‑to‑end throughput.
+
+**Network Baseline**
+- **MTU 9000:** Verified on `Ethernet` and `Thunderbolt Bridge` and `en0`.
+- **Validate:** Run task `🔥 Check MTU (Jumbo Frames)` to confirm after changes.
+- **Switch config (DGS‑1210‑10):**
+  - Enable jumbo frames globally.
+  - Ensure all ports connected to Macs, NAS, and Parallels hosts are set to MTU 9216 (or device‑supported 9000).
+  - Disable flow control if NIC/drivers prefer; otherwise keep consistent across ports.
+  - Use static link speeds; avoid auto‑negotiation issues on 10G/2.5G links.
+
+**Parallels Desktop Configuration**
+- **Virtual NIC:**
+  - Use `Bridged Network` to physical adapter that is jumbo‑enabled (e.g., `en0` or Thunderbolt 10G).
+  - Inside guest OS, set MTU to 9000 and confirm with `ip link` (Linux) or `netsh interface ipv4 show subinterfaces` (Windows). Test with `ping -M do -s 8972` (Linux) or `ping -l 8972 -f` (Windows).
+- **Virtual Disk (Performance):**
+  - Prefer `.pvm` stored on high‑throughput volume (NVMe or 10G NAS).
+  - Enable `Performance` > `Tune for speed` and `TRIM` if SSD‑backed.
+  - For Linux guests, mount working datasets via virtio‑fs or SMB with `aio` and large `rsize/wsize`.
+- **CPU/RAM:**
+  - Assign physical cores (no oversubscription) and reserve RAM with memory ballooning off for deterministic performance.
+  - Pin vCPUs to host cores where possible; keep headroom for macOS.
+
+**macOS Host Optimization**
+- **Run:** `🧰 Upgrade & Improve macOS` for system tunings (developer tools, I/O, networking).
+- **Spotlight:** Exclude high‑throughput working volumes from indexing.
+- **Jumbo Validation:** Use `⚡ Speed Test (Jumbo Frames)` and compare sustained MB/s.
+
+**Pipeline: Knowledge & Data Flow (God → Gabriel → Go)**
+- **Source of Truth:** Centralized datasets on jumbo‑enabled NAS or NVMe RAID.
+- **Ingest:**
+  - Host pulls data over MTU 9000 path; Parallels guest accesses via bridged jumbo path.
+  - Use message queues (e.g., Redis/NATS) for metadata; batch sizes tuned to NIC bandwidth.
+- **Processing:**
+  - Parallelize workers with pinned CPU and I/O queues sized to NIC + disk throughput.
+  - Maintain backpressure via queue depth limits; monitor latency percentiles.
+- **Publish:**
+  - Results written to high‑throughput storage; host aggregates and syncs to downstream (Go services, CI/CD). 
+
+**Operational Checks**
+- **MTU:** Run `🔥 Check MTU (Jumbo Frames)` after any network change.
+- **Throughput:** Periodically run `⚡ Speed Test (Jumbo Frames)`; track baseline.
+- **Deploy:** Use `🚀 Deploy NOIZYLAB` once environment validates.
+ - **AI Workers:** Operate in local-only mode; remote/voice-driven repairs deferred per `AI_WORKERS_READINESS.md` until readiness checklist is complete.
+
+**Quick Commands (macOS, zsh)**
+- Verify NIC MTU:
+```
+networksetup -getMTU Ethernet
+networksetup -getMTU 'Thunderbolt Bridge'
+ifconfig en0 | grep -i mtu
+```
+- Guest (Linux) MTU:
+```
+sudo ip link set dev eth0 mtu 9000
+ip link show eth0 | grep mtu
+ping -M do -s 8972 <host_or_gateway>
+```
+- Disk speed sanity:
+```
+time dd if=/dev/zero of=/Volumes/12TB/speedtest bs=1m count=1000 && ls -lh /Volumes/12TB/speedtest && rm /Volumes/12TB/speedtest
+```
+
+**Notes**
+- Ensure every hop (host NIC → switch port → guest vNIC) supports MTU 9000; a single non‑jumbo link will force fragmentation or drops.
+- Prefer bridged networking over shared/NAT for deterministic performance and MTU control.
+- Keep firmware of DGS‑1210‑10 and NICs updated; mismatched features can reduce throughput.
 # 🚀 NOIZYLAB AI & COMMS INTEGRATION MAP
 
 ## System Architecture Overview
