@@ -1,21 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "==> UPGRADE & IMPROVE macOS (safe maintenance)"
-echo "This will: update macOS (optional), update Homebrew apps, rebuild caches, reindex Spotlight, and optimize settings."
-
 TS="$(date +%Y%m%d-%H%M%S)"
+LOGDIR="$HOME/noizylab-upgrade-logs"
+mkdir -p "$LOGDIR"
+LOGFILE="$LOGDIR/upgrade-$TS.log"
 BACKUP_DIR="$HOME/Desktop/system-settings-backup-$TS"
 mkdir -p "$BACKUP_DIR"
 
-step() { echo; echo "[✓] $1"; }
+log() { echo "[$(date +%H:%M:%S)] $1" | tee -a "$LOGFILE"; }
+
+log "=== UPGRADE & IMPROVE macOS — $TS ==="
+log "Logs: $LOGFILE | Backup: $BACKUP_DIR"
+
+step() { log "[✓] $1"; }
 
 # 0) Show system info
-sw_vers || true
+sw_vers 2>&1 | tee -a "$LOGFILE" || true
 
 # 1) Back up a few prefs (for rollback)
-cp -v "$HOME/Library/Preferences/com.apple.systempreferences.plist" "$BACKUP_DIR/" 2>/dev/null || true
-cp -v "$HOME/Library/Preferences/com.apple.Spotlight.plist" "$BACKUP_DIR/" 2>/dev/null || true
+cp -v "$HOME/Library/Preferences/com.apple.systempreferences.plist" "$BACKUP_DIR/" 2>&1 | tee -a "$LOGFILE" || true
+cp -v "$HOME/Library/Preferences/com.apple.Spotlight.plist" "$BACKUP_DIR/" 2>&1 | tee -a "$LOGFILE" || true
 step "Backed up prefs to $BACKUP_DIR"
 
 # 2) Optional: macOS updates (uncomment to auto-install)
@@ -85,7 +90,9 @@ if command -v pluginkit >/dev/null 2>&1; then
 fi
 
 echo
-echo "✅ Upgrade & Improve complete. Recommended next steps:"
+log "✅ Upgrade & Improve complete."
+log "Logs saved to: $LOGFILE"
+echo "Recommended next steps:"
 echo "- Restart the Mac to fully reload System Settings panels."
 echo "- Open System Settings > Apple ID > iCloud > Screen Time: turn OFF if it keeps greying options."
 echo "- In Screen Time: disable 'Share Across Devices' to prevent remote lock."
