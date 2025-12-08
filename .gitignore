@@ -4,4 +4,12 @@
 *.mp4
 *.logicx
 .DS_Store
+._*
 node_modules/
+dist/
+build/
+*.pyc
+__pycache__/
+.vscode/
+.idea/
+*.log
