@@ -25,3 +25,29 @@ chmod +x ./autorun.sh
 - Tune storage per `STORAGE_TUNING.md` and re-run to compare MB/s.
 - If `wrangler deploy` fails, follow `WRANGLER_DEPLOY_GUIDE.md`.
 - Track metrics in `KPI_DASHBOARD.md`.
+
+---
+
+**Auto-Run on Boot**
+
+**macOS (M2 Ultra)**
+- Alias added to `~/.zshrc`:
+  ```
+  alias noizylab-autorun="/path/to/autorun.sh"
+  ```
+- Auto-run on login added to `~/.zlogin`:
+  ```
+  nohup /path/to/autorun.sh > /tmp/noizylab-autorun.log 2>&1 &
+  ```
+
+**Windows (HP-OMEN)**
+- Open PowerShell and edit your profile:
+  ```
+  notepad $PROFILE
+  ```
+- Add the following (adjust path as needed):
+  ```powershell
+  # NOIZYLAB autorun on startup
+  Start-Process -NoNewWindow -FilePath "wsl" -ArgumentList "bash /mnt/c/path/to/autorun.sh" -RedirectStandardOutput "$env:TEMP\noizylab-autorun.log"
+  ```
+- If not using WSL, create a native `.ps1` script with equivalent checks and add it to Task Scheduler or `shell:startup`.
