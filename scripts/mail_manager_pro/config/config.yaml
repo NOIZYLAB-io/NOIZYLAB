@@ -1,0 +1,67 @@
+# Mail Manager Pro Configuration
+
+mail_manager:
+  version: 3.5.0
+  auto_backup_enabled: true
+  auto_backup_interval: 86400  # 24 hours
+  max_backups: 30
+
+accounts:
+  - name: "Apple Mail"
+    type: "applemail"
+    enabled: true
+  - name: "Gmail"
+    type: "gmail"
+    enabled: false
+    oauth: false
+  - name: "Microsoft 365"
+    type: "outlook365"
+    enabled: false
+    oauth: false
+
+folders:
+  - name: "Archive"
+    parent: null
+    accounts: ["Apple Mail"]
+  - name: "Projects"
+    parent: null
+    accounts: ["Apple Mail"]
+    subfolders:
+      - name: "Current"
+      - name: "Completed"
+  - name: "Reference"
+    parent: null
+    accounts: ["Apple Mail"]
+
+rules:
+  - name: "Work to Projects"
+    match_field: "from"
+    match_value: "@company.com"
+    action: "move"
+    destination: "Projects"
+  - name: "Archive Old"
+    match_field: "date"
+    match_value: "older:90d"
+    action: "move"
+    destination: "Archive"
+
+scheduler:
+  enabled: false
+  interval: 300  # 5 minutes
+  tasks:
+    - name: "sync_folders"
+      schedule: "0 6 * * *"  # Daily @ 6 AM
+    - name: "backup"
+      schedule: "0 2 * * 0"  # Weekly Sunday @ 2 AM
+
+webhooks:
+  slack:
+    enabled: false
+    url: ""
+  discord:
+    enabled: false
+    url: ""
+  teams:
+    enabled: false
+    url: ""
+
