@@ -330,8 +330,10 @@
 
         // Handle login button click
         function handleLogin() {
-            // In a real implementation, this would redirect to GitHub OAuth
-            // For now, simulate a successful login after a brief delay
+            // TODO: Implement GitHub OAuth flow
+            // Real implementation should redirect to:
+            // https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI
+            // For demonstration purposes, this simulates a successful login
             showApproved();
         }
 
@@ -339,14 +341,34 @@
         function handleReturn() {
             const returnTo = getUrlParameter('return_to');
             if (returnTo) {
-                window.location.href = decodeURIComponent(returnTo);
+                // Validate the return URL to prevent open redirect vulnerabilities
+                const decodedUrl = decodeURIComponent(returnTo);
+                try {
+                    const url = new URL(decodedUrl);
+                    // Whitelist of allowed domains for redirect
+                    const allowedDomains = ['github.com', 'github.io', 'localhost'];
+                    const isAllowed = allowedDomains.some(domain => 
+                        url.hostname === domain || url.hostname.endsWith('.' + domain)
+                    );
+                    
+                    if (isAllowed) {
+                        window.location.href = decodedUrl;
+                    } else {
+                        console.warn('Redirect blocked: URL not in allowed domains');
+                        window.close();
+                    }
+                } catch (e) {
+                    // Invalid URL, just close the window
+                    console.error('Invalid return URL:', e);
+                    window.close();
+                }
             } else {
                 window.close();
             }
         }
 
         // Initialize page based on URL parameters
-        window.onload = function() {
+        window.addEventListener('load', function() {
             const status = getUrlParameter('status');
             const error = getUrlParameter('error');
             
@@ -358,7 +380,7 @@
                 showLogin();
                 displayReturnUrl();
             }
-        };
+        });
     </script>
 </body>
 </html>
