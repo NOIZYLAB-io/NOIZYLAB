@@ -345,7 +345,8 @@
                 const decodedUrl = decodeURIComponent(returnTo);
                 try {
                     const url = new URL(decodedUrl);
-                    // Whitelist of allowed domains for redirect
+                    // Whitelist of allowed domains for redirect to prevent open redirect vulnerabilities
+                    // Only allow redirects to GitHub domains and localhost for testing
                     const allowedDomains = ['github.com', 'github.io', 'localhost'];
                     const isAllowed = allowedDomains.some(domain => 
                         url.hostname === domain || url.hostname.endsWith('.' + domain)
