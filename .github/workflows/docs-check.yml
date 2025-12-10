@@ -12,10 +12,15 @@ on:
       - 'docs/**'
       - '**.md'
 
+permissions:
+  contents: read
+
 jobs:
   check-links:
     name: Check Markdown Links
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - name: Checkout code
@@ -35,6 +40,8 @@ jobs:
   lint-markdown:
     name: Lint Markdown Files
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - name: Checkout code
@@ -55,6 +62,8 @@ jobs:
   check-docs-structure:
     name: Validate Documentation Structure
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     
     steps:
     - name: Checkout code
