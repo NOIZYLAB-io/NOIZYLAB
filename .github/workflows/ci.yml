@@ -1,0 +1,135 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint-shell:
+    name: Lint Shell Scripts
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Install shellcheck
+      run: sudo apt-get install -y shellcheck
+    
+    - name: Lint shell scripts
+      run: |
+        find . -name "*.sh" -type f | while read -r script; do
+          echo "Checking $script"
+          shellcheck "$script" || true
+        done
+
+  lint-python:
+    name: Lint Python Code
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install flake8
+    
+    - name: Lint with flake8
+      run: |
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-zero treats all errors as warnings
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  validate-structure:
+    name: Validate Repository Structure
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check required files
+      run: |
+        echo "Checking for required files..."
+        
+        required_files=(
+          "README.md"
+          "LICENSE"
+          "CONTRIBUTING.md"
+          "CODE_OF_CONDUCT.md"
+          "SECURITY.md"
+          "CHANGELOG.md"
+        )
+        
+        missing_files=()
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            missing_files+=("$file")
+          fi
+        done
+        
+        if [ ${#missing_files[@]} -gt 0 ]; then
+          echo "❌ Missing required files:"
+          printf '%s\n' "${missing_files[@]}"
+          exit 1
+        else
+          echo "✅ All required files present"
+        fi
+    
+    - name: Check directory structure
+      run: |
+        echo "Checking directory structure..."
+        
+        required_dirs=(
+          "docs"
+          "scripts"
+          "PROJECTS"
+          "SystemGuardian"
+          ".github/workflows"
+        )
+        
+        missing_dirs=()
+        for dir in "${required_dirs[@]}"; do
+          if [ ! -d "$dir" ]; then
+            missing_dirs+=("$dir")
+          fi
+        done
+        
+        if [ ${#missing_dirs[@]} -gt 0 ]; then
+          echo "❌ Missing required directories:"
+          printf '%s\n' "${missing_dirs[@]}"
+          exit 1
+        else
+          echo "✅ All required directories present"
+        fi
+
+  test-scripts:
+    name: Test Core Scripts
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Make scripts executable
+      run: |
+        find scripts -name "*.sh" -type f -exec chmod +x {} \;
+        find SystemGuardian -name "*.sh" -type f -exec chmod +x {} \;
+    
+    - name: Verify scripts syntax
+      run: |
+        echo "Checking bash script syntax..."
+        find . -name "*.sh" -type f | while read -r script; do
+          bash -n "$script" && echo "✅ $script" || echo "❌ $script"
+        done
