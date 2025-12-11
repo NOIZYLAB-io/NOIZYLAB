@@ -54,3 +54,4 @@ logs/
 .copilot/
 output_directory/
 reports/
+.worktrees/
