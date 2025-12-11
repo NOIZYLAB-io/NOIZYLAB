@@ -43,3 +43,14 @@ docs/*_CATALOG.md
 *.bak
 mission-run-*/
 archives/
+
+_Archives/
+_Screenshots/
+_Shortcuts/
+archives/
+logs/
+.vscode/
+.cursor/
+.copilot/
+output_directory/
+reports/
