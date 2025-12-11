@@ -53,10 +53,19 @@ cd NOIZYLAB
 
 ## Documentation
 
-See [`docs/`](docs/) for detailed guides:
+See [`docs/INDEX.md`](docs/INDEX.md) for comprehensive documentation navigation.
+
+**Quick Links:**
 - [Quick Start Guide](docs/NOIZYLAB-INTERACTIVE-QUICK-START.md)
 - [System Documentation](docs/NOIZYLAB-SYSTEM-COMPLETE.md)
 - [Enterprise Features](docs/NOIZYLAB-ENTERPRISE-v2-COMPLETE.md)
+
+## Contributing
+
+We welcome contributions! Please see:
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Security Policy](SECURITY.md)
 
 ## License
 
