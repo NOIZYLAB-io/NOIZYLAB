@@ -1,0 +1,124 @@
+name: Documentation Check
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/**'
+      - '**.md'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/**'
+      - '**.md'
+
+permissions:
+  contents: read
+
+jobs:
+  check-links:
+    name: Check Markdown Links
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check broken links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'no'
+        config-file: '.github/markdown-link-check-config.json'
+        folder-path: 'docs/'
+        file-path: './README.md, ./CONTRIBUTING.md, ./SECURITY.md'
+        max-depth: -1
+      continue-on-error: true
+
+  lint-markdown:
+    name: Lint Markdown Files
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install markdownlint-cli
+      run: npm install -g markdownlint-cli
+    
+    - name: Run markdownlint
+      run: markdownlint '**/*.md' --ignore node_modules --ignore .git || true
+      continue-on-error: true
+
+  check-docs-structure:
+    name: Validate Documentation Structure
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check for INDEX.md
+      run: |
+        if [ -f "docs/INDEX.md" ]; then
+          echo "✅ docs/INDEX.md exists"
+        else
+          echo "⚠️ docs/INDEX.md not found - recommended for navigation"
+        fi
+    
+    - name: Check for duplicate files
+      run: |
+        echo "Checking for potential duplicate files..."
+        
+        # Check for common duplicate patterns
+        duplicates=$(find docs -type f -name "*_1.md" -o -name "*(1).md" -o -name "* copy.md" 2>/dev/null || true)
+        
+        if [ -n "$duplicates" ]; then
+          echo "⚠️ Potential duplicate files found:"
+          echo "$duplicates"
+        else
+          echo "✅ No obvious duplicate patterns found"
+        fi
+    
+    - name: Check for empty files
+      run: |
+        echo "Checking for empty markdown files..."
+        
+        empty_files=$(find docs -type f -name "*.md" -size 0 2>/dev/null || true)
+        
+        if [ -n "$empty_files" ]; then
+          echo "⚠️ Empty markdown files found:"
+          echo "$empty_files"
+        else
+          echo "✅ No empty markdown files found"
+        fi
+    
+    - name: Generate documentation statistics
+      run: |
+        echo "📊 Documentation Statistics:"
+        echo "Total markdown files: $(find docs -type f -name "*.md" | wc -l)"
+        echo "Total size: $(du -sh docs | cut -f1)"
+        echo ""
+        
+        if [ -d "docs/getting-started" ]; then
+          echo "Getting Started docs: $(find docs/getting-started -name "*.md" 2>/dev/null | wc -l)"
+        fi
+        
+        if [ -d "docs/music-production" ]; then
+          echo "Music Production docs: $(find docs/music-production -name "*.md" 2>/dev/null | wc -l)"
+        fi
+        
+        if [ -d "docs/ai-integration" ]; then
+          echo "AI Integration docs: $(find docs/ai-integration -name "*.md" 2>/dev/null | wc -l)"
+        fi
