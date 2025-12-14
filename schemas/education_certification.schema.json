@@ -1,0 +1,1076 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noizyvox.ai/schemas/education_certification.schema.json",
+  "title": "NOIZYVOX Education & Certification",
+  "description": "Comprehensive training programs, certifications, and career pathways for Voice AI Modellers",
+  "type": "object",
+  "properties": {
+    "program_id": {
+      "type": "string",
+      "pattern": "^edu_[a-z0-9]{16}$",
+      "description": "Unique identifier for education configuration"
+    },
+    "organization_id": {
+      "type": "string",
+      "pattern": "^org_[a-z0-9]{16}$",
+      "description": "Parent organization offering the programs"
+    },
+    "academy_branding": {
+      "type": "object",
+      "description": "White-label academy configuration",
+      "properties": {
+        "academy_name": { "type": "string", "default": "NOIZYVOX Academy" },
+        "tagline": { "type": "string" },
+        "logo_url": { "type": "string", "format": "uri" },
+        "primary_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+        "custom_domain": { "type": "string", "format": "hostname" }
+      }
+    },
+    "programs": {
+      "type": "array",
+      "description": "Available training programs",
+      "items": {
+        "type": "object",
+        "properties": {
+          "program_code": {
+            "type": "string",
+            "pattern": "^PRG-[A-Z]{2,4}-[0-9]{3}$",
+            "description": "Human-readable program code (e.g., PRG-VAM-101)"
+          },
+          "program_name": { "type": "string" },
+          "program_type": {
+            "enum": ["masterclass", "bootcamp", "certification", "workshop", "webinar", "self_paced", "mentorship", "apprenticeship", "corporate_training"]
+          },
+          "level": {
+            "enum": ["beginner", "intermediate", "advanced", "expert", "master"]
+          },
+          "track": {
+            "enum": ["voice_modelling", "audio_engineering", "ai_ethics", "business_licensing", "technical_integration", "creative_direction", "full_stack"]
+          },
+          "description": { "type": "string" },
+          "learning_outcomes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 3
+          },
+          "prerequisites": {
+            "type": "object",
+            "properties": {
+              "required_programs": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "required_certifications": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "minimum_experience_months": { "type": "integer", "minimum": 0 },
+              "technical_requirements": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "portfolio_required": { "type": "boolean", "default": false }
+            }
+          },
+          "duration": {
+            "type": "object",
+            "properties": {
+              "total_hours": { "type": "number" },
+              "weeks": { "type": "integer" },
+              "hours_per_week": { "type": "number" },
+              "self_study_hours": { "type": "number" },
+              "live_session_hours": { "type": "number" },
+              "project_hours": { "type": "number" }
+            }
+          },
+          "format": {
+            "enum": ["live_virtual", "in_person", "self_paced", "hybrid", "cohort_based", "one_on_one"]
+          },
+          "delivery": {
+            "type": "object",
+            "properties": {
+              "platform": { "type": "string" },
+              "video_conferencing": { "enum": ["zoom", "teams", "meet", "custom"] },
+              "lms_integration": { "type": "boolean", "default": true },
+              "mobile_app_access": { "type": "boolean", "default": true },
+              "offline_content_available": { "type": "boolean", "default": false },
+              "live_captioning": { "type": "boolean", "default": true },
+              "recording_available": { "type": "boolean", "default": true },
+              "recording_retention_days": { "type": "integer", "default": 365 }
+            }
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "base_price_usd": { "type": "number" },
+              "currency_options": {
+                "type": "array",
+                "items": { "type": "string", "pattern": "^[A-Z]{3}$" }
+              },
+              "payment_plans": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "plan_name": { "type": "string" },
+                    "installments": { "type": "integer" },
+                    "installment_amount_usd": { "type": "number" },
+                    "total_with_interest_usd": { "type": "number" }
+                  }
+                }
+              },
+              "discounts": {
+                "type": "object",
+                "properties": {
+                  "guild_member_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+                  "early_bird_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+                  "early_bird_deadline_days": { "type": "integer" },
+                  "group_discount": {
+                    "type": "object",
+                    "properties": {
+                      "min_participants": { "type": "integer" },
+                      "discount_percent": { "type": "number" }
+                    }
+                  },
+                  "alumni_percent": { "type": "number", "minimum": 0, "maximum": 100 },
+                  "scholarship_available": { "type": "boolean", "default": false }
+                }
+              },
+              "money_back_guarantee_days": { "type": "integer", "default": 30 }
+            }
+          },
+          "curriculum": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "module_id": { "type": "string", "pattern": "^MOD-[0-9]{3}$" },
+                "module_name": { "type": "string" },
+                "module_description": { "type": "string" },
+                "order": { "type": "integer" },
+                "duration_hours": { "type": "number" },
+                "topics": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "topic_name": { "type": "string" },
+                      "duration_minutes": { "type": "integer" },
+                      "content_type": {
+                        "enum": ["video", "reading", "interactive", "quiz", "discussion", "live_demo", "guest_lecture"]
+                      },
+                      "resources": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "resource_type": { "enum": ["pdf", "video", "audio", "code", "dataset", "tool", "external_link"] },
+                            "title": { "type": "string" },
+                            "url": { "type": "string", "format": "uri" },
+                            "downloadable": { "type": "boolean" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "hands_on_exercises": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "exercise_name": { "type": "string" },
+                      "description": { "type": "string" },
+                      "estimated_time_minutes": { "type": "integer" },
+                      "difficulty": { "enum": ["easy", "medium", "hard", "challenge"] },
+                      "tools_required": { "type": "array", "items": { "type": "string" } },
+                      "starter_files_url": { "type": "string", "format": "uri" },
+                      "solution_available": { "type": "boolean" },
+                      "peer_review_enabled": { "type": "boolean" }
+                    }
+                  }
+                },
+                "assessments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "assessment_type": { "enum": ["quiz", "assignment", "project", "peer_review", "practical_exam", "oral_exam"] },
+                      "title": { "type": "string" },
+                      "weight_percent": { "type": "number" },
+                      "passing_score_percent": { "type": "number" },
+                      "attempts_allowed": { "type": "integer" },
+                      "time_limit_minutes": { "type": "integer" },
+                      "proctored": { "type": "boolean", "default": false }
+                    }
+                  }
+                },
+                "competencies_covered": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          },
+          "capstone_project": {
+            "type": "object",
+            "properties": {
+              "required": { "type": "boolean", "default": true },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "deliverables": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "evaluation_criteria": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "criterion": { "type": "string" },
+                    "weight_percent": { "type": "number" },
+                    "rubric": {
+                      "type": "object",
+                      "properties": {
+                        "excellent": { "type": "string" },
+                        "good": { "type": "string" },
+                        "satisfactory": { "type": "string" },
+                        "needs_improvement": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "mentor_assigned": { "type": "boolean", "default": true },
+              "industry_partner_review": { "type": "boolean", "default": false },
+              "showcase_eligible": { "type": "boolean", "default": true }
+            }
+          },
+          "instructors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "instructor_id": { "type": "string", "pattern": "^inst_[a-z0-9]{16}$" },
+                "name": { "type": "string" },
+                "title": { "type": "string" },
+                "bio": { "type": "string", "maxLength": 1000 },
+                "photo_url": { "type": "string", "format": "uri" },
+                "expertise_areas": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "credentials": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "credential_type": { "enum": ["degree", "certification", "award", "publication", "patent"] },
+                      "title": { "type": "string" },
+                      "issuer": { "type": "string" },
+                      "year": { "type": "integer" }
+                    }
+                  }
+                },
+                "industry_experience": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "company": { "type": "string" },
+                      "role": { "type": "string" },
+                      "years": { "type": "integer" }
+                    }
+                  }
+                },
+                "notable_projects": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "social_links": {
+                  "type": "object",
+                  "properties": {
+                    "linkedin": { "type": "string", "format": "uri" },
+                    "twitter": { "type": "string" },
+                    "website": { "type": "string", "format": "uri" },
+                    "youtube": { "type": "string", "format": "uri" }
+                  }
+                },
+                "rating": {
+                  "type": "object",
+                  "properties": {
+                    "average_score": { "type": "number", "minimum": 1, "maximum": 5 },
+                    "total_reviews": { "type": "integer" },
+                    "students_taught": { "type": "integer" }
+                  }
+                },
+                "availability": {
+                  "type": "object",
+                  "properties": {
+                    "office_hours": { "type": "boolean", "default": true },
+                    "one_on_one_mentoring": { "type": "boolean", "default": false },
+                    "response_time_hours": { "type": "integer", "default": 24 }
+                  }
+                }
+              }
+            }
+          },
+          "cohort_info": {
+            "type": "object",
+            "properties": {
+              "max_participants": { "type": "integer" },
+              "min_participants": { "type": "integer" },
+              "current_enrollment": { "type": "integer" },
+              "waitlist_enabled": { "type": "boolean", "default": true },
+              "start_date": { "type": "string", "format": "date" },
+              "end_date": { "type": "string", "format": "date" },
+              "enrollment_deadline": { "type": "string", "format": "date" },
+              "timezone": { "type": "string" },
+              "schedule": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "day_of_week": { "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] },
+                    "start_time": { "type": "string", "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$" },
+                    "end_time": { "type": "string", "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$" },
+                    "session_type": { "enum": ["lecture", "lab", "office_hours", "group_work", "guest_speaker"] }
+                  }
+                }
+              }
+            }
+          },
+          "community_features": {
+            "type": "object",
+            "properties": {
+              "discussion_forum": { "type": "boolean", "default": true },
+              "slack_channel": { "type": "boolean", "default": true },
+              "discord_server": { "type": "boolean", "default": false },
+              "study_groups": { "type": "boolean", "default": true },
+              "peer_matching": { "type": "boolean", "default": true },
+              "alumni_network_access": { "type": "boolean", "default": true },
+              "networking_events": { "type": "boolean", "default": true }
+            }
+          },
+          "completion_requirements": {
+            "type": "object",
+            "properties": {
+              "minimum_attendance_percent": { "type": "number", "default": 80 },
+              "all_assessments_passed": { "type": "boolean", "default": true },
+              "capstone_completed": { "type": "boolean", "default": true },
+              "minimum_overall_score_percent": { "type": "number", "default": 70 },
+              "peer_reviews_completed": { "type": "integer", "default": 0 }
+            }
+          },
+          "outcomes": {
+            "type": "object",
+            "properties": {
+              "certificate_awarded": { "type": "boolean", "default": true },
+              "digital_badge": { "type": "boolean", "default": true },
+              "linkedin_credential": { "type": "boolean", "default": true },
+              "portfolio_piece": { "type": "boolean", "default": true },
+              "job_placement_support": { "type": "boolean", "default": false },
+              "career_services_access_months": { "type": "integer" },
+              "continuing_education_credits": {
+                "type": "object",
+                "properties": {
+                  "enabled": { "type": "boolean" },
+                  "credits": { "type": "number" },
+                  "accrediting_body": { "type": "string" }
+                }
+              }
+            }
+          },
+          "statistics": {
+            "type": "object",
+            "properties": {
+              "completion_rate_percent": { "type": "number" },
+              "average_rating": { "type": "number", "minimum": 1, "maximum": 5 },
+              "total_graduates": { "type": "integer" },
+              "nps_score": { "type": "integer", "minimum": -100, "maximum": 100 },
+              "career_advancement_percent": { "type": "number" },
+              "salary_increase_average_percent": { "type": "number" }
+            }
+          },
+          "status": {
+            "enum": ["draft", "coming_soon", "open_enrollment", "in_progress", "completed", "archived"]
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["program_code", "program_name", "program_type", "level"]
+      }
+    },
+    "certifications": {
+      "type": "array",
+      "description": "Professional certifications awarded",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cert_id": {
+            "type": "string",
+            "pattern": "^cert_[a-z0-9]{16}$"
+          },
+          "cert_code": {
+            "type": "string",
+            "pattern": "^NVOX-[A-Z]{2,4}-[0-9]{1}$",
+            "description": "Certification code (e.g., NVOX-VAM-1, NVOX-PRO-3)"
+          },
+          "cert_name": { "type": "string" },
+          "cert_description": { "type": "string" },
+          "level": {
+            "enum": ["associate", "professional", "expert", "master", "fellow"]
+          },
+          "track": {
+            "enum": ["voice_ai_modeller", "audio_engineer", "ethics_compliance", "business_licensing", "technical_architect", "creative_director"]
+          },
+          "badge": {
+            "type": "object",
+            "properties": {
+              "image_url": { "type": "string", "format": "uri" },
+              "badge_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+              "credly_template_id": { "type": "string" },
+              "blockchain_verified": { "type": "boolean", "default": false }
+            }
+          },
+          "requirements": {
+            "type": "object",
+            "properties": {
+              "prerequisite_certifications": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "required_programs": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "minimum_experience_months": { "type": "integer" },
+              "portfolio_requirements": {
+                "type": "object",
+                "properties": {
+                  "required": { "type": "boolean" },
+                  "minimum_projects": { "type": "integer" },
+                  "project_types": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "review_criteria": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                }
+              },
+              "exam": {
+                "type": "object",
+                "properties": {
+                  "required": { "type": "boolean", "default": true },
+                  "exam_code": { "type": "string" },
+                  "exam_name": { "type": "string" },
+                  "format": { "enum": ["multiple_choice", "practical", "oral", "mixed"] },
+                  "duration_minutes": { "type": "integer" },
+                  "total_questions": { "type": "integer" },
+                  "passing_score_percent": { "type": "number" },
+                  "passing_score_scaled": { "type": "integer", "description": "Scaled score (e.g., 700/1000)" },
+                  "proctored": { "type": "boolean", "default": true },
+                  "proctoring_provider": { "type": "string" },
+                  "remote_testing_available": { "type": "boolean", "default": true },
+                  "test_center_available": { "type": "boolean", "default": true },
+                  "retake_policy": {
+                    "type": "object",
+                    "properties": {
+                      "max_attempts_per_year": { "type": "integer" },
+                      "waiting_period_days": { "type": "integer" },
+                      "retake_fee_usd": { "type": "number" }
+                    }
+                  },
+                  "exam_domains": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "domain_name": { "type": "string" },
+                        "weight_percent": { "type": "number" },
+                        "objectives": {
+                          "type": "array",
+                          "items": { "type": "string" }
+                        }
+                      }
+                    }
+                  },
+                  "study_resources": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "resource_type": { "enum": ["study_guide", "practice_exam", "flashcards", "video_series", "book"] },
+                        "title": { "type": "string" },
+                        "url": { "type": "string", "format": "uri" },
+                        "price_usd": { "type": "number" },
+                        "included_with_program": { "type": "boolean" }
+                      }
+                    }
+                  }
+                }
+              },
+              "practical_assessment": {
+                "type": "object",
+                "properties": {
+                  "required": { "type": "boolean" },
+                  "description": { "type": "string" },
+                  "time_limit_hours": { "type": "number" },
+                  "deliverables": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "evaluation_rubric": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "criterion": { "type": "string" },
+                        "max_points": { "type": "integer" },
+                        "description": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              },
+              "ethics_agreement": { "type": "boolean", "default": true },
+              "background_check": { "type": "boolean", "default": false },
+              "references_required": { "type": "integer", "default": 0 }
+            }
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "application_fee_usd": { "type": "number" },
+              "exam_fee_usd": { "type": "number" },
+              "certification_fee_usd": { "type": "number" },
+              "total_cost_usd": { "type": "number" },
+              "bundle_with_program_discount_percent": { "type": "number" }
+            }
+          },
+          "validity": {
+            "type": "object",
+            "properties": {
+              "lifetime": { "type": "boolean", "default": false },
+              "validity_years": { "type": "integer", "default": 3 },
+              "grace_period_months": { "type": "integer", "default": 3 }
+            }
+          },
+          "renewal": {
+            "type": "object",
+            "properties": {
+              "required": { "type": "boolean", "default": true },
+              "renewal_fee_usd": { "type": "number" },
+              "continuing_education_required": { "type": "boolean", "default": true },
+              "ce_credits_required": { "type": "integer" },
+              "ce_credit_options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "activity_type": {
+                      "enum": ["course", "webinar", "conference", "publication", "teaching", "contribution", "project"]
+                    },
+                    "description": { "type": "string" },
+                    "credits_awarded": { "type": "number" },
+                    "max_credits_per_cycle": { "type": "number" }
+                  }
+                }
+              },
+              "re_examination_option": { "type": "boolean", "default": true },
+              "lapsed_reinstatement": {
+                "type": "object",
+                "properties": {
+                  "available": { "type": "boolean" },
+                  "max_lapse_years": { "type": "integer" },
+                  "reinstatement_requirements": { "type": "string" },
+                  "reinstatement_fee_usd": { "type": "number" }
+                }
+              }
+            }
+          },
+          "benefits": {
+            "type": "object",
+            "properties": {
+              "digital_badge": { "type": "boolean", "default": true },
+              "physical_certificate": { "type": "boolean", "default": true },
+              "linkedin_integration": { "type": "boolean", "default": true },
+              "directory_listing": { "type": "boolean", "default": true },
+              "verification_page": { "type": "boolean", "default": true },
+              "logo_usage_rights": { "type": "boolean", "default": true },
+              "job_board_access": { "type": "boolean", "default": true },
+              "exclusive_community_access": { "type": "boolean", "default": true },
+              "conference_discounts_percent": { "type": "number" },
+              "software_discounts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "vendor": { "type": "string" },
+                    "product": { "type": "string" },
+                    "discount_percent": { "type": "number" }
+                  }
+                }
+              },
+              "partner_benefits": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "partner_name": { "type": "string" },
+                    "benefit_description": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "statistics": {
+            "type": "object",
+            "properties": {
+              "total_certified": { "type": "integer" },
+              "pass_rate_percent": { "type": "number" },
+              "average_salary_usd": { "type": "number" },
+              "salary_premium_percent": { "type": "number", "description": "Salary increase vs non-certified" },
+              "employer_recognition_score": { "type": "number", "minimum": 1, "maximum": 10 }
+            }
+          },
+          "accreditation": {
+            "type": "object",
+            "properties": {
+              "accredited": { "type": "boolean", "default": false },
+              "accrediting_bodies": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "body_name": { "type": "string" },
+                    "accreditation_id": { "type": "string" },
+                    "valid_until": { "type": "string", "format": "date" }
+                  }
+                }
+              },
+              "iso_compliance": {
+                "type": "array",
+                "items": { "type": "string", "pattern": "^ISO [0-9]{4,5}(:[0-9]{4})?$" }
+              }
+            }
+          },
+          "status": {
+            "enum": ["active", "retiring", "retired", "coming_soon"]
+          }
+        },
+        "required": ["cert_id", "cert_code", "cert_name", "level", "track"]
+      }
+    },
+    "career_pathways": {
+      "type": "array",
+      "description": "Guided career progression paths",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pathway_id": { "type": "string", "pattern": "^path_[a-z0-9]{16}$" },
+          "pathway_name": { "type": "string" },
+          "description": { "type": "string" },
+          "target_role": { "type": "string" },
+          "estimated_duration_months": { "type": "integer" },
+          "stages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "stage_number": { "type": "integer" },
+                "stage_name": { "type": "string" },
+                "description": { "type": "string" },
+                "programs": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "certifications": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "skills_acquired": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "milestone_projects": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "expected_outcomes": {
+                  "type": "object",
+                  "properties": {
+                    "job_titles": { "type": "array", "items": { "type": "string" } },
+                    "salary_range_usd": {
+                      "type": "object",
+                      "properties": {
+                        "min": { "type": "number" },
+                        "max": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "success_stories": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "photo_url": { "type": "string", "format": "uri" },
+                "testimonial": { "type": "string" },
+                "before_role": { "type": "string" },
+                "after_role": { "type": "string" },
+                "time_to_transition_months": { "type": "integer" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "skills_framework": {
+      "type": "object",
+      "description": "Competency and skills taxonomy",
+      "properties": {
+        "framework_version": { "type": "string" },
+        "skill_categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category_name": { "type": "string" },
+              "skills": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "skill_id": { "type": "string" },
+                    "skill_name": { "type": "string" },
+                    "description": { "type": "string" },
+                    "proficiency_levels": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "level": { "enum": ["awareness", "beginner", "intermediate", "advanced", "expert"] },
+                          "description": { "type": "string" },
+                          "indicators": { "type": "array", "items": { "type": "string" } }
+                        }
+                      }
+                    },
+                    "related_programs": { "type": "array", "items": { "type": "string" } },
+                    "assessment_methods": { "type": "array", "items": { "type": "string" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "mentorship_program": {
+      "type": "object",
+      "description": "1-on-1 mentorship configuration",
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "mentor_requirements": {
+          "type": "object",
+          "properties": {
+            "minimum_certification_level": { "enum": ["professional", "expert", "master", "fellow"] },
+            "minimum_experience_years": { "type": "integer" },
+            "training_required": { "type": "boolean" },
+            "background_check_required": { "type": "boolean" }
+          }
+        },
+        "mentorship_tiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tier_name": { "type": "string" },
+              "sessions_per_month": { "type": "integer" },
+              "session_duration_minutes": { "type": "integer" },
+              "price_per_month_usd": { "type": "number" },
+              "includes": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        },
+        "matching_criteria": {
+          "type": "array",
+          "items": {
+            "enum": ["expertise_area", "industry", "timezone", "language", "career_goals", "personality"]
+          }
+        }
+      }
+    },
+    "corporate_training": {
+      "type": "object",
+      "description": "Enterprise training solutions",
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "custom_curriculum": { "type": "boolean", "default": true },
+        "white_label_available": { "type": "boolean", "default": true },
+        "minimum_seats": { "type": "integer", "default": 5 },
+        "volume_pricing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "min_seats": { "type": "integer" },
+              "max_seats": { "type": "integer" },
+              "discount_percent": { "type": "number" }
+            }
+          }
+        },
+        "enterprise_features": {
+          "type": "object",
+          "properties": {
+            "sso_integration": { "type": "boolean", "default": true },
+            "lms_integration": { "type": "boolean", "default": true },
+            "custom_reporting": { "type": "boolean", "default": true },
+            "dedicated_success_manager": { "type": "boolean", "default": true },
+            "on_site_training": { "type": "boolean", "default": true },
+            "api_access": { "type": "boolean", "default": false }
+          }
+        },
+        "compliance_tracking": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "reporting_formats": { "type": "array", "items": { "type": "string" } },
+            "audit_trail": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "description": "Educational events and conferences",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event_id": { "type": "string", "pattern": "^evt_[a-z0-9]{16}$" },
+          "event_name": { "type": "string" },
+          "event_type": {
+            "enum": ["conference", "summit", "hackathon", "meetup", "workshop", "webinar_series", "awards"]
+          },
+          "description": { "type": "string" },
+          "date_start": { "type": "string", "format": "date-time" },
+          "date_end": { "type": "string", "format": "date-time" },
+          "location": {
+            "type": "object",
+            "properties": {
+              "type": { "enum": ["virtual", "in_person", "hybrid"] },
+              "venue_name": { "type": "string" },
+              "address": { "type": "string" },
+              "city": { "type": "string" },
+              "country": { "type": "string" },
+              "virtual_platform": { "type": "string" }
+            }
+          },
+          "registration": {
+            "type": "object",
+            "properties": {
+              "open_date": { "type": "string", "format": "date" },
+              "close_date": { "type": "string", "format": "date" },
+              "capacity": { "type": "integer" },
+              "ticket_tiers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "tier_name": { "type": "string" },
+                    "price_usd": { "type": "number" },
+                    "includes": { "type": "array", "items": { "type": "string" } },
+                    "guild_member_discount_percent": { "type": "number" }
+                  }
+                }
+              }
+            }
+          },
+          "ce_credits_available": { "type": "number" },
+          "recording_available": { "type": "boolean" }
+        }
+      }
+    },
+    "scholarship_programs": {
+      "type": "array",
+      "description": "Financial aid and scholarships",
+      "items": {
+        "type": "object",
+        "properties": {
+          "scholarship_id": { "type": "string", "pattern": "^sch_[a-z0-9]{16}$" },
+          "scholarship_name": { "type": "string" },
+          "description": { "type": "string" },
+          "coverage": {
+            "type": "object",
+            "properties": {
+              "type": { "enum": ["full", "partial", "stipend"] },
+              "amount_usd": { "type": "number" },
+              "percentage": { "type": "number" },
+              "covers": { "type": "array", "items": { "type": "string" } }
+            }
+          },
+          "eligibility": {
+            "type": "object",
+            "properties": {
+              "criteria": { "type": "array", "items": { "type": "string" } },
+              "target_demographics": { "type": "array", "items": { "type": "string" } },
+              "geographic_restrictions": { "type": "array", "items": { "type": "string" } },
+              "financial_need_required": { "type": "boolean" }
+            }
+          },
+          "application": {
+            "type": "object",
+            "properties": {
+              "deadline": { "type": "string", "format": "date" },
+              "rolling_admission": { "type": "boolean" },
+              "required_materials": { "type": "array", "items": { "type": "string" } },
+              "essay_required": { "type": "boolean" },
+              "recommendations_required": { "type": "integer" }
+            }
+          },
+          "awards_per_year": { "type": "integer" },
+          "sponsor": { "type": "string" }
+        }
+      }
+    },
+    "analytics": {
+      "type": "object",
+      "description": "Learning analytics and insights",
+      "properties": {
+        "tracking_enabled": { "type": "boolean", "default": true },
+        "metrics_collected": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "completion_rates",
+              "assessment_scores",
+              "time_on_task",
+              "engagement_scores",
+              "learning_path_progress",
+              "skill_gap_analysis",
+              "certification_pass_rates",
+              "career_outcomes",
+              "nps_scores",
+              "revenue_metrics"
+            ]
+          }
+        },
+        "reporting_dashboards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dashboard_name": { "type": "string" },
+              "audience": { "enum": ["learner", "instructor", "admin", "enterprise_client", "executive"] },
+              "refresh_frequency": { "enum": ["real_time", "hourly", "daily", "weekly"] }
+            }
+          }
+        },
+        "predictive_analytics": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "models": {
+              "type": "array",
+              "items": {
+                "enum": ["dropout_risk", "performance_prediction", "personalized_recommendations", "career_path_matching"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "integrations": {
+      "type": "object",
+      "description": "Third-party integrations",
+      "properties": {
+        "lms_platforms": {
+          "type": "array",
+          "items": {
+            "enum": ["canvas", "blackboard", "moodle", "d2l", "schoology", "custom"]
+          }
+        },
+        "credential_platforms": {
+          "type": "array",
+          "items": {
+            "enum": ["credly", "badgr", "accredible", "certifier"]
+          }
+        },
+        "payment_processors": {
+          "type": "array",
+          "items": {
+            "enum": ["stripe", "paypal", "braintree", "authorize_net"]
+          }
+        },
+        "calendar_integrations": {
+          "type": "array",
+          "items": {
+            "enum": ["google_calendar", "outlook", "apple_calendar", "ical"]
+          }
+        },
+        "communication_tools": {
+          "type": "array",
+          "items": {
+            "enum": ["slack", "discord", "teams", "email"]
+          }
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "description": "Regulatory and accessibility compliance",
+      "properties": {
+        "accessibility": {
+          "type": "object",
+          "properties": {
+            "wcag_level": { "enum": ["A", "AA", "AAA"] },
+            "screen_reader_compatible": { "type": "boolean" },
+            "closed_captions": { "type": "boolean" },
+            "transcripts_available": { "type": "boolean" },
+            "keyboard_navigation": { "type": "boolean" }
+          }
+        },
+        "data_privacy": {
+          "type": "object",
+          "properties": {
+            "gdpr_compliant": { "type": "boolean" },
+            "ccpa_compliant": { "type": "boolean" },
+            "ferpa_compliant": { "type": "boolean" },
+            "data_retention_policy": { "type": "string" }
+          }
+        },
+        "content_licensing": {
+          "type": "object",
+          "properties": {
+            "license_type": { "type": "string" },
+            "redistribution_allowed": { "type": "boolean" },
+            "derivative_works_allowed": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "schema_version": { "type": "string", "default": "2.0.0" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" },
+        "created_by": { "type": "string" },
+        "last_review_date": { "type": "string", "format": "date" },
+        "next_review_date": { "type": "string", "format": "date" }
+      }
+    }
+  },
+  "required": ["program_id"]
+}
