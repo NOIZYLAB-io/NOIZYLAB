@@ -21,14 +21,14 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("TurboBridge")
 
-# MemCell Integration
+# MemCell Integration (V3 - Overlap Engine)
 sys.path.append(os.path.join(os.path.dirname(os.path.dirname(__file__)), "core"))
 try:
-    from MemCell import MemCell
+    from MemCell_V3 import MemCell
     mc = MemCell()
 except ImportError:
     mc = None
-    logger.warning("MemCell not found.")
+    logger.warning("MemCell V3 not found.")
 
 @app.route('/health', methods=['GET'])
 def health_check():
@@ -68,10 +68,28 @@ def interact():
 
     return jsonify({"response": response_text})
 
+# Cortex Link
+EVOLUTION_FILE = os.path.expanduser("~/NOIZYLAB/memory/evolution_status.json")
+
+def broadcast_cortex():
+    """Reads Evolution Status and pushes to Portal."""
+    try:
+        if os.path.exists(EVOLUTION_FILE):
+            with open(EVOLUTION_FILE, 'r') as f:
+                data = json.load(f)
+            socketio.emit('cortex_update', data)
+            logger.info("🧠 Cortex Broadcast: Sent Evolution Data.")
+        else:
+            logger.warning("Cortex file not found.")
+    except Exception as e:
+        logger.error(f"Cortex Broadcast Failed: {e}")
+
 # WebSocket Event
 @socketio.on('connect')
 def test_connect():
     emit('status', {'msg': 'Connected to Gabriel Neural Link'})
+    # Send immediate cortex update
+    broadcast_cortex()
 
 if __name__ == '__main__':
     logger.info("🚀 GABRIEL BRIDGE (WebSocket) LISTENING ON 8000...")

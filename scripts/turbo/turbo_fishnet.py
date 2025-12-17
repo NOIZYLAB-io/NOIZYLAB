@@ -124,8 +124,55 @@ def main():
             ".nkx", ".ncw", ".wav", ".aif"    # Samples (Compressed/Uncompressed)
         }
 
+    # Backup Mode
+    if "--backup-drive" in sys.argv:
+        # Detected Drive: GoogleDrive-rp@fishmusicinc.com
+        drive_path = Path(os.path.expanduser("~/Library/CloudStorage/GoogleDrive-rp@fishmusicinc.com/My Drive"))
+        if not drive_path.exists():
+             # Fallback to Shared Drives if My Drive missing (Enterprise)
+             drive_path = Path(os.path.expanduser("~/Library/CloudStorage/GoogleDrive-rp@fishmusicinc.com/Shared Drives"))
+        
+        if not drive_path.exists():
+            print(f"❌ DRIVE NOT FOUND AT: {drive_path}")
+            return
+
+        dest = drive_path / "NOIZYLAB_LIBRARIES"
+        print(f"♾️  INFINITE BACKUP STARTED.")
+        print(f"   Destination: {dest}")
+        
+        # We start by scanning to find the fish
+        fish_list = scan_ocean()
+        
+        # Then we copy them preserving structure using rsync logic (simulated via python)
+        # Actually, for 100% Sync, rsync is better if we just sync the folders containing them.
+        # But to follow "Fishnet" logic (selective), we copy specific files.
+        archive_catch_to_drive(fish_list, dest)
+        return
+
     scan_ocean()
-    print("\nOptions: --archive (Move files), --install-cron (Schedule daily), --kontakt-only (Kontakt Analysis)")
+    print("\nOptions: --archive (Move files), --install-cron (Schedule daily), --kontakt-only (Kontakt Analysis), --backup-drive (Google Drive Sync)")
+
+def archive_catch_to_drive(fish_list, dest_root):
+    dest_root.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for fish, size in fish_list:
+        try:
+            rel_path = fish.relative_to(Path.home())
+        except ValueError:
+            rel_path = fish.name
+        
+        target = dest_root / rel_path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        
+        if not target.exists() or target.stat().st_size != fish.stat().st_size:
+            print(f"   📤 UPLOADING: {fish.name} ({size:.1f} MB)...")
+            shutil.copy2(str(fish), str(target))
+            count += 1
+        else:
+            # print(f"   ✅ SKIPPING: {fish.name} (Already Synced)")
+            pass
+            
+    print(f"✨ BACKUP COMPLETE. {count} Files Uploaded.")
 
 if __name__ == "__main__":
     main()

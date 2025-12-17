@@ -6,7 +6,7 @@
 # ============================================================================
 
 # Load MemCell for tracking
-MEMCELL="$HOME/NOIZYLAB/scripts/core/MemCell.py"
+MEMCELL="$HOME/NOIZYLAB/scripts/core/MemCell_V3.py"
 log_action() {
     echo "$1"
     if [ -f "$MEMCELL" ]; then
@@ -46,12 +46,17 @@ done
 
 # 2. CLEANUP JUNK
 echo "🧹 CLEANING JUNK FILES..."
-# 2. CLEANUP JUNK (Optimized)
+# 2. CLEANUP JUNK (Optimized - No "Fishnet" Scanning)
 echo "🧹 CLEANING JUNK FILES..."
-# Avoid scanning entire Home and especially Library
-find "$HOME" -type d \( -name "Library" -o -name ".Trash" -o -name ".git" \) -prune -o -name ".DS_Store" -print0 | xargs -0 rm -f
-find "$HOME" -type d \( -name "Library" -o -name ".Trash" -o -name ".git" \) -prune -o -name "Thumbs.db" -print0 | xargs -0 rm -f
-find "$HOME" -type d \( -name "Library" -o -name ".Trash" -o -name ".git" \) -prune -o -name "*.tmp" -print0 | xargs -0 rm -f
+for dir in "${TARGET_DIRS[@]}"; do
+    if [ -d "$dir" ]; then
+        log_action "Sweeping: $dir"
+        find "$dir" -name ".DS_Store" -delete 2>/dev/null
+        find "$dir" -name "Thumbs.db" -delete 2>/dev/null
+        find "$dir" -name "*.tmp" -delete 2>/dev/null
+        find "$dir" -name "*.bak" -delete 2>/dev/null
+    fi
+done
 log_action "Junk files incinerated."
 
 # 3. VERIFY CORE SYSTEMS
@@ -76,5 +81,9 @@ fi
 
 # 4. MEMCELL UPDATE
 log_action "GLOBAL OPTIMIZATION COMPLETE. SYSTEM STATUS: PERFECT."
+
+# 5. EVOLUTION CHECK
+echo "🧬 CHECKING EVOLUTIONARY STATUS..."
+"$HOME/NOIZYLAB/scripts/turbo/turbo_evolution.py"
 
 echo "✨ MC96ECOUNIVERSE OPTIMIZED. READY FOR GORUNFREE."
