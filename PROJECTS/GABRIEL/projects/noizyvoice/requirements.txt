@@ -1,0 +1,67 @@
+# NOIZYVOICE - Requirements
+# Better Than ElevenLabs
+
+# Core
+torch>=2.0.0
+torchaudio>=2.0.0
+transformers>=4.35.0
+accelerate>=0.25.0
+
+# TTS Models
+TTS>=0.22.0  # Coqui TTS with XTTS-v2
+styletts2>=0.0.1
+openai-whisper>=20231117
+
+# Audio Processing
+librosa>=0.10.0
+soundfile>=0.12.0
+scipy>=1.11.0
+numpy>=1.24.0
+pydub>=0.25.0
+audioread>=3.0.0
+resampy>=0.4.0
+
+# Neural Vocoder
+vocos>=0.1.0
+
+# API
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+websockets>=12.0
+python-multipart>=0.0.6
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Streaming
+grpcio>=1.60.0
+grpcio-tools>=1.60.0
+
+# Queue & Cache
+redis>=5.0.0
+celery>=5.3.0
+
+# Storage
+boto3>=1.33.0  # S3/R2
+aiofiles>=23.2.0
+
+# Utils
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
+loguru>=0.7.0
+rich>=13.7.0
+tqdm>=4.66.0
+httpx>=0.25.0
+
+# Audio Enhancement
+noisereduce>=3.0.0
+pedalboard>=0.8.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+httpx>=0.25.0
+
+# Development
+black>=23.11.0
+ruff>=0.1.6
+mypy>=1.7.0

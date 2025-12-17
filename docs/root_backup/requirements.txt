@@ -1,0 +1,11 @@
+coqui-tts
+openai-whisper
+numpy__pycache__/
+*.pyc
+.venv/
+data/raw_wavs/
+data/curated/
+data/dataset/clips/
+outputs/
+models/
+

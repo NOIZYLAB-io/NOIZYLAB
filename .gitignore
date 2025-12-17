@@ -9,6 +9,17 @@
 *.aiff
 *.m4a
 *.ogg
+*.nki
+*.nkm
+*.nkc
+*.nicnt
+*.dmg
+*.iso
+*.img
+*.mp4
+*.MOV
+*.zip
+*.tar.gz
 
 # macOS
 .DS_Store
