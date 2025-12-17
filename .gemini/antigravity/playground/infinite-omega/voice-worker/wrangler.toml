@@ -1,0 +1,24 @@
+name = "voice-worker"
+main = "src/index.ts"
+compatibility_date = "2023-05-18"
+
+# R2 Bucket Binding
+[[r2_buckets]]
+binding = "VOICE_BUCKET"
+bucket_name = "voice-assets"
+
+# KV Namespaces
+# Replace id with your actual KV Namespace ID after running `wrangler kv:namespace create VOICE_AUDIT`
+[[kv_namespaces]]
+binding = "VOICE_AUDIT"
+id = "f4cb75f2940a45b59b918567a15643b5"
+
+[[d1_databases]]
+binding = "DB" # Available in the worker as env.DB
+database_name = "NOIZYVOX_REGISTRY"
+database_id = "4ff9e18d-14b5-47ba-9668-80df1af682f5"
+preview_id = "f4cb75f2940a45b59b918567a15643b5"
+
+# Vars
+[vars]
+TTS_PROVIDER = "elevenlabs"

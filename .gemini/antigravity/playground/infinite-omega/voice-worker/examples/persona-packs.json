@@ -1,0 +1,219 @@
+[
+    {
+        "persona_id": "diana-blackwood-narrator",
+        "display_name": "Diana Blackwood",
+        "archetype_tags": [
+            "Velvet Shadow",
+            "intimate",
+            "noir"
+        ],
+        "short_bio": "Smoky contralto with cinematic depth, perfect for true crime and late-night thoughts.",
+        "recommended_prosody": {
+            "rate": "92%",
+            "pitch": "-1.5st",
+            "volume": "medium-soft"
+        },
+        "SSML_template": "<speak><prosody rate='92%' pitch='-1.5st'>{{TEXT}}</prosody></speak>",
+        "DSP_recipe": {
+            "eq": "cinematic",
+            "compression": "gentle",
+            "reverb": "plate 15%"
+        },
+        "animation_cues": {
+            "default_pose": "contemplative_lean",
+            "signature_gesture": "knowing_glance",
+            "expression_range": [
+                "mysterious",
+                "intense",
+                "sardonic"
+            ],
+            "movement_style": "slow and deliberate"
+        }
+    },
+    {
+        "persona_id": "commander-reyes-void",
+        "display_name": "Commander Reyes",
+        "archetype_tags": [
+            "Void Ranger",
+            "tactical",
+            "military"
+        ],
+        "short_bio": "Crisp, authoritative, and calm under pressure. The voice of mission control.",
+        "recommended_prosody": {
+            "rate": "105%",
+            "pitch": "0st",
+            "volume": "loud"
+        },
+        "SSML_template": "<speak><prosody rate='105%'>{{TEXT}}</prosody></speak>",
+        "DSP_recipe": {
+            "eq": "broadcast",
+            "compression": "heavy",
+            "reverb": "none"
+        },
+        "animation_cues": {
+            "default_pose": "attention",
+            "signature_gesture": "salute",
+            "expression_range": [
+                "focused",
+                "determined",
+                "neutral"
+            ],
+            "movement_style": "sharp and precise"
+        }
+    },
+    {
+        "persona_id": "sage-aurora-architect",
+        "display_name": "Sage Aurora",
+        "archetype_tags": [
+            "Mythic Architect",
+            "sci-fi",
+            "educational"
+        ],
+        "short_bio": "Warm, visionary, and expansive. Ideal for TED talks and explaining the cosmos.",
+        "recommended_prosody": {
+            "rate": "95%",
+            "pitch": "+1st",
+            "volume": "medium"
+        },
+        "SSML_template": "<speak><prosody rate='95%' pitch='+1st'>{{TEXT}}</prosody></speak>",
+        "DSP_recipe": {
+            "eq": "clean_studio",
+            "compression": "medium",
+            "reverb": "ethereal_hall 20%"
+        },
+        "animation_cues": {
+            "default_pose": "open_arms",
+            "signature_gesture": "expansive_sweep",
+            "expression_range": [
+                "inspired",
+                "wonder",
+                "gentle"
+            ],
+            "movement_style": "fluid and graceful"
+        }
+    },
+    {
+        "persona_id": "max-thunder-titan",
+        "display_name": "Max Thunder",
+        "archetype_tags": [
+            "Thunder Titan",
+            "sports",
+            "hype"
+        ],
+        "short_bio": "High energy, booming resonance. The voice that fills the stadium.",
+        "recommended_prosody": {
+            "rate": "110%",
+            "pitch": "-2st",
+            "volume": "max"
+        },
+        "SSML_template": "<speak><prosody rate='110%' pitch='-2st'>{{TEXT}}</prosody></speak>",
+        "DSP_recipe": {
+            "eq": "broadcast",
+            "compression": "extreme",
+            "reverb": "stadium_slap"
+        },
+        "animation_cues": {
+            "default_pose": "power_stance",
+            "signature_gesture": "fist_pump",
+            "expression_range": [
+                "excited",
+                "aggressive",
+                "hyped"
+            ],
+            "movement_style": "explosive"
+        }
+    },
+    {
+        "persona_id": "serenity-rain-whisper",
+        "display_name": "Serenity Rain",
+        "archetype_tags": [
+            "Silk Whisper",
+            "ASMR",
+            "meditation"
+        ],
+        "short_bio": "Soft, breathy, and incredibly close. For sleep stories and mindfulness.",
+        "recommended_prosody": {
+            "rate": "80%",
+            "pitch": "0st",
+            "volume": "whisper"
+        },
+        "SSML_template": "<speak><amazon:effect name='whispered'>{{TEXT}}</amazon:effect></speak>",
+        "DSP_recipe": {
+            "eq": "proximity",
+            "compression": "limiter",
+            "reverb": "cloud_texture"
+        },
+        "animation_cues": {
+            "default_pose": "lotus",
+            "signature_gesture": "slow_blink",
+            "expression_range": [
+                "peaceful",
+                "dreamy",
+                "smiling"
+            ],
+            "movement_style": "minimal"
+        }
+    },
+    {
+        "persona_id": "phoenix-drake-steel",
+        "display_name": "Phoenix Drake",
+        "archetype_tags": [
+            "Steel Phoenix",
+            "motivational",
+            "underdog"
+        ],
+        "short_bio": "Grit, rasp, and resilience. The voice of someone who has survived.",
+        "recommended_prosody": {
+            "rate": "100%",
+            "pitch": "-0.5st",
+            "volume": "medium-loud"
+        },
+        "SSML_template": "<speak><prosody pitch='-0.5st'>{{TEXT}}</prosody></speak>",
+        "DSP_recipe": {
+            "eq": "presence_boost",
+            "compression": "punchy",
+            "reverb": "small_room"
+        },
+        "animation_cues": {
+            "default_pose": "crossed_arms",
+            "signature_gesture": "chest_tap",
+            "expression_range": [
+                "determined",
+                "stoic",
+                "proud"
+            ],
+            "movement_style": "grounded"
+        }
+    },
+    {
+        "persona_id": "ember-hart-heart",
+        "display_name": "Ember Hart",
+        "archetype_tags": [
+            "Ember Heart",
+            "emotional",
+            "confessional"
+        ],
+        "short_bio": "Raw, honest, and vulnerable. Connects instantly on an emotional level.",
+        "recommended_prosody": {
+            "rate": "98%",
+            "pitch": "0st",
+            "volume": "dynamic"
+        },
+        "SSML_template": "<speak>{{TEXT}}</speak>",
+        "DSP_recipe": {
+            "eq": "warm_mid",
+            "compression": "transparent",
+            "reverb": "living_room"
+        },
+        "animation_cues": {
+            "default_pose": "hand_on_heart",
+            "signature_gesture": "subtle_nod",
+            "expression_range": [
+                "earnest",
+                "tearful",
+                "joyful"
+            ],
+            "movement_style": "responsive"
+        }
+    }
+]

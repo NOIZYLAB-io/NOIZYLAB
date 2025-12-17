@@ -1,0 +1,2757 @@
+{
+  "metadata": {
+    "last_updated": "2025-12-14"
+  },
+  "instruments": [
+    {
+      "id": "vi_001",
+      "name": "Serum",
+      "developer": "Xfer Records",
+      "type": "Wavetable Synthesizer",
+      "release_date": "2014-09-01",
+      "latest_version": "1.363",
+      "formats": [
+        "VST",
+        "AU",
+        "AAX"
+      ],
+      "tags": [
+        "wavetable",
+        "modern",
+        "popular"
+      ]
+    },
+    {
+      "id": "vi_002",
+      "name": "Omnisphere 2",
+      "developer": "Spectrasonics",
+      "type": "Power Synth",
+      "release_date": "2015-04-30",
+      "latest_version": "2.8",
+      "formats": [
+        "VST",
+        "AU",
+        "AAX"
+      ],
+      "tags": [
+        "cinematic",
+        "comprehensive",
+        "samples"
+      ]
+    },
+    {
+      "id": "vi_003",
+      "name": "Kontakt 7",
+      "developer": "Native Instruments",
+      "type": "Sampler",
+      "release_date": "2022-09-01",
+      "latest_version": "7.0",
+      "formats": [
+        "VST",
+        "AU",
+        "AAX"
+      ],
+      "tags": [
+        "sampler",
+        "standard",
+        "library-host"
+      ]
+    },
+    {
+      "name": "Diva",
+      "developer": "u-he",
+      "type": "Analog Modeling Synth",
+      "id": "vi_004",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858042"
+    },
+    {
+      "name": "Massive X",
+      "developer": "Native Instruments",
+      "type": "Wavetable Synth",
+      "id": "vi_005",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858052"
+    },
+    {
+      "name": "Sylenth1",
+      "developer": "LennarDigital",
+      "type": "Subtractive Synth",
+      "id": "vi_006",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858055"
+    },
+    {
+      "name": "Pigments 5",
+      "developer": "Arturia",
+      "type": "Polychrome Synth",
+      "id": "vi_007",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858057"
+    },
+    {
+      "name": "Phase Plant",
+      "developer": "Kilohearts",
+      "type": "Modular Synth",
+      "id": "vi_008",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858058"
+    },
+    {
+      "name": "Vital",
+      "developer": "Matt Tytel",
+      "type": "Wavetable Synth",
+      "id": "vi_009",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858059"
+    },
+    {
+      "name": "V Collection X",
+      "developer": "Arturia",
+      "type": "Collection",
+      "id": "vi_010",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858061"
+    },
+    {
+      "name": "Komplete 14",
+      "developer": "Native Instruments",
+      "type": "Collection",
+      "id": "vi_011",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858062"
+    },
+    {
+      "name": "Falcon 3",
+      "developer": "UVI",
+      "type": "Hybrid Synth",
+      "id": "vi_012",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858064"
+    },
+    {
+      "name": "Nexus 4",
+      "developer": "reFX",
+      "type": "Rompler",
+      "id": "vi_013",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858065"
+    },
+    {
+      "name": "Spire",
+      "developer": "Reveal Sound",
+      "type": "Polyphonic Synth",
+      "id": "vi_014",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858066"
+    },
+    {
+      "name": "Hive 2",
+      "developer": "u-he",
+      "type": "Wavetable/Subtractive",
+      "id": "vi_015",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858068"
+    },
+    {
+      "name": "Zebra 2",
+      "developer": "u-he",
+      "type": "Modular Synth",
+      "id": "vi_016",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858069"
+    },
+    {
+      "name": "Repro",
+      "developer": "u-he",
+      "type": "Analog Modeling",
+      "id": "vi_017",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858070"
+    },
+    {
+      "name": "Juno-60",
+      "developer": "Roland Cloud",
+      "type": "Emulation",
+      "id": "vi_018",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858072"
+    },
+    {
+      "name": "Jupiter-8",
+      "developer": "Roland Cloud",
+      "type": "Emulation",
+      "id": "vi_019",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858073"
+    },
+    {
+      "name": "Minimoog V",
+      "developer": "Arturia",
+      "type": "Emulation",
+      "id": "vi_020",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858074"
+    },
+    {
+      "name": "Prophet-5 V",
+      "developer": "Arturia",
+      "type": "Emulation",
+      "id": "vi_021",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858075"
+    },
+    {
+      "name": "Keyscape",
+      "developer": "Spectrasonics",
+      "type": "Keyboards",
+      "id": "vi_022",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858077"
+    },
+    {
+      "name": "Trilian",
+      "developer": "Spectrasonics",
+      "type": "Bass Module",
+      "id": "vi_023",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858078"
+    },
+    {
+      "name": "Superior Drummer 3",
+      "developer": "Toontrack",
+      "type": "Drums",
+      "id": "vi_024",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858079"
+    },
+    {
+      "name": "Addictive Drums 2",
+      "developer": "XLN Audio",
+      "type": "Drums",
+      "id": "vi_025",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858081"
+    },
+    {
+      "name": "EZDrummer 3",
+      "developer": "Toontrack",
+      "type": "Drums",
+      "id": "vi_026",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858082"
+    },
+    {
+      "name": "Battery 4",
+      "developer": "Native Instruments",
+      "type": "Drum Sampler",
+      "id": "vi_027",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858083"
+    },
+    {
+      "name": "ARCADE",
+      "developer": "Output",
+      "type": "Loop Sampler",
+      "id": "vi_028",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858085"
+    },
+    {
+      "name": "Serato Sample",
+      "developer": "Serato",
+      "type": "Sampler",
+      "id": "vi_029",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858086"
+    },
+    {
+      "name": "TAL-Sampler",
+      "developer": "TAL Software",
+      "type": "Vintage Sampler",
+      "id": "vi_030",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858087"
+    },
+    {
+      "name": "Pro-Q 3",
+      "developer": "FabFilter",
+      "type": "EQ",
+      "id": "vi_031",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858088"
+    },
+    {
+      "name": "Pro-L 2",
+      "developer": "FabFilter",
+      "type": "Limiter",
+      "id": "vi_032",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858090"
+    },
+    {
+      "name": "Pro-C 2",
+      "developer": "FabFilter",
+      "type": "Compressor",
+      "id": "vi_033",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858091"
+    },
+    {
+      "name": "Saturn 2",
+      "developer": "FabFilter",
+      "type": "Saturation",
+      "id": "vi_034",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858093"
+    },
+    {
+      "name": "ValhallaVintageVerb",
+      "developer": "Valhalla DSP",
+      "type": "Reverb",
+      "id": "vi_035",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858094"
+    },
+    {
+      "name": "ValhallaRoom",
+      "developer": "Valhalla DSP",
+      "type": "Reverb",
+      "id": "vi_036",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858095"
+    },
+    {
+      "name": "ValhallaShimmer",
+      "developer": "Valhalla DSP",
+      "type": "Reverb",
+      "id": "vi_037",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858096"
+    },
+    {
+      "name": "RC-20 Retro Color",
+      "developer": "XLN Audio",
+      "type": "Lo-Fi Effect",
+      "id": "vi_038",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858097"
+    },
+    {
+      "name": "Decapitator",
+      "developer": "Soundtoys",
+      "type": "Saturation",
+      "id": "vi_039",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858098"
+    },
+    {
+      "name": "EchoBoy",
+      "developer": "Soundtoys",
+      "type": "Delay",
+      "id": "vi_040",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858100"
+    },
+    {
+      "name": "Little AlterBoy",
+      "developer": "Soundtoys",
+      "type": "Vocal Effect",
+      "id": "vi_041",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858101"
+    },
+    {
+      "name": "EffectList",
+      "developer": "Soundtoys",
+      "type": "Collection",
+      "id": "vi_042",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858102"
+    },
+    {
+      "name": "Soothe2",
+      "developer": "Oeksound",
+      "type": "Resonance Suppressor",
+      "id": "vi_043",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858104"
+    },
+    {
+      "name": "Gullfoss",
+      "developer": "Soundtheory",
+      "type": "Intelligent EQ",
+      "id": "vi_044",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858105"
+    },
+    {
+      "name": "Ozone 11",
+      "developer": "iZotope",
+      "type": "Mastering Suite",
+      "id": "vi_045",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858106"
+    },
+    {
+      "name": "Neutron 4",
+      "developer": "iZotope",
+      "type": "Mixing Suite",
+      "id": "vi_046",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858108"
+    },
+    {
+      "name": "Rx 10",
+      "developer": "iZotope",
+      "type": "Audio Repair",
+      "id": "vi_047",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858109"
+    },
+    {
+      "name": "Trash 2",
+      "developer": "iZotope",
+      "type": "Distortion",
+      "id": "vi_048",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858110"
+    },
+    {
+      "name": "Vulf Compressor",
+      "developer": "Goodhertz",
+      "type": "Compressor",
+      "id": "vi_049",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858111"
+    },
+    {
+      "name": "ShaperBox 3",
+      "developer": "Cableguys",
+      "type": "Multi-Effect",
+      "id": "vi_050",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858113"
+    },
+    {
+      "name": "Kickstart 2",
+      "developer": "Nicky Romero",
+      "type": "Sidechain",
+      "id": "vi_051",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858114"
+    },
+    {
+      "name": "LFO Tool",
+      "developer": "Xfer Records",
+      "type": "LFO/Sidechain",
+      "id": "vi_052",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858115"
+    },
+    {
+      "name": "Endless Smile",
+      "developer": "Dada Life",
+      "type": "Build-up Effect",
+      "id": "vi_053",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858116"
+    },
+    {
+      "name": "Sausage Fattener",
+      "developer": "Dada Life",
+      "type": "Saturation/Limiter",
+      "id": "vi_054",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858118"
+    },
+    {
+      "name": "OTT",
+      "developer": "Xfer Records",
+      "type": "Multiband Compressor",
+      "id": "vi_055",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858119"
+    },
+    {
+      "name": "Portal",
+      "developer": "Output",
+      "type": "Granular FX",
+      "id": "vi_056",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858120"
+    },
+    {
+      "name": "Thermal",
+      "developer": "Output",
+      "type": "Distortion",
+      "id": "vi_057",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858121"
+    },
+    {
+      "name": "Movement",
+      "developer": "Output",
+      "type": "Rhythm FX",
+      "id": "vi_058",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858122"
+    },
+    {
+      "name": "Shadow Hills Class A",
+      "developer": "Plugin Alliance",
+      "type": "Compressor",
+      "id": "vi_059",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858124"
+    },
+    {
+      "name": "Black Box HG-2",
+      "developer": "Plugin Alliance",
+      "type": "Saturation",
+      "id": "vi_060",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858125"
+    },
+    {
+      "name": "SSL G-Bus Compressor",
+      "developer": "Waves/Universal Audio",
+      "type": "Compressor",
+      "id": "vi_061",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858126"
+    },
+    {
+      "name": "1176 Collection",
+      "developer": "Universal Audio",
+      "type": "Compressor",
+      "id": "vi_062",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858127"
+    },
+    {
+      "name": "LA-2A Collection",
+      "developer": "Universal Audio",
+      "type": "Compressor",
+      "id": "vi_063",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858128"
+    },
+    {
+      "name": "Pultec EQ Collection",
+      "developer": "Universal Audio",
+      "type": "EQ",
+      "id": "vi_064",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858130"
+    },
+    {
+      "name": "Auto-Tune Pro",
+      "developer": "Antares",
+      "type": "Pitch Correction",
+      "id": "vi_065",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858131"
+    },
+    {
+      "name": "Melodyne 5",
+      "developer": "Celemony",
+      "type": "Pitch Correction",
+      "id": "vi_066",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858132"
+    },
+    {
+      "name": "VocAlign Ultra",
+      "developer": "Synchro Arts",
+      "type": "Alignment",
+      "id": "vi_067",
+      "release_date": "Unknown",
+      "added_at": "2025-12-14 02:05:06.858134"
+    },
+    {
+      "id": "auto_0068",
+      "name": "UAD SSL E Channel Strip",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024297"
+    },
+    {
+      "id": "auto_0069",
+      "name": "UAD Vertigo VSM-3",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024322"
+    },
+    {
+      "id": "auto_0070",
+      "name": "UAD Manley Reference Mic Preamp",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024332"
+    },
+    {
+      "id": "auto_0071",
+      "name": "UAD API Preamp",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024340"
+    },
+    {
+      "id": "auto_0072",
+      "name": "UAD bx_refinement",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024347"
+    },
+    {
+      "id": "auto_0073",
+      "name": "UAD Roland Dimension D",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024354"
+    },
+    {
+      "id": "auto_0074",
+      "name": "UAD Sphere Mic Collection 180",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024360"
+    },
+    {
+      "id": "auto_0075",
+      "name": "UAD Auto-Tune Realtime Advanced",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024366"
+    },
+    {
+      "id": "auto_0076",
+      "name": "uaudio_sound_city_studios",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024372"
+    },
+    {
+      "id": "auto_0077",
+      "name": "UAD API 550A",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024378"
+    },
+    {
+      "id": "auto_0078",
+      "name": "UAD Capitol Chambers",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024384"
+    },
+    {
+      "id": "auto_0079",
+      "name": "UAD Chandler GAV19T",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024390"
+    },
+    {
+      "id": "auto_0080",
+      "name": "UAD Precision Equalizer",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024397"
+    },
+    {
+      "id": "auto_0081",
+      "name": "UAD UA 1176LN Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024404"
+    },
+    {
+      "id": "auto_0082",
+      "name": "UAD Softube Vintage Amp Room",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024410"
+    },
+    {
+      "id": "auto_0083",
+      "name": "UAD SPL Vitalizer MK3-T",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024416"
+    },
+    {
+      "id": "auto_0084",
+      "name": "UAD Oxford Inflator",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024425"
+    },
+    {
+      "id": "auto_0085",
+      "name": "UAD Empirical Labs FATSO Jr",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024431"
+    },
+    {
+      "id": "auto_0086",
+      "name": "uaudio_ampex_atr-102_tape",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024437"
+    },
+    {
+      "id": "auto_0087",
+      "name": "UAD Neve 1073",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024443"
+    },
+    {
+      "id": "auto_0088",
+      "name": "uaudio_topline_key_finder",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024448"
+    },
+    {
+      "id": "auto_0089",
+      "name": "UAD API 2500",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024454"
+    },
+    {
+      "id": "auto_0090",
+      "name": "UAD Thermionic Culture Vulture",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024460"
+    },
+    {
+      "id": "auto_0091",
+      "name": "UAD Hitsville EQ Mastering",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024466"
+    },
+    {
+      "id": "auto_0092",
+      "name": "UAD MXR Flanger-Doubler",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024471"
+    },
+    {
+      "id": "auto_0093",
+      "name": "UAD Century Tube Channel Strip",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024477"
+    },
+    {
+      "id": "auto_0094",
+      "name": "UAD Roland RE-201",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024483"
+    },
+    {
+      "id": "auto_0095",
+      "name": "UAD DreamVerb",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024489"
+    },
+    {
+      "id": "auto_0096",
+      "name": "UAD Oxford SuprEsser DS",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024495"
+    },
+    {
+      "id": "auto_0097",
+      "name": "UAD Oxford EQ",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024501"
+    },
+    {
+      "id": "auto_0098",
+      "name": "UAD Precision Reflection Engine",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024507"
+    },
+    {
+      "id": "auto_0099",
+      "name": "UAD Diezel VH4",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024512"
+    },
+    {
+      "id": "auto_0100",
+      "name": "uaudio_pultec_eqp-1a",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024518"
+    },
+    {
+      "id": "auto_0101",
+      "name": "UAD Moog Multimode Filter SE",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024524"
+    },
+    {
+      "id": "auto_0102",
+      "name": "uaudio_manley_massive_passive",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024529"
+    },
+    {
+      "id": "auto_0103",
+      "name": "UAD Neve 1084",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024535"
+    },
+    {
+      "id": "auto_0104",
+      "name": "UAD ENGL Savage 120",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024541"
+    },
+    {
+      "id": "auto_0105",
+      "name": "UAD UA 1176SE Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024546"
+    },
+    {
+      "id": "auto_0106",
+      "name": "UAD TS Overdrive",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.024552"
+    },
+    {
+      "id": "auto_0107",
+      "name": "UAD Hitsville EQ",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025043"
+    },
+    {
+      "id": "auto_0108",
+      "name": "UAD API Vision Channel Strip Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025065"
+    },
+    {
+      "id": "auto_0109",
+      "name": "UAD Precision Enhancer kHz",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025074"
+    },
+    {
+      "id": "auto_0110",
+      "name": "UAD bx_masterdesk Classic",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025082"
+    },
+    {
+      "id": "auto_0111",
+      "name": "UAD C-Suite C-Axe",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025089"
+    },
+    {
+      "id": "auto_0112",
+      "name": "UAD Ampex ATR-102",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025095"
+    },
+    {
+      "id": "auto_0113",
+      "name": "UAD Teletronix LA-2A Silver",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025102"
+    },
+    {
+      "id": "auto_0114",
+      "name": "UAD Neve Preamp",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025108"
+    },
+    {
+      "id": "auto_0115",
+      "name": "UAD Friedman BE100",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025114"
+    },
+    {
+      "id": "auto_0116",
+      "name": "UAD Suhr PT100",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025120"
+    },
+    {
+      "id": "auto_0117",
+      "name": "UAD Dangerous BAX EQ Master",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025126"
+    },
+    {
+      "id": "auto_0118",
+      "name": "UAD Teletronix LA-2A Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025132"
+    },
+    {
+      "id": "auto_0119",
+      "name": "UAD bx_digital V2",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025137"
+    },
+    {
+      "id": "auto_0120",
+      "name": "UAD Softube Bass Amp Room",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025145"
+    },
+    {
+      "id": "auto_0121",
+      "name": "UAD A-Type Multiband Enhancer",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025151"
+    },
+    {
+      "id": "auto_0122",
+      "name": "uaudio_teletronix_la-2a_silver",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025157"
+    },
+    {
+      "id": "auto_0123",
+      "name": "UAD Trident A-Range",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025163"
+    },
+    {
+      "id": "auto_0124",
+      "name": "UAD Precision De-Esser",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025168"
+    },
+    {
+      "id": "auto_0125",
+      "name": "UAD Neve 1073 Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025175"
+    },
+    {
+      "id": "auto_0126",
+      "name": "UAD Pure Plate",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025180"
+    },
+    {
+      "id": "auto_0127",
+      "name": "UAD Softube Metal Amp Room",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025186"
+    },
+    {
+      "id": "auto_0128",
+      "name": "UAD Neve 1081SE",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025192"
+    },
+    {
+      "id": "auto_0129",
+      "name": "UAD bx_digital V2 Mono",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025263"
+    },
+    {
+      "id": "auto_0130",
+      "name": "UAD Moog Multimode Filter",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025271"
+    },
+    {
+      "id": "auto_0131",
+      "name": "UAD Marshall Silver Jubilee 2555",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025277"
+    },
+    {
+      "id": "auto_0132",
+      "name": "UAD Dangerous BAX EQ Mix",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025283"
+    },
+    {
+      "id": "auto_0133",
+      "name": "UAD Neve 33609SE",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025290"
+    },
+    {
+      "id": "auto_0134",
+      "name": "UAD Tube-Tech CL 1B mk II",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025296"
+    },
+    {
+      "id": "auto_0135",
+      "name": "UAD Summit Audio TLA-100A",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025302"
+    },
+    {
+      "id": "auto_0136",
+      "name": "UAD Brigade Chorus",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025308"
+    },
+    {
+      "id": "auto_0137",
+      "name": "UAD elysia alpha mix",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025313"
+    },
+    {
+      "id": "auto_0138",
+      "name": "UAD Gallien Krueger 800RB",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025319"
+    },
+    {
+      "id": "auto_0139",
+      "name": "UAD AMS Neve DFC Channel Strip",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025325"
+    },
+    {
+      "id": "auto_0140",
+      "name": "UAD Ampeg SVTVR Classic",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025331"
+    },
+    {
+      "id": "auto_0141",
+      "name": "UAD API 560",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025337"
+    },
+    {
+      "id": "auto_0142",
+      "name": "UAD Teletronix LA-2",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025343"
+    },
+    {
+      "id": "auto_0143",
+      "name": "UAD Millennia NSEQ-2",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025348"
+    },
+    {
+      "id": "auto_0144",
+      "name": "UAD Studio D Chorus",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025356"
+    },
+    {
+      "id": "auto_0145",
+      "name": "UAD elysia alpha compressor V2",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025362"
+    },
+    {
+      "id": "auto_0146",
+      "name": "UAD Tonelux Tilt",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025368"
+    },
+    {
+      "id": "auto_0147",
+      "name": "UAD ADA Flanger",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025373"
+    },
+    {
+      "id": "auto_0148",
+      "name": "UAD Galaxy Tape Echo",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025379"
+    },
+    {
+      "id": "auto_0149",
+      "name": "UAD Oxford Envolution",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025384"
+    },
+    {
+      "id": "auto_0150",
+      "name": "UAD EP-34 Tape Echo",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025390"
+    },
+    {
+      "id": "auto_0151",
+      "name": "UAD UA 610-B",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025396"
+    },
+    {
+      "id": "auto_0152",
+      "name": "Console Recall",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025402"
+    },
+    {
+      "id": "auto_0153",
+      "name": "UAD Manley Variable Mu",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025408"
+    },
+    {
+      "id": "auto_0154",
+      "name": "UAD elysia mpressor",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025413"
+    },
+    {
+      "id": "auto_0155",
+      "name": "UAD bx_saturator V2",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025419"
+    },
+    {
+      "id": "auto_0156",
+      "name": "UAD Little Labs IBP",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025425"
+    },
+    {
+      "id": "auto_0157",
+      "name": "UAD Sphere Mic Collection",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025430"
+    },
+    {
+      "id": "auto_0158",
+      "name": "UAD Neve 1073SE Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025436"
+    },
+    {
+      "id": "auto_0159",
+      "name": "UAD Tube-Tech ME 1B",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025442"
+    },
+    {
+      "id": "auto_0160",
+      "name": "UAD MDWEQ5-5B",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025447"
+    },
+    {
+      "id": "auto_0161",
+      "name": "UAD Roland CE-1",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025453"
+    },
+    {
+      "id": "auto_0162",
+      "name": "UAD Moog Multimode Filter XL",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025458"
+    },
+    {
+      "id": "auto_0163",
+      "name": "UAD Ocean Way Studios",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025620"
+    },
+    {
+      "id": "auto_0164",
+      "name": "UAD Friedman DS40",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025643"
+    },
+    {
+      "id": "auto_0165",
+      "name": "UAD Pultec-Pro Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025652"
+    },
+    {
+      "id": "auto_0166",
+      "name": "UAD Fairchild 660",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025664"
+    },
+    {
+      "id": "auto_0167",
+      "name": "UAD Pultec EQP-1A",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025671"
+    },
+    {
+      "id": "auto_0168",
+      "name": "uaudio_century_channel_strip",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025678"
+    },
+    {
+      "id": "auto_0169",
+      "name": "UAD Hitsville Reverb Chambers",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.025684"
+    },
+    {
+      "id": "auto_0170",
+      "name": "UAD Marshall Bluesbreaker 1962",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026298"
+    },
+    {
+      "id": "auto_0171",
+      "name": "UAD Empirical Labs FATSO Sr",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026317"
+    },
+    {
+      "id": "auto_0172",
+      "name": "UAD EMT 140",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026325"
+    },
+    {
+      "id": "auto_0173",
+      "name": "UAD bx_digital V3 mix",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026332"
+    },
+    {
+      "id": "auto_0174",
+      "name": "UAD Korg SDD-3000",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026340"
+    },
+    {
+      "id": "auto_0175",
+      "name": "UAD 4K Buss Compressor",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026346"
+    },
+    {
+      "id": "auto_0176",
+      "name": "UAD Auto-Tune Realtime Access",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026352"
+    },
+    {
+      "id": "auto_0177",
+      "name": "uaudio_manley_massive_passive_m",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026359"
+    },
+    {
+      "id": "auto_0178",
+      "name": "uaudio_teletronix_la-2a_gray",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026365"
+    },
+    {
+      "id": "auto_0179",
+      "name": "uaudio_galaxy_tape_echo",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026371"
+    },
+    {
+      "id": "auto_0180",
+      "name": "UAD Harrison 32C",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026377"
+    },
+    {
+      "id": "auto_0181",
+      "name": "uaudio_fairchild_670",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026383"
+    },
+    {
+      "id": "auto_0182",
+      "name": "UAD Diezel Herbert",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026389"
+    },
+    {
+      "id": "auto_0183",
+      "name": "UAD UA 1176LN Rev E",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026394"
+    },
+    {
+      "id": "auto_0184",
+      "name": "UAD Neve 31102",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026400"
+    },
+    {
+      "id": "auto_0185",
+      "name": "uaudio_teletronix_la-2",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026406"
+    },
+    {
+      "id": "auto_0186",
+      "name": "UAD AKG BX 20",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026412"
+    },
+    {
+      "id": "auto_0187",
+      "name": "UAD Friedman Buxom Betty",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026417"
+    },
+    {
+      "id": "auto_0188",
+      "name": "UAD elysia alpha master",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026425"
+    },
+    {
+      "id": "auto_0189",
+      "name": "UAD Chandler Limited Curve Bender",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026431"
+    },
+    {
+      "id": "auto_0190",
+      "name": "UAD Shadow Hills Class A Mastering Comp",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026437"
+    },
+    {
+      "id": "auto_0191",
+      "name": "uaudio_neve_1073",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026443"
+    },
+    {
+      "id": "auto_0192",
+      "name": "UAD Precision K-Stereo",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026448"
+    },
+    {
+      "id": "auto_0193",
+      "name": "UAD UA 175-B",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026454"
+    },
+    {
+      "id": "auto_0194",
+      "name": "UAD ENGL E646 VS",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026460"
+    },
+    {
+      "id": "auto_0195",
+      "name": "UAD Lexicon 224",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026466"
+    },
+    {
+      "id": "auto_0196",
+      "name": "UAD Putnam Mic Collection 180",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026473"
+    },
+    {
+      "id": "auto_0197",
+      "name": "UAD Marshall Plexi Classic",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026478"
+    },
+    {
+      "id": "auto_0198",
+      "name": "UAD Neve 33609 C",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026484"
+    },
+    {
+      "id": "auto_0199",
+      "name": "UAD Bermuda Triangle",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026489"
+    },
+    {
+      "id": "auto_0200",
+      "name": "UAD bx_digital V3",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026495"
+    },
+    {
+      "id": "auto_0201",
+      "name": "UAD UA 1176AE",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026501"
+    },
+    {
+      "id": "auto_0202",
+      "name": "UAD Neve 88RS",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026507"
+    },
+    {
+      "id": "auto_0203",
+      "name": "uaudio_capitol_chambers",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026513"
+    },
+    {
+      "id": "auto_0204",
+      "name": "uaudio_dbx_160",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026518"
+    },
+    {
+      "id": "auto_0205",
+      "name": "UAD Eventide H910 Harmonizer",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026524"
+    },
+    {
+      "id": "auto_0206",
+      "name": "UAD MDWEQ5-3B",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026530"
+    },
+    {
+      "id": "auto_0207",
+      "name": "UAD Pultec MEQ-5",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026535"
+    },
+    {
+      "id": "auto_0208",
+      "name": "UAD Cooper Time Cube",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026541"
+    },
+    {
+      "id": "auto_0209",
+      "name": "UAD Eden WT800",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026547"
+    },
+    {
+      "id": "auto_0210",
+      "name": "UAD Fuchs Train II",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026552"
+    },
+    {
+      "id": "auto_0211",
+      "name": "UAD Ampeg B15N",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026558"
+    },
+    {
+      "id": "auto_0212",
+      "name": "UAD UA 176",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026564"
+    },
+    {
+      "id": "auto_0213",
+      "name": "UAD Precision Buss Compressor",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026570"
+    },
+    {
+      "id": "auto_0214",
+      "name": "uaudio_api_vision_channel_strip",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026575"
+    },
+    {
+      "id": "auto_0215",
+      "name": "uaudio_topline_vocal_suite",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026581"
+    },
+    {
+      "id": "auto_0216",
+      "name": "UAD Auto-Tune Realtime X",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026586"
+    },
+    {
+      "id": "auto_0217",
+      "name": "UAD SPL TwinTube",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026592"
+    },
+    {
+      "id": "auto_0218",
+      "name": "uaudio_studer_a800",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026598"
+    },
+    {
+      "id": "auto_0219",
+      "name": "UAD Raw",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026604"
+    },
+    {
+      "id": "auto_0220",
+      "name": "UAD Helios Type 69",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026609"
+    },
+    {
+      "id": "auto_0221",
+      "name": "UAD Sound Machine Wood Works",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.026615"
+    },
+    {
+      "id": "auto_0222",
+      "name": "uaudio_pultec_hlf-3c",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027572"
+    },
+    {
+      "id": "auto_0223",
+      "name": "UAD Shadow Hills Mastering Compressor",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027702"
+    },
+    {
+      "id": "auto_0224",
+      "name": "uaudio_lexicon_224",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027799"
+    },
+    {
+      "id": "auto_0225",
+      "name": "UAD Precision Limiter",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027832"
+    },
+    {
+      "id": "auto_0226",
+      "name": "UAD Precision Delay Mod L",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027853"
+    },
+    {
+      "id": "auto_0227",
+      "name": "UAD C-Suite C-Max",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027870"
+    },
+    {
+      "id": "auto_0228",
+      "name": "UAD Neve 2254 E Dual",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027887"
+    },
+    {
+      "id": "auto_0229",
+      "name": "UAD Fuchs Overdrive Supreme 50",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027904"
+    },
+    {
+      "id": "auto_0230",
+      "name": "UAD ADA STD-1 Stereo Tapped Delay",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027920"
+    },
+    {
+      "id": "auto_0231",
+      "name": "UAD Tube-Tech CL 1B",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027935"
+    },
+    {
+      "id": "auto_0232",
+      "name": "UAD Helios Type 69 Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027950"
+    },
+    {
+      "id": "auto_0233",
+      "name": "UAD UA 610-A",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027966"
+    },
+    {
+      "id": "auto_0234",
+      "name": "UAD Precision Enhancer Hz",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.027984"
+    },
+    {
+      "id": "auto_0235",
+      "name": "UAD SSL G Bus Compressor",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028016"
+    },
+    {
+      "id": "auto_0236",
+      "name": "UAD Tube-Tech PE 1C",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028035"
+    },
+    {
+      "id": "auto_0237",
+      "name": "UAD Vertigo VSC-2",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028050"
+    },
+    {
+      "id": "auto_0238",
+      "name": "UAD ENGL E765 RT",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028065"
+    },
+    {
+      "id": "auto_0239",
+      "name": "UAD Manley VOXBOX",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028079"
+    },
+    {
+      "id": "auto_0240",
+      "name": "UAD V76 Preamp",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028095"
+    },
+    {
+      "id": "auto_0241",
+      "name": "UAD Marshall JMP 2203",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028110"
+    },
+    {
+      "id": "auto_0242",
+      "name": "UAD Suhr SE100",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028125"
+    },
+    {
+      "id": "auto_0243",
+      "name": "UAD Marshall Plexi Super Lead 1959",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028140"
+    },
+    {
+      "id": "auto_0244",
+      "name": "UAD Precision Multiband",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028155"
+    },
+    {
+      "id": "auto_0245",
+      "name": "UAD SPL Vitalizer MK2-T",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028170"
+    },
+    {
+      "id": "auto_0246",
+      "name": "UAD Oxide Tape",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028184"
+    },
+    {
+      "id": "auto_0247",
+      "name": "UAD Oxford Limiter",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028199"
+    },
+    {
+      "id": "auto_0248",
+      "name": "UAD Cambridge",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028213"
+    },
+    {
+      "id": "auto_0249",
+      "name": "UAD Softube Amp Room Half-Stack",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028228"
+    },
+    {
+      "id": "auto_0250",
+      "name": "UAD bx_subsynth",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028242"
+    },
+    {
+      "id": "auto_0251",
+      "name": "UAD Empirical Labs Distressor",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028258"
+    },
+    {
+      "id": "auto_0252",
+      "name": "uaudio_pultec_meq-5",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028273"
+    },
+    {
+      "id": "auto_0253",
+      "name": "UAD Ampeg SVTVR",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028288"
+    },
+    {
+      "id": "auto_0254",
+      "name": "UAD Teletronix LA-3A",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028302"
+    },
+    {
+      "id": "auto_0255",
+      "name": "UAD Ocean Way Mic Collection 180",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028317"
+    },
+    {
+      "id": "auto_0256",
+      "name": "UAD Tonelux Tilt Live",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028333"
+    },
+    {
+      "id": "auto_0257",
+      "name": "UAD Antares Auto-Tune Realtime",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028348"
+    },
+    {
+      "id": "auto_0258",
+      "name": "UAD Teletronix LA-2A Gray",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028655"
+    },
+    {
+      "id": "auto_0259",
+      "name": "UAD Softube Vocoder",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028677"
+    },
+    {
+      "id": "auto_0260",
+      "name": "UAD Fender 55 Tweed Deluxe",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028687"
+    },
+    {
+      "id": "auto_0261",
+      "name": "UAD bx_masterdesk",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028694"
+    },
+    {
+      "id": "auto_0262",
+      "name": "LANDR Sessions",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028718"
+    },
+    {
+      "id": "auto_0263",
+      "name": "UAD UA 1176 Rev A",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028726"
+    },
+    {
+      "id": "auto_0264",
+      "name": "UAD Putnam Mic Collection",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028733"
+    },
+    {
+      "id": "auto_0265",
+      "name": "UAD Manley Massive Passive MST",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028740"
+    },
+    {
+      "id": "auto_0266",
+      "name": "UAD EMT 250",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028746"
+    },
+    {
+      "id": "auto_0267",
+      "name": "UAD OTO Biscuit 8-bit Effects",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028753"
+    },
+    {
+      "id": "auto_0268",
+      "name": "UAD SPL Transient Designer",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028759"
+    },
+    {
+      "id": "auto_0269",
+      "name": "UAD Maag EQ4",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028765"
+    },
+    {
+      "id": "auto_0270",
+      "name": "UAD Precision Delay Mod",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028827"
+    },
+    {
+      "id": "auto_0271",
+      "name": "UAD Neve 1081",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028870"
+    },
+    {
+      "id": "auto_0272",
+      "name": "UAD Oxford Dynamic EQ",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028890"
+    },
+    {
+      "id": "auto_0273",
+      "name": "UAD Ibanez Tube Screamer TS808",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028908"
+    },
+    {
+      "id": "auto_0274",
+      "name": "UAD Lexicon 480L",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028925"
+    },
+    {
+      "id": "auto_0275",
+      "name": "UAD Maag EQ4 MS",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028940"
+    },
+    {
+      "id": "auto_0276",
+      "name": "UAD AMS RMX16 Expanded",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028957"
+    },
+    {
+      "id": "auto_0277",
+      "name": "uaudio_fairchild_660",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028972"
+    },
+    {
+      "id": "auto_0278",
+      "name": "UAD Fairchild 670 Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.028987"
+    },
+    {
+      "id": "auto_0279",
+      "name": "UAD SSL E Channel Strip Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029002"
+    },
+    {
+      "id": "auto_0280",
+      "name": "UAD Little Labs VOG",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029017"
+    },
+    {
+      "id": "auto_0281",
+      "name": "UAD Avalon VT-737sp",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029031"
+    },
+    {
+      "id": "auto_0282",
+      "name": "UAD Dytronics Tri-Stereo Chorus",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029046"
+    },
+    {
+      "id": "auto_0283",
+      "name": "UAD SSL G Bus Compressor Legacy",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029061"
+    },
+    {
+      "id": "auto_0284",
+      "name": "UAD Manley Massive Passive",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029076"
+    },
+    {
+      "id": "auto_0285",
+      "name": "UAD Pultec HLF-3C",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029090"
+    },
+    {
+      "id": "auto_0286",
+      "name": "UAD Neve 88RS Legacy",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029106"
+    },
+    {
+      "id": "auto_0287",
+      "name": "UAD Dytronics Cyclosonic Panner",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029120"
+    },
+    {
+      "id": "auto_0288",
+      "name": "UAD CS-1",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029135"
+    },
+    {
+      "id": "auto_0289",
+      "name": "UAD Precision Maximizer",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029693"
+    },
+    {
+      "id": "auto_0290",
+      "name": "UAD Softube Bass Amp Room 8x10",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029748"
+    },
+    {
+      "id": "auto_0291",
+      "name": "UAD 4K Channel Strip",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029772"
+    },
+    {
+      "id": "auto_0292",
+      "name": "UAD Chandler Limited Zener Limiter",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029792"
+    },
+    {
+      "id": "auto_0293",
+      "name": "UAD Ocean Way Mic Collection",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029808"
+    },
+    {
+      "id": "auto_0294",
+      "name": "UAD Neve 31102SE",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029825"
+    },
+    {
+      "id": "auto_0295",
+      "name": "UAD AMS RMX16",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029841"
+    },
+    {
+      "id": "auto_0296",
+      "name": "UAD Studer A800",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029857"
+    },
+    {
+      "id": "auto_0297",
+      "name": "UAD Valley People Dyna-mite",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029872"
+    },
+    {
+      "id": "auto_0298",
+      "name": "UAD AMS DMX 15-80 S",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029889"
+    },
+    {
+      "id": "auto_0299",
+      "name": "UAD LA-6176 Channel Strip",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029905"
+    },
+    {
+      "id": "auto_0300",
+      "name": "UAD C-Suite C-Vox",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029936"
+    },
+    {
+      "id": "auto_0301",
+      "name": "UAD Precision Channel Strip",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029952"
+    },
+    {
+      "id": "auto_0302",
+      "name": "UAD API Vision Channel Strip",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029966"
+    },
+    {
+      "id": "auto_0303",
+      "name": "UAD Neve 2254 E",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029981"
+    },
+    {
+      "id": "auto_0304",
+      "name": "UAD Ampeg SVT3Pro",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.029996"
+    },
+    {
+      "id": "auto_0305",
+      "name": "UAD Harrison 32C SE",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030011"
+    },
+    {
+      "id": "auto_0306",
+      "name": "uaudio_dream_amp",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030025"
+    },
+    {
+      "id": "auto_0307",
+      "name": "UAD Pultec EQP-1A Legacy",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030040"
+    },
+    {
+      "id": "auto_0308",
+      "name": "UAD Hemisphere Mic Collection",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030055"
+    },
+    {
+      "id": "auto_0309",
+      "name": "UAD dbx 160",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030070"
+    },
+    {
+      "id": "auto_0310",
+      "name": "UAD Fairchild 670",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030089"
+    },
+    {
+      "id": "auto_0311",
+      "name": "UAD RealVerb-Pro",
+      "developer": "UAD",
+      "type": "Effect",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030104"
+    },
+    {
+      "id": "auto_0312",
+      "name": "LANDR Sampler",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030119"
+    },
+    {
+      "id": "auto_0313",
+      "name": "UAD bx_tuner",
+      "developer": "UAD",
+      "type": "Instrument",
+      "format": "Audio Unit",
+      "added_at": "2025-12-14 04:37:39.030134"
+    },
+    {
+      "id": "auto_0314",
+      "name": "Universal Audio",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST",
+      "added_at": "2025-12-14 04:37:39.030363"
+    },
+    {
+      "id": "auto_0315",
+      "name": "uaudio_pultec_meq-5",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032693"
+    },
+    {
+      "id": "auto_0316",
+      "name": "uaudio_topline_key_finder",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032736"
+    },
+    {
+      "id": "auto_0317",
+      "name": "uaudio_galaxy_tape_echo",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032756"
+    },
+    {
+      "id": "auto_0318",
+      "name": "uaudio_dream_amp",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032819"
+    },
+    {
+      "id": "auto_0319",
+      "name": "uaudio_fairchild_660",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032876"
+    },
+    {
+      "id": "auto_0320",
+      "name": "uaudio_neve_1073",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032891"
+    },
+    {
+      "id": "auto_0321",
+      "name": "uaudio_ampex_atr-102_tape",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032899"
+    },
+    {
+      "id": "auto_0322",
+      "name": "uaudio_century_channel_strip",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032906"
+    },
+    {
+      "id": "auto_0323",
+      "name": "Universal Audio",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032913"
+    },
+    {
+      "id": "auto_0324",
+      "name": "uaudio_teletronix_la-2",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032919"
+    },
+    {
+      "id": "auto_0325",
+      "name": "uaudio_manley_massive_passive",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032925"
+    },
+    {
+      "id": "auto_0326",
+      "name": "uaudio_teletronix_la-2a_gray",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032931"
+    },
+    {
+      "id": "auto_0327",
+      "name": "uaudio_fairchild_670",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032937"
+    },
+    {
+      "id": "auto_0328",
+      "name": "uaudio_api_vision_channel_strip",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032943"
+    },
+    {
+      "id": "auto_0329",
+      "name": "uaudio_teletronix_la-2a_silver",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032949"
+    },
+    {
+      "id": "auto_0330",
+      "name": "uaudio_studer_a800",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032955"
+    },
+    {
+      "id": "auto_0331",
+      "name": "uaudio_manley_massive_passive_m",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032960"
+    },
+    {
+      "id": "auto_0332",
+      "name": "uaudio_topline_vocal_suite",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032966"
+    },
+    {
+      "id": "auto_0333",
+      "name": "LANDR Sessions",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032972"
+    },
+    {
+      "id": "auto_0334",
+      "name": "uaudio_sound_city_studios",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032977"
+    },
+    {
+      "id": "auto_0335",
+      "name": "LANDR Sampler",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032983"
+    },
+    {
+      "id": "auto_0336",
+      "name": "uaudio_pultec_hlf-3c",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032988"
+    },
+    {
+      "id": "auto_0337",
+      "name": "uaudio_pultec_eqp-1a",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.032994"
+    },
+    {
+      "id": "auto_0338",
+      "name": "uaudio_dbx_160",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.033000"
+    },
+    {
+      "id": "auto_0339",
+      "name": "uaudio_capitol_chambers",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.033005"
+    },
+    {
+      "id": "auto_0340",
+      "name": "uaudio_lexicon_224",
+      "developer": "Unknown",
+      "type": "Instrument",
+      "format": "VST3",
+      "added_at": "2025-12-14 04:37:39.033011"
+    }
+  ]
+}

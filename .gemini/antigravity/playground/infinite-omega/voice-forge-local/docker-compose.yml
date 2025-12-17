@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # 1. Unified TTS API (Wraps engines)
+  tts-api:
+    image: ghcr.io/coqui-ai/tts:latest # Replacing with Coqui as placeholder base
+    command: "python3 -m TTS.server.server --model_name tts_models/en/vctk/vits"
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./models:/root/.local/share/tts
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia # Or 'host' for Mac Metal if supported by container, usually CPU for docker-mac unless specialized
+              count: 1
+              capabilities: [gpu]
+
+  # 2. FFmpeg Worker (DSP)
+  dsp-worker:
+    image: jrottenberg/ffmpeg:4.4-alpine
+    entrypoint: ["tail", "-f", "/dev/null"] # Placeholder worker waiting for commands
+
+  # 3. Tunnel (Exposes tts-api to Edge)
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    restart: unless-stopped

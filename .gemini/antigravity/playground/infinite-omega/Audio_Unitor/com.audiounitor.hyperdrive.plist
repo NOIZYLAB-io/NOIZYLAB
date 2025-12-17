@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.audiounitor.hyperdrive</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/m2ultra/.gemini/antigravity/playground/infinite-omega/Audio_Unitor/Scripts/hyper_drive_watcher.py</string>
+    </array>
+    
+    <key>WorkingDirectory</key>
+    <string>/Users/m2ultra/.gemini/antigravity/playground/infinite-omega</string>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <true/>
+    
+    <key>StandardOutPath</key>
+    <string>/tmp/hyperdrive.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/tmp/hyperdrive.err</string>
+</dict>
+</plist>

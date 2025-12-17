@@ -1,0 +1,58 @@
+[
+    {
+        "id": "perf_123456789",
+        "timestamp": "2025-12-16T10:00:00Z",
+        "request": {
+            "text": "I am the storm.",
+            "persona_id": "max-thunder-titan",
+            "environment_id": "stadium"
+        },
+        "result": {
+            "ssml": "<speak><prosody rate='110%' pitch='-2st'>I am the storm.</prosody></speak>",
+            "dsp_filter": "firequalizer=gain=4:f=100:width_type=h,rubberband=pitch=0.890,acompressor=threshold=-14dB:ratio=5:attack=2:release=30:makeup=6dB,loudnorm=I=-14:TP=-1.5:LRA=11",
+            "meta": {
+                "persona": "Max Thunder",
+                "archetype": "Thunder Titan",
+                "environment": "Live Stadium",
+                "lufs_target": -14
+            },
+            "animation_data": {
+                "visemes": [
+                    {
+                        "time": 0.05,
+                        "value": "A"
+                    },
+                    {
+                        "time": 0.15,
+                        "value": "E"
+                    },
+                    {
+                        "time": 0.30,
+                        "value": "O"
+                    },
+                    {
+                        "time": 0.45,
+                        "value": "X"
+                    }
+                ],
+                "cues": [
+                    {
+                        "time": 0.0,
+                        "type": "pose",
+                        "value": "power_stance"
+                    },
+                    {
+                        "time": 0.2,
+                        "type": "gesture",
+                        "value": "fist_clench"
+                    }
+                ]
+            }
+        },
+        "provenance": {
+            "input_hash": "a1b2c3d4...",
+            "output_hash": "e5f6g7h8...",
+            "signature": "sig_987654321"
+        }
+    }
+]
