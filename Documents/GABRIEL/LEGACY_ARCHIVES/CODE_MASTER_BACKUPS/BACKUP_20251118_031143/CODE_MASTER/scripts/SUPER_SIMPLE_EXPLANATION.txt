@@ -1,0 +1,113 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║     📧 SUPER SIMPLE EXPLANATION                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+WHAT YOU WANT:
+──────────────
+
+You want people to email you at:
+  • rp@fishmusicinc.com
+  • rsp@noizylab.ca  
+  • help@noizylab.ca
+
+And all those emails should arrive in your Gmail: rsplowman@gmail.com
+
+══════════════════════════════════════════════════════════════════════
+WHAT YOU NEED TO DO (3 SIMPLE STEPS):
+══════════════════════════════════════════════════════════════════════
+
+STEP 1: CLOUDFLARE (Page 1 - Already Open!)
+───────────────────────────────────────────
+
+You see a page with a list of records.
+
+DO THIS:
+  1. Find the button that says "Add record" (usually at the top)
+  2. Click it
+  3. A form will appear
+  4. Fill it in like this:
+     
+     First Record:
+     • Type: Choose "MX" from the dropdown
+     • Name: Type @
+     • Priority: Type 10
+     • Mail server: Type mx1.improvmx.com.
+     • Click "Save"
+     
+     Second Record:
+     • Click "Add record" again
+     • Type: MX
+     • Name: @
+     • Priority: 20
+     • Mail server: mx2.improvmx.com.
+     • Click "Save"
+     
+     Third Record:
+     • Click "Add record" again
+     • Type: TXT
+     • Name: @
+     • Content: v=spf1 include:spf.improvmx.com ~all
+     • Click "Save"
+
+THAT'S IT FOR STEP 1! Wait 2 minutes, then go to Step 2.
+
+──────────────────────────────────────────────────────────────────────
+
+STEP 2: IMPROVMX (Page 2 - Already Open!)
+──────────────────────────────────────────
+
+You see the ImprovMX website.
+
+DO THIS:
+  1. Find "fishmusicinc.com" in the list (click on it)
+  2. Click the "Aliases" tab
+  3. Click "Add alias" button
+  4. Fill in:
+     • Alias: Type "rp"
+     • Forward to: Type "rsplowman@gmail.com"
+  5. Click "Save"
+
+THAT'S IT FOR STEP 2!
+
+──────────────────────────────────────────────────────────────────────
+
+STEP 3: GMAIL (Page 3 - Already Open!)
+───────────────────────────────────────
+
+You see Gmail settings page.
+
+DO THIS:
+  1. Press CMD+F (to search)
+  2. Type: "Send mail as"
+  3. Press RETURN
+  4. Find "Add another email address" button
+  5. Click it
+  6. Type: rp@fishmusicinc.com
+  7. Click "Next"
+  8. Check your email (rsplowman@gmail.com)
+  9. Click the verification link
+
+THAT'S IT FOR STEP 3!
+
+══════════════════════════════════════════════════════════════════════
+YOU'RE DONE!
+══════════════════════════════════════════════════════════════════════
+
+After these 3 steps, people can email you at:
+  • rp@fishmusicinc.com ✅
+  • rsp@noizylab.ca ✅ (already working!)
+  • help@noizylab.ca ✅ (already working!)
+
+All emails will go to: rsplowman@gmail.com
+
+══════════════════════════════════════════════════════════════════════
+NEED HELP?
+══════════════════════════════════════════════════════════════════════
+
+If you get stuck:
+  • Use Voice Control: Say "Click [button name]"
+  • Use keyboard: TAB to move, SPACE to click, RETURN to submit
+  • The pages are already open - just follow the steps above!
+
+══════════════════════════════════════════════════════════════════════
+

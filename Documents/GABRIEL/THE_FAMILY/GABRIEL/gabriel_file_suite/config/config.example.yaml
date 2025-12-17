@@ -1,0 +1,160 @@
+# GABRIEL File Suite - Configuration
+# Copy this to config.yaml and customize for your environment
+
+# Volume Configuration
+volumes:
+  - name: "GABRIEL"
+    path: "/Volumes/GABRIEL"
+    scan_enabled: true
+    priority: 1
+    
+  - name: "NOIZYWIN"
+    path: "/Volumes/NOIZYWIN"
+    scan_enabled: true
+    priority: 2
+    
+  - name: "OMEN"
+    path: "/Volumes/OMEN"
+    scan_enabled: true
+    priority: 3
+    
+  - name: "StudioNet"
+    path: "/Volumes/StudioNet"
+    scan_enabled: true
+    priority: 4
+
+# Database Configuration
+database:
+  path: "/Volumes/GABRIEL/gabriel_suite.db"
+  backup_enabled: true
+  backup_interval_hours: 24
+  backup_path: "/Volumes/GABRIEL/Backups"
+
+# Scanner Settings
+scanner:
+  max_workers: 8
+  hash_algorithm: "sha256"
+  sample_size: 1024  # bytes for content signature
+  skip_extensions:
+    - ".tmp"
+    - ".cache"
+    - ".DS_Store"
+  skip_directories:
+    - ".Trash"
+    - ".Spotlight-V100"
+    - ".fseventsd"
+    - "node_modules"
+    - "__pycache__"
+
+# AI Classification Settings
+classifier:
+  enabled: true
+  api_key_env: "ANTHROPIC_API_KEY"
+  batch_size: 100
+  confidence_threshold: 0.7
+  fallback_to_rules: true
+  
+  categories:
+    Audio:
+      - music
+      - samples
+      - loops
+      - sfx
+      - voice
+      - podcast
+      
+    Design:
+      - logos
+      - layouts
+      - mockups
+      - illustrations
+      - photos
+      
+    Code:
+      - python
+      - javascript
+      - shell
+      - config
+      - notebook
+      
+    Documents:
+      - contracts
+      - invoices
+      - reports
+      - notes
+      - presentations
+      
+    Video:
+      - raw
+      - edited
+      - renders
+      - motion_graphics
+      
+    Archives:
+      - backups
+      - compressed
+      - installers
+      
+    Misc:
+      - uncategorized
+      - temporary
+
+# Organization Settings
+organizer:
+  output_base: "/Volumes/GABRIEL/Organized"
+  default_mode: "symlink"  # move, copy, symlink, hardlink
+  preserve_structure: false
+  handle_conflicts: "rename"  # rename, skip, overwrite
+  create_manifest: true
+
+# Duplicate Handling
+duplicates:
+  enabled: true
+  action: "list"  # list, keep_newest, keep_largest, delete_all_but_one
+  minimum_size: 1048576  # 1MB - ignore smaller files
+  auto_remove: false
+
+# Scheduling (for automation scripts)
+schedule:
+  enabled: true
+  scan_interval: "0 2 * * *"  # Daily at 2 AM (cron format)
+  classify_interval: "0 3 * * *"  # Daily at 3 AM
+  organize_interval: "0 4 * * SUN"  # Weekly on Sunday at 4 AM
+  backup_interval: "0 5 * * *"  # Daily at 5 AM
+
+# Cloud Backup Settings
+cloud_backup:
+  enabled: false
+  provider: "none"  # s3, azure, gcs, backblaze
+  bucket: ""
+  sync_interval: "0 6 * * *"
+  encrypt: true
+  include_categories:
+    - Documents
+    - Code
+  exclude_categories:
+    - Misc
+    - Archives
+
+# Dashboard Settings
+dashboard:
+  api_host: "0.0.0.0"
+  api_port: 8080
+  streamlit_port: 8501
+  enable_cors: true
+  log_level: "INFO"
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "/Volumes/GABRIEL/gabriel_suite.log"
+  max_size_mb: 100
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Performance Tuning
+performance:
+  max_memory_gb: 4
+  cache_size_mb: 512
+  io_buffer_size: 8192
+  parallel_scans: false  # Set to true for multi-volume parallel scanning

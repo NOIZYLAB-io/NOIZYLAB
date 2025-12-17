@@ -1,0 +1,38 @@
+# Local archives and headers
+_Archives/
+_Screenshots/
+_Shortcuts/
+
+# Editor and toolstate
+.claude/
+.claude-worktrees/
+.cursor/
+.copilot/
+.vscode/
+.vscode-insiders/
+.codex/
+.ollama/
+.swiftpm/
+.ssh-manager/
+.npm-global/
+.npm/
+.npmrc
+.yarnrc
+.zsh_sessions/
+.zsh_history
+.zsh_aliases
+.zlogin
+.zshrc
+.CFUserTextEncoding
+.m2ultra-boot.log
+
+# System folders (ensure not committed via worktree root)
+Applications/
+Desktop/
+Documents/
+Downloads/
+Library/
+Movies/
+Music/
+Pictures/
+Public/

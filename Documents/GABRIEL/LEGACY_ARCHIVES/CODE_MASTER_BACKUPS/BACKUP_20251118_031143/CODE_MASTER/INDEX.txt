@@ -1,0 +1,38 @@
+CODE_MASTER INDEX
+=================
+
+Total Files Organized: 226+
+
+SCRIPTS (scripts/)
+------------------
+Shell scripts, PowerShell scripts, automation, fixes
+
+PYTHON (python/)
+----------------
+72+ Python files including:
+- GABRIEL system files
+- MC96 ecosystem scripts
+- X1000 series launchers
+- Network tools
+- Automation systems
+
+NODEJS (nodejs/)
+----------------
+JavaScript files, package.json, Node.js projects
+
+CONFIG (config/)
+----------------
+JSON configuration files, execution history, performance data
+
+DOCS (docs/)
+------------
+Documentation files
+
+PROJECTS (projects/)
+--------------------
+Project-specific code organized by project
+
+Quick Access:
+cd ~/CODE_MASTER
+ls -R
+

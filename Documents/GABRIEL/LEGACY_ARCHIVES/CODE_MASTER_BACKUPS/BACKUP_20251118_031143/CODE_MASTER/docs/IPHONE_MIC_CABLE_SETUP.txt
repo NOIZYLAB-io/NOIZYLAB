@@ -1,0 +1,116 @@
+
+╔══════════════════════════════════════════════════════════════════════╗
+║     🎤 IPHONE MICROPHONE - CABLE CONNECTION SETUP                    ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+HOW TO USE IPHONE MIC WHEN CONNECTED BY CABLE:
+
+══════════════════════════════════════════════════════════════════════
+
+STEP 1: CONNECT IPHONE VIA CABLE
+─────────────────────────────────
+
+1. Connect iPhone to Mac using:
+   • Lightning cable (older iPhones)
+   • USB-C cable (newer iPhones)
+   • Make sure cable is fully inserted
+
+2. On iPhone, you may see a prompt:
+   • "Trust This Computer?"
+   • Tap "Trust"
+   • Enter your iPhone passcode if asked
+
+══════════════════════════════════════════════════════════════════════
+
+STEP 2: ENABLE IPHONE MIC ON MAC
+──────────────────────────────────
+
+1. On Mac, open System Settings:
+   • Click Apple menu (top left)
+   • Click "System Settings"
+   • OR click System Preferences icon
+
+2. Click "Sound" (or "Sound & Haptics")
+
+3. Click "Input" tab
+
+4. Look for your iPhone in the list:
+   • It might show as "iPhone"
+   • Or "iPhone Microphone"
+   • Or your iPhone's name
+
+5. Select your iPhone from the list
+
+6. Adjust input volume:
+   • Speak into iPhone
+   • Watch the level meter
+   • Adjust slider so meter is 60-80% (green/yellow)
+
+7. Make sure it's selected as default input
+
+══════════════════════════════════════════════════════════════════════
+
+STEP 3: ENABLE VOICE CONTROL
+─────────────────────────────
+
+1. In System Settings, click "Accessibility"
+
+2. Find "Voice Control" in the list
+
+3. Click the toggle to enable Voice Control
+
+4. It will automatically use your iPhone mic
+
+══════════════════════════════════════════════════════════════════════
+
+STEP 4: TEST THE MICROPHONE
+────────────────────────────
+
+1. Say: "Show numbers"
+
+2. If numbers appear on screen:
+   → Microphone is working! ✅
+
+3. If not:
+   → Check iPhone is selected in Sound settings
+   → Check Voice Control is enabled
+   → Try unplugging and replugging cable
+
+══════════════════════════════════════════════════════════════════════
+
+TROUBLESHOOTING:
+────────────────
+
+If iPhone doesn't appear in Sound settings:
+• Unplug and replug the cable
+• Make sure iPhone is unlocked
+• Check "Trust This Computer" was accepted
+• Try a different USB port
+• Try a different cable
+
+If mic doesn't work:
+• Check iPhone isn't muted
+• Check iPhone volume is up
+• Make sure iPhone is selected in Sound settings
+• Restart Voice Control (turn off and on)
+
+If Voice Control doesn't recognize iPhone:
+• Go to Sound → Input
+• Manually select iPhone
+• Then enable Voice Control
+
+══════════════════════════════════════════════════════════════════════
+
+QUICK CHECKLIST:
+────────────────
+
+□ iPhone connected via cable
+□ "Trust This Computer" accepted on iPhone
+□ System Settings → Sound → Input
+□ iPhone selected as input device
+□ Input volume adjusted (60-80%)
+□ Accessibility → Voice Control enabled
+□ Test: Say "Show numbers"
+
+══════════════════════════════════════════════════════════════════════
+

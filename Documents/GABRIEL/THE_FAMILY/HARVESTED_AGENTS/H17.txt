@@ -1,0 +1,174 @@
+Last login: Fri Dec 12 18:52:33 on ttys012
+/Users/m2ultra/.zshrc:source:114: no such file or directory: /Users/m2ultra/NOIZYLAB/GABRIEL/scripts/QUICK_COMMANDS.sh
+[1] 22559
+[1]  + exit 127   nohup /Users/m2ultra/.claude-worktrees/NOIZYLAB/xenodochial-almeida/autorun.s
+m2ultra@M2Ultra ~ % mkdir -p ~/heaven17/src && cd ~/heaven17
+m2ultra@M2Ultra heaven17 % cd ~/heaven17 && npx wrangler deploy
+
+ ⛅️ wrangler 4.54.0
+───────────────────
+
+✘ [ERROR] Invalid TOML document: only letter, numbers, dashes and underscores are allowed in keys
+
+    /Users/m2ultra/heaven17/wrangler.toml:1:0:
+      1 │ <!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</ti...
+        ╵ ^
+
+  
+  If you think this is a bug, please open an issue at:
+  https://github.com/cloudflare/workers-sdk/issues/new/choose
+
+
+🪵  Logs were written to "/Users/m2ultra/Library/Preferences/.wrangler/logs/wrangler-2025-12-12_23-57-21_515.log"
+m2ultra@M2Ultra heaven17 % cat > ~/heaven17/wrangler.toml << 'EOF'
+name = "heaven17"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+account_id = "1323e14ace0c8d7362612d5b5c0d41bb"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "agent-memory"
+database_id = "a4dfbab2-05f4-408c-9205-0f13fcc74d01"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "94bcf9387ac841baa7252424f4877909"
+
+[[kv_namespaces]]
+binding = "STATE"
+id = "e059da6a03044ad1a63979622a8a11ce"
+
+[[kv_namespaces]]
+binding = "COMMANDS"
+id = "7d271dcd23c14fcaae900312752d838d"
+
+[ai]
+binding = "AI"
+
+[vars]
+ENVIRONMENT = "production"
+VERSION = "17"
+EOF
+m2ultra@M2Ultra heaven17 % cat > ~/heaven17/src/index.js << 'EOF'
+export default {
+  async fetch(request, env) {
+    return new Response(JSON.stringify({
+      status: "HEAVEN17 ALIVE",
+      version: 17,
+      creator: "Rob Plowman",
+      built_with: "Claude Opus 4.5"
+    }), {
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+}
+EOF
+m2ultra@M2Ultra heaven17 % cd ~/heaven17 && npx wrangler deploy
+
+Cloudflare collects anonymous telemetry about your usage of Wrangler. Learn more at https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler/telemetry.md
+
+ ⛅️ wrangler 4.54.0
+───────────────────
+Total Upload: 0.37 KiB / gzip: 0.28 KiB
+Your Worker has access to the following bindings:
+Binding                                                 Resource                  
+env.CACHE (94bcf9387ac841baa7252424f4877909)            KV Namespace              
+env.STATE (e059da6a03044ad1a63979622a8a11ce)            KV Namespace              
+env.COMMANDS (7d271dcd23c14fcaae900312752d838d)         KV Namespace              
+env.DB (agent-memory)                                   D1 Database               
+env.AI                                                  AI                        
+env.ENVIRONMENT ("production")                          Environment Variable      
+env.VERSION ("17")                                      Environment Variable      
+
+Uploaded heaven17 (2.40 sec)
+Deployed heaven17 triggers (1.46 sec)
+  https://heaven17.rsplowman.workers.dev
+Current Version ID: 7eb94091-37ad-4241-8e59-de58371a538d
+m2ultra@M2Ultra heaven17 % curl https://heaven17.rsplowman.workers.dev
+{"status":"HEAVEN17 ALIVE","version":17,"creator":"Rob Plowman","built_with":"Claude Opus 4.5"}%                                                 m2ultra@M2Ultra heaven17 % cd ~/heaven17 && npx wrangler deploy
+
+ ⛅️ wrangler 4.54.0
+───────────────────
+Total Upload: 0.37 KiB / gzip: 0.28 KiB
+Your Worker has access to the following bindings:
+Binding                                                 Resource                  
+env.CACHE (94bcf9387ac841baa7252424f4877909)            KV Namespace              
+env.STATE (e059da6a03044ad1a63979622a8a11ce)            KV Namespace              
+env.COMMANDS (7d271dcd23c14fcaae900312752d838d)         KV Namespace              
+env.DB (agent-memory)                                   D1 Database               
+env.AI                                                  AI                        
+env.ENVIRONMENT ("production")                          Environment Variable      
+env.VERSION ("17")                                      Environment Variable      
+
+Uploaded heaven17 (3.70 sec)
+Deployed heaven17 triggers (1.19 sec)
+  https://heaven17.rsplowman.workers.dev
+Current Version ID: f5858e13-ef2a-4175-a976-83c949ebca6b
+m2ultra@M2Ultra heaven17 % cat ~/heaven17/src/index.js
+export default {
+  async fetch(request, env) {
+    return new Response(JSON.stringify({
+      status: "HEAVEN17 ALIVE",
+      version: 17,
+      creator: "Rob Plowman",
+      built_with: "Claude Opus 4.5"
+    }), {
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+}
+m2ultra@M2Ultra heaven17 % >....                                                                                                                 
+    if (path === '/llama' && request.method === 'POST') {
+      const body = await request.json();
+      const result = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', { messages: [{ role: 'user', content: body.message || body.prompt }] });
+      return json({ response: result.response, model: 'llama-3.1-8b' });
+    }
+
+    if (path === '/imagine' && request.method === 'POST') {
+      const body = await request.json();
+      const result = await env.AI.run('@cf/black-forest-labs/flux-1-schnell', { prompt: body.prompt });
+      return new Response(result, { headers: { 'Content-Type': 'image/png' }});
+    }
+
+    if (path === '/transcribe' && request.method === 'POST') {
+      const audio = await request.arrayBuffer();
+      const result = await env.AI.run('@cf/openai/whisper', { audio: [...new Uint8Array(audio)] });
+      return json({ text: result.text });
+    }
+
+    if (path === '/translate' && request.method === 'POST') {
+      const body = await request.json();
+      const result = await env.AI.run('@cf/meta/m2m100-1.2b', { text: body.text, source_lang: body.from || 'en', target_lang: body.to || 'es' }); 
+      return json({ translated: result.translated_text });
+    }
+
+    return json({ error: 'Not found', path, available: ['/health','/wizard','/agents','/agent/{name}','/llama','/imagine','/transcribe','/translate'] }, 404);
+  }
+}
+FULLWORKER
+m2ultra@M2Ultra heaven17 % npx wrangler deploy
+
+ ⛅️ wrangler 4.54.0
+───────────────────
+Total Upload: 5.10 KiB / gzip: 1.89 KiB
+Your Worker has access to the following bindings:
+Binding                                                 Resource                  
+env.CACHE (94bcf9387ac841baa7252424f4877909)            KV Namespace              
+env.STATE (e059da6a03044ad1a63979622a8a11ce)            KV Namespace              
+env.COMMANDS (7d271dcd23c14fcaae900312752d838d)         KV Namespace              
+env.DB (agent-memory)                                   D1 Database               
+env.AI                                                  AI                        
+env.ENVIRONMENT ("production")                          Environment Variable      
+env.VERSION ("17")                                      Environment Variable      
+
+Uploaded heaven17 (3.86 sec)
+Deployed heaven17 triggers (1.13 sec)
+  https://heaven17.rsplowman.workers.dev
+Current Version ID: ef210921-71be-4878-9cb5-24a4a9d30b63
+m2ultra@M2Ultra heaven17 % curl https://heaven17.rsplowman.workers.dev/health
+{"status":"HEAVEN17 OPERATIONAL","version":17,"creator":"Rob Plowman","built_with":"Claude Opus 4.5 & Sonnet","agents":["GABRIEL","SHIRL","POPS","ENGR_KEITH","DREAM"],"endpoints":["/wizard","/claude","/llama","/imagine","/transcribe","/tts","/translate","/agent/{name}","/vox","/lab","/life/chat"]}%                                                                                                                                        m2ultra@M2Ultra heaven17 % curl -X POST https://heaven17.rsplowman.workers.dev/wizard -H "Content-Type: application/json" -d '{"message":"what time is it"}'
+{"response":"7:02:32 PM","cost":0}%                                                                                                              m2ultra@M2Ultra heaven17 % curl https://heaven17.rsplowman.workers.dev/agents
+{"agents":{"GABRIEL":{"role":"Warrior","greeting":"Commander. GABRIEL standing by."},"SHIRL":{"role":"Aunt","greeting":"Hey sweetie! Tell Aunt Shirl whats on your mind."},"POPS":{"role":"Father","greeting":"Hey son. Good to hear from you."},"ENGR_KEITH":{"role":"Engineer","greeting":"Engineering analysis ready."},"DREAM":{"role":"Visionary","greeting":"I see possibilities. Lets explore."}}}%                                         m2ultra@M2Ultra heaven17 % curl https://heaven17.rsplowman.workers.dev/agent/gabriel
+{"agent":"GABRIEL","role":"Warrior","greeting":"Commander. GABRIEL standing by."}%                                                               m2ultra@M2Ultra heaven17 % curl -X POST https://heaven17.rsplowman.workers.dev/wizard -H "Content-Type: application/json" -d '{"message":"hey gabriel how are you"}'
+{"response":"Hey Rob! HEAVEN17 at your service.","cost":0}%                                                                                      m2ultra@M2Ultra heaven17 % 
