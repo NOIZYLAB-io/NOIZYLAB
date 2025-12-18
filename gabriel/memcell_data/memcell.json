@@ -1,0 +1,3624 @@
+{
+  "cells": [
+    {
+      "id": "771fc6e1b743",
+      "subject": "Optimize prompts for maximum effectiveness",
+      "category": "ai",
+      "created_at": "2025-12-15T00:44:30.177720",
+      "last_accessed": "2025-12-15T00:44:30.177720",
+      "access_count": 1,
+      "overlap_score": 0.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "optimize",
+        "prompts",
+        "maximum",
+        "effectiveness"
+      ],
+      "related_cells": [],
+      "context": {
+        "source": "voice",
+        "session": "2025-12-15T00:44:24.868786"
+      }
+    },
+    {
+      "id": "01d7fffbb89d",
+      "subject": "\u2550\u2550\u2550 TASK: Checking Volume Status \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:49:08.395845",
+      "last_accessed": "2025-12-15T00:49:08.395845",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "checking",
+        "volume",
+        "status"
+      ],
+      "related_cells": [
+        "dc6191faa801",
+        "ff623e20e1ce",
+        "d7d8adb5873c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "8fc69f5c7304",
+      "subject": "\ud83d\udfe1 /Volumes/6TB: 85.1% used, 834.2 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.397105",
+      "last_accessed": "2025-12-15T00:49:08.397105",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "6tb",
+        "used",
+        "834",
+        "free"
+      ],
+      "related_cells": [
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "15388d2d35c4",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "0a42b92850e7",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "83bc7a52530c",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579",
+        "3ba71ca7e12c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "26d5757b96ec",
+      "subject": "\ud83d\udfe2 /Volumes/4TB Lacie: 13.9% used, 3209.0 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.397413",
+      "last_accessed": "2025-12-15T00:49:08.397413",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "4tb",
+        "lacie",
+        "used",
+        "3209",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "475595d31e1a",
+      "subject": "\ud83d\udfe2 /Volumes/4TBSG: 24.9% used, 2798.2 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.398075",
+      "last_accessed": "2025-12-15T00:49:08.398075",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "4tbsg",
+        "used",
+        "2798",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "027a6e385997",
+      "subject": "\ud83d\udd34 /Volumes/MAG 4TB: 92.9% used, 265.0 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.398615",
+      "last_accessed": "2025-12-15T00:49:08.398615",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "mag",
+        "4tb",
+        "used",
+        "265",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "d1b2121af5ae",
+      "subject": "\ud83d\udfe1 /Volumes/SIDNEY: 88.7% used, 314.8 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.399038",
+      "last_accessed": "2025-12-15T00:49:08.399038",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "sidney",
+        "used",
+        "314",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "f935d63d31e9",
+      "subject": "\u2550\u2550\u2550 TASK: Cleaning Empty Directories \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:49:08.399494",
+      "last_accessed": "2025-12-15T00:49:08.399494",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "cleaning",
+        "empty",
+        "directories"
+      ],
+      "related_cells": [
+        "9a1419ab9de7",
+        "e09c32c345bc",
+        "f39964083ba3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "628d40c35d07",
+      "subject": "\u2550\u2550\u2550 TASK: Verifying Critical Files \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:49:08.421008",
+      "last_accessed": "2025-12-15T00:49:08.421008",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "verifying",
+        "critical",
+        "files"
+      ],
+      "related_cells": [
+        "8bd795ea927f",
+        "656cbfeb0370",
+        "f3f21ef1fde3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "578ff8ac2ae8",
+      "subject": "\u2713 MC96ECOUNIVERSE_MASTER_MANIFEST.md (6,841 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.421556",
+      "last_accessed": "2025-12-15T00:49:08.421556",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "mc96ecouniverse_master_manifest",
+        "841",
+        "bytes"
+      ],
+      "related_cells": [
+        "65dd66c66d10",
+        "a62e52bfd789",
+        "cf3fdaebe329"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "a65d82bf0a5e",
+      "subject": "\u2713 memcell_core.py (26,756 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.422561",
+      "last_accessed": "2025-12-15T00:49:08.422561",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "memcell_core",
+        "756",
+        "bytes"
+      ],
+      "related_cells": [
+        "5277089645b2",
+        "276940825459",
+        "afa0313a29a3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "020965a19433",
+      "subject": "\u2713 index.html (9,484 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.424852",
+      "last_accessed": "2025-12-15T00:49:08.424852",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "index",
+        "html",
+        "484",
+        "bytes"
+      ],
+      "related_cells": [
+        "7cfd663ee618",
+        "a722fdf6f17a",
+        "769990b83122",
+        "436406dba5ca",
+        "d990a09bc5f6",
+        "a2cd5726b7a2",
+        "10320becae68"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "007ce4a969c0",
+      "subject": "\u2713 styles.css (16,858 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.425576",
+      "last_accessed": "2025-12-15T00:49:08.425576",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "styles",
+        "css",
+        "858",
+        "bytes"
+      ],
+      "related_cells": [
+        "b6b13f08d10c",
+        "bc6f34dd1aab",
+        "a2cd5726b7a2",
+        "aa1a4dcf6ebb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "8eb7e65cab09",
+      "subject": "\u2713 app.js (9,640 bytes)",
+      "category": "code",
+      "created_at": "2025-12-15T00:49:08.426136",
+      "last_accessed": "2025-12-15T00:49:08.426136",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "app",
+        "640",
+        "bytes"
+      ],
+      "related_cells": [
+        "dd83d77031f3",
+        "515c73cb03da",
+        "781f35acf465"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "7cfd663ee618",
+      "subject": "\u2713 rmt.html (19,739 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.426718",
+      "last_accessed": "2025-12-15T00:49:08.426718",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "rmt",
+        "html",
+        "739",
+        "bytes"
+      ],
+      "related_cells": [
+        "020965a19433",
+        "a722fdf6f17a",
+        "769990b83122",
+        "436406dba5ca",
+        "d990a09bc5f6",
+        "a2cd5726b7a2",
+        "10320becae68"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "e56016e2fdee",
+      "subject": "\u2550\u2550\u2550 TASK: Structure Optimization Check \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:49:08.427311",
+      "last_accessed": "2025-12-15T00:49:08.427311",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "structure",
+        "optimization",
+        "check"
+      ],
+      "related_cells": [
+        "1be9cf79bae0",
+        "9d8a0d800f9f",
+        "f8344e3d97cd"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "0fcc614669a6",
+      "subject": "\u2713 Audio_Loops: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-15T00:49:08.427975",
+      "last_accessed": "2025-12-15T00:49:08.427975",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "audio_loops",
+        "items"
+      ],
+      "related_cells": [
+        "9a0dc2b43bdb",
+        "32303e8c27e5",
+        "3c3b1738bb06"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "27d3b7a0e31b",
+      "subject": "\u2713 Best_Service: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.428614",
+      "last_accessed": "2025-12-15T00:49:08.428614",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "best_service",
+        "items"
+      ],
+      "related_cells": [
+        "bdb8249a9405",
+        "cdd9d1bccc7c",
+        "2bed97c200fb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "a2e927e505ac",
+      "subject": "\u2713 Earth_Moments: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.429250",
+      "last_accessed": "2025-12-15T00:49:08.429250",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "earth_moments",
+        "items"
+      ],
+      "related_cells": [
+        "224841505f85",
+        "33141a9702d6",
+        "febe263b4c88"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "5e6617e5e2e5",
+      "subject": "\u2713 IK_Multimedia: 4 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.429906",
+      "last_accessed": "2025-12-15T00:49:08.429906",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "ik_multimedia",
+        "items"
+      ],
+      "related_cells": [
+        "d67005e48aee",
+        "54673001a07f",
+        "60701fe525df"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "3d006359b37a",
+      "subject": "\u2713 Native_Instruments: 2 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.430601",
+      "last_accessed": "2025-12-15T00:49:08.430601",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "native_instruments",
+        "items"
+      ],
+      "related_cells": [
+        "9284e50316fb",
+        "e8c92f680482",
+        "cef7300af291"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "be4db295b740",
+      "subject": "\u2713 REX2_Loops: 395 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.431402",
+      "last_accessed": "2025-12-15T00:49:08.431402",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "rex2_loops",
+        "395",
+        "items"
+      ],
+      "related_cells": [
+        "d59c97898894",
+        "f6d3f5b22b7f",
+        "1814cd38aba9"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "ec5e6b7cb3bc",
+      "subject": "\u2713 Sample_Magic: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-15T00:49:08.432182",
+      "last_accessed": "2025-12-15T00:49:08.432182",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "sample_magic",
+        "items"
+      ],
+      "related_cells": [
+        "e96c9d0a677b",
+        "ed3e1a3f72a5",
+        "63778db75096"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "e01470bcc233",
+      "subject": "\u2713 Steven_Slate: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.433002",
+      "last_accessed": "2025-12-15T00:49:08.433002",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "steven_slate",
+        "items"
+      ],
+      "related_cells": [
+        "e28d6b6f9a4b",
+        "05d30a82c010",
+        "9c9e2e703afb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "4bda85ba96a6",
+      "subject": "\u2713 Toontrack: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:49:08.433881",
+      "last_accessed": "2025-12-15T00:49:08.433881",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "toontrack",
+        "items"
+      ],
+      "related_cells": [
+        "e9267a2a8d54",
+        "1f5e77e65f34",
+        "505e8c389435"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "eddc1bfd38a3",
+      "subject": "\u2713 XLN_Audio: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-15T00:49:08.434858",
+      "last_accessed": "2025-12-15T00:49:08.434858",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "xln_audio",
+        "items"
+      ],
+      "related_cells": [
+        "63d1342ea869",
+        "e9f4f284e60a",
+        "248d95bc279a"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "715b310072ce",
+      "subject": "\u2550\u2550\u2550 TASK: Generating Report \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:49:08.436083",
+      "last_accessed": "2025-12-15T00:49:08.436083",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "generating",
+        "report"
+      ],
+      "related_cells": [
+        "f62dde868785",
+        "136f783d33da",
+        "be6c32f36e8e"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "15388d2d35c4",
+      "subject": "Report saved: /Volumes/6TB/Sample_Libraries/GLOBAL_TODO_REPORT.md",
+      "category": "audio",
+      "created_at": "2025-12-15T00:49:08.437359",
+      "last_accessed": "2025-12-15T00:49:08.437359",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "report",
+        "saved",
+        "volumes",
+        "6tb",
+        "sample_libraries",
+        "global_todo_report"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "888c093cdba4",
+        "0a42b92850e7",
+        "1560367892ec",
+        "83bc7a52530c",
+        "2ab1fb082bd6",
+        "3ba71ca7e12c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "dc6191faa801",
+      "subject": "\u2550\u2550\u2550 TASK: Checking Volume Status \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:53:02.884986",
+      "last_accessed": "2025-12-15T00:53:02.884986",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "checking",
+        "volume",
+        "status"
+      ],
+      "related_cells": [
+        "01d7fffbb89d",
+        "ff623e20e1ce",
+        "d7d8adb5873c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "888c093cdba4",
+      "subject": "\ud83d\udfe1 /Volumes/6TB: 85.1% used, 834.2 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.887939",
+      "last_accessed": "2025-12-15T00:53:02.887939",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "6tb",
+        "used",
+        "834",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "15388d2d35c4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "0a42b92850e7",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "83bc7a52530c",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579",
+        "3ba71ca7e12c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "fd8a632bcea6",
+      "subject": "\ud83d\udfe2 /Volumes/4TB Lacie: 13.9% used, 3209.0 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.889272",
+      "last_accessed": "2025-12-15T00:53:02.889272",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "4tb",
+        "lacie",
+        "used",
+        "3209",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "736095b0dcc9",
+      "subject": "\ud83d\udfe2 /Volumes/4TBSG: 24.9% used, 2798.2 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.890703",
+      "last_accessed": "2025-12-15T00:53:02.890703",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "4tbsg",
+        "used",
+        "2798",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "dd4778a3980f",
+      "subject": "\ud83d\udd34 /Volumes/MAG 4TB: 92.9% used, 265.0 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.893031",
+      "last_accessed": "2025-12-15T00:53:02.893031",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "mag",
+        "4tb",
+        "used",
+        "265",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "b23492f29365",
+      "subject": "\ud83d\udfe1 /Volumes/SIDNEY: 88.7% used, 314.8 GB free",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.894562",
+      "last_accessed": "2025-12-15T00:53:02.894562",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "sidney",
+        "used",
+        "314",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "9a1419ab9de7",
+      "subject": "\u2550\u2550\u2550 TASK: Cleaning Empty Directories \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:53:02.896346",
+      "last_accessed": "2025-12-15T00:53:02.896346",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "cleaning",
+        "empty",
+        "directories"
+      ],
+      "related_cells": [
+        "f935d63d31e9",
+        "e09c32c345bc",
+        "f39964083ba3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "8bd795ea927f",
+      "subject": "\u2550\u2550\u2550 TASK: Verifying Critical Files \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:53:02.921351",
+      "last_accessed": "2025-12-15T00:53:02.921351",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "verifying",
+        "critical",
+        "files"
+      ],
+      "related_cells": [
+        "628d40c35d07",
+        "656cbfeb0370",
+        "f3f21ef1fde3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "65dd66c66d10",
+      "subject": "\u2713 MC96ECOUNIVERSE_MASTER_MANIFEST.md (6,841 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.923646",
+      "last_accessed": "2025-12-15T00:53:02.923646",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "mc96ecouniverse_master_manifest",
+        "841",
+        "bytes"
+      ],
+      "related_cells": [
+        "578ff8ac2ae8",
+        "a62e52bfd789",
+        "cf3fdaebe329"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "5277089645b2",
+      "subject": "\u2713 memcell_core.py (26,756 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.932161",
+      "last_accessed": "2025-12-15T00:53:02.932161",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "memcell_core",
+        "756",
+        "bytes"
+      ],
+      "related_cells": [
+        "a65d82bf0a5e",
+        "276940825459",
+        "afa0313a29a3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "a722fdf6f17a",
+      "subject": "\u2713 index.html (9,484 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.935140",
+      "last_accessed": "2025-12-15T00:53:02.935140",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "index",
+        "html",
+        "484",
+        "bytes"
+      ],
+      "related_cells": [
+        "020965a19433",
+        "7cfd663ee618",
+        "769990b83122",
+        "436406dba5ca",
+        "d990a09bc5f6",
+        "a2cd5726b7a2",
+        "10320becae68"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "b6b13f08d10c",
+      "subject": "\u2713 styles.css (16,858 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.936911",
+      "last_accessed": "2025-12-15T00:53:02.936911",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "styles",
+        "css",
+        "858",
+        "bytes"
+      ],
+      "related_cells": [
+        "007ce4a969c0",
+        "bc6f34dd1aab",
+        "a2cd5726b7a2",
+        "aa1a4dcf6ebb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "dd83d77031f3",
+      "subject": "\u2713 app.js (9,640 bytes)",
+      "category": "code",
+      "created_at": "2025-12-15T00:53:02.938703",
+      "last_accessed": "2025-12-15T00:53:02.938703",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "app",
+        "640",
+        "bytes"
+      ],
+      "related_cells": [
+        "8eb7e65cab09",
+        "515c73cb03da",
+        "781f35acf465"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "769990b83122",
+      "subject": "\u2713 rmt.html (19,739 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.940564",
+      "last_accessed": "2025-12-15T00:53:02.940564",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "rmt",
+        "html",
+        "739",
+        "bytes"
+      ],
+      "related_cells": [
+        "020965a19433",
+        "7cfd663ee618",
+        "a722fdf6f17a",
+        "436406dba5ca",
+        "d990a09bc5f6",
+        "a2cd5726b7a2",
+        "10320becae68"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "1be9cf79bae0",
+      "subject": "\u2550\u2550\u2550 TASK: Structure Optimization Check \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:53:02.943825",
+      "last_accessed": "2025-12-15T00:53:02.943825",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "structure",
+        "optimization",
+        "check"
+      ],
+      "related_cells": [
+        "e56016e2fdee",
+        "9d8a0d800f9f",
+        "f8344e3d97cd"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "9a0dc2b43bdb",
+      "subject": "\u2713 Audio_Loops: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-15T00:53:02.945971",
+      "last_accessed": "2025-12-15T00:53:02.945971",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "audio_loops",
+        "items"
+      ],
+      "related_cells": [
+        "0fcc614669a6",
+        "32303e8c27e5",
+        "3c3b1738bb06"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "bdb8249a9405",
+      "subject": "\u2713 Best_Service: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.948055",
+      "last_accessed": "2025-12-15T00:53:02.948055",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "best_service",
+        "items"
+      ],
+      "related_cells": [
+        "27d3b7a0e31b",
+        "cdd9d1bccc7c",
+        "2bed97c200fb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "224841505f85",
+      "subject": "\u2713 Earth_Moments: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.950192",
+      "last_accessed": "2025-12-15T00:53:02.950192",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "earth_moments",
+        "items"
+      ],
+      "related_cells": [
+        "a2e927e505ac",
+        "33141a9702d6",
+        "febe263b4c88"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "d67005e48aee",
+      "subject": "\u2713 IK_Multimedia: 4 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.952368",
+      "last_accessed": "2025-12-15T00:53:02.952368",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "ik_multimedia",
+        "items"
+      ],
+      "related_cells": [
+        "5e6617e5e2e5",
+        "54673001a07f",
+        "60701fe525df"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "9284e50316fb",
+      "subject": "\u2713 Native_Instruments: 2 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.954676",
+      "last_accessed": "2025-12-15T00:53:02.954676",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "native_instruments",
+        "items"
+      ],
+      "related_cells": [
+        "3d006359b37a",
+        "e8c92f680482",
+        "cef7300af291"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "d59c97898894",
+      "subject": "\u2713 REX2_Loops: 395 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.957767",
+      "last_accessed": "2025-12-15T00:53:02.957767",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "rex2_loops",
+        "395",
+        "items"
+      ],
+      "related_cells": [
+        "be4db295b740",
+        "f6d3f5b22b7f",
+        "1814cd38aba9"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "e96c9d0a677b",
+      "subject": "\u2713 Sample_Magic: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-15T00:53:02.961232",
+      "last_accessed": "2025-12-15T00:53:02.961232",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "sample_magic",
+        "items"
+      ],
+      "related_cells": [
+        "ec5e6b7cb3bc",
+        "ed3e1a3f72a5",
+        "63778db75096"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "e28d6b6f9a4b",
+      "subject": "\u2713 Steven_Slate: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.964480",
+      "last_accessed": "2025-12-15T00:53:02.964480",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "steven_slate",
+        "items"
+      ],
+      "related_cells": [
+        "e01470bcc233",
+        "05d30a82c010",
+        "9c9e2e703afb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "e9267a2a8d54",
+      "subject": "\u2713 Toontrack: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-15T00:53:02.967284",
+      "last_accessed": "2025-12-15T00:53:02.967284",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "toontrack",
+        "items"
+      ],
+      "related_cells": [
+        "4bda85ba96a6",
+        "1f5e77e65f34",
+        "505e8c389435"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "63d1342ea869",
+      "subject": "\u2713 XLN_Audio: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-15T00:53:02.970125",
+      "last_accessed": "2025-12-15T00:53:02.970125",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "xln_audio",
+        "items"
+      ],
+      "related_cells": [
+        "eddc1bfd38a3",
+        "e9f4f284e60a",
+        "248d95bc279a"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "f62dde868785",
+      "subject": "\u2550\u2550\u2550 TASK: Generating Report \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-15T00:53:02.973394",
+      "last_accessed": "2025-12-15T00:53:02.973394",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "generating",
+        "report"
+      ],
+      "related_cells": [
+        "715b310072ce",
+        "136f783d33da",
+        "be6c32f36e8e"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "0a42b92850e7",
+      "subject": "Report saved: /Volumes/6TB/Sample_Libraries/GLOBAL_TODO_REPORT.md",
+      "category": "audio",
+      "created_at": "2025-12-15T00:53:02.978022",
+      "last_accessed": "2025-12-15T00:53:02.978022",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "report",
+        "saved",
+        "volumes",
+        "6tb",
+        "sample_libraries",
+        "global_todo_report"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "15388d2d35c4",
+        "888c093cdba4",
+        "1560367892ec",
+        "83bc7a52530c",
+        "2ab1fb082bd6",
+        "3ba71ca7e12c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "ff623e20e1ce",
+      "subject": "\u2550\u2550\u2550 TASK: Checking Volume Status \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T14:59:36.069884",
+      "last_accessed": "2025-12-18T14:59:36.069884",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "checking",
+        "volume",
+        "status"
+      ],
+      "related_cells": [
+        "01d7fffbb89d",
+        "dc6191faa801",
+        "d7d8adb5873c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "ed3a0a282eb5",
+      "subject": "\ud83d\udfe2 /Volumes/12TB: 77.3% used, 2536.8 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.117570",
+      "last_accessed": "2025-12-18T14:59:36.117570",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "12tb",
+        "used",
+        "2536",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "1560367892ec",
+      "subject": "\ud83d\udfe1 /Volumes/6TB: 85.1% used, 833.9 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.120902",
+      "last_accessed": "2025-12-18T14:59:36.120902",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "6tb",
+        "used",
+        "833",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "15388d2d35c4",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "0a42b92850e7",
+        "ed3a0a282eb5",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "83bc7a52530c",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579",
+        "3ba71ca7e12c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "7a7f11897a28",
+      "subject": "\ud83d\udfe2 /Volumes/4TB Lacie: 13.9% used, 3209.0 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.124332",
+      "last_accessed": "2025-12-18T14:59:36.124332",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "4tb",
+        "lacie",
+        "used",
+        "3209",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "552ca88fb687",
+      "subject": "\ud83d\udfe2 /Volumes/4TBSG: 24.8% used, 2801.8 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.127628",
+      "last_accessed": "2025-12-18T14:59:36.127628",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "4tbsg",
+        "used",
+        "2801",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "b500a18957f5",
+      "subject": "\ud83d\udd34 /Volumes/MAG 4TB: 92.9% used, 265.0 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.131210",
+      "last_accessed": "2025-12-18T14:59:36.131210",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "mag",
+        "4tb",
+        "used",
+        "265",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "b814a2a30d22",
+      "subject": "\ud83d\udfe2 /Volumes/RED DRAGON: 9.5% used, 3370.1 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.135134",
+      "last_accessed": "2025-12-18T14:59:36.135134",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "red",
+        "dragon",
+        "used",
+        "3370",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "2430a5bccf5b",
+      "subject": "\ud83d\udfe2 /Volumes/SAMPLE_MASTER: 4.0% used, 1789.1 GB free",
+      "category": "audio",
+      "created_at": "2025-12-18T14:59:36.139644",
+      "last_accessed": "2025-12-18T14:59:36.139644",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "sample_master",
+        "used",
+        "1789",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "be64b7d089bb",
+      "subject": "\ud83d\udfe1 /Volumes/SIDNEY: 88.7% used, 314.8 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.143329",
+      "last_accessed": "2025-12-18T14:59:36.143329",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "sidney",
+        "used",
+        "314",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "57f59ef0286f",
+      "subject": "\ud83d\udfe2 /Volumes/SOUND_DESIGN: 0.8% used, 1848.7 GB free",
+      "category": "audio",
+      "created_at": "2025-12-18T14:59:36.147446",
+      "last_accessed": "2025-12-18T14:59:36.147446",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "sound_design",
+        "used",
+        "1848",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "e09c32c345bc",
+      "subject": "\u2550\u2550\u2550 TASK: Cleaning Empty Directories \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T14:59:36.151373",
+      "last_accessed": "2025-12-18T14:59:36.151373",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "cleaning",
+        "empty",
+        "directories"
+      ],
+      "related_cells": [
+        "f935d63d31e9",
+        "9a1419ab9de7",
+        "f39964083ba3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "656cbfeb0370",
+      "subject": "\u2550\u2550\u2550 TASK: Verifying Critical Files \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T14:59:36.670099",
+      "last_accessed": "2025-12-18T14:59:36.670099",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "verifying",
+        "critical",
+        "files"
+      ],
+      "related_cells": [
+        "628d40c35d07",
+        "8bd795ea927f",
+        "f3f21ef1fde3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "a62e52bfd789",
+      "subject": "\u2713 MC96ECOUNIVERSE_MASTER_MANIFEST.md (6,841 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.674971",
+      "last_accessed": "2025-12-18T14:59:36.674971",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "mc96ecouniverse_master_manifest",
+        "841",
+        "bytes"
+      ],
+      "related_cells": [
+        "578ff8ac2ae8",
+        "65dd66c66d10",
+        "cf3fdaebe329"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "276940825459",
+      "subject": "\u2713 memcell_core.py (27,455 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.678842",
+      "last_accessed": "2025-12-18T14:59:36.678842",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "memcell_core",
+        "455",
+        "bytes"
+      ],
+      "related_cells": [
+        "a65d82bf0a5e",
+        "5277089645b2",
+        "afa0313a29a3"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "436406dba5ca",
+      "subject": "\u2713 index.html (9,484 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.684547",
+      "last_accessed": "2025-12-18T14:59:36.684547",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "index",
+        "html",
+        "484",
+        "bytes"
+      ],
+      "related_cells": [
+        "020965a19433",
+        "7cfd663ee618",
+        "a722fdf6f17a",
+        "769990b83122",
+        "d990a09bc5f6",
+        "a2cd5726b7a2",
+        "10320becae68"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "bc6f34dd1aab",
+      "subject": "\u2713 styles.css (16,858 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.688991",
+      "last_accessed": "2025-12-18T14:59:36.688991",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "styles",
+        "css",
+        "858",
+        "bytes"
+      ],
+      "related_cells": [
+        "007ce4a969c0",
+        "b6b13f08d10c",
+        "a2cd5726b7a2",
+        "aa1a4dcf6ebb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "515c73cb03da",
+      "subject": "\u2713 app.js (9,046 bytes)",
+      "category": "code",
+      "created_at": "2025-12-18T14:59:36.694708",
+      "last_accessed": "2025-12-18T14:59:36.694708",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "app",
+        "046",
+        "bytes"
+      ],
+      "related_cells": [
+        "8eb7e65cab09",
+        "dd83d77031f3",
+        "781f35acf465"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "d990a09bc5f6",
+      "subject": "\u2713 rmt.html (21,012 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.700354",
+      "last_accessed": "2025-12-18T14:59:36.700354",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "rmt",
+        "html",
+        "012",
+        "bytes"
+      ],
+      "related_cells": [
+        "020965a19433",
+        "7cfd663ee618",
+        "a722fdf6f17a",
+        "769990b83122",
+        "436406dba5ca",
+        "a2cd5726b7a2",
+        "10320becae68"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "9d8a0d800f9f",
+      "subject": "\u2550\u2550\u2550 TASK: Structure Optimization Check \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T14:59:36.704309",
+      "last_accessed": "2025-12-18T14:59:36.704309",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "structure",
+        "optimization",
+        "check"
+      ],
+      "related_cells": [
+        "e56016e2fdee",
+        "1be9cf79bae0",
+        "f8344e3d97cd"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "32303e8c27e5",
+      "subject": "\u2713 Audio_Loops: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-18T14:59:36.708185",
+      "last_accessed": "2025-12-18T14:59:36.708185",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "audio_loops",
+        "items"
+      ],
+      "related_cells": [
+        "0fcc614669a6",
+        "9a0dc2b43bdb",
+        "3c3b1738bb06"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "cdd9d1bccc7c",
+      "subject": "\u2713 Best_Service: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.712026",
+      "last_accessed": "2025-12-18T14:59:36.712026",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "best_service",
+        "items"
+      ],
+      "related_cells": [
+        "27d3b7a0e31b",
+        "bdb8249a9405",
+        "2bed97c200fb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "33141a9702d6",
+      "subject": "\u2713 Earth_Moments: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.716251",
+      "last_accessed": "2025-12-18T14:59:36.716251",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "earth_moments",
+        "items"
+      ],
+      "related_cells": [
+        "a2e927e505ac",
+        "224841505f85",
+        "febe263b4c88"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "54673001a07f",
+      "subject": "\u2713 IK_Multimedia: 4 items",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.721004",
+      "last_accessed": "2025-12-18T14:59:36.721004",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "ik_multimedia",
+        "items"
+      ],
+      "related_cells": [
+        "5e6617e5e2e5",
+        "d67005e48aee",
+        "60701fe525df"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "e8c92f680482",
+      "subject": "\u2713 Native_Instruments: 2 items",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.725344",
+      "last_accessed": "2025-12-18T14:59:36.725344",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "native_instruments",
+        "items"
+      ],
+      "related_cells": [
+        "3d006359b37a",
+        "9284e50316fb",
+        "cef7300af291"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "f6d3f5b22b7f",
+      "subject": "\u2713 REX2_Loops: 395 items",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.730187",
+      "last_accessed": "2025-12-18T14:59:36.730187",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "rex2_loops",
+        "395",
+        "items"
+      ],
+      "related_cells": [
+        "be4db295b740",
+        "d59c97898894",
+        "1814cd38aba9"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "ed3e1a3f72a5",
+      "subject": "\u2713 Sample_Magic: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-18T14:59:36.734615",
+      "last_accessed": "2025-12-18T14:59:36.734615",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "sample_magic",
+        "items"
+      ],
+      "related_cells": [
+        "ec5e6b7cb3bc",
+        "e96c9d0a677b",
+        "63778db75096"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "05d30a82c010",
+      "subject": "\u2713 Steven_Slate: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.739225",
+      "last_accessed": "2025-12-18T14:59:36.739225",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "steven_slate",
+        "items"
+      ],
+      "related_cells": [
+        "e01470bcc233",
+        "e28d6b6f9a4b",
+        "9c9e2e703afb"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "1f5e77e65f34",
+      "subject": "\u2713 Toontrack: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-18T14:59:36.743771",
+      "last_accessed": "2025-12-18T14:59:36.743771",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "toontrack",
+        "items"
+      ],
+      "related_cells": [
+        "4bda85ba96a6",
+        "e9267a2a8d54",
+        "505e8c389435"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "e9f4f284e60a",
+      "subject": "\u2713 XLN_Audio: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-18T14:59:36.748225",
+      "last_accessed": "2025-12-18T14:59:36.748225",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "xln_audio",
+        "items"
+      ],
+      "related_cells": [
+        "eddc1bfd38a3",
+        "63d1342ea869",
+        "248d95bc279a"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "136f783d33da",
+      "subject": "\u2550\u2550\u2550 TASK: Generating Report \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T14:59:36.753587",
+      "last_accessed": "2025-12-18T14:59:36.753587",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "generating",
+        "report"
+      ],
+      "related_cells": [
+        "715b310072ce",
+        "f62dde868785",
+        "be6c32f36e8e"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "83bc7a52530c",
+      "subject": "Report saved: /Volumes/6TB/Sample_Libraries/GLOBAL_TODO_REPORT.md",
+      "category": "audio",
+      "created_at": "2025-12-18T14:59:36.758945",
+      "last_accessed": "2025-12-18T14:59:36.758945",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "report",
+        "saved",
+        "volumes",
+        "6tb",
+        "sample_libraries",
+        "global_todo_report"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "15388d2d35c4",
+        "888c093cdba4",
+        "0a42b92850e7",
+        "1560367892ec",
+        "2ab1fb082bd6",
+        "3ba71ca7e12c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "d7d8adb5873c",
+      "subject": "\u2550\u2550\u2550 TASK: Checking Volume Status \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T15:15:51.167687",
+      "last_accessed": "2025-12-18T15:15:51.167687",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "checking",
+        "volume",
+        "status"
+      ],
+      "related_cells": [
+        "01d7fffbb89d",
+        "dc6191faa801",
+        "ff623e20e1ce"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "89e7ef674213",
+      "subject": "\ud83d\udfe2 /Volumes/12TB: 77.3% used, 2536.8 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:51.228934",
+      "last_accessed": "2025-12-18T15:15:51.228934",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "12tb",
+        "used",
+        "2536",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "2ab1fb082bd6",
+      "subject": "\ud83d\udfe1 /Volumes/6TB: 85.1% used, 833.9 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:51.282375",
+      "last_accessed": "2025-12-18T15:15:51.282375",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "6tb",
+        "used",
+        "833",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "15388d2d35c4",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "0a42b92850e7",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "83bc7a52530c",
+        "89e7ef674213",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579",
+        "3ba71ca7e12c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "2f5958447c08",
+      "subject": "\ud83d\udfe2 /Volumes/4TB Lacie: 13.9% used, 3209.0 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:51.288946",
+      "last_accessed": "2025-12-18T15:15:51.288946",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "4tb",
+        "lacie",
+        "used",
+        "3209",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "62f3915bda38",
+      "subject": "\ud83d\udfe2 /Volumes/4TBSG: 24.8% used, 2801.8 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:51.295143",
+      "last_accessed": "2025-12-18T15:15:51.295143",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "4tbsg",
+        "used",
+        "2801",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "d51192ee33e6",
+      "subject": "\ud83d\udd34 /Volumes/MAG 4TB: 92.9% used, 265.0 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:51.303286",
+      "last_accessed": "2025-12-18T15:15:51.303286",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "mag",
+        "4tb",
+        "used",
+        "265",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "dfd673a9d09e",
+      "subject": "\ud83d\udfe2 /Volumes/RED DRAGON: 9.5% used, 3370.1 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:51.310889",
+      "last_accessed": "2025-12-18T15:15:51.310889",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "red",
+        "dragon",
+        "used",
+        "3370",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "37f81ad29cd0",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "37f81ad29cd0",
+      "subject": "\ud83d\udfe2 /Volumes/SAMPLE_MASTER: 4.0% used, 1789.1 GB free",
+      "category": "audio",
+      "created_at": "2025-12-18T15:15:51.317367",
+      "last_accessed": "2025-12-18T15:15:51.317367",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "sample_master",
+        "used",
+        "1789",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "63441b2d76b8",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "63441b2d76b8",
+      "subject": "\ud83d\udfe1 /Volumes/SIDNEY: 88.7% used, 314.8 GB free",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:51.323625",
+      "last_accessed": "2025-12-18T15:15:51.323625",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "sidney",
+        "used",
+        "314",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "64763beb7579"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "64763beb7579",
+      "subject": "\ud83d\udfe2 /Volumes/SOUND_DESIGN: 0.8% used, 1848.7 GB free",
+      "category": "audio",
+      "created_at": "2025-12-18T15:15:51.333893",
+      "last_accessed": "2025-12-18T15:15:51.333893",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "volumes",
+        "sound_design",
+        "used",
+        "1848",
+        "free"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "26d5757b96ec",
+        "475595d31e1a",
+        "027a6e385997",
+        "d1b2121af5ae",
+        "888c093cdba4",
+        "fd8a632bcea6",
+        "736095b0dcc9",
+        "dd4778a3980f",
+        "b23492f29365",
+        "ed3a0a282eb5",
+        "1560367892ec",
+        "7a7f11897a28",
+        "552ca88fb687",
+        "b500a18957f5",
+        "b814a2a30d22",
+        "2430a5bccf5b",
+        "be64b7d089bb",
+        "57f59ef0286f",
+        "89e7ef674213",
+        "2ab1fb082bd6",
+        "2f5958447c08",
+        "62f3915bda38",
+        "d51192ee33e6",
+        "dfd673a9d09e",
+        "37f81ad29cd0",
+        "63441b2d76b8"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "f39964083ba3",
+      "subject": "\u2550\u2550\u2550 TASK: Cleaning Empty Directories \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T15:15:51.342875",
+      "last_accessed": "2025-12-18T15:15:51.342875",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "cleaning",
+        "empty",
+        "directories"
+      ],
+      "related_cells": [
+        "f935d63d31e9",
+        "9a1419ab9de7",
+        "e09c32c345bc"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "f3f21ef1fde3",
+      "subject": "\u2550\u2550\u2550 TASK: Verifying Critical Files \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T15:15:53.925144",
+      "last_accessed": "2025-12-18T15:15:53.925144",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "verifying",
+        "critical",
+        "files"
+      ],
+      "related_cells": [
+        "628d40c35d07",
+        "8bd795ea927f",
+        "656cbfeb0370"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "cf3fdaebe329",
+      "subject": "\u2713 MC96ECOUNIVERSE_MASTER_MANIFEST.md (6,841 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:53.940858",
+      "last_accessed": "2025-12-18T15:15:53.940858",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "mc96ecouniverse_master_manifest",
+        "841",
+        "bytes"
+      ],
+      "related_cells": [
+        "578ff8ac2ae8",
+        "65dd66c66d10",
+        "a62e52bfd789"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "afa0313a29a3",
+      "subject": "\u2713 memcell_core.py (27,862 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:53.952809",
+      "last_accessed": "2025-12-18T15:15:53.952809",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "memcell_core",
+        "862",
+        "bytes"
+      ],
+      "related_cells": [
+        "a65d82bf0a5e",
+        "5277089645b2",
+        "276940825459"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "a2cd5726b7a2",
+      "subject": "\u2713 index.html (9,858 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:53.961697",
+      "last_accessed": "2025-12-18T15:15:53.961697",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "index",
+        "html",
+        "858",
+        "bytes"
+      ],
+      "related_cells": [
+        "020965a19433",
+        "007ce4a969c0",
+        "7cfd663ee618",
+        "a722fdf6f17a",
+        "b6b13f08d10c",
+        "769990b83122",
+        "436406dba5ca",
+        "bc6f34dd1aab",
+        "d990a09bc5f6",
+        "aa1a4dcf6ebb",
+        "10320becae68"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "aa1a4dcf6ebb",
+      "subject": "\u2713 styles.css (16,858 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:53.987512",
+      "last_accessed": "2025-12-18T15:15:53.987512",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "styles",
+        "css",
+        "858",
+        "bytes"
+      ],
+      "related_cells": [
+        "007ce4a969c0",
+        "b6b13f08d10c",
+        "bc6f34dd1aab",
+        "a2cd5726b7a2"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "781f35acf465",
+      "subject": "\u2713 app.js (9,232 bytes)",
+      "category": "code",
+      "created_at": "2025-12-18T15:15:54.015909",
+      "last_accessed": "2025-12-18T15:15:54.015909",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "app",
+        "232",
+        "bytes"
+      ],
+      "related_cells": [
+        "8eb7e65cab09",
+        "dd83d77031f3",
+        "515c73cb03da"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "10320becae68",
+      "subject": "\u2713 rmt.html (21,012 bytes)",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:54.027611",
+      "last_accessed": "2025-12-18T15:15:54.027611",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "rmt",
+        "html",
+        "012",
+        "bytes"
+      ],
+      "related_cells": [
+        "020965a19433",
+        "7cfd663ee618",
+        "a722fdf6f17a",
+        "769990b83122",
+        "436406dba5ca",
+        "d990a09bc5f6",
+        "a2cd5726b7a2"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "f8344e3d97cd",
+      "subject": "\u2550\u2550\u2550 TASK: Structure Optimization Check \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T15:15:54.040140",
+      "last_accessed": "2025-12-18T15:15:54.040140",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "structure",
+        "optimization",
+        "check"
+      ],
+      "related_cells": [
+        "e56016e2fdee",
+        "1be9cf79bae0",
+        "9d8a0d800f9f"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "3c3b1738bb06",
+      "subject": "\u2713 Audio_Loops: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-18T15:15:54.083791",
+      "last_accessed": "2025-12-18T15:15:54.083791",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "audio_loops",
+        "items"
+      ],
+      "related_cells": [
+        "0fcc614669a6",
+        "9a0dc2b43bdb",
+        "32303e8c27e5"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "2bed97c200fb",
+      "subject": "\u2713 Best_Service: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:54.117220",
+      "last_accessed": "2025-12-18T15:15:54.117220",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "best_service",
+        "items"
+      ],
+      "related_cells": [
+        "27d3b7a0e31b",
+        "bdb8249a9405",
+        "cdd9d1bccc7c"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "febe263b4c88",
+      "subject": "\u2713 Earth_Moments: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:54.126045",
+      "last_accessed": "2025-12-18T15:15:54.126045",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "earth_moments",
+        "items"
+      ],
+      "related_cells": [
+        "a2e927e505ac",
+        "224841505f85",
+        "33141a9702d6"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "60701fe525df",
+      "subject": "\u2713 IK_Multimedia: 4 items",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:54.135241",
+      "last_accessed": "2025-12-18T15:15:54.135241",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "ik_multimedia",
+        "items"
+      ],
+      "related_cells": [
+        "5e6617e5e2e5",
+        "d67005e48aee",
+        "54673001a07f"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "cef7300af291",
+      "subject": "\u2713 Native_Instruments: 2 items",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:54.143128",
+      "last_accessed": "2025-12-18T15:15:54.143128",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "native_instruments",
+        "items"
+      ],
+      "related_cells": [
+        "3d006359b37a",
+        "9284e50316fb",
+        "e8c92f680482"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "1814cd38aba9",
+      "subject": "\u2713 REX2_Loops: 395 items",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:54.152485",
+      "last_accessed": "2025-12-18T15:15:54.152485",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "rex2_loops",
+        "395",
+        "items"
+      ],
+      "related_cells": [
+        "be4db295b740",
+        "d59c97898894",
+        "f6d3f5b22b7f"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "63778db75096",
+      "subject": "\u2713 Sample_Magic: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-18T15:15:54.161354",
+      "last_accessed": "2025-12-18T15:15:54.161354",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "sample_magic",
+        "items"
+      ],
+      "related_cells": [
+        "ec5e6b7cb3bc",
+        "e96c9d0a677b",
+        "ed3e1a3f72a5"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "9c9e2e703afb",
+      "subject": "\u2713 Steven_Slate: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:54.184138",
+      "last_accessed": "2025-12-18T15:15:54.184138",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "steven_slate",
+        "items"
+      ],
+      "related_cells": [
+        "e01470bcc233",
+        "e28d6b6f9a4b",
+        "05d30a82c010"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "505e8c389435",
+      "subject": "\u2713 Toontrack: 1 items",
+      "category": "creative",
+      "created_at": "2025-12-18T15:15:54.225379",
+      "last_accessed": "2025-12-18T15:15:54.225379",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "toontrack",
+        "items"
+      ],
+      "related_cells": [
+        "4bda85ba96a6",
+        "e9267a2a8d54",
+        "1f5e77e65f34"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "248d95bc279a",
+      "subject": "\u2713 XLN_Audio: 1 items",
+      "category": "audio",
+      "created_at": "2025-12-18T15:15:54.270101",
+      "last_accessed": "2025-12-18T15:15:54.270101",
+      "access_count": 1,
+      "overlap_score": 0.6666666666666666,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "xln_audio",
+        "items"
+      ],
+      "related_cells": [
+        "eddc1bfd38a3",
+        "63d1342ea869",
+        "e9f4f284e60a"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    },
+    {
+      "id": "be6c32f36e8e",
+      "subject": "\u2550\u2550\u2550 TASK: Generating Report \u2550\u2550\u2550",
+      "category": "project",
+      "created_at": "2025-12-18T15:15:54.343400",
+      "last_accessed": "2025-12-18T15:15:54.343400",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "task",
+        "generating",
+        "report"
+      ],
+      "related_cells": [
+        "715b310072ce",
+        "f62dde868785",
+        "136f783d33da"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "INFO"
+      }
+    },
+    {
+      "id": "3ba71ca7e12c",
+      "subject": "Report saved: /Volumes/6TB/Sample_Libraries/GLOBAL_TODO_REPORT.md",
+      "category": "audio",
+      "created_at": "2025-12-18T15:15:54.477785",
+      "last_accessed": "2025-12-18T15:15:54.477785",
+      "access_count": 1,
+      "overlap_score": 1.0,
+      "persona_affinity": "CORE",
+      "keywords": [
+        "report",
+        "saved",
+        "volumes",
+        "6tb",
+        "sample_libraries",
+        "global_todo_report"
+      ],
+      "related_cells": [
+        "8fc69f5c7304",
+        "15388d2d35c4",
+        "888c093cdba4",
+        "0a42b92850e7",
+        "1560367892ec",
+        "83bc7a52530c",
+        "2ab1fb082bd6"
+      ],
+      "context": {
+        "source": "GlobalTodoExecutor",
+        "level": "SUCCESS"
+      }
+    }
+  ],
+  "last_updated": "2025-12-18T15:15:54.481670"
+}
