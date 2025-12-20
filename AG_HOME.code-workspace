@@ -1,13 +1,23 @@
 {
 	"folders": [
 		{
-			"path": "../.gemini/antigravity/brain/6710196a-1b2d-4a89-b0ac-a3b0d4790fda"
+			"path": "/Users/m2ultra/NOIZYLAB"
 		},
 		{
-			"path": ".."
+			"path": "/Users/m2ultra/NOIZYLAB/GABRIEL"
+		},
+		{
+			"path": "/Users/m2ultra/NOIZYLAB/AGENTS"
+		},
+		{
+			"path": "/Users/m2ultra/NOIZYLAB/MC96"
 		}
 	],
 	"settings": {
-		"git.ignoreLimitWarning": true
+		"git.ignoreLimitWarning": true,
+		"files.hotExit": "onExitAndWindowClose",
+		"window.restoreWindows": "all",
+		"workbench.startupEditor": "none",
+		"workbench.editor.restoreViewState": true
 	}
 }

@@ -66,3 +66,8 @@ logs/
 output_directory/
 reports/
 .worktrees/
+gabriel/vault/artifacts/manifests/FISHNET_MANIFEST.json
+gabriel/vault/artifacts/manifests/FISHNET_MANIFEST.json
+*.json.bak
+**/*MANIFEST*.json
+MC96/
