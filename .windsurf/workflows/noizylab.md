@@ -4,17 +4,22 @@ auto_execution_mode: 1
 ---
 
 ## Goal
-Make Windsurf ready for NOIZYLAB work: correct workspace, rules active, MCP ready, and a repeatable command checklist.
+NOIZYLAB workspace ready: rules active, agents loaded, storage split configured.
 
 ## Steps
-1. Open folder: `/Users/m2ultra/NOIZYLAB`
-2. Confirm rules are active:
-   - Ensure `/Users/m2ultra/.windsurfrules` exists (global behavior)
-3. Verify MCP bridge:
-   - Extensions installed:
-     - `yutengjing.vscode-mcp-bridge`
-4. Restart Windsurf (required after rules/workflow changes)
-5. Quick sanity checks (run in terminal from the project root):
+1. Open workspace: `/Users/m2ultra/NOIZYLAB/AG_HOME.code-workspace`
+2. Confirm `.windsurfrules` active (GORUNFREE protocol)
+3. Sanity checks:
+// turbo
    - `git status`
    - `python3 --version`
-   - `node -v`
+   - `./AGENTS/launch.sh list`
+
+## Storage
+- **Code** → GitHub: `NOIZYLAB-io/NOIZYLAB`
+- **Media** → Google Drive: `NOIZYLAB_MEDIA/`
+
+## Agents
+- `./AGENTS/launch.sh gabriel` - Voice + Control
+- `./AGENTS/launch.sh mc96` - Core Engine
+- `./AGENTS/sync-media.sh push` - Media → Google Drive
