@@ -55,3 +55,20 @@ logs/
 output_directory/
 reports/
 .worktrees/
+
+# System directories (DO NOT COMMIT)
+.Trash/
+Library/
+.cache/
+.ollama/
+.ai-env/
+.npm/
+.npm-global/
+Google Drive/
+OneDrive*/
+Parallels/
+Movies/
+Music/
+Pictures/
+
+.gemini/antigravity/playground/infinite-omega/Audio_Unitor/Scripts/oracleJdk-25.jdk/

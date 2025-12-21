@@ -1,0 +1,43 @@
+#!/bin/bash
+# Quick AI helper for M2 Ultra
+# Usage: ai [model] [prompt]
+# Examples:
+#   ai "What is the meaning of life?"
+#   ai code "Write a Python function to reverse a string"
+#   ai 70b "Complex reasoning task"
+
+source ~/.ai-env/bin/activate 2>/dev/null
+
+MODEL="${1:-codestral}"
+PROMPT="${@:2}"
+
+case "$MODEL" in
+    code|codestral)
+        MODEL="codestral:latest"
+        PROMPT="${@:2}"
+        ;;
+    70b|llama70|big)
+        MODEL="llama3.1:70b"
+        PROMPT="${@:2}"
+        ;;
+    72b|qwen|qwen72)
+        MODEL="qwen2.5:72b"
+        PROMPT="${@:2}"
+        ;;
+    *)
+        # If first arg doesn't match a model, treat entire input as prompt
+        PROMPT="$@"
+        MODEL="codestral:latest"
+        ;;
+esac
+
+if [ -z "$PROMPT" ]; then
+    echo "🧠 M2 Ultra AI - Available models:"
+    ollama list
+    echo ""
+    echo "Usage: ai [model] \"your prompt\""
+    echo "Models: code, 70b, 72b (or any ollama model)"
+    exit 0
+fi
+
+ollama run "$MODEL" "$PROMPT"

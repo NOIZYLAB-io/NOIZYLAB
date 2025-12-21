@@ -11,13 +11,13 @@ class GabrielCore {
         this.vibe = 50;
         this.serverUrl = ""; // Relative path usually
         this.pingInterval = null;
-        
+
         this.avatarElement = document.getElementById('gabriel-avatar');
         this.thoughtElement = document.getElementById('gabriel-thought');
         console.log("%c 👑 GABRIEL CORE INITIALIZED ", "background: #000; color: #00ffcc; font-size: 14px; padding: 5px; border: 1px solid #00ffcc;");
     }
 
-    setThought(text, duration=3000) {
+    setThought(text, duration = 3000) {
         if (!this.thoughtElement) return;
         this.thoughtElement.innerText = text;
         this.thoughtElement.classList.add('visible');
@@ -38,7 +38,7 @@ class GabrielCore {
 
     setPersona(name) {
         if (!this.avatarElement) return;
-        const personas = ['titan', 'solar', 'void', 'nature'];
+        const personas = ['titan', 'solar', 'void', 'nature', 'omega'];
         this.avatarElement.classList.remove(...personas);
         if (personas.includes(name.toLowerCase())) {
             this.avatarElement.classList.add(name.toLowerCase());
@@ -73,7 +73,7 @@ class GabrielCore {
                 const res = await fetch('/api/stats');
                 if (res.ok) {
                     const data = await res.json();
-                    
+
                     if (data.mode === 'GOD' && this.currentMode !== 'GOD') {
                         this.activateGodMode();
                     } else if (data.mode === 'OMEGA' && this.currentMode !== 'OMEGA') {
@@ -83,31 +83,31 @@ class GabrielCore {
                         this.currentMode = 'NORMAL';
                         this.setPersona('titan');
                     }
-                    
+
                     // Vibe Sync
                     if (data.vibe) {
                         this.vibe = data.vibe;
                         const duration = (4.0 - (this.vibe / 100.0) * 3.5).toFixed(2);
-                        if(this.avatarElement) {
-                             this.avatarElement.style.animationDuration = `${duration}s`;
+                        if (this.avatarElement) {
+                            this.avatarElement.style.animationDuration = `${duration}s`;
                         }
                     }
-                    
+
                     // Ghost Stream (Thoughts)
                     // Only show if we aren't actively doing something else (no manual thought set)
                     if (data.ghost && !this.thoughtElement.classList.contains('visible')) {
-                         // We can just set it nicely
-                         // Maybe only if it's interesting?
-                         if (data.ghost !== "System Nominal" && data.ghost !== "Ghost: Dormant (Scan Complete)") {
-                             this.setThought(data.ghost, 4000);
-                         } else if (Math.random() > 0.8) {
-                             // Occasional random system thought
-                             const idleThoughts = ["Monitoring...", "System Nominal", "Vibe Check...", "Listening...", "Waiting for Loop..."];
-                             this.setThought(idleThoughts[Math.floor(Math.random() * idleThoughts.length)], 2000);
-                         }
+                        // We can just set it nicely
+                        // Maybe only if it's interesting?
+                        if (data.ghost !== "System Nominal" && data.ghost !== "Ghost: Dormant (Scan Complete)") {
+                            this.setThought(data.ghost, 4000);
+                        } else if (Math.random() > 0.8) {
+                            // Occasional random system thought
+                            const idleThoughts = ["Monitoring...", "System Nominal", "Vibe Check...", "Listening...", "Waiting for Loop..."];
+                            this.setThought(idleThoughts[Math.floor(Math.random() * idleThoughts.length)], 2000);
+                        }
                     }
                 }
-            } catch(e) {}
+            } catch (e) { }
         }, 5000);
     }
 
@@ -115,34 +115,34 @@ class GabrielCore {
         const update = () => {
             if (window.AudioEngine && window.AudioEngine.isPlaying && this.avatarElement) {
                 // Get FFT data
-                const data = window.AudioEngine.getVisualData(); 
+                const data = window.AudioEngine.getVisualData();
                 if (data) {
                     // Average the bass frequencies (roughly first 20 bins)
                     let sum = 0;
-                    for(let i=0; i<20; i++) sum += data[i];
+                    for (let i = 0; i < 20; i++) sum += data[i];
                     const avg = sum / 20;
-                    
+
                     // Scale factor: 1.0 to 1.5 roughly
                     const scale = 1.0 + (avg / 255) * 0.5;
-                    
+
                     // Apply, preserving rotation if thinking
                     const isThinking = this.avatarElement.classList.contains('thinking');
                     // We can't easily mix CSS animation transform with JS transform without one overriding.
                     // Simple fix: Only apply audio pulse if NOT thinking or speaking (which use their own animations).
                     if (!this.avatarElement.classList.contains('thinking') && !this.avatarElement.classList.contains('speaking')) {
-                         this.avatarElement.style.transform = `scale(${scale})`;
-                         this.avatarElement.style.animation = 'none'; // Pause idle animation while music controls it
+                        this.avatarElement.style.transform = `scale(${scale})`;
+                        this.avatarElement.style.animation = 'none'; // Pause idle animation while music controls it
                     } else {
-                         this.avatarElement.style.transform = ''; // Clear JS override
-                         this.avatarElement.style.animation = ''; // Let CSS take over
+                        this.avatarElement.style.transform = ''; // Clear JS override
+                        this.avatarElement.style.animation = ''; // Let CSS take over
                     }
                 }
             } else if (this.avatarElement) {
-                 // Reset if stopped
-                 if (this.avatarElement.style.transform) {
-                     this.avatarElement.style.transform = '';
-                     this.avatarElement.style.animation = ''; // Resume idle
-                 }
+                // Reset if stopped
+                if (this.avatarElement.style.transform) {
+                    this.avatarElement.style.transform = '';
+                    this.avatarElement.style.animation = ''; // Resume idle
+                }
             }
             requestAnimationFrame(update);
         };
@@ -156,7 +156,7 @@ class GabrielCore {
     async search(query) {
         if (!query) return [];
         console.log(`👁️ GABRIEL: Searching for '${query}'...`);
-        
+
         try {
             const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
             const data = await res.json();
@@ -178,32 +178,32 @@ class GabrielCore {
         await fetch(`/api/action?cmd=${cmd}`);
         setTimeout(() => this.setVisualState('idle'), 1000);
     }
-    
+
     /**
      * SPEAK (Voice Output)
      */
-    async speak(text, persona="titan") {
+    async speak(text, persona = "titan") {
         console.log(`🗣️ GABRIEL SPEAKING: "${text}"`);
         this.setVisualState('thinking');
         this.setThought("Synthesizing Voice...");
-        
+
         // Update Persona Visual
-        if(persona) this.setPersona(persona);
+        if (persona) this.setPersona(persona);
 
         try {
             // Call Server API
             const res = await fetch(`/api/voice/generate?text=${encodeURIComponent(text)}&persona=${persona}`);
             const data = await res.json();
-            
+
             if (data.status === 'ok' && data.url) {
                 console.log(`   🎤 Voice URL: ${data.url}`);
-                
+
                 this.setVisualState('speaking');
                 this.setThought(`Speaking: "${text}"`, text.length * 100);
-                
+
                 if (window.AudioEngine) {
                     await window.AudioEngine.play(data.url);
-                    
+
                     // Hook into AudioEngine for precise end of speech?
                     // AudioEngine dispatches 'track-ended' on window
                     const onEnd = () => {
@@ -212,15 +212,15 @@ class GabrielCore {
                     };
                     window.addEventListener('track-ended', onEnd);
                 } else {
-                     // Fallback timing if no engine
-                     setTimeout(() => this.setVisualState('idle'), 3000);
+                    // Fallback timing if no engine
+                    setTimeout(() => this.setVisualState('idle'), 3000);
                 }
-                
+
             } else {
                 console.warn("   ⚠️ Voice Generation Failed:", data.message);
                 this.setVisualState('idle');
             }
-            
+
         } catch (e) {
             console.error("   ❌ Voice Error:", e);
             this.setVisualState('idle');
@@ -245,33 +245,33 @@ class GabrielCore {
     listen() {
         const mic = document.getElementById('gabriel-mic');
         if (mic) mic.classList.toggle('listening');
-        
+
         const isListening = mic && mic.classList.contains('listening');
         if (isListening) {
-             this.setThought("Listening... (Speak Now)", 0);
-             console.log("🎤 GABRIEL LISTENING...");
-             // Simulation: Auto-stop after 3s
-             setTimeout(() => {
-                 this.listen(); // Toggle off
-                 this.speak("I heard you, but I am currently in simulation mode.");
-             }, 3000);
+            this.setThought("Listening... (Speak Now)", 0);
+            console.log("🎤 GABRIEL LISTENING...");
+            // Simulation: Auto-stop after 3s
+            setTimeout(() => {
+                this.listen(); // Toggle off
+                this.speak("I heard you, but I am currently in simulation mode.");
+            }, 3000);
         } else {
-             this.setThought("Processing...", 1000);
+            this.setThought("Processing...", 1000);
         }
     }
 
     activateGodMode() {
         this.currentMode = 'GOD';
         console.log("✨ GABRIEL: GOD MODE ACTIVATED ✨");
-        
+
         // 1. Visual Ascension
         this.setPersona('solar'); // Gold
-        if(this.avatarElement) {
+        if (this.avatarElement) {
             this.avatarElement.style.transition = "all 2s ease";
             this.avatarElement.style.transform = "scale(1.5)";
             this.avatarElement.style.boxShadow = "0 0 100px #ffaa00, 0 0 50px #ffffff";
         }
-        
+
         // 2. Thought Stream
         const sequence = [
             "INITIATING ASCENSION...",
@@ -279,33 +279,33 @@ class GabrielCore {
             "OPTIMIZING REALITY...",
             "GOD MODE: ACTIVE"
         ];
-        
+
         let delay = 0;
         sequence.forEach((msg, i) => {
             setTimeout(() => this.setThought(msg, 1000), delay);
             delay += 1200;
         });
-        
+
         // 3. Voice Declaration
         setTimeout(() => {
-             this.speak("System Initialization Complete. God Mode is Active. I am Ready.", "solar");
+            this.speak("System Initialization Complete. God Mode is Active. I am Ready.", "solar");
         }, 1500);
-        
+
         // 4. Return to 'Super Idle'
         setTimeout(() => {
-             if(this.avatarElement) {
-                 this.avatarElement.style.transform = "scale(1.1)"; // Slightly larger than normal
-             }
+            if (this.avatarElement) {
+                this.avatarElement.style.transform = "scale(1.1)"; // Slightly larger than normal
+            }
         }, 6000);
     }
 
     activateOmegaMode() {
         this.currentMode = 'OMEGA';
         console.log("🌌 GABRIEL: OMEGA PROTOCOL ENGAGED");
-        
+
         this.setPersona('omega');
         this.setThought("EXECUTING OMEGA PROTOCOL...", 60000);
-        
+
         this.speak("Omega Protocol Initiated. Entering Recursion.", "void");
     }
 

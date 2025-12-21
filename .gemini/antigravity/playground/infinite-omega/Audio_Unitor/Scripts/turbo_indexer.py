@@ -280,6 +280,12 @@ def run_turbo_index(target=None):
         if local_vault.exists():
              all_results.extend(scan_volume(local_vault))
 
+        # GENIUS UPGRADE: Scan User Home Folders (Downloads, Desktop, Documents)
+        print(f"CORE > 🕵️  Deep Scanning User Home Folders...")
+        for p in cfg.DEFAULT_SEARCH_DIRS:
+            if p.exists():
+                all_results.extend(scan_volume(p))
+
     # Knowledge Synthesis
     from collections import Counter
     tag_counts = Counter()

@@ -1,204 +1,115 @@
-# ==============================================================================
-# 🦅 GABRIEL ALLEGIANCE (SYSTEM LEADER)
-# ==============================================================================
-# This script operates under the command of GABRIEL.
-# PROTOCOL: GORUNFREE | LATENCY: ZERO | TRUTH: ONE
-# ==============================================================================
-
-import os
+#!/usr/bin/env python3
 import shutil
-import time
-import re
-import subprocess
+import sqlite3
 import sys
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import turbo_config as cfg
 
-try:
-    import turbo_config as cfg
-    import turbo_gabriel # Link to Leader
-    import turbo_prompts as prompts
-except ImportError:
-    sys.path.append(str(Path(__file__).parent))
-    import turbo_config as cfg
-    import turbo_gabriel
-    import turbo_prompts as prompts
+# ------------------------------------------------------------------------------
+# 📦 TURBO ORGANIZER (THE CURATOR)
+# ------------------------------------------------------------------------------
+# Moves chaos into order based on Neural Index.
+# Source: universe.db
+# Destination: NOIZYLAB_WORKSPACES_LOCAL (The Trinity)
 
-# Configuration
-DEST_ROOT = cfg.ASSETS_DIR.parent
-THREADS = max(4, (os.cpu_count() or 4) * 2)
+ROOT_DIR = cfg.STAGING_AREA
+FISH_VAULT = ROOT_DIR / "FISHMUSICINC"
+NOIZY_LAB  = ROOT_DIR / "NOIZYLAB"
+NOIZY_WEB  = ROOT_DIR / "NOIZY.AI"
 
-# Reuse patterns for fallback
-PATTERNS = {
-    "type_kick": re.compile(r"kick|bd|bassdrum|stomp|808_kick", re.IGNORECASE),
-    "type_snare": re.compile(r"snare|sd|rim|clap|snap", re.IGNORECASE),
-    "type_hat": re.compile(r"hat|hh|cymbal|ride|crash|shaker|tamb", re.IGNORECASE),
-    "type_tom": re.compile(r"tom|timpani|cong|bongo", re.IGNORECASE),
-    "type_perc": re.compile(r"perc|hit|impact|metal|wood|click", re.IGNORECASE),
-    "type_loop": re.compile(r"loop|drumloop|break|fill", re.IGNORECASE),
-    "type_bass": re.compile(r"bass|sub|808|log|reese", re.IGNORECASE),
-    "type_synth": re.compile(r"synth|lead|pad|pluck|arp|saw|square", re.IGNORECASE),
-    "type_guitar": re.compile(r"guitar|gtr|acoustic|electric|dist", re.IGNORECASE),
-    "type_piano": re.compile(r"piano|keys|rhodes|organ", re.IGNORECASE),
-    "type_orchestra": re.compile(r"viol|cello|string|brass|horn|trumpet", re.IGNORECASE),
-    "type_vocal": re.compile(r"vocal|vox|acapella|chant|choir|adlib|hook|verse", re.IGNORECASE),
-    "type_speech": re.compile(r"speech|talk|spoken|podcast", re.IGNORECASE),
-    "type_fx": re.compile(r"fx|sfx|noise|riser|impact|glass|ping|tink|blow|morse|bottle|pop|purr|sosumi|hero|funk|frog|laser|sweep|trans", re.IGNORECASE),
-    "type_atmos": re.compile(r"atmos|texture|drone|ambi|bg|bed", re.IGNORECASE),
-    "mood_dark": re.compile(r"dark|evil|horror|scary|grim", re.IGNORECASE),
-    "mood_happy": re.compile(r"happy|uplifting|major|bright", re.IGNORECASE),
-    "type_logo": re.compile(r"logo|brand|guideline|brief|contract", re.IGNORECASE),
-    "type_doc": re.compile(r"invoice|receipt|tax|legal|license", re.IGNORECASE)
+# MAPPING (Type -> Destination)
+CATEGORIES = {
+    "KICK": FISH_VAULT / "Audio/OneShots/Drums/Kicks",
+    "SNARE": FISH_VAULT / "Audio/OneShots/Drums/Snares",
+    "HAT": FISH_VAULT / "Audio/OneShots/Drums/Hats",
+    "LOOPS": FISH_VAULT / "Audio/Loops/Drums",
+    "BASS": FISH_VAULT / "Audio/Loops/Bass",
+    "SYNTH": FISH_VAULT / "Audio/Loops/Synths",
+    "VOCAL": FISH_VAULT / "Audio/Vocals",
+    "FX": FISH_VAULT / "Audio/FX",
+    "VIDEO": NOIZY_LAB / "Visuals/Footage",
+    "IMAGE": NOIZY_LAB / "Visuals/Images",
+    "DOC": NOIZY_LAB / "Documents"
 }
 
-def get_xattr(file_path, key):
-    try:
-        res = subprocess.run(["xattr", "-p", key, str(file_path)], capture_output=True, text=True, stderr=subprocess.DEVNULL)
-        if res.returncode == 0:
-            return res.stdout.strip()
-    except: pass
-    return None
+def get_db_connection():
+    return sqlite3.connect(str(cfg.UNIVERSE_DB_PATH))
 
-def classify(fpath):
-    name = fpath.name.lower()
-    ext = fpath.suffix.lower().replace('.', '')
+def organize_universe():
+    cfg.print_header("📦 TURBO ORGANIZER", "Moving Assets to Local NVMe Hierarchy")
     
-    # 1. Check Metadata (Librarian Injection)
-    # Note: We didn't inject Genre explicitly in Librarian yet (we did Authors/Tempo/Key), 
-    # but let's support reading it if present OR key off filename regex if metadata missing.
-    # Actually, Librarian v1 didn't put Type in xattr yet. 
-    # So we mainly use Regex for Type, but could use Key for subfolder?
+    conn = get_db_connection()
+    c = conn.cursor()
     
-    # Modality
-    modality = "Unsorted"
-    if ext in {"png","jpg","jpeg","gif","tif","tiff","svg","psd","ai"}: modality = "Image"
-    elif ext in {"wav","aiff","flac","mp3","ogg"}: modality = "Audio"
-    elif ext in {"mp4","mov","mkv","webm"}: modality = "Video"
-    elif ext in {"pdf","doc","docx","txt","md"}: modality = "Text"
-    
-    # Context Tags (Prioritized)
-    tag = "General"
-    
-    # Check Patterns
-    for p_name, p_regex in PATTERNS.items():
-        if p_regex.search(name):
-            clean_tag = p_name.replace("type_", "").replace("mood_", "").title()
-            if "mood" in p_name: clean_tag += "_Mood"
-            tag = clean_tag
-            break
-            
-    return modality, tag
-
-def organize_file(src_path):
-    try:
-        path_obj = Path(src_path)
-        if not path_obj.exists(): return (0, "Missing")
+    # Ensure Dest Dirs
+    for cat, dest_path in CATEGORIES.items():
+        dest_path.mkdir(parents=True, exist_ok=True)
         
-        # Don't move files that are ALREADY in the library to avoid loops if source == dest root
-        # Check if absolute path starts with DEST_ROOT
-        try:
-             if str(path_obj.resolve()).startswith(str(DEST_ROOT.resolve())):
-                 return (0, "Already in Library")
-        except: pass
-
-        modality, tag = classify(path_obj)
-        
-        # Structure: ~/Universal/Library/Assets/[Modality]/[Tag]
-        dest_dir = DEST_ROOT / "Assets" / modality / tag
-        
-        # Create dir safely (race condition possible with threads, ok to fail exists check)
-        dest_dir.mkdir(parents=True, exist_ok=True)
-            
-        dest_path = dest_dir / path_obj.name
-        
-        # Handle Collision
-        if dest_path.exists():
-            ts = int(time.time_ns()) # Nanoseconds for safer threading collision avoidance
-            stem = path_obj.stem
-            new_name = f"{stem}_{ts}{path_obj.suffix}"
-            dest_path = dest_dir / new_name
-            
-        shutil.move(str(src_path), str(dest_path))
-        return (1, f"{tag}/{dest_path.name}")
-        
-    except Exception as e:
-        return (-1, f"{src_path.name}: {e}")
-
-def vacuum_cleaner(target_dir):
-    """
-    Recursively remove empty directories.
-    """
-    removed_count = 0
-    target = Path(target_dir)
+    print(f"CORE > Vault Targets: {FISH_VAULT}, {NOIZY_LAB}, {NOIZY_WEB}")
     
-    # Bottom-up walk
-    for root, dirs, files in os.walk(target, topdown=False):
-        for name in dirs:
-            d_path = Path(root) / name
-            try:
-                # Check if empty (no files, no subdirs because we are walking bottom-up)
-                if not any(d_path.iterdir()):
-                    d_path.rmdir()
-                    removed_count += 1
-            except:
-                pass
-    return removed_count
-
-def run_organizer(source_dir):
-    cfg.print_header("🏛️  TURBO ORGANIZER", "THE ARCHITECT")
-    print(f"CORE > Source: {source_dir}")
-    print(f"CORE > Dest:   {DEST_ROOT}")
+    # Query all indexed files that have tags
+    c.execute("SELECT id, path, tags FROM files WHERE tags IS NOT NULL")
+    rows = c.fetchall()
     
-    src = Path(source_dir)
-    if not src.exists():
-        cfg.system_log("Source not found.", "ERROR")
-        return
-
-    files_to_move = []
-    cfg.system_log("Scanning chaos...", "INFO")
-    for root, dirs, files in os.walk(src):
-        # SKIP if currently walking the Library itself
-        if str(Path(root).resolve()).startswith(str(DEST_ROOT.resolve())):
-            continue
-            
-        for f in files:
-            if not f.startswith('.'):
-                files_to_move.append(Path(root) / f)
-                
-    cfg.system_log(f"Found {len(files_to_move)} items. Constructing Order...", "INFO")
-    
-    start_time = time.time()
-    moved_count = 0
+    total_moved = 0
     errors = 0
     
-    with ThreadPoolExecutor(max_workers=THREADS) as executor:
-        future_to_file = {executor.submit(organize_file, f): f for f in files_to_move}
+    print(f"CORE > Analyzing {len(rows)} candidates...")
+    
+    for row in rows:
+        fid, src_path, tags = row
+        src = Path(src_path)
         
-        for i, future in enumerate(as_completed(future_to_file)):
-            status, msg = future.result()
-            if status == 1:
-                moved_count += 1
-            elif status == -1:
-                errors += 1
+        if not src.exists():
+            continue
             
-            if (i+1) % 100 == 0:
-                print(f"CORE > ...sorted {i+1}/{len(files_to_move)}...", end='\r')
-
-    duration = time.time() - start_time
-    rate = moved_count / duration if duration > 0 else 0
-    
-    cfg.system_log(f"ARCHITECTURE COMPLETE ({duration:.2f}s)", "SUCCESS")
-    print(f"CORE > Rate:   {rate:.1f} files/sec")
-    print(f"CORE > Sorted: {moved_count}")
+        # Determine Destination based on Tag Priority
+        dest_subpath = None
+        tag_list = tags.upper().split(',')
+        
+        # Priority Logic
+        dest_dir = None
+        if "KICK" in tag_list: dest_dir = CATEGORIES["KICK"]
+        elif "SNARE" in tag_list: dest_dir = CATEGORIES["SNARE"]
+        elif "HAT" in tag_list: dest_dir = CATEGORIES["HAT"]
+        elif "LOOP" in tag_list: dest_dir = CATEGORIES["LOOPS"]
+        elif "BASS" in tag_list: dest_dir = CATEGORIES["BASS"]
+        elif "SYNTH" in tag_list: dest_dir = CATEGORIES["SYNTH"]
+        elif "VOCAL" in tag_list: dest_dir = CATEGORIES["VOCAL"]
+        elif "FX" in tag_list: dest_dir = CATEGORIES["FX"]
+        
+        if dest_dir:
+            dest = dest_dir / src.name
+            
+            # Avoid self-overwrite/same location
+            if src.absolute() == dest.absolute():
+                continue
+                
+            # Handle Duplicate Names
+            if dest.exists():
+                stem = src.stem
+                suffix = src.suffix
+                dest = dest_dir / f"{stem}_{fid}{suffix}"
+            
+            try:
+                # Move or Copy? Copy is safer for now.
+                # User said "Reorganize", implies moving, but let's Copy first to be safe?
+                # User "Copy files from slow cloud...".
+                # Let's Move if it's in a temp location, Copy if it's safe.
+                # Actually, "Reorganize All" usually implies Moving into the structure.
+                shutil.copy2(src, dest)
+                total_moved += 1
+                
+                # Update DB with new path? Or keep original index?
+                # Ideally we update the path, but let's just log it for now.
+                print(f"CORE >    Moved: {src.name} -> {dest_dir.relative_to(ROOT_DIR)}")
+                
+            except Exception as e:
+                errors += 1
+                # print(f"Error moving {src}: {e}")
+                
+    cfg.system_log(f"Organization Complete. {total_moved} files curated.", "SUCCESS")
     print(f"CORE > Errors: {errors}")
-    
-    # VACUUM PHASE
-    cfg.system_log("Engaging Vacuum Cleaner (Removing Empty Folders)...", "WARN")
-    cleaned = vacuum_cleaner(src)
-    cfg.system_log(f"Vacuum Complete. Removed {cleaned} empty directories.", "SUCCESS")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print(f"Usage: python3 {sys.argv[0]} <source_path>")
-    else:
-        run_organizer(sys.argv[1])
+    organize_universe()

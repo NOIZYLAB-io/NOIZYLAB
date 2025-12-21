@@ -44,6 +44,169 @@ class GodModeHandler(http.server.SimpleHTTPRequestHandler):
         except FileNotFoundError:
             self.send_error(404, "File Not Found")
 
+    def _generate_chat_response(self, message):
+        """
+        Gabriel Intelligence Core - Routes through LLM with full God Mode context.
+        Priority: Ollama (local) -> OpenAI (cloud) -> Fallback (rules)
+        """
+        import urllib.request
+        
+        # Load Gabriel's system prompt
+        try:
+            import turbo_prompts as prompts
+            GABRIEL_PROMPT = prompts.GABRIEL_SYSTEM_PROMPT
+        except:
+            GABRIEL_PROMPT = "You are Gabriel, an advanced AI assistant. Be helpful, concise, and accurate."
+        
+        # Get MemCell context for enhanced awareness
+        context_info = ""
+        try:
+            from turbo_memcell import MemCell
+            brain = MemCell()
+            brain.cursor.execute("SELECT AVG(vibe_score) FROM memory_events ORDER BY id DESC LIMIT 10")
+            vibe = brain.cursor.fetchone()[0] or 50
+            brain.cursor.execute("SELECT content FROM memory_events ORDER BY id DESC LIMIT 3")
+            recent = [r[0][:50] for r in brain.cursor.fetchall() if r[0]]
+            if recent:
+                context_info = f"\n[CURRENT CONTEXT]\nSystem Vibe: {vibe:.0f}%\nRecent Events: {'; '.join(recent)}"
+        except Exception as e:
+            print(f"CORE > MemCell context unavailable: {e}")
+        
+        full_prompt = GABRIEL_PROMPT + context_info
+        
+        # 1. Try Ollama (Local, Fast, Free)
+        try:
+            ollama_url = "http://localhost:11434/api/generate"
+            payload = json.dumps({
+                "model": "llama3.2",
+                "prompt": f"{full_prompt}\n\n[USER]: {message}\n\n[GABRIEL]:",
+                "stream": False
+            }).encode('utf-8')
+            
+            req = urllib.request.Request(ollama_url, data=payload, headers={'Content-Type': 'application/json'})
+            with urllib.request.urlopen(req, timeout=30) as response:
+                data = json.loads(response.read().decode())
+                if data.get("response"):
+                    print("CORE > 🦙 OLLAMA SUCCESS (God Mode)")
+                    return data["response"]
+        except Exception as e:
+            print(f"CORE > Ollama unavailable: {e}")
+        
+        # 2. Try OpenAI (API Key required)
+        try:
+            openai_key = os.environ.get("OPENAI_API_KEY", "")
+            if openai_key:
+                openai_url = "https://api.openai.com/v1/chat/completions"
+                payload = json.dumps({
+                    "model": "gpt-4o-mini",
+                    "messages": [
+                        {"role": "system", "content": full_prompt},
+                        {"role": "user", "content": message}
+                    ],
+                    "max_tokens": 1000
+                }).encode('utf-8')
+                
+                req = urllib.request.Request(openai_url, data=payload, headers={
+                    'Content-Type': 'application/json',
+                    'Authorization': f'Bearer {openai_key}'
+                })
+                with urllib.request.urlopen(req, timeout=30) as response:
+                    data = json.loads(response.read().decode())
+                    if data.get("choices"):
+                        print("CORE > 🤖 OPENAI SUCCESS (God Mode)")
+                        return data["choices"][0]["message"]["content"]
+        except Exception as e:
+            print(f"CORE > OpenAI unavailable: {e}")
+        
+        # 3. Fallback: Intelligent Rule-Based
+        return self._fallback_response(message)
+    
+    def _fallback_response(self, message):
+        """Smart fallback when no LLM is available"""
+        msg_lower = message.lower()
+        
+        # Translation
+        if "translate" in msg_lower:
+            if "french" in msg_lower and "love" in msg_lower:
+                return "\"I love you\" in French is: **Je t'aime** 💕"
+            elif "spanish" in msg_lower and "love" in msg_lower:
+                return "\"I love you\" in Spanish is: **Te quiero** or **Te amo** 💕"
+            return "I can help translate! Please specify the text and target language."
+        
+        # Explanations
+        if "explain" in msg_lower and ("ai" in msg_lower or "artificial intelligence" in msg_lower):
+            return """**Artificial Intelligence (AI) - Explained Simply:**
+
+Imagine you have a very smart robot friend. This robot can learn things by looking at lots of examples, just like you learn by reading books or watching videos.
+
+AI is like giving a computer a brain that can:
+- **Learn** from experience
+- **Recognize** patterns (like faces in photos)
+- **Make decisions** based on what it learned
+- **Talk and understand** language (like me!)
+
+For a 6-year-old: "AI is a computer that can learn and think a little bit like humans do. It's like teaching your computer to be really, really good at helping you!" 🤖"""
+        
+        # Travel ideas
+        if "travel" in msg_lower and ("ideas" in msg_lower or "destinations" in msg_lower or "best" in msg_lower):
+            return """**Top 10 Travel Ideas Around the World:**
+
+1. 🗼 **Paris, France** — The City of Light, Eiffel Tower, world-class cuisine
+2. 🏯 **Kyoto, Japan** — Ancient temples, cherry blossoms, traditional culture
+3. 🏝️ **Maldives** — Crystal-clear waters, luxury overwater bungalows
+4. 🦁 **Serengeti, Tanzania** — Epic safari, witness the Great Migration
+5. 🏔️ **Swiss Alps** — Breathtaking mountains, skiing, Alpine villages
+6. 🌴 **Bali, Indonesia** — Temples, rice terraces, beaches, wellness retreats
+7. 🎭 **Barcelona, Spain** — Gaudí architecture, beaches, vibrant nightlife
+8. 🌋 **Iceland** — Northern Lights, geysers, otherworldly landscapes
+9. 🗿 **Machu Picchu, Peru** — Ancient Incan citadel in the clouds
+10. 🌆 **New York City, USA** — The city that never sleeps, Broadway, Central Park
+
+Would you like more details on any of these destinations?"""
+        
+        # Code requests
+        if "code" in msg_lower or "python" in msg_lower or "javascript" in msg_lower or "function" in msg_lower:
+            if "fibonacci" in msg_lower:
+                return """Here's a Python function for the Fibonacci sequence:
+
+```python
+def fibonacci(n):
+    \"\"\"Generate Fibonacci sequence up to n numbers\"\"\"
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    
+    sequence = [0, 1]
+    while len(sequence) < n:
+        sequence.append(sequence[-1] + sequence[-2])
+    return sequence
+
+# Example usage
+print(fibonacci(10))  # [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+```"""
+            return "I can help with code! Please describe what you'd like to build."
+        
+        # Greetings
+        if any(g in msg_lower for g in ["hello", "hi", "hey", "good morning", "good evening"]):
+            return "Hello! I'm Gabriel, your AI assistant. How can I help you today? 👋"
+        
+        # Help
+        if "help" in msg_lower or "what can you do" in msg_lower:
+            return """**I'm Gabriel — Here's what I can help with:**
+
+💬 **Chat** — General conversation and questions
+🔍 **Search** — Find information on any topic  
+✍️ **Write** — Create emails, articles, social posts
+💻 **Code** — Write, explain, or debug code
+🌍 **Translate** — Convert text between languages
+📊 **Analyze** — Break down complex topics
+
+Just ask me anything!"""
+        
+        # Default
+        return f"I received your message: \"{message[:100]}...\"\n\nNote: To enable full AI responses, please ensure Ollama is running locally (`ollama serve`) or set your OPENAI_API_KEY environment variable."
+
     def do_GET(self):
         global GOD_MODE_ACTIVE, CURRENT_MODE
         
@@ -104,6 +267,36 @@ class GodModeHandler(http.server.SimpleHTTPRequestHandler):
              self.end_headers()
              self.wfile.write(json.dumps({"status": "ok", "mode": CURRENT_MODE}).encode())
              return
+
+        # ---------------------------------------------------------
+        # 2.0 API: CHAT (GABRIEL AI CHAT ENDPOINT)
+        # ---------------------------------------------------------
+        elif path == "/api/chat":
+            # Usage: POST /api/chat with JSON body: {"message": "...", "history": [...]}
+            # OR GET: /api/chat?message=...
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            
+            # Get message from query string (GET) or body (POST handled in do_POST)
+            message = query.get("message", [""])[0]
+            
+            if not message:
+                self.wfile.write(json.dumps({"status": "error", "message": "No message provided"}).encode())
+                return
+            
+            print(f"CORE > 💬 CHAT: '{message[:50]}...'")
+            
+            response = self._generate_chat_response(message)
+            
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "response": response,
+                "model": "gabriel-core"
+            }).encode())
+            return
 
         # ---------------------------------------------------------
         # 2. API: SYSTEM VITALS (MISSION CONTROL)

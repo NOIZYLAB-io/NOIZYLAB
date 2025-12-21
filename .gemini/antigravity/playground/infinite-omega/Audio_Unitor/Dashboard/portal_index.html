@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +12,18 @@
             --accent: #00ffcc;
             --text: #e0e0e0;
         }
-        body { margin: 0; padding: 0; display: flex; height: 100vh; background: var(--bg); color: var(--text); font-family: 'SF Pro Display', sans-serif; overflow: hidden; }
-        
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'SF Pro Display', sans-serif;
+            overflow: hidden;
+        }
+
         /* SIDEBAR (NAV) */
         .sidebar {
             width: 80px;
@@ -24,13 +35,13 @@
             padding-top: 2rem;
             z-index: 100;
         }
-        
+
         .nav-btn {
             width: 50px;
             height: 50px;
             margin-bottom: 1.5rem;
             border-radius: 12px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid #333;
             color: #888;
             font-size: 1.5rem;
@@ -40,16 +51,26 @@
             align-items: center;
             justify-content: center;
         }
-        
-        .nav-btn:hover { background: rgba(0,255,204,0.1); border-color: var(--accent); color: var(--accent); }
-        .nav-btn.active { background: var(--accent); color: #000; box-shadow: 0 0 20px rgba(0,255,204,0.4); border-color: var(--accent); }
-        
+
+        .nav-btn:hover {
+            background: rgba(0, 255, 204, 0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .nav-btn.active {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+            border-color: var(--accent);
+        }
+
         /* MAIN CONTENT (IFRAME CONTAINER) */
         .content-area {
             flex: 1;
             position: relative;
         }
-        
+
         iframe {
             width: 100%;
             height: 100%;
@@ -61,12 +82,12 @@
             transition: opacity 0.3s;
             pointer-events: none;
         }
-        
-        iframe.active { opacity: 1; pointer-events: all; }
-        
-    </style>
-        iframe.active { opacity: 1; pointer-events: all; }
-        
+
+        iframe.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
         /* GABRIEL AVATAR (LIVING CORE) */
         #gabriel-avatar {
             position: fixed;
@@ -77,8 +98,10 @@
             border-radius: 50%;
             background: radial-gradient(circle, #00ffcc 0%, transparent 70%);
             box-shadow: 0 0 20px #00ffcc;
-            z-index: 200; /* Above sidebar */
-            pointer-events: none; /* Let clicks pass through if needed, or make clickable */
+            z-index: 200;
+            /* Above sidebar */
+            pointer-events: none;
+            /* Let clicks pass through if needed, or make clickable */
             transition: all 0.5s ease;
             opacity: 0.8;
             animation: pulse-idle 4s infinite;
@@ -90,7 +113,7 @@
             transform: scale(1.2);
             animation: pulse-speak 0.2s infinite alternate;
         }
-        
+
         #gabriel-avatar.thinking {
             background: radial-gradient(circle, #ff00ff 0%, transparent 70%);
             box-shadow: 0 0 30px #ff00ff;
@@ -98,57 +121,106 @@
         }
 
         @keyframes pulse-idle {
-            0% { opacity: 0.5; transform: scale(0.9); }
-            50% { opacity: 0.9; transform: scale(1.1); }
-            100% { opacity: 0.5; transform: scale(0.9); }
+            0% {
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
+
+            50% {
+                opacity: 0.9;
+                transform: scale(1.1);
+            }
+
+            100% {
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
         }
-        
+
         @keyframes pulse-speak {
-            0% { transform: scale(1.1); opacity: 0.8; }
-            100% { transform: scale(1.3); opacity: 1; }
+            0% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
         }
-        
+
         @keyframes rotate-think {
-            0% { transform: rotate(0deg) scale(1.0); }
-            50% { transform: rotate(180deg) scale(0.8); }
-            100% { transform: rotate(360deg) scale(1.0); }
+            0% {
+                transform: rotate(0deg) scale(1.0);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(0.8);
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1.0);
+            }
         }
 
         /* PERSONA THEMES */
-        #gabriel-avatar.titan { /* Default - Deep Blue/Cyan */
+        #gabriel-avatar.titan {
+            /* Default - Deep Blue/Cyan */
             background: radial-gradient(circle, #00ffcc 0%, transparent 70%);
             box-shadow: 0 0 20px #00ffcc;
         }
-        #gabriel-avatar.solar { /* Gold/Orange */
+
+        #gabriel-avatar.solar {
+            /* Gold/Orange */
             background: radial-gradient(circle, #ffaa00 0%, transparent 70%);
             box-shadow: 0 0 25px #ffaa00;
         }
-        #gabriel-avatar.void { /* Purple/Abyss */
+
+        #gabriel-avatar.void {
+            /* Purple/Abyss */
             background: radial-gradient(circle, #9900ff 0%, transparent 80%);
             box-shadow: 0 0 30px #440088;
         }
-        #gabriel-avatar.nature { /* Green */
+
+        #gabriel-avatar.nature {
+            /* Green */
             background: radial-gradient(circle, #00ff44 0%, transparent 70%);
             box-shadow: 0 0 20px #00ff44;
         }
-        #gabriel-avatar.omega { /* THE VOID */
+
+        #gabriel-avatar.omega {
+            /* THE VOID */
             background: radial-gradient(circle, #000000 0%, #220033 90%);
             box-shadow: 0 0 50px #000000 inset, 0 0 30px #440066;
             border: 2px solid #5500aa;
             animation: pulse-void 4s infinite ease-in-out;
         }
+
         @keyframes pulse-void {
-            0% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.05); opacity: 1; filter: hue-rotate(20deg); }
-            100% { transform: scale(1); opacity: 0.9; }
+            0% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+                filter: hue-rotate(20deg);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
         }
 
         /* THOUGHT STREAM */
         #gabriel-thought {
             position: fixed;
             bottom: 30px;
-            left: 70px; /* Right of avatar */
-            background: rgba(0,0,0,0.8);
+            left: 70px;
+            /* Right of avatar */
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid var(--accent);
             color: var(--accent);
             padding: 8px 12px;
@@ -165,10 +237,12 @@
             z-index: 190;
             pointer-events: none;
         }
+
         /* INTERACTION */
         #gabriel-avatar {
             cursor: pointer;
         }
+
         #gabriel-avatar:active {
             transform: scale(0.95);
         }
@@ -176,11 +250,12 @@
         #gabriel-mic {
             position: fixed;
             bottom: 30px;
-            left: 70px; /* Offset from avatar */
+            left: 70px;
+            /* Offset from avatar */
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid #444;
             color: #888;
             display: flex;
@@ -190,21 +265,35 @@
             transition: all 0.2s;
             z-index: 100;
         }
+
         #gabriel-mic:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             border-color: #888;
         }
+
         #gabriel-mic.listening {
             background: #ff3333;
             color: white;
             box-shadow: 0 0 10px #ff3333;
             animation: pulse-mic 1s infinite;
         }
+
         @keyframes pulse-mic {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         /* Adjust Thought Bubble position to be further right since mic is there now */
@@ -213,6 +302,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <nav class="sidebar">
@@ -220,12 +310,12 @@
         <button class="nav-btn active" onclick="switchTab('dashboard', this)" title="Mission Control">
             🧠
         </button>
-        
+
         <!-- THE DECK (DJ) -->
         <button class="nav-btn" onclick="switchTab('deck', this)" title="AI DJ Deck">
             🎹
         </button>
-        
+
         <!-- THE FORGE (Creation) -->
         <button class="nav-btn" onclick="switchTab('forge', this)" title="The Forge (Creation Studio)">
             ⚡
@@ -235,7 +325,12 @@
         <button class="nav-btn" onclick="switchTab('hive', this)" title="The Hive (MemCell Visualizer)">
             🐝
         </button>
-        
+
+        <!-- CHAT (Gabriel AI Chat) -->
+        <button class="nav-btn" onclick="switchTab('chat', this)" title="Gabriel AI Chat">
+            💬
+        </button>
+
         <!-- GABRIEL AVATAR VISUAL -->
         <div id="gabriel-avatar" title="Touch to Interact" onclick="Gabriel.interact()"></div>
         <button id="gabriel-mic" title="Voice Command (Simulation)" onclick="Gabriel.listen()">🎤</button>
@@ -243,13 +338,17 @@
     </nav>
 
     <main class="content-area">
-        <iframe id="frame-dashboard" src="mission_control.html" class="portal-frame active" title="Mission Control"></iframe>
+        <iframe id="frame-dashboard" src="mission_control.html" class="portal-frame active"
+            title="Mission Control"></iframe>
         <iframe id="frame-deck" src="dj_deck.html" class="portal-frame" title="AI DJ Deck"></iframe>
         <!-- THE FORGE (God Mode Creation) -->
         <iframe id="frame-forge" src="forge.html" class="portal-frame" title="The Forge - AI Creation Studio"></iframe>
-        
+
         <!-- THE HIVE (MemCell Visualization) -->
         <iframe id="frame-hive" src="hive.html" class="portal-frame" title="The Hive - MemCell Visualizer"></iframe>
+
+        <!-- CHAT (Gabriel AI Chat) -->
+        <iframe id="frame-chat" src="chat.html" class="portal-frame" title="Gabriel AI Chat"></iframe>
     </main>
 
     <script src="gabriel-core.js"></script>
@@ -259,16 +358,17 @@
             document.querySelectorAll('.portal-frame').forEach(f => f.classList.remove('active'));
             // Show target
             document.getElementById('frame-' + tabName).classList.add('active');
-            
+
             // Update buttons
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
+            if (btn) btn.classList.add('active');
         }
-        
+
         // Initialize Gabriel Core
         window.addEventListener('DOMContentLoaded', () => {
-             if(window.Gabriel) window.Gabriel.connect();
+            if (window.Gabriel) window.Gabriel.connect();
         });
     </script>
 </body>
+
 </html>

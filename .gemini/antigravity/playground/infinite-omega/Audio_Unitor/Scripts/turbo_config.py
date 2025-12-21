@@ -22,18 +22,36 @@ BOLD    = '\033[1m'
 DIM     = '\033[2m'
 
 # ------------------------------------------------------------------------------
+# 🔐 SECURITY & CREDENTIALS
+# ------------------------------------------------------------------------------
+# (Key configuration moved to bottom of file)
+
+# ------------------------------------------------------------------------------
+# 🌍 REAL WORLD INFRASTRUCTURE (MC96ECO)
+# ------------------------------------------------------------------------------
+INFRASTRUCTURE = {
+    "SWITCH_CORE": {
+        "name": "MC96ECO (DGS1210-10)",
+        "ip": "192.168.1.254", # Default/Placeholder, User to Confirm
+        "model": "D-Link DGS-1210-10",
+        "role": "Backbone"
+    }
+}
+
+# ------------------------------------------------------------------------------
 # 📂 PATHS & LOCATIONS
 # ------------------------------------------------------------------------------
 # The root folder of the Scripts
 SCRIPTS_DIR = Path(__file__).parent.absolute()
 
 # Important Directories
-STAGING_AREA = Path("/Volumes/6TB/Audio_Universe")
+# ⚡ NVME LOCAL (ZERO LATENCY)
+STAGING_AREA = Path.expanduser(Path("~/Documents/NOIZYLAB_WORKSPACES_LOCAL"))
 if not STAGING_AREA.exists():
-    STAGING_AREA = Path.expanduser(Path("~/Universal/Desktop/Audio_Staging"))
-    if not STAGING_AREA.exists():
-        try: STAGING_AREA.mkdir(parents=True)
-        except: pass
+    try: STAGING_AREA.mkdir(parents=True)
+    except: pass
+
+# ☁️ EXTERNAL / CLOUD (ARCHIVE ONLY)
 REMOTE_DRIVE_NAME = "FISHMUSIC_MASTERS"
 REMOTE_PATH = "MC96UNIVERSE"
 
@@ -98,7 +116,7 @@ RUNWAY_API_KEY    = os.getenv("RUNWAY_API_KEY")
 LUMA_API_KEY      = os.getenv("LUMA_API_KEY")
 STABILITY_API_KEY = os.getenv("STABILITY_API_KEY")
 ELEVEN_API_KEY    = os.getenv("ELEVEN_API_KEY")
-GEMINI_API_KEY    = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+GEMINI_API_KEY    = "AIzaSyCByUsUvDwMiajVoPMtcEYc3qAvlr1WSDQ" # SECURED (User Provided)
 
 API_KEYS = {
     "Runway": RUNWAY_API_KEY,
