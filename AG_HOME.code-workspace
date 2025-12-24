@@ -1,16 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "/Users/m2ultra/NOIZYLAB"
+			"name": "NOIZYLAB",
+			"path": "."
 		},
 		{
-			"path": "/Users/m2ultra/NOIZYLAB/GABRIEL"
+			"name": "GABRIEL",
+			"path": "GABRIEL"
 		},
 		{
-			"path": "/Users/m2ultra/NOIZYLAB/AGENTS"
-		},
-		{
-			"path": "/Users/m2ultra/NOIZYLAB/MC96"
+			"name": "AGENTS",
+			"path": "AGENTS"
 		}
 	],
 	"settings": {

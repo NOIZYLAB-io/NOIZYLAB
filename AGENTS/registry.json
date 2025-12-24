@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
-  "updated": "2025-12-20",
+  "version": "1.1.0",
+  "updated": "2025-12-24",
+  "note": "Paths use $NOIZYLAB_HOME env var. Set this to your NOIZYLAB root directory.",
   "agents": [
     {
       "id": "gabriel",
       "name": "GABRIEL",
       "description": "Zero Latency Voice + Control Agent",
       "entrypoint": "tools/gabriel_control.py",
-      "path": "/Users/m2ultra/NOIZYLAB/GABRIEL",
+      "path": "$NOIZYLAB_HOME/GABRIEL",
       "status": "active",
       "capabilities": ["voice", "ui", "automation"]
     },
@@ -16,7 +17,7 @@
       "name": "MC96",
       "description": "Core Universe Engine",
       "entrypoint": "vault/organize_code.py",
-      "path": "/Users/m2ultra/NOIZYLAB/MC96",
+      "path": "$NOIZYLAB_HOME/MC96",
       "status": "active",
       "capabilities": ["code-organization", "vault"]
     },
@@ -25,20 +26,20 @@
       "name": "SystemGuardian",
       "description": "System Monitoring Agent",
       "entrypoint": null,
-      "path": "/Users/m2ultra/NOIZYLAB/SystemGuardian",
+      "path": "$NOIZYLAB_HOME/SystemGuardian",
       "status": "stub",
       "capabilities": ["monitoring", "alerts"]
     }
   ],
   "launcher": {
-    "gabriel": "python3 /Users/m2ultra/NOIZYLAB/GABRIEL/tools/gabriel_control.py",
-    "mc96": "python3 /Users/m2ultra/NOIZYLAB/MC96/vault/organize_code.py",
-    "media-push": "/Users/m2ultra/NOIZYLAB/AGENTS/sync-media.sh push",
-    "media-pull": "/Users/m2ultra/NOIZYLAB/AGENTS/sync-media.sh pull",
-    "media-status": "/Users/m2ultra/NOIZYLAB/AGENTS/sync-media.sh status"
+    "gabriel": "python3 $NOIZYLAB_HOME/GABRIEL/tools/gabriel_control.py",
+    "mc96": "python3 $NOIZYLAB_HOME/MC96/vault/organize_code.py",
+    "media-push": "$NOIZYLAB_HOME/AGENTS/sync-media.sh push",
+    "media-pull": "$NOIZYLAB_HOME/AGENTS/sync-media.sh pull",
+    "media-status": "$NOIZYLAB_HOME/AGENTS/sync-media.sh status"
   },
   "storage": {
     "code": "https://github.com/NOIZYLAB-io/NOIZYLAB",
-    "media": "/Users/m2ultra/Library/CloudStorage/GoogleDrive-rp@fishmusicinc.com/My Drive/NOIZYLAB_MEDIA"
+    "media": "$NOIZYLAB_GDRIVE"
   }
 }
