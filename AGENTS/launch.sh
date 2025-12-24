@@ -2,7 +2,9 @@
 # NOIZYLAB Agent Launcher
 # Usage: ./launch.sh [agent_name]
 
-NOIZYLAB="/Users/m2ultra/NOIZYLAB"
+# Use NOIZYLAB_HOME env var, or default to parent of script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NOIZYLAB="${NOIZYLAB_HOME:-$(dirname "$SCRIPT_DIR")}"
 
 case "$1" in
   gabriel|GABRIEL)
