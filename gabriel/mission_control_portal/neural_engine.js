@@ -13,6 +13,9 @@ class NeuralEngine {
           this.nodes = [];
           this.edges = [];
 
+          // Turbo mode
+          this.turboMode = false;
+
           // Physics settings
           this.physics = {
                enabled: true,
@@ -134,7 +137,9 @@ class NeuralEngine {
      }
 
      animate() {
-          this.time += 0.016; // ~60fps
+          // Time advances faster in turbo mode
+          const timeStep = this.turboMode ? 0.064 : 0.016;
+          this.time += timeStep;
 
           if (this.physics.enabled && !this.isDragging) {
                this.updatePhysics();
@@ -212,23 +217,24 @@ class NeuralEngine {
                const to = this.nodes.find(n => n.id === edge.to);
                if (!from || !to) continue;
 
-               // Animated pulse along edge
-               edge.pulse += 0.02;
+               // Animated pulse along edge - faster in turbo mode
+               const pulseSpeed = this.turboMode ? 0.1 : 0.02;
+               edge.pulse += pulseSpeed;
                const pulsePos = (Math.sin(edge.pulse) + 1) / 2;
 
                ctx.beginPath();
                ctx.moveTo(from.x, from.y);
                ctx.lineTo(to.x, to.y);
-               ctx.strokeStyle = this.colors.edge;
-               ctx.lineWidth = 2;
+               ctx.strokeStyle = this.turboMode ? 'rgba(255, 165, 0, 0.5)' : this.colors.edge;
+               ctx.lineWidth = this.turboMode ? 3 : 2;
                ctx.stroke();
 
-               // Draw pulse
+               // Draw pulse - larger and brighter in turbo mode
                const px = from.x + (to.x - from.x) * pulsePos;
                const py = from.y + (to.y - from.y) * pulsePos;
                ctx.beginPath();
-               ctx.arc(px, py, 4, 0, Math.PI * 2);
-               ctx.fillStyle = this.colors.core;
+               ctx.arc(px, py, this.turboMode ? 6 : 4, 0, Math.PI * 2);
+               ctx.fillStyle = this.turboMode ? '#ff4500' : this.colors.core;
                ctx.fill();
           }
 
@@ -353,6 +359,20 @@ class NeuralEngine {
      togglePhysics() {
           this.physics.enabled = !this.physics.enabled;
           return this.physics.enabled;
+     }
+
+     setTurboMode(enabled) {
+          this.turboMode = enabled;
+          // Increase physics intensity in turbo mode
+          if (enabled) {
+               this.physics.repulsion = 10000;
+               this.physics.attraction = 0.03;
+               this.physics.damping = 0.85;
+          } else {
+               this.physics.repulsion = 5000;
+               this.physics.attraction = 0.01;
+               this.physics.damping = 0.9;
+          }
      }
 
      exportGraph() {
