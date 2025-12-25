@@ -12,6 +12,7 @@ class NeuralEngine {
           // Graph data
           this.nodes = [];
           this.edges = [];
+          this.nodeMap = new Map(); // O(1) node lookup optimization
 
           // Physics settings
           this.physics = {
@@ -114,6 +115,9 @@ class NeuralEngine {
                radius: n.type === 'core' ? 35 : 25
           }));
 
+          // Build O(1) lookup map for node access (performance optimization)
+          this.nodeMap = new Map(this.nodes.map(n => [n.id, n]));
+
           this.edges = edges.map(e => ({
                ...e,
                pulse: Math.random() * Math.PI * 2
@@ -163,10 +167,10 @@ class NeuralEngine {
                }
           }
 
-          // Edge attraction
+          // Edge attraction - use nodeMap for O(1) lookup instead of O(n) find()
           for (const edge of this.edges) {
-               const from = this.nodes.find(n => n.id === edge.from);
-               const to = this.nodes.find(n => n.id === edge.to);
+               const from = this.nodeMap.get(edge.from);
+               const to = this.nodeMap.get(edge.to);
                if (!from || !to) continue;
 
                const dx = to.x - from.x;
@@ -206,10 +210,10 @@ class NeuralEngine {
           const ctx = this.ctx;
           ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-          // Draw edges
+          // Draw edges - use nodeMap for O(1) lookup instead of O(n) find()
           for (const edge of this.edges) {
-               const from = this.nodes.find(n => n.id === edge.from);
-               const to = this.nodes.find(n => n.id === edge.to);
+               const from = this.nodeMap.get(edge.from);
+               const to = this.nodeMap.get(edge.to);
                if (!from || !to) continue;
 
                // Animated pulse along edge
