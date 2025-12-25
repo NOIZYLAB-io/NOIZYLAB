@@ -12,7 +12,8 @@ class NeuralEngine {
           // Graph data
           this.nodes = [];
           this.edges = [];
-          this.nodeMap = new Map(); // O(1) node lookup optimization
+          // Note: nodeMap is populated in setData() for O(1) node lookups
+          this.nodeMap = null;
 
           // Physics settings
           this.physics = {
@@ -116,6 +117,7 @@ class NeuralEngine {
           }));
 
           // Build O(1) lookup map for node access (performance optimization)
+          // Note: Assumes node IDs are unique - duplicate IDs will be overwritten
           this.nodeMap = new Map(this.nodes.map(n => [n.id, n]));
 
           this.edges = edges.map(e => ({
@@ -168,23 +170,25 @@ class NeuralEngine {
           }
 
           // Edge attraction - use nodeMap for O(1) lookup instead of O(n) find()
-          for (const edge of this.edges) {
-               const from = this.nodeMap.get(edge.from);
-               const to = this.nodeMap.get(edge.to);
-               if (!from || !to) continue;
+          if (this.nodeMap) {
+               for (const edge of this.edges) {
+                    const from = this.nodeMap.get(edge.from);
+                    const to = this.nodeMap.get(edge.to);
+                    if (!from || !to) continue;
 
-               const dx = to.x - from.x;
-               const dy = to.y - from.y;
-               const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-               const force = dist * this.physics.attraction;
+                    const dx = to.x - from.x;
+                    const dy = to.y - from.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                    const force = dist * this.physics.attraction;
 
-               const fx = (dx / dist) * force;
-               const fy = (dy / dist) * force;
+                    const fx = (dx / dist) * force;
+                    const fy = (dy / dist) * force;
 
-               from.vx += fx;
-               from.vy += fy;
-               to.vx -= fx;
-               to.vy -= fy;
+                    from.vx += fx;
+                    from.vy += fy;
+                    to.vx -= fx;
+                    to.vy -= fy;
+               }
           }
 
           // Center gravity
@@ -211,29 +215,31 @@ class NeuralEngine {
           ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
           // Draw edges - use nodeMap for O(1) lookup instead of O(n) find()
-          for (const edge of this.edges) {
-               const from = this.nodeMap.get(edge.from);
-               const to = this.nodeMap.get(edge.to);
-               if (!from || !to) continue;
+          if (this.nodeMap) {
+               for (const edge of this.edges) {
+                    const from = this.nodeMap.get(edge.from);
+                    const to = this.nodeMap.get(edge.to);
+                    if (!from || !to) continue;
 
-               // Animated pulse along edge
-               edge.pulse += 0.02;
-               const pulsePos = (Math.sin(edge.pulse) + 1) / 2;
+                    // Animated pulse along edge
+                    edge.pulse += 0.02;
+                    const pulsePos = (Math.sin(edge.pulse) + 1) / 2;
 
-               ctx.beginPath();
-               ctx.moveTo(from.x, from.y);
-               ctx.lineTo(to.x, to.y);
-               ctx.strokeStyle = this.colors.edge;
-               ctx.lineWidth = 2;
-               ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(from.x, from.y);
+                    ctx.lineTo(to.x, to.y);
+                    ctx.strokeStyle = this.colors.edge;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
 
-               // Draw pulse
-               const px = from.x + (to.x - from.x) * pulsePos;
-               const py = from.y + (to.y - from.y) * pulsePos;
-               ctx.beginPath();
-               ctx.arc(px, py, 4, 0, Math.PI * 2);
-               ctx.fillStyle = this.colors.core;
-               ctx.fill();
+                    // Draw pulse
+                    const px = from.x + (to.x - from.x) * pulsePos;
+                    const py = from.y + (to.y - from.y) * pulsePos;
+                    ctx.beginPath();
+                    ctx.arc(px, py, 4, 0, Math.PI * 2);
+                    ctx.fillStyle = this.colors.core;
+                    ctx.fill();
+               }
           }
 
           // Draw nodes

@@ -5,6 +5,9 @@
  */
 
 class GabrielPortal {
+     // Configuration constants
+     static PARTICLE_CONNECTION_DISTANCE_SQ = 100 * 100; // 10000 (squared for perf)
+
      constructor() {
           this.neuralEngine = null;
           this.feedMessages = [];
@@ -115,7 +118,6 @@ class GabrielPortal {
           // Draw connections between nearby particles
           // OPTIMIZATION: Use squared distance to avoid expensive Math.sqrt()
           // OPTIMIZATION: Batch path operations with single beginPath/stroke
-          const DISTANCE_THRESHOLD_SQ = 100 * 100; // 10000
           ctx.strokeStyle = 'rgba(0, 255, 65, 0.1)';
           ctx.lineWidth = 1;
           ctx.beginPath(); // Single beginPath for all connection lines
@@ -127,7 +129,7 @@ class GabrielPortal {
                     const dy = p2.y - p1.y;
                     const distSq = dx * dx + dy * dy;
 
-                    if (distSq < DISTANCE_THRESHOLD_SQ) {
+                    if (distSq < GabrielPortal.PARTICLE_CONNECTION_DISTANCE_SQ) {
                          ctx.moveTo(p1.x, p1.y);
                          ctx.lineTo(p2.x, p2.y);
                     }
