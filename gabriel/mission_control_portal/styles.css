@@ -187,7 +187,7 @@ body {
 /* --- Metrics Bar --- */
 .metrics-bar {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     margin-bottom: 40px;
 }
@@ -206,6 +206,34 @@ body {
     transform: translateY(-5px);
     border-color: var(--matrix-green);
     box-shadow: var(--glow-green);
+}
+
+.metric.speed-toggle {
+    cursor: pointer;
+    background: linear-gradient(145deg, var(--bg-card), rgba(255, 215, 0, 0.05));
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.metric.speed-toggle:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.metric.speed-toggle.active {
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.15), rgba(255, 100, 0, 0.1));
+    border-color: var(--gold);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    animation: speed-pulse 0.5s ease-in-out infinite;
+}
+
+.metric.speed-toggle.active .metric-value {
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+@keyframes speed-pulse {
+    0%, 100% { transform: translateY(-5px) scale(1); }
+    50% { transform: translateY(-5px) scale(1.02); }
 }
 
 .metric-value {
@@ -498,6 +526,39 @@ body {
 .timestamp {
     margin-top: 10px;
     color: var(--matrix-dim);
+}
+
+/* Speed Mode Global Effects */
+body.speed-mode .hero-glow {
+    animation: pulse-glow 1s ease-in-out infinite;
+}
+
+body.speed-mode .logo-ring {
+    animation: ring-spin 3s linear infinite;
+}
+
+body.speed-mode .logo-ring.delay-1 {
+    animation-duration: 2.5s;
+}
+
+body.speed-mode .logo-ring.delay-2 {
+    animation-duration: 2s;
+}
+
+body.speed-mode .logo-text {
+    animation: text-flicker 1s ease-in-out infinite;
+}
+
+body.speed-mode .status-badge .pulse {
+    animation: pulse-dot 0.5s ease-in-out infinite;
+}
+
+body.speed-mode .action-card:hover {
+    transform: translateY(-12px) scale(1.05);
+}
+
+body.speed-mode .feed-line {
+    animation: feed-in 0.15s ease;
 }
 
 /* --- Responsive --- */

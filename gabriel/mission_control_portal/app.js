@@ -5,6 +5,12 @@
  */
 
 class GabrielPortal {
+     // Physics constants for normal and speed modes
+     static PHYSICS_NORMAL = { repulsion: 5000, attraction: 0.01 };
+     static PHYSICS_SPEED = { repulsion: 8000, attraction: 0.02 };
+     static PARTICLE_SPEED_NORMAL = 1;
+     static PARTICLE_SPEED_FAST = 4;
+
      constructor() {
           this.neuralEngine = null;
           this.feedMessages = [];
@@ -12,6 +18,8 @@ class GabrielPortal {
           this.bgCanvas = null;
           this.bgCtx = null;
           this.particles = [];
+          this.speedMode = false;
+          this.particleSpeedMultiplier = GabrielPortal.PARTICLE_SPEED_NORMAL;
      }
 
      async init() {
@@ -32,6 +40,9 @@ class GabrielPortal {
 
           // Setup UI handlers
           this.setupEventListeners();
+
+          // Setup speed mode toggle
+          this.setupSpeedModeToggle();
 
           // Start status updates
           this.startStatusUpdates();
@@ -77,10 +88,10 @@ class GabrielPortal {
           const ctx = this.bgCtx;
           ctx.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height);
 
-          // Update and draw particles
+          // Update and draw particles with speed multiplier
           for (const p of this.particles) {
-               p.x += p.vx;
-               p.y += p.vy;
+               p.x += p.vx * this.particleSpeedMultiplier;
+               p.y += p.vy * this.particleSpeedMultiplier;
 
                // Wrap around
                if (p.x < 0) p.x = this.bgCanvas.width;
@@ -90,12 +101,12 @@ class GabrielPortal {
 
                ctx.beginPath();
                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-               ctx.fillStyle = 'rgba(0, 255, 65, 0.5)';
+               ctx.fillStyle = this.speedMode ? 'rgba(255, 215, 0, 0.7)' : 'rgba(0, 255, 65, 0.5)';
                ctx.fill();
           }
 
           // Draw connections between nearby particles
-          ctx.strokeStyle = 'rgba(0, 255, 65, 0.1)';
+          ctx.strokeStyle = this.speedMode ? 'rgba(255, 215, 0, 0.15)' : 'rgba(0, 255, 65, 0.1)';
           ctx.lineWidth = 1;
           for (let i = 0; i < this.particles.length; i++) {
                for (let j = i + 1; j < this.particles.length; j++) {
@@ -147,7 +158,59 @@ class GabrielPortal {
                     e.preventDefault();
                     this.neuralEngine.resetView();
                }
+               // Speed mode toggle with 's' key
+               if (e.key.toLowerCase() === 's' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                    const target = e.target;
+                    if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+                         this.toggleSpeedMode();
+                    }
+               }
           });
+     }
+
+     setupSpeedModeToggle() {
+          const toggle = document.getElementById('speed-mode-toggle');
+          if (toggle) {
+               toggle.addEventListener('click', () => this.toggleSpeedMode());
+          }
+     }
+
+     toggleSpeedMode() {
+          this.speedMode = !this.speedMode;
+          this.particleSpeedMultiplier = this.speedMode 
+               ? GabrielPortal.PARTICLE_SPEED_FAST 
+               : GabrielPortal.PARTICLE_SPEED_NORMAL;
+          
+          const toggle = document.getElementById('speed-mode-toggle');
+          const speedValue = document.getElementById('speed-value');
+          
+          if (this.speedMode) {
+               document.body.classList.add('speed-mode');
+               toggle?.classList.add('active');
+               if (speedValue) speedValue.textContent = '⚡ MAX';
+               this.log('[GORUNFREE] SPEED MODE ACTIVATED // MAXIMUM VELOCITY');
+               this.showNotification('⚡ SPEED MODE: ENGAGED');
+               
+               // Increase neural engine animation speed
+               if (this.neuralEngine) {
+                    this.neuralEngine.physics.repulsion = GabrielPortal.PHYSICS_SPEED.repulsion;
+                    this.neuralEngine.physics.attraction = GabrielPortal.PHYSICS_SPEED.attraction;
+               }
+          } else {
+               document.body.classList.remove('speed-mode');
+               toggle?.classList.remove('active');
+               if (speedValue) speedValue.textContent = '⚡ OFF';
+               this.log('[GORUNFREE] Speed mode deactivated');
+               this.showNotification('Speed Mode: OFF');
+               
+               // Reset neural engine to normal speed
+               if (this.neuralEngine) {
+                    this.neuralEngine.physics.repulsion = GabrielPortal.PHYSICS_NORMAL.repulsion;
+                    this.neuralEngine.physics.attraction = GabrielPortal.PHYSICS_NORMAL.attraction;
+               }
+          }
+          
+          this.flashStatus();
      }
 
      handleAction(action) {
