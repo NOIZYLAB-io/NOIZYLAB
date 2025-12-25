@@ -9,7 +9,6 @@ PERFORMANCE OPTIMIZED - Response caching + fast JSON
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from datetime import datetime
-from functools import lru_cache
 import os
 import json
 import time

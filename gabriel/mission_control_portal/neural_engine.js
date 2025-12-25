@@ -180,7 +180,7 @@ class NeuralEngine {
                     const dy = nodeJ.y - nodeI.y;
                     const distSq = dx * dx + dy * dy;
                     const dist = Math.sqrt(distSq) || 1;
-                    const force = this.physics.repulsion / distSq;
+                    const force = this.physics.repulsion / (dist * dist);
 
                     const fx = (dx / dist) * force;
                     const fy = (dy / dist) * force;
