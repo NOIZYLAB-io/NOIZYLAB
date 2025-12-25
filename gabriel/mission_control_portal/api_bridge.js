@@ -2,6 +2,7 @@
  * GABRIEL SYSTEM OMEGA - API Bridge
  * Zero Latency Communication Layer
  * ================================
+ * PERFORMANCE OPTIMIZED - Request caching + reduced polling
  */
 
 const API_BRIDGE = {
@@ -10,7 +11,8 @@ const API_BRIDGE = {
           baseUrl: 'http://localhost:5174',
           timeout: 5000,
           retryAttempts: 3,
-          retryDelay: 1000
+          retryDelay: 1000,
+          cacheTTL: 2000 // Cache responses for 2 seconds
      },
 
      // Connection state
@@ -19,6 +21,9 @@ const API_BRIDGE = {
           lastPing: null,
           latency: 0
      },
+
+     // Response cache for performance
+     cache: new Map(),
 
      /**
       * Initialize the API Bridge
@@ -30,9 +35,33 @@ const API_BRIDGE = {
      },
 
      /**
-      * Generic fetch wrapper with error handling
+      * Get cached response if valid
+      */
+     getCached(endpoint) {
+          const cached = this.cache.get(endpoint);
+          if (cached && Date.now() - cached.timestamp < this.config.cacheTTL) {
+               return cached.data;
+          }
+          return null;
+     },
+
+     /**
+      * Store response in cache
+      */
+     setCache(endpoint, data) {
+          this.cache.set(endpoint, { data, timestamp: Date.now() });
+     },
+
+     /**
+      * Generic fetch wrapper with error handling and caching
       */
      async request(endpoint, options = {}) {
+          // Check cache first for GET requests
+          if (!options.method || options.method === 'GET') {
+               const cached = this.getCached(endpoint);
+               if (cached) return cached;
+          }
+
           const url = `${this.config.baseUrl}${endpoint}`;
           const startTime = performance.now();
 
@@ -53,7 +82,14 @@ const API_BRIDGE = {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                }
 
-               return await response.json();
+               const data = await response.json();
+               
+               // Cache successful GET responses
+               if (!options.method || options.method === 'GET') {
+                    this.setCache(endpoint, data);
+               }
+               
+               return data;
           } catch (error) {
                console.warn(`[API_BRIDGE] Request failed: ${endpoint}`, error.message);
                this.state.connected = false;

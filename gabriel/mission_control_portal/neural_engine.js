@@ -2,16 +2,18 @@
  * GABRIEL SYSTEM OMEGA - Neural Engine
  * Force-Directed Graph Visualization
  * ===================================
+ * PERFORMANCE OPTIMIZED - Zero Latency Mode
  */
 
 class NeuralEngine {
      constructor(canvasId) {
           this.canvas = document.getElementById(canvasId);
-          this.ctx = this.canvas.getContext('2d');
+          this.ctx = this.canvas.getContext('2d', { alpha: false });
 
           // Graph data
           this.nodes = [];
           this.edges = [];
+          this.nodeMap = new Map(); // Fast node lookup by ID
 
           // Physics settings
           this.physics = {
@@ -19,8 +21,13 @@ class NeuralEngine {
                repulsion: 5000,
                attraction: 0.01,
                damping: 0.9,
-               centerGravity: 0.01
+               centerGravity: 0.01,
+               maxIterations: 50 // Limit physics iterations for stability
           };
+
+          // Performance optimization
+          this.frameSkip = 0;
+          this.physicsUpdateRate = 2; // Update physics every N frames
 
           // Visual settings
           this.colors = {
@@ -114,10 +121,24 @@ class NeuralEngine {
                radius: n.type === 'core' ? 35 : 25
           }));
 
+          // Build node map for O(1) lookups
+          this.nodeMap.clear();
+          for (const node of this.nodes) {
+               this.nodeMap.set(node.id, node);
+          }
+
           this.edges = edges.map(e => ({
                ...e,
-               pulse: Math.random() * Math.PI * 2
+               pulse: Math.random() * Math.PI * 2,
+               fromNode: null, // Will be resolved
+               toNode: null
           }));
+
+          // Pre-resolve edge node references for O(1) access during render
+          for (const edge of this.edges) {
+               edge.fromNode = this.nodeMap.get(edge.from);
+               edge.toNode = this.nodeMap.get(edge.to);
+          }
      }
 
      start() {
@@ -135,8 +156,10 @@ class NeuralEngine {
 
      animate() {
           this.time += 0.016; // ~60fps
+          this.frameSkip++;
 
-          if (this.physics.enabled && !this.isDragging) {
+          // Update physics at reduced rate for performance
+          if (this.physics.enabled && !this.isDragging && this.frameSkip % this.physicsUpdateRate === 0) {
                this.updatePhysics();
           }
 
@@ -145,28 +168,34 @@ class NeuralEngine {
      }
 
      updatePhysics() {
-          // Node repulsion
-          for (let i = 0; i < this.nodes.length; i++) {
-               for (let j = i + 1; j < this.nodes.length; j++) {
-                    const dx = this.nodes[j].x - this.nodes[i].x;
-                    const dy = this.nodes[j].y - this.nodes[i].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-                    const force = this.physics.repulsion / (dist * dist);
+          const nodes = this.nodes;
+          const nodeCount = nodes.length;
+
+          // Node repulsion - optimized loop
+          for (let i = 0; i < nodeCount; i++) {
+               const nodeI = nodes[i];
+               for (let j = i + 1; j < nodeCount; j++) {
+                    const nodeJ = nodes[j];
+                    const dx = nodeJ.x - nodeI.x;
+                    const dy = nodeJ.y - nodeI.y;
+                    const distSq = dx * dx + dy * dy;
+                    const dist = Math.sqrt(distSq) || 1;
+                    const force = this.physics.repulsion / distSq;
 
                     const fx = (dx / dist) * force;
                     const fy = (dy / dist) * force;
 
-                    this.nodes[i].vx -= fx;
-                    this.nodes[i].vy -= fy;
-                    this.nodes[j].vx += fx;
-                    this.nodes[j].vy += fy;
+                    nodeI.vx -= fx;
+                    nodeI.vy -= fy;
+                    nodeJ.vx += fx;
+                    nodeJ.vy += fy;
                }
           }
 
-          // Edge attraction
+          // Edge attraction - use pre-resolved references
           for (const edge of this.edges) {
-               const from = this.nodes.find(n => n.id === edge.from);
-               const to = this.nodes.find(n => n.id === edge.to);
+               const from = edge.fromNode;
+               const to = edge.toNode;
                if (!from || !to) continue;
 
                const dx = to.x - from.x;
@@ -183,44 +212,53 @@ class NeuralEngine {
                to.vy -= fy;
           }
 
-          // Center gravity
-          for (const node of this.nodes) {
-               node.vx += (this.centerX - node.x) * this.physics.centerGravity;
-               node.vy += (this.centerY - node.y) * this.physics.centerGravity;
-          }
+          // Center gravity & velocity application - combined loop
+          const damping = this.physics.damping;
+          const centerGravity = this.physics.centerGravity;
+          const width = this.canvas.width;
+          const height = this.canvas.height;
 
-          // Apply velocities
-          for (const node of this.nodes) {
-               node.vx *= this.physics.damping;
-               node.vy *= this.physics.damping;
+          for (const node of nodes) {
+               node.vx += (this.centerX - node.x) * centerGravity;
+               node.vy += (this.centerY - node.y) * centerGravity;
+               node.vx *= damping;
+               node.vy *= damping;
                node.x += node.vx;
                node.y += node.vy;
 
-               // Bounds
-               node.x = Math.max(node.radius, Math.min(this.canvas.width - node.radius, node.x));
-               node.y = Math.max(node.radius, Math.min(this.canvas.height - node.radius, node.y));
+               // Bounds check
+               const r = node.radius;
+               if (node.x < r) node.x = r;
+               else if (node.x > width - r) node.x = width - r;
+               if (node.y < r) node.y = r;
+               else if (node.y > height - r) node.y = height - r;
           }
      }
 
      render() {
           const ctx = this.ctx;
-          ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+          const width = this.canvas.width;
+          const height = this.canvas.height;
+          
+          // Clear with solid color (faster than clearRect with transparency)
+          ctx.fillStyle = 'rgb(10, 10, 15)';
+          ctx.fillRect(0, 0, width, height);
 
-          // Draw edges
+          // Draw edges with pre-resolved references
+          ctx.lineWidth = 2;
           for (const edge of this.edges) {
-               const from = this.nodes.find(n => n.id === edge.from);
-               const to = this.nodes.find(n => n.id === edge.to);
+               const from = edge.fromNode;
+               const to = edge.toNode;
                if (!from || !to) continue;
 
                // Animated pulse along edge
                edge.pulse += 0.02;
-               const pulsePos = (Math.sin(edge.pulse) + 1) / 2;
+               const pulsePos = (Math.sin(edge.pulse) + 1) * 0.5;
 
                ctx.beginPath();
                ctx.moveTo(from.x, from.y);
                ctx.lineTo(to.x, to.y);
                ctx.strokeStyle = this.colors.edge;
-               ctx.lineWidth = 2;
                ctx.stroke();
 
                // Draw pulse

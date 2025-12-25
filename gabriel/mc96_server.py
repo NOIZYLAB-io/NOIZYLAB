@@ -3,11 +3,13 @@
 GABRIEL SYSTEM OMEGA - MC96 Backend Server
 Zero Latency API Server | Port 5174
 ==========================================
+PERFORMANCE OPTIMIZED - Response caching + fast JSON
 """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from datetime import datetime
+from functools import lru_cache
 import os
 import json
 import time
@@ -24,41 +26,20 @@ SYSTEM_STATE = {
     "protocol": "GORUNFREE"
 }
 
-# ========== API ENDPOINTS ==========
+# Pre-computed static responses for maximum speed
+STATIC_RESPONSES = {}
 
-@app.route('/')
-def index():
-    """Root endpoint - system banner"""
-    return jsonify({
+def init_static_responses():
+    """Pre-compute static responses at startup"""
+    global STATIC_RESPONSES
+    STATIC_RESPONSES['root'] = {
         "system": "GABRIEL SYSTEM OMEGA",
         "version": SYSTEM_STATE["version"],
         "protocol": SYSTEM_STATE["protocol"],
         "status": SYSTEM_STATE["status"],
         "message": "MC96ECOUNIVERSE // Zero Latency Core Active"
-    })
-
-
-@app.route('/api/status')
-def get_status():
-    """System status and metrics"""
-    uptime = (datetime.now() - datetime.fromisoformat(SYSTEM_STATE["boot_time"])).total_seconds()
-    
-    return jsonify({
-        "status": SYSTEM_STATE["status"],
-        "latency": f"<{random.randint(3, 7)}ms",
-        "uptime": "99.9%",
-        "memcell_nodes": "∞",
-        "agents_active": 3,
-        "version": SYSTEM_STATE["version"],
-        "boot_time": SYSTEM_STATE["boot_time"],
-        "runtime_seconds": int(uptime)
-    })
-
-
-@app.route('/api/agents')
-def get_agents():
-    """Active agents list"""
-    return jsonify({
+    }
+    STATIC_RESPONSES['agents'] = {
         "agents": [
             {
                 "name": "GABRIEL",
@@ -80,21 +61,73 @@ def get_agents():
             }
         ],
         "total": 3
-    })
+    }
 
+init_static_responses()
+
+def add_cache_headers(response, max_age=5):
+    """Add caching headers to response"""
+    response.headers['Cache-Control'] = f'public, max-age={max_age}'
+    return response
+
+# ========== API ENDPOINTS ==========
+
+@app.route('/')
+def index():
+    """Root endpoint - system banner"""
+    response = make_response(jsonify(STATIC_RESPONSES['root']))
+    return add_cache_headers(response, max_age=60)
+
+
+@app.route('/api/status')
+def get_status():
+    """System status and metrics"""
+    uptime = (datetime.now() - datetime.fromisoformat(SYSTEM_STATE["boot_time"])).total_seconds()
+    
+    response = make_response(jsonify({
+        "status": SYSTEM_STATE["status"],
+        "latency": f"<{random.randint(3, 7)}ms",
+        "uptime": "99.9%",
+        "memcell_nodes": "∞",
+        "agents_active": 3,
+        "version": SYSTEM_STATE["version"],
+        "boot_time": SYSTEM_STATE["boot_time"],
+        "runtime_seconds": int(uptime)
+    }))
+    return add_cache_headers(response, max_age=2)
+
+
+@app.route('/api/agents')
+def get_agents():
+    """Active agents list"""
+    response = make_response(jsonify(STATIC_RESPONSES['agents']))
+    return add_cache_headers(response, max_age=30)
+
+
+# Cached graph data
+_graph_cache = None
 
 @app.route('/api/memcell/graph')
 def get_memcell_graph():
     """Neural network graph data for visualization"""
+    global _graph_cache
+    
+    # Return cached graph if available
+    if _graph_cache is not None:
+        response = make_response(jsonify(_graph_cache))
+        return add_cache_headers(response, max_age=60)
+    
     # Try to load from file first
     data_path = os.path.join(os.path.dirname(__file__), 'memcell_data', 'brain.json')
     
     if os.path.exists(data_path):
         with open(data_path, 'r') as f:
-            return jsonify(json.load(f))
+            _graph_cache = json.load(f)
+            response = make_response(jsonify(_graph_cache))
+            return add_cache_headers(response, max_age=60)
     
     # Default graph structure
-    return jsonify({
+    _graph_cache = {
         "nodes": [
             {"id": "gabriel", "label": "GABRIEL", "type": "core"},
             {"id": "mc96", "label": "MC96", "type": "system"},
@@ -123,20 +156,24 @@ def get_memcell_graph():
             {"from": "sonic", "to": "voice"},
             {"from": "keith", "to": "deepseek"}
         ]
-    })
+    }
+    response = make_response(jsonify(_graph_cache))
+    return add_cache_headers(response, max_age=60)
 
 
 @app.route('/api/feed')
 def get_feed():
     """Live event feed"""
+    now = datetime.now().isoformat()
     events = [
-        {"time": datetime.now().isoformat(), "message": "[SYS] Gabriel System Omega operational"},
-        {"time": datetime.now().isoformat(), "message": "[API] All endpoints responding"},
-        {"time": datetime.now().isoformat(), "message": "[MEMCELL] Neural graph loaded"},
-        {"time": datetime.now().isoformat(), "message": "[AGENTS] 3 agents active"},
-        {"time": datetime.now().isoformat(), "message": f"[LATENCY] Current: <{random.randint(3,7)}ms"}
+        {"time": now, "message": "[SYS] Gabriel System Omega operational"},
+        {"time": now, "message": "[API] All endpoints responding"},
+        {"time": now, "message": "[MEMCELL] Neural graph loaded"},
+        {"time": now, "message": "[AGENTS] 3 agents active"},
+        {"time": now, "message": f"[LATENCY] Current: <{random.randint(3,7)}ms"}
     ]
-    return jsonify({"events": events})
+    response = make_response(jsonify({"events": events}))
+    return add_cache_headers(response, max_age=2)
 
 
 @app.route('/api/command', methods=['POST'])
@@ -163,7 +200,8 @@ def execute_command():
 @app.route('/api/health')
 def health_check():
     """Health check endpoint"""
-    return jsonify({"healthy": True, "timestamp": datetime.now().isoformat()})
+    response = make_response(jsonify({"healthy": True, "timestamp": datetime.now().isoformat()}))
+    return add_cache_headers(response, max_age=1)
 
 
 # ========== MAIN ==========
