@@ -4,6 +4,9 @@
  * ====================================
  */
 
+// Constants
+const TURBO_SPEED_MULTIPLIER = 5;
+
 class GabrielPortal {
      constructor() {
           this.neuralEngine = null;
@@ -14,6 +17,7 @@ class GabrielPortal {
           this.particles = [];
           this.turboMode = false;
           this.turboSpeedMultiplier = 1;
+          this.originalParticleVelocities = [];
      }
 
      async init() {
@@ -212,7 +216,7 @@ class GabrielPortal {
 
      toggleTurboMode() {
           this.turboMode = !this.turboMode;
-          this.turboSpeedMultiplier = this.turboMode ? 5 : 1;
+          this.turboSpeedMultiplier = this.turboMode ? TURBO_SPEED_MULTIPLIER : 1;
 
           // Update UI
           const turboBtn = document.getElementById('turbo-toggle');
@@ -228,14 +232,21 @@ class GabrielPortal {
           // Toggle body class for CSS effects
           document.body.classList.toggle('turbo-mode', this.turboMode);
 
-          // Update particle speeds
-          for (const p of this.particles) {
-               if (this.turboMode) {
-                    p.vx *= 5;
-                    p.vy *= 5;
-               } else {
-                    p.vx /= 5;
-                    p.vy /= 5;
+          // Update particle speeds - store originals to avoid drift
+          if (this.turboMode) {
+               // Store original velocities before modifying
+               this.originalParticleVelocities = this.particles.map(p => ({ vx: p.vx, vy: p.vy }));
+               for (const p of this.particles) {
+                    p.vx *= TURBO_SPEED_MULTIPLIER;
+                    p.vy *= TURBO_SPEED_MULTIPLIER;
+               }
+          } else {
+               // Restore original velocities to avoid floating-point drift
+               for (let i = 0; i < this.particles.length; i++) {
+                    if (this.originalParticleVelocities[i]) {
+                         this.particles[i].vx = this.originalParticleVelocities[i].vx;
+                         this.particles[i].vy = this.originalParticleVelocities[i].vy;
+                    }
                }
           }
 

@@ -4,6 +4,21 @@
  * ===================================
  */
 
+// Physics configuration constants
+const PHYSICS_DEFAULT = {
+     repulsion: 5000,
+     attraction: 0.01,
+     damping: 0.9,
+     centerGravity: 0.01
+};
+
+const PHYSICS_TURBO = {
+     repulsion: 10000,
+     attraction: 0.03,
+     damping: 0.85,
+     centerGravity: 0.01
+};
+
 class NeuralEngine {
      constructor(canvasId) {
           this.canvas = document.getElementById(canvasId);
@@ -19,10 +34,7 @@ class NeuralEngine {
           // Physics settings
           this.physics = {
                enabled: true,
-               repulsion: 5000,
-               attraction: 0.01,
-               damping: 0.9,
-               centerGravity: 0.01
+               ...PHYSICS_DEFAULT
           };
 
           // Visual settings
@@ -363,16 +375,12 @@ class NeuralEngine {
 
      setTurboMode(enabled) {
           this.turboMode = enabled;
-          // Increase physics intensity in turbo mode
-          if (enabled) {
-               this.physics.repulsion = 10000;
-               this.physics.attraction = 0.03;
-               this.physics.damping = 0.85;
-          } else {
-               this.physics.repulsion = 5000;
-               this.physics.attraction = 0.01;
-               this.physics.damping = 0.9;
-          }
+          // Apply turbo or default physics settings using constants
+          const settings = enabled ? PHYSICS_TURBO : PHYSICS_DEFAULT;
+          this.physics.repulsion = settings.repulsion;
+          this.physics.attraction = settings.attraction;
+          this.physics.damping = settings.damping;
+          this.physics.centerGravity = settings.centerGravity;
      }
 
      exportGraph() {
