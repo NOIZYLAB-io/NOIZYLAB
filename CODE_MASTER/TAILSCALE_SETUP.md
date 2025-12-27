@@ -14,6 +14,8 @@ Tailscale is a zero-config VPN built on WireGuard that creates a secure network 
 
 ### macOS Installation
 1. **Download from App Store**: [Tailscale for macOS](https://apps.apple.com/ca/app/tailscale/id1475387142?mt=12)
+   - The app is available in all regional App Stores
+   - Alternatively, search for "Tailscale" in your local App Store
 2. **Alternative via Homebrew**:
    ```bash
    brew install --cask tailscale
@@ -69,7 +71,7 @@ Configure ACLs in the Tailscale admin console to control access:
 ```
 
 ### Subnet Routing
-To access NOIZYLAB internal networks:
+To access NOIZYLAB internal networks, advertise your subnet routes. Replace `10.0.0.0/24` with your actual NOIZYLAB network CIDR:
 
 ```bash
 sudo tailscale up --advertise-routes=10.0.0.0/24
@@ -78,6 +80,8 @@ sudo tailscale up --advertise-routes=10.0.0.0/24
 Approve the subnet routes in the Tailscale admin console.
 
 ## Using Tailscale with NOIZYLAB Services
+
+**Note**: In the examples below, `100.x.y.z` represents Tailscale-assigned IP addresses from the 100.64.0.0/10 CGNAT range. Replace these with your actual Tailscale IPs found in `tailscale status`.
 
 ### SSH Access
 Connect to NOIZYLAB servers using Tailscale IPs:
