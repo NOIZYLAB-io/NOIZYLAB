@@ -4,7 +4,9 @@ Automated setup scripts for installing and configuring Tailscale on different pl
 
 ## Available Scripts
 
-### macOS
+### Installation Scripts
+
+#### macOS
 **Script**: `setup-tailscale-macos.sh`
 
 Automatically installs Tailscale using Homebrew and launches the application.
@@ -19,7 +21,7 @@ Automatically installs Tailscale using Homebrew and launches the application.
 - Launches the Tailscale app
 - Provides next steps for authentication
 
-### Linux
+#### Linux
 **Script**: `setup-tailscale-linux.sh`
 
 Automatically detects your Linux distribution and installs Tailscale using the appropriate package manager.
@@ -42,7 +44,7 @@ Automatically detects your Linux distribution and installs Tailscale using the a
 - Connects to your Tailscale network
 - Shows connection status
 
-### Windows
+#### Windows
 **Script**: `setup-tailscale-windows.ps1`
 
 Automatically installs Tailscale using winget, Chocolatey, or direct download.
@@ -97,6 +99,43 @@ Once Tailscale is installed and connected:
    ```
 
 3. For advanced configuration options, see: [TAILSCALE_SETUP.md](../CODE_MASTER/TAILSCALE_SETUP.md)
+
+### Configuration & Management Scripts
+
+#### Configure Tailscale
+**Script**: `configure-tailscale.sh`
+
+Interactive script for advanced Tailscale configuration.
+
+```bash
+./scripts/configure-tailscale.sh
+```
+
+**Features:**
+- Enable MagicDNS for hostname-based access
+- Configure subnet routing for internal networks
+- Set up exit nodes
+- Enable Tailscale SSH
+- Configure device tags
+- Set custom hostnames
+
+#### Health Check
+**Script**: `healthcheck-tailscale.sh`
+
+Comprehensive health check for Tailscale installation and connectivity.
+
+```bash
+./scripts/healthcheck-tailscale.sh
+```
+
+**Checks:**
+- Tailscale installation status
+- Service running status
+- Network connectivity
+- Peer connections
+- DNS configuration
+- Subnet routes
+- Performance diagnostics
 
 ## Troubleshooting
 
