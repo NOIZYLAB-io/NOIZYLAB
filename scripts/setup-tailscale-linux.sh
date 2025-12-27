@@ -26,9 +26,22 @@ install_tailscale() {
         ubuntu|debian)
             echo "Installing Tailscale for Debian/Ubuntu..."
             
+            # Get codename from /etc/os-release or use lsb_release
+            if [ -f /etc/os-release ]; then
+                . /etc/os-release
+                CODENAME=$VERSION_CODENAME
+            elif command -v lsb_release &> /dev/null; then
+                CODENAME=$(lsb_release -cs)
+            else
+                echo "Installing lsb-release to detect version..."
+                sudo apt-get update
+                sudo apt-get install -y lsb-release
+                CODENAME=$(lsb_release -cs)
+            fi
+            
             # Add Tailscale repository
-            curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/$(lsb_release -cs).gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
-            curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/$(lsb_release -cs).list | sudo tee /etc/apt/sources.list.d/tailscale.list
+            curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/${CODENAME}.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+            curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/${CODENAME}.list | sudo tee /etc/apt/sources.list.d/tailscale.list
             
             # Update and install
             sudo apt-get update
@@ -39,6 +52,12 @@ install_tailscale() {
             
         fedora|rhel|centos)
             echo "Installing Tailscale for Fedora/RHEL..."
+            
+            # Ensure dnf-plugins-core is installed
+            if ! sudo dnf config-manager --help &> /dev/null; then
+                echo "Installing dnf-plugins-core..."
+                sudo dnf install -y dnf-plugins-core
+            fi
             
             # Add Tailscale repository
             sudo dnf config-manager --add-repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
