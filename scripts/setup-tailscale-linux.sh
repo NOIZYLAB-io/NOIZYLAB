@@ -30,13 +30,24 @@ install_tailscale() {
             if [ -f /etc/os-release ]; then
                 . /etc/os-release
                 CODENAME=$VERSION_CODENAME
-            elif command -v lsb_release &> /dev/null; then
-                CODENAME=$(lsb_release -cs)
-            else
-                echo "Installing lsb-release to detect version..."
-                sudo apt-get update
-                sudo apt-get install -y lsb-release
-                CODENAME=$(lsb_release -cs)
+            fi
+            
+            # Fallback to lsb_release if CODENAME is not set
+            if [ -z "$CODENAME" ]; then
+                if command -v lsb_release &> /dev/null; then
+                    CODENAME=$(lsb_release -cs)
+                else
+                    echo "Installing lsb-release to detect version..."
+                    sudo apt-get update
+                    sudo apt-get install -y lsb-release
+                    CODENAME=$(lsb_release -cs)
+                fi
+            fi
+            
+            # Verify CODENAME is set
+            if [ -z "$CODENAME" ]; then
+                echo "Error: Could not determine Ubuntu/Debian codename"
+                exit 1
             fi
             
             # Add Tailscale repository
