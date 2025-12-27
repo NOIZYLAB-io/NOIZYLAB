@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  tailscale:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: noizylab-tailscale
+    hostname: noizylab-server
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+      - ./scripts:/noizylab/scripts:ro
+      - ./config:/noizylab/config:ro
+    environment:
+      # Set your Tailscale auth key here or via .env file
+      - TAILSCALE_AUTH_KEY=${TAILSCALE_AUTH_KEY:-}
+      - TAILSCALE_HOSTNAME=${TAILSCALE_HOSTNAME:-noizylab-docker}
+    restart: unless-stopped
+    networks:
+      - noizylab-network
+
+  # Example: Email service connected via Tailscale
+  email-service:
+    image: alpine:latest
+    container_name: noizylab-email
+    depends_on:
+      - tailscale
+    network_mode: "service:tailscale"
+    command: sleep infinity
+    restart: unless-stopped
+
+volumes:
+  tailscale-state:
+    driver: local
+
+networks:
+  noizylab-network:
+    driver: bridge
