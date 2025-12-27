@@ -7,7 +7,7 @@ set -e
 # Configuration
 ALERT_EMAIL="${ALERT_EMAIL:-admin@noizylab.com}"
 ALERT_WEBHOOK="${ALERT_WEBHOOK:-}"
-LOG_FILE="/var/log/noizylab-tailscale-monitor.log"
+LOG_FILE="${LOG_FILE:-/tmp/noizylab-tailscale-monitor.log}"
 STATE_FILE="/tmp/noizylab-tailscale-state"
 
 # Metrics
@@ -15,7 +15,7 @@ METRICS_FILE="/tmp/tailscale-metrics.json"
 
 # Function to log with timestamp
 log() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE" 2>/dev/null || echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
 }
 
 # Function to send alert
@@ -33,11 +33,18 @@ send_alert() {
     # Send webhook if configured
     if [ -n "$ALERT_WEBHOOK" ]; then
         curl -X POST "$ALERT_WEBHOOK" \
+            --max-time 10 --retry 2 \
             -H "Content-Type: application/json" \
             -d "{\"severity\":\"$severity\",\"message\":\"$message\",\"timestamp\":\"$(date -Iseconds)\"}" \
             &> /dev/null || true
     fi
 }
+
+# Get peer count
+get_peer_count() {
+    tailscale status 2>/dev/null | grep -v "^#" | tail -n +2 | wc -l || echo 0
+}
+
 
 # Check if Tailscale is installed
 check_installed() {
@@ -75,7 +82,7 @@ check_connected() {
 
 # Check peer connectivity
 check_peers() {
-    local peer_count=$(tailscale status 2>/dev/null | grep -v "^#" | tail -n +2 | wc -l || echo 0)
+    local peer_count=$(get_peer_count)
     
     # Store previous peer count
     local prev_peer_count=0
@@ -109,7 +116,7 @@ check_network() {
 collect_metrics() {
     local status_output=$(tailscale status 2>/dev/null || echo "")
     local ip=$(tailscale ip -4 2>/dev/null || echo "unknown")
-    local peer_count=$(echo "$status_output" | grep -v "^#" | tail -n +2 | wc -l || echo 0)
+    local peer_count=$(get_peer_count)
     
     # Create metrics JSON
     cat > "$METRICS_FILE" <<EOF
@@ -127,7 +134,7 @@ EOF
 
 # Update state
 update_state() {
-    local peer_count=$(tailscale status 2>/dev/null | grep -v "^#" | tail -n +2 | wc -l || echo 0)
+    local peer_count=$(get_peer_count)
     
     cat > "$STATE_FILE" <<EOF
 {
