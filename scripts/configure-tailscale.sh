@@ -38,8 +38,8 @@ show_current_config() {
     echo "IP Address:"
     tailscale ip -4 2>/dev/null || echo "Not available"
     echo ""
-    echo "DNS Settings:"
-    tailscale status --json 2>/dev/null | grep -i dns || echo "DNS info not available via JSON"
+    echo "For detailed DNS and configuration info, visit:"
+    echo "https://login.tailscale.com/admin/machines"
 }
 
 # Enable MagicDNS

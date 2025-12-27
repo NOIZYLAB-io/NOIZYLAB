@@ -81,12 +81,12 @@ check_network() {
     echo ""
     echo "Checking network connectivity..."
     
-    # Try to ping Tailscale coordination server
-    if tailscale ping --c 1 --until-direct=false 100.100.100.100 &> /dev/null 2>&1; then
-        echo -e "${GREEN}✓${NC} Can reach Tailscale coordination server"
+    # Use tailscale netcheck to verify connectivity
+    if tailscale netcheck &> /dev/null 2>&1; then
+        echo -e "${GREEN}✓${NC} Network connectivity verified"
         return 0
     else
-        echo -e "${YELLOW}?${NC} Cannot verify coordination server connectivity"
+        echo -e "${YELLOW}?${NC} Network check failed - may indicate connectivity issues"
         return 0
     fi
 }
@@ -96,8 +96,8 @@ check_peers() {
     echo ""
     echo "Checking peer connectivity..."
     
-    # Get list of peers
-    PEER_COUNT=$(tailscale status --json 2>/dev/null | grep -o '"Online":true' | wc -l || echo 0)
+    # Get list of peers using text output
+    PEER_COUNT=$(tailscale status 2>/dev/null | grep -v "^#" | tail -n +2 | wc -l || echo 0)
     
     if [ "$PEER_COUNT" -gt 0 ]; then
         echo -e "${GREEN}✓${NC} Connected to $PEER_COUNT peer(s)"
@@ -115,11 +115,12 @@ check_dns() {
     echo ""
     echo "Checking DNS configuration..."
     
-    if tailscale status --json 2>/dev/null | grep -q '"MagicDNS":true'; then
-        echo -e "${GREEN}✓${NC} MagicDNS is enabled"
+    # Check if MagicDNS appears in status output
+    if tailscale status 2>/dev/null | grep -qi "MagicDNS"; then
+        echo -e "${GREEN}✓${NC} MagicDNS information available"
     else
-        echo -e "${YELLOW}!${NC} MagicDNS is not enabled"
-        echo "  Enable at: https://login.tailscale.com/admin/dns"
+        echo -e "${YELLOW}!${NC} MagicDNS status unknown"
+        echo "  Configure at: https://login.tailscale.com/admin/dns"
     fi
 }
 
@@ -128,12 +129,12 @@ check_routes() {
     echo ""
     echo "Checking subnet routes..."
     
-    ROUTES=$(tailscale status --json 2>/dev/null | grep -o '"AdvertisedRoutes":\[[^]]*\]' || echo "")
-    
-    if [ -n "$ROUTES" ] && [ "$ROUTES" != '"AdvertisedRoutes":[]' ]; then
-        echo -e "${GREEN}✓${NC} Subnet routes are advertised"
+    # Check text output for route information
+    if tailscale status 2>/dev/null | grep -qi "route"; then
+        echo -e "${GREEN}✓${NC} Route information available"
+        echo "  View details with: tailscale status"
     else
-        echo -e "${YELLOW}!${NC} No subnet routes advertised"
+        echo -e "${YELLOW}!${NC} No subnet route information found"
         echo "  Configure with: sudo tailscale up --advertise-routes=192.0.2.0/24"
     fi
 }
