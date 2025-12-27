@@ -22,8 +22,29 @@ Tailscale is a zero-config VPN built on WireGuard that creates a secure network 
    ```
 
 ### Linux Installation
+
+**Option 1: Official Script** (recommended to inspect first)
 ```bash
-curl -fsSL https://tailscale.com/install.sh | sh
+# Download and review the install script
+curl -fsSL https://tailscale.com/install.sh -o /tmp/tailscale-install.sh
+less /tmp/tailscale-install.sh
+# Run the script after review
+sh /tmp/tailscale-install.sh
+```
+
+**Option 2: Package Manager**
+```bash
+# Debian/Ubuntu
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/$(lsb_release -cs).gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/$(lsb_release -cs).list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt-get update && sudo apt-get install tailscale
+
+# Fedora/RHEL
+sudo dnf config-manager --add-repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+sudo dnf install tailscale
+
+# Arch Linux
+sudo pacman -S tailscale
 ```
 
 ### Windows Installation
@@ -71,10 +92,11 @@ Configure ACLs in the Tailscale admin console to control access:
 ```
 
 ### Subnet Routing
-To access NOIZYLAB internal networks, advertise your subnet routes. Replace `10.0.0.0/24` with your actual NOIZYLAB network CIDR:
+To access NOIZYLAB internal networks, advertise your subnet routes. Replace the example CIDR below with your actual NOIZYLAB network range:
 
 ```bash
-sudo tailscale up --advertise-routes=10.0.0.0/24
+# Example: Replace with your actual network CIDR
+sudo tailscale up --advertise-routes=192.0.2.0/24
 ```
 
 Approve the subnet routes in the Tailscale admin console.
