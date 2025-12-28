@@ -4,6 +4,9 @@
  * ====================================
  */
 
+// Constants
+const TURBO_SPEED_MULTIPLIER = 5;
+
 class GabrielPortal {
      constructor() {
           this.neuralEngine = null;
@@ -12,6 +15,9 @@ class GabrielPortal {
           this.bgCanvas = null;
           this.bgCtx = null;
           this.particles = [];
+          this.turboMode = false;
+          this.turboSpeedMultiplier = 1;
+          this.originalParticleVelocities = [];
      }
 
      async init() {
@@ -124,6 +130,11 @@ class GabrielPortal {
                });
           });
 
+          // TURBO SPEED toggle
+          document.getElementById('turbo-toggle')?.addEventListener('click', () => {
+               this.toggleTurboMode();
+          });
+
           // Neural controls
           document.getElementById('reset-graph')?.addEventListener('click', () => {
                this.neuralEngine.resetView();
@@ -201,6 +212,62 @@ class GabrielPortal {
           } else {
                this.log('[VOICE] Web Speech API not available');
           }
+     }
+
+     toggleTurboMode() {
+          this.turboMode = !this.turboMode;
+          this.turboSpeedMultiplier = this.turboMode ? TURBO_SPEED_MULTIPLIER : 1;
+
+          // Update UI
+          const turboBtn = document.getElementById('turbo-toggle');
+          const turboStatus = document.getElementById('turbo-status');
+
+          if (turboBtn) {
+               turboBtn.classList.toggle('active', this.turboMode);
+          }
+          if (turboStatus) {
+               turboStatus.textContent = this.turboMode ? 'ON' : 'OFF';
+          }
+
+          // Toggle body class for CSS effects
+          document.body.classList.toggle('turbo-mode', this.turboMode);
+
+          // Update particle speeds - store originals to avoid drift
+          if (this.turboMode) {
+               // Store original velocities before modifying
+               this.originalParticleVelocities = this.particles.map(p => ({ vx: p.vx, vy: p.vy }));
+               for (const p of this.particles) {
+                    p.vx *= TURBO_SPEED_MULTIPLIER;
+                    p.vy *= TURBO_SPEED_MULTIPLIER;
+               }
+          } else {
+               // Restore original velocities to avoid floating-point drift
+               for (let i = 0; i < this.particles.length; i++) {
+                    if (this.originalParticleVelocities[i]) {
+                         this.particles[i].vx = this.originalParticleVelocities[i].vx;
+                         this.particles[i].vy = this.originalParticleVelocities[i].vy;
+                    }
+               }
+          }
+
+          // Notify neural engine
+          if (this.neuralEngine) {
+               this.neuralEngine.setTurboMode(this.turboMode);
+          }
+
+          // Log and notify
+          this.log(`[TURBO] TURBO SPEED ${this.turboMode ? 'ENGAGED' : 'DISENGAGED'}`);
+          this.showNotification(`TURBO SPEED ${this.turboMode ? 'ACTIVATED ⚡' : 'DEACTIVATED'}`);
+
+          // Play turbo sound effect using speech
+          if (this.turboMode && 'speechSynthesis' in window) {
+               const utterance = new SpeechSynthesisUtterance('Turbo speed engaged');
+               utterance.rate = 1.5;
+               utterance.pitch = 1.2;
+               speechSynthesis.speak(utterance);
+          }
+
+          this.flashStatus();
      }
 
      async startStatusUpdates() {
