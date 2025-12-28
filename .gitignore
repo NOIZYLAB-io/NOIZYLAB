@@ -1,0 +1,36 @@
+# Environment files
+.env
+
+# Logs
+*.log
+/var/log/*.log
+/tmp/*.log
+
+# Temporary files
+/tmp/*
+*.tmp
+*.swp
+*~
+
+# State files
+/tmp/*-state
+*.state
+
+# Metrics
+/tmp/tailscale-metrics.json
+/tmp/*-metrics.json
+
+# Docker volumes
+tailscale-state/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Build artifacts
+dist/
+build/

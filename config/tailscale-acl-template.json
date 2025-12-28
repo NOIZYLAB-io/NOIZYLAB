@@ -1,0 +1,110 @@
+{
+  "comment": "NOIZYLAB Tailscale ACL Configuration Template",
+  "tagOwners": {
+    "tag:noizylab-servers": ["autogroup:admin"],
+    "tag:noizylab-dev": ["autogroup:admin"],
+    "tag:noizylab-prod": ["autogroup:admin"],
+    "tag:noizylab-database": ["autogroup:admin"],
+    "tag:noizylab-api": ["autogroup:admin"]
+  },
+  "acls": [
+    {
+      "action": "accept",
+      "src": ["autogroup:admin"],
+      "dst": ["*:*"],
+      "comment": "Admins can access everything"
+    },
+    {
+      "action": "accept",
+      "src": ["tag:noizylab-dev"],
+      "dst": [
+        "tag:noizylab-servers:*",
+        "tag:noizylab-dev:*"
+      ],
+      "comment": "Development machines can access servers and other dev machines"
+    },
+    {
+      "action": "accept",
+      "src": ["tag:noizylab-api"],
+      "dst": [
+        "tag:noizylab-database:5432",
+        "tag:noizylab-database:3306"
+      ],
+      "comment": "API servers can access databases on specific ports"
+    },
+    {
+      "action": "accept",
+      "src": ["tag:noizylab-prod"],
+      "dst": [
+        "tag:noizylab-api:443",
+        "tag:noizylab-api:80"
+      ],
+      "comment": "Production servers can access API endpoints"
+    },
+    {
+      "action": "accept",
+      "src": ["autogroup:member"],
+      "dst": [
+        "tag:noizylab-servers:22",
+        "tag:noizylab-servers:80",
+        "tag:noizylab-servers:443"
+      ],
+      "comment": "Team members can SSH and access web services on servers"
+    }
+  ],
+  "ssh": [
+    {
+      "action": "check",
+      "src": ["autogroup:admin"],
+      "dst": ["autogroup:self"],
+      "users": ["autogroup:nonroot", "root"],
+      "comment": "Admins can SSH as any user"
+    },
+    {
+      "action": "check",
+      "src": ["tag:noizylab-dev"],
+      "dst": ["tag:noizylab-servers"],
+      "users": ["autogroup:nonroot"],
+      "comment": "Dev machines can SSH to servers as non-root users"
+    }
+  ],
+  "nodeAttrs": [
+    {
+      "target": ["tag:noizylab-api"],
+      "attr": ["funnel"],
+      "comment": "API servers can use Tailscale Funnel to expose services publicly"
+    }
+  ],
+  "autoApprovers": {
+    "routes": {
+      "192.0.2.0/24": ["tag:noizylab-servers"],
+      "198.51.100.0/24": ["tag:noizylab-prod"]
+    },
+    "exitNode": ["tag:noizylab-servers"]
+  },
+  "grants": [
+    {
+      "src": ["tag:noizylab-dev"],
+      "dst": ["tag:noizylab-database"],
+      "app": {
+        "tailscale.com/cap/postgres": [
+          {
+            "database": "noizylab_dev"
+          }
+        ]
+      }
+    }
+  ],
+  "tests": [
+    {
+      "src": "tag:noizylab-dev",
+      "dst": "tag:noizylab-servers",
+      "accept": ["*"]
+    },
+    {
+      "src": "tag:noizylab-api",
+      "dst": "tag:noizylab-database",
+      "accept": ["5432", "3306"]
+    }
+  ]
+}
