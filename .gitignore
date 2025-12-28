@@ -1,61 +1,126 @@
-# 🔒 CLEAN REPO POLICY - M2-Ultra Production Only
-# Large files, backups, and system bloat NOT in git
-# Originals stored in GitHub or Google Drive
-
-# System backups
-CODE_MASTER/
-ABSORBED_*/
-COMPLETE_NOIZYLAB_*/
-VOLUME_SCAN_LOG.json
-deep_scan_*.json
-
-# Large media (audio/video on Google Drive)
-*.mp3
-*.mp4
+# Audio/Video - COMPREHENSIVE BLOCK
 *.wav
-*.flac
+*.WAV
+*.mp3
+*.MP3
 *.mov
+*.MOV
+*.mp4
+*.MP4
+*.avi
+*.AVI
 *.mkv
+*.MKV
+*.webm
+*.WEBM
+*.flv
+*.FLV
+*.wmv
+*.WMV
+*.m4v
+*.M4V
+*.logicx
+*.flac
+*.FLAC
+*.aif
+*.aiff
+*.AIF
+*.AIFF
+*.m4a
+*.M4A
+*.ogg
+*.OGG
+*.opus
+*.wma
+*.WMA
+*.aac
+*.AAC
+*.ac3
+*.dts
+*.nki
+*.nkm
+*.nkc
+*.nkx
+*.nks
+*.nicnt
+*.ncw
+*.kontakt
+*.exs
+*.rex
+*.rx2
+*.sf2
+*.sfz
+*.gig
+*.als
+*.ptx
+*.ptf
+*.cpr
+*.npr
+*.sesx
 *.dmg
 *.iso
-
-# Large binaries
-*.whl
+*.img
 *.pkg
-*.exe
-*.dll
-*.so
+*.zip
+*.tar.gz
+*.rar
+*.7z
 
-# Node/Python bloat
+# Large binary/sample directories
+**/Samples/
+**/samples/
+**/Audio Files/
+**/Bounces/
+**/Renders/
+**/Exports/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Dependencies
 node_modules/
-__pycache__/
-*.egg-info/
 .venv/
 venv/
+__pycache__/
+*.pyc
+
+# Environment
 .env
+.env.local
 
-# IDE bloat
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Temp files
-*.tmp
+# Logs
 *.log
-.DS_Store
-thumbs.db
+logs/
 
-# Large JSON data (>5MB)
-*_core.json
-*.metadata.json
-*prices*.json
-*command*.json
+# Data directories (large files)
+PROJECTS/*/data/raw_wavs/
+PROJECTS/*/data/dataset/
+PROJECTS/*/data/curated/
 
-# AWS SDK bloat (keep code, remove bundles)
-dist/
-build/
-coverage/
-.next/
-out/
+# Catalogs (generated, large)
+docs/*_CATALOG.md
 
+# Temporary
+*.tmp
+*.bak
+mission-run-*/
+archives/
+
+_Archives/
+_Screenshots/
+_Shortcuts/
+archives/
+logs/
+.vscode/
+.cursor/
+.copilot/
+output_directory/
+reports/
+.worktrees/
+gabriel/vault/artifacts/manifests/FISHNET_MANIFEST.json
+gabriel/vault/artifacts/manifests/FISHNET_MANIFEST.json
+*.json.bak
+**/*MANIFEST*.json
+MC96/

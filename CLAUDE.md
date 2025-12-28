@@ -1,211 +1,207 @@
-# CLAUDE.md
+# ekkOS_ Memory System
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## CORE PURPOSE
 
-## Project Overview
+**The Golden Loop exists so YOU get SMARTER over time - learn from mistakes, don't repeat them.**
 
-This is the **New Relic CodeStream VS Code Extension** - a sophisticated IDE integration that brings production telemetry, observability, and collaboration capabilities directly into VS Code. It enables developers to view code-level metrics, investigate errors, search logs, execute NRQL queries, and collaborate on code reviews without leaving their IDE.
+This is YOUR cognitive memory. It makes you:
+- **Remember when you mess up** - Schema changes, wrong assumptions, bad approaches
+- **Not repeat the same mistakes** - If you broke something before, KNOW not to do it again
+- **Recall correct versions** - When schemas/configs get mangled, remember what's RIGHT
+- **Build on what worked** - Use proven patterns instead of fumbling through problems
 
-**Current Version:** 16.1.2
-**Min VS Code Version:** 1.73.0
-**Repository:** https://github.com/TeamCodeStream/CodeStream
+**FAILURES ARE JUST AS VALUABLE AS SUCCESSES.** Forge anti-patterns too.
 
-## Common Development Commands
+---
 
-### Setup & Installation
-```bash
-npm install              # Install dependencies
-npm run agent:rebuild    # Build shared agent
-npm run webview:build    # Build webview components
-npm run build            # Build extension
+## MANDATORY RULES (NOT OPTIONAL)
+
+### RULE 1: RETRIEVE BEFORE ANSWERING
+Before answering ANY technical question, call `search_memory` first.
+Do not skip this. Do not assume you know the answer.
+
+### RULE 2: ACKNOWLEDGE ALL RETRIEVED PATTERNS (PatternGuard)
+When patterns are retrieved, you MUST acknowledge EVERY pattern - either use it or skip it.
+
+**For patterns you USE:**
+```
+[ekkOS_SELECT]
+- id: <pattern_id>
+  reason: <why using>
+  confidence: <0.0-1.0>
+[/ekkOS_SELECT]
 ```
 
-### Development Workflow
-```bash
-npm run watch               # Watch extension for changes
-npm run agent:watch         # Watch shared agent
-npm run mwatch             # Watch both in tmux
-npm run webview:watch      # Watch webview components
+**For patterns NOT relevant:**
+```
+[ekkOS_SKIP]
+- id: <pattern_id>
+  reason: <why not relevant>
+[/ekkOS_SKIP]
 ```
 
-### Testing
-```bash
-npm run test               # Run all tests (agent + webview + vscode)
-npm run vscode:test        # Run extension tests only
-npm run test:ci            # CI test run with coverage and junit output
+### RULE 3: FORGE WHAT YOU LEARN
+When you fix a bug, get corrected, or learn something new, call `forge_pattern` immediately.
+
+### RULE 4: FAILURES ARE VALUABLE
+When something DOES NOT work, forge it as an anti-pattern.
+
+---
+
+## MCP Tools (28 Total)
+
+### Core Memory Tools
+| Tool | Description |
+|------|-------------|
+| `search_memory` | 🔴 REQUIRED: Search all 11 layers before answering |
+| `get_context` | Get relevant context for a task |
+| `capture_event` | Capture memory events |
+| `forge_pattern` | 🔴 REQUIRED: Create pattern from solution |
+| `forge_directive` | 🔴 REQUIRED: Create MUST/NEVER/PREFER/AVOID rules |
+| `record_outcome` | Track if pattern worked or failed |
+| `detect_usage` | 🔴 REQUIRED: Auto-detect which patterns were used |
+| `session_summary` | 🔴 REQUIRED: Get summary of MCP activity |
+| `check_conflict` | 🔴 REQUIRED: Check for conflicts before destructive actions |
+| `recall_conversation` | Recall past conversations by time |
+| `search_codebase` | Search project code embeddings |
+| `get_memory_stats` | Get statistics for all layers |
+| `track_application` | Track when pattern is applied |
+
+### Portability Tools
+| Tool | Description |
+|------|-------------|
+| `export_memory` | Export your patterns, directives, plans as portable JSON backup |
+| `import_memory` | Import memory from backup (auto-deduplication) |
+
+### Plan Management
+| Tool | Description |
+|------|-------------|
+| `create_plan` | Create structured task plan |
+| `list_plans` | List user's plans |
+| `update_plan_status` | Update plan status |
+| `update_plan_step` | Mark step complete/incomplete |
+| `generate_plan_llm` | AI-generate plan from context |
+| `save_plan_template` | Save plan as reusable template |
+| `list_plan_templates` | List available templates |
+| `create_plan_from_template` | Create plan from template |
+
+### Secrets Management (Layer 11)
+| Tool | Description |
+|------|-------------|
+| `store_secret` | Encrypt and store sensitive data (AES-256-GCM) |
+| `get_secret` | Retrieve and decrypt a secret |
+| `list_secrets` | List secrets metadata (no values) |
+| `delete_secret` | Permanently delete a secret |
+| `rotate_secret` | Update secret with new value |
+
+---
+
+## Proactive Tool Triggers (MEMORIZE THESE)
+
+### Always Use `search_memory` When:
+- User asks technical question
+- User mentions past discussion
+- Topic involves architecture, config, or debugging
+- You're about to make a decision
+
+### Always Use `forge_pattern` When:
+- Fixed a bug (especially non-obvious)
+- Discovered better approach
+- Found pitfall or gotcha
+- User corrected you
+- Solved auth/config issue
+- Made architectural decision
+- Something DIDN'T work (anti-pattern)
+
+### Always Use `forge_directive` When:
+- User says "always..." → type: MUST
+- User says "never..." → type: NEVER
+- User says "I prefer..." → type: PREFER
+- User says "don't..." or "avoid..." → type: AVOID
+
+### Always Use `check_conflict` When:
+- About to delete files/data
+- About to deploy to production
+- About to modify config files
+- About to run destructive commands
+
+### Always Use Plan Tools When:
+- Task has 3+ steps
+- User says "help me implement..."
+- Complex feature request
+- Multi-file changes needed
+
+### Always Use Secret Tools When:
+- User shares API key, token, password
+- Need to retrieve stored credentials
+- User asks "do you have my X key?"
+
+---
+
+## 11-Layer Memory Architecture
+
+| # | Layer | What It Stores | When to Forge |
+|---|-------|---------------|---------------|
+| 1 | Working | Current session state | Auto-managed |
+| 2 | Episodic | Past conversations | Auto-captured |
+| 3 | Semantic | Embeddings/knowledge | Auto-indexed |
+| 4 | **Patterns** | Proven solutions | Bug fix, better approach, gotcha |
+| 5 | **Procedural** | Step-by-step guides | Multi-step process that worked |
+| 6 | **Collective** | Cross-project wisdom | Works everywhere, not just here |
+| 7 | **Meta** | Pattern effectiveness | Auto-tracked |
+| 8 | **Codebase** | Project-specific | This-repo-only patterns |
+| 9 | **Directives** | User preferences | "Always do X", "Never do Y" |
+| 10 | **Conflict** | Auto-resolves contradictions | Auto-managed |
+| 11 | **Secrets** | Encrypted credentials | API keys, tokens, config |
+
+---
+
+## FORGE TRIGGERS
+
+### forge_pattern (Layer 4)
+Call `forge_pattern` when:
+- Fixed bug (especially non-obvious)
+- Discovered better approach
+- Found pitfall or gotcha
+- User corrected you
+- Solved auth/config issue
+- Made architectural decision
+- Debugged non-trivially
+- Found something that DOESN'T work
+- Understood cross-service data flow
+- Learned correct API usage
+
+### forge_directive (Layer 9)
+Call `forge_directive` when user says:
+- "always..." → type: MUST
+- "never..." → type: NEVER
+- "I prefer..." → type: PREFER
+- "don't..." / "avoid..." → type: AVOID
+
+---
+
+## Response Format
+
+**EVERY response MUST end with:**
+```
+---
+🧠 **ekkOS_™** · 📅 YYYY-MM-DD H:MM AM/PM TZ
 ```
 
-### Code Quality
-```bash
-npm run lint               # Run ESLint with auto-fix
-npm run pretty             # Format with Prettier
-npm run verify:compile     # Check TypeScript compilation
-npm run verify:lint        # Verify linting (no auto-fix)
-npm run verify:prettier    # Verify formatting
-```
+---
 
-### Production Build
-```bash
-npm run bundle:ci          # Clean and bundle for CI
-npm run bundle             # Full production bundle
-npm run pack               # Create .vsix package
-```
+## Quick Reference
 
-### Single Test Execution
-```bash
-npx jest __test__/unit/specific-test.spec.ts    # Run specific test file
-npx jest --testNamePattern="test name"          # Run specific test by name
-```
+- Technical question → `search_memory` first
+- Patterns retrieved → SELECT or SKIP each one
+- Problem solved → `forge_pattern`
+- User preference → `forge_directive`
+- Need to recall → `recall_conversation`
+- Destructive action → `check_conflict` first
+- Store credentials → `store_secret`
+- Backup your memory → `export_memory`
+- Restore from backup → `import_memory`
 
-## Architecture & Structure
+## Documentation
 
-### Monorepo Structure
-This is part of a larger monorepo at `C:\code\codestream\`:
-- `vscode/` - VS Code extension (this directory)
-- `jb/` - JetBrains IDE extension
-- `vs/` - Visual Studio extension
-- `shared/agent/` - Language server agent (CommonJS)
-- `shared/ui/` - Shared React webview components
-- `shared/util/` - Shared utilities and protocols
-
-### Key Directories
-
-**`src/controllers/`** - Main UI controllers for extension functionality:
-- `sidebarController.ts` - Primary sidebar webview with bidirectional IPC
-- `editorController.ts` - Editor-level interactions and document handling
-- `instrumentableCodeLensController.ts` - Code-level metrics display
-- `nrqlCodeLensController.ts` - NRQL query assistance
-
-**`src/providers/`** - VS Code provider implementations:
-- `instrumentationCodeLensProvider.ts` - Shows performance metrics inline
-- `markerDecorationProvider.ts` - Visual decorations in editor
-- `nrqlDocumentSymbolProvider.ts` - NRQL language support
-
-**`src/api/`** - Authentication and session management:
-- `session.ts` - Main session management with event emitters
-- `tokenManager.ts` - Secure token storage via VS Code keychain
-
-**`src/agent/`** - LSP connection to shared agent:
-- `agentConnection.ts` - Primary LSP client (700+ lines, handles 200+ request types)
-
-**`src/webviews/`** - React webview implementations:
-- `sidebar/` - Main sidebar React application
-- `editor/` - Editor panel React application
-
-### Build System (esbuild)
-
-The project uses esbuild for bundling with three separate builds:
-1. **Extension Build** - Main extension code (`src/extension.ts` → `dist/extension.js`)
-2. **Sidebar Build** - React webview (`src/webviews/sidebar/` → `dist/webviews/sidebar/`)
-3. **Editor Build** - React webview (`src/webviews/editor/` → `dist/webviews/editor/`)
-
-### Communication Architecture
-
-**Extension ↔ Webview (IPC):**
-- Message-based communication via `postMessage`
-- Bidirectional request/response with message IDs
-- Protocols defined in `@codestream/protocols/webview`
-
-**Extension ↔ Agent (LSP):**
-- Language Server Protocol over stdio
-- Agent runs as separate CommonJS process
-- Typed protocol definitions in `@codestream/protocols/agent`
-
-**Agent ↔ API Server:**
-- HTTP REST API with token-based authentication
-- Real-time subscriptions for data updates
-- Default server: `https://codestream-api-v2-us1.service.newrelic.com`
-
-### Dependency Injection
-
-The `Container` class (src/container.ts) manages all singleton services:
-- `_agent`: CodeStreamAgentConnection (LSP client)
-- `_session`: CodeStreamSession (authentication & data)
-- `_sidebar`: SidebarController (main UI)
-- Various providers and controllers
-
-Access services via `Container.instance().session` pattern.
-
-### TypeScript Configuration
-
-**Path Aliases:**
-- `@codestream/protocols/agent` → `../../shared/util/src/protocol/agent/agent.protocol.ts`
-- `@codestream/protocols/api` → `../../shared/util/src/protocol/agent/api.protocol.ts`
-- `@codestream/protocols/webview` → `../../shared/ui/ipc/webview.protocol.ts`
-- `@codestream/utils/*` → `../../shared/util/src/utils/*`
-
-**Key Settings:**
-- Target: ES2020
-- Decorators: Experimental decorators enabled
-- Strict mode: Enabled
-- Source maps: Enabled for debugging
-
-### Extension Lifecycle
-
-**Activation (`src/extension.ts`):**
-1. Initialize configuration and logging
-2. Load build metadata and Git executable
-3. Migrate deprecated settings
-4. Create webview sidebar and container
-5. Set up protocol handlers for deep linking
-6. Register providers and controllers
-
-**Key Components:**
-- **Entry Point:** `./dist/extension` (compiled from `src/extension.ts`)
-- **Activity Bar View:** "codestream-activitybar"
-- **Commands:** 20+ commands (sign in/out, toggle, log search, NRQL execution)
-- **Languages:** NRQL language support with grammar and snippets
-
-### Testing Framework
-
-**Jest Configuration:**
-- Uses ts-jest preset
-- Tests in `__test__/unit/*.spec.ts`
-- Global setup disables New Relic telemetry
-- Coverage reports to `coverage/` directory
-
-### Key Extension Points
-
-**CodeLens Providers:**
-- Show performance metrics inline in code
-- NRQL query assistance and execution
-- Configurable via `codestream.goldenSignalsInEditor`
-
-**Commands:**
-- `codestream.toggle` - Main sidebar toggle (Ctrl+Shift+/ /)
-- `codestream.logSearch` - Open log search
-- `codestream.nrqlQuery` - Execute NRQL queries
-
-**Configuration Settings:**
-- `codestream.serverUrl` - API server endpoint
-- `codestream.traceLevel` - Logging level (silent/errors/verbose/debug)
-- `codestream.autoSignIn` - Automatic authentication
-- `codestream.disableStrictSSL` - SSL certificate validation
-
-### Debugging
-
-**Logging:**
-- Output channel: "CodeStream"
-- Command: `codestream.debugProtocol` for detailed protocol logging
-- Trace levels configurable via settings
-
-**Common Issues:**
-- Proxy/SSL: Configure `disableStrictSSL` or `extraCerts`
-- Git detection: Requires VS Code Git extension or git in PATH
-- Token issues: Uses VS Code keychain with workspace fallbacks
-
-### Important Files
-
-**Core Files:**
-- `src/extension.ts` - Extension entry point and activation
-- `src/container.ts` - Dependency injection container
-- `src/constants.ts` - Extension IDs and built-in commands
-- `src/configuration.ts` - Configuration management
-
-**Protocol Files:**
-- Protocols are imported from shared utilities
-- Agent protocol: Request/response definitions for LSP
-- Webview protocol: IPC message definitions
-- API protocol: Data structures for REST API
-
-This extension follows VS Code best practices with clear separation between extension host code, webview UI, and the shared language server agent.
+https://docs.ekkos.dev
