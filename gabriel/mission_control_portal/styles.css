@@ -59,6 +59,7 @@ body {
     padding: 20px;
     position: relative;
     z-index: 1;
+    contain: layout style;
 }
 
 /* --- Hero Section --- */
@@ -199,7 +200,8 @@ body {
     padding: 25px;
     text-align: center;
     backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
 }
 
 .metric:hover {
@@ -253,10 +255,11 @@ body {
     border-radius: 16px;
     padding: 30px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
     font-family: inherit;
     color: inherit;
+    will-change: transform;
 }
 
 .action-card:hover {
