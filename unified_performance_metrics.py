@@ -269,7 +269,7 @@ class SystemMetrics:
                 "current": cpu[-1] if cpu else 0,
                 "mean": sum(cpu) / len(cpu) if cpu else 0,
                 "max": max(cpu) if cpu else 0,
-                "trend": "up" if (cpu[-1] > cpu[0]) if len(cpu) > 1 else "stable"
+                "trend": ("up" if cpu[-1] > cpu[0] else "down" if cpu[-1] < cpu[0] else "stable") if len(cpu) > 1 else "stable"
             },
             "memory": {
                 "percent": memory[-1] if memory else 0,
