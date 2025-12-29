@@ -1106,23 +1106,34 @@ class MasterVoiceEngine:
         self._cache_dir = Path(tempfile.gettempdir()) / "gabriel_master"
         self._cache_dir.mkdir(exist_ok=True)
 
-        # Processing parameters
-        self.pitch_semitones = -3  # Drop 3 semitones
-        self.pitch_factor = 2 ** (self.pitch_semitones / 12)  # 0.84
-        self.tempo_correction = 1 / self.pitch_factor  # 1.19
+        # Processing parameters - TO DROP PITCH we use asetrate > 1
+        # asetrate HIGHER = pitch LOWER (deeper voice)
+        self.pitch_semitones = -5  # Drop 5 semitones for DEEP Winston voice
+        # To drop pitch: increase sample rate, then resample back
+        self.rate_factor = 2 ** (-self.pitch_semitones / 12)  # ~1.33 for -5 semitones
+        self.tempo_correction = 1 / self.rate_factor  # ~0.75 to maintain speed
 
     def _gruff_filter(self) -> str:
-        """Get the master gruff filter chain."""
+        """Get the master gruff filter chain - DEEP, GRUFF, AUTHORITATIVE."""
         return (
-            f"asetrate=44100*{self.pitch_factor:.4f},aresample=44100,atempo={self.tempo_correction:.4f},"
-            # Boost chest resonance (warm, full)
-            "equalizer=f=180:t=q:w=1:g=4,"
-            # Add presence (authority)
-            "equalizer=f=800:t=q:w=1.5:g=2,"
-            # Roll off brightness (older voice, not harsh)
-            "equalizer=f=4000:t=q:w=2:g=-4,"
-            # Compress for smooth delivery
-            "acompressor=threshold=-18dB:ratio=3:attack=10:release=150"
+            # RAISE sample rate to LOWER pitch, then correct tempo
+            f"asetrate=44100*{self.rate_factor:.4f},aresample=44100,atempo={self.tempo_correction:.4f},"
+            # Heavy bass boost (chest/body)
+            "equalizer=f=80:t=q:w=0.8:g=6,"
+            # Boost chest resonance
+            "equalizer=f=150:t=q:w=1:g=8,"
+            # Boost low-mids for warmth
+            "equalizer=f=300:t=q:w=1:g=4,"
+            # Add presence (authority, clarity)
+            "equalizer=f=900:t=q:w=1.5:g=3,"
+            # Roll off brightness (older voice)
+            "equalizer=f=3500:t=q:w=2:g=-6,"
+            # Cut highs for warmer sound
+            "equalizer=f=6000:t=q:w=2:g=-8,"
+            # Cut sibilance
+            "equalizer=f=8000:t=q:w=2:g=-10,"
+            # Smooth compression
+            "acompressor=threshold=-20dB:ratio=4:attack=5:release=100"
         )
 
     def synthesize(self, text: str) -> Optional[str]:
@@ -1371,50 +1382,50 @@ VOICE_PRESETS = {
     "winston": {
         "name": "Winston",
         "description": "Ian McShane Continental Manager - measured, dangerous, elegant",
-        "pitch_semitones": -3,
-        "speed": 0.88,
+        "pitch_semitones": -5,  # DEEPER - like aged whiskey
+        "speed": 0.85,  # Slower, more deliberate
         "voice": "onyx",
-        "eq": {"bass": 4, "presence": 2, "treble": -4},
+        "eq": {"bass": 8, "presence": 3, "treble": -6},  # More bass
     },
     "commander": {
         "name": "Commander",
         "description": "Military commander - authoritative, crisp, commanding",
-        "pitch_semitones": -2,
-        "speed": 0.95,
+        "pitch_semitones": -4,  # Deeper authority
+        "speed": 0.90,
         "voice": "onyx",
-        "eq": {"bass": 2, "presence": 4, "treble": -2},
+        "eq": {"bass": 5, "presence": 5, "treble": -3},
     },
     "butler": {
         "name": "Butler",
         "description": "English butler - refined, proper, impeccable",
-        "pitch_semitones": -1,
-        "speed": 0.92,
+        "pitch_semitones": -2,  # Slightly deeper
+        "speed": 0.88,
         "voice": "fable",
-        "eq": {"bass": 1, "presence": 3, "treble": 0},
+        "eq": {"bass": 3, "presence": 4, "treble": -1},
     },
     "godmode": {
         "name": "God Mode",
         "description": "Omniscient AI - deep, reverberant, absolute power",
-        "pitch_semitones": -4,
-        "speed": 0.82,
+        "pitch_semitones": -7,  # VERY DEEP - godlike
+        "speed": 0.75,  # Slow and powerful
         "voice": "onyx",
-        "eq": {"bass": 6, "presence": 2, "treble": -6},
+        "eq": {"bass": 10, "presence": 2, "treble": -8},  # Maximum bass
     },
     "narrator": {
         "name": "Narrator",
         "description": "Documentary narrator - warm, engaging, storytelling",
-        "pitch_semitones": -1,
-        "speed": 0.90,
+        "pitch_semitones": -3,  # Warmer
+        "speed": 0.88,
         "voice": "fable",
-        "eq": {"bass": 2, "presence": 3, "treble": -1},
+        "eq": {"bass": 4, "presence": 4, "treble": -2},
     },
     "threat": {
         "name": "Threat",
         "description": "Menacing warning - slow, deliberate, dangerous",
-        "pitch_semitones": -4,
-        "speed": 0.75,
+        "pitch_semitones": -6,  # Deep menace
+        "speed": 0.70,  # Very slow
         "voice": "onyx",
-        "eq": {"bass": 5, "presence": 1, "treble": -5},
+        "eq": {"bass": 8, "presence": 2, "treble": -7},
     },
 }
 
@@ -1448,15 +1459,18 @@ class VoicePresetEngine:
         return list(VOICE_PRESETS.keys())
 
     def _build_filter(self, preset: dict) -> str:
-        """Build FFmpeg filter chain for preset."""
-        pitch = preset["pitch_semitones"]
-        pitch_factor = 2 ** (pitch / 12)
-        tempo_correction = 1 / pitch_factor
+        """Build FFmpeg filter chain for preset - CORRECTLY drops pitch."""
+        pitch = preset["pitch_semitones"]  # Negative = deeper
+        # To DROP pitch: use rate factor > 1
+        # asetrate HIGHER = pitch LOWER
+        rate_factor = 2 ** (-pitch / 12)  # For -3 semitones: 1.19
+        tempo_correction = 1 / rate_factor  # Slow down to maintain speed
         eq = preset["eq"]
 
         return (
-            f"asetrate=44100*{pitch_factor:.4f},aresample=44100,atempo={tempo_correction:.4f},"
-            f"equalizer=f=180:t=q:w=1:g={eq['bass']},"
+            f"asetrate=44100*{rate_factor:.4f},aresample=44100,atempo={tempo_correction:.4f},"
+            f"equalizer=f=120:t=q:w=1:g={eq['bass']},"
+            f"equalizer=f=250:t=q:w=1:g={eq['bass'] // 2},"
             f"equalizer=f=800:t=q:w=1.5:g={eq['presence']},"
             f"equalizer=f=4000:t=q:w=2:g={eq['treble']},"
             "acompressor=threshold=-18dB:ratio=3:attack=10:release=150"

@@ -22,8 +22,29 @@
           },
           {
                "id": "voice",
-               "label": "VOICE",
-               "type": "module"
+               "label": "VOICE X2000",
+               "type": "module",
+               "version": "2.0",
+               "location": "titanhive/voice.py",
+               "character": "Winston (Ian McShane)"
+          },
+          {
+               "id": "voice_master",
+               "label": "MasterVoiceEngine",
+               "type": "engine",
+               "parent": "voice"
+          },
+          {
+               "id": "voice_smart",
+               "label": "SmartVoice",
+               "type": "engine",
+               "parent": "voice"
+          },
+          {
+               "id": "voice_presets",
+               "label": "VoicePresets",
+               "type": "engine",
+               "parent": "voice"
           },
           {
                "id": "vision",
