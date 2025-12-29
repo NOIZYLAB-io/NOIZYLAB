@@ -11,3 +11,9 @@ CODEMASTER/_ORGANIZED/
 # Runtime logs
 logs/*.log
 
+
+# Environment files
+.env
+.env.*
+*.env
+
