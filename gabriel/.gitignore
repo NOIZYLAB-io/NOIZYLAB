@@ -17,3 +17,4 @@ logs/*.log
 .env.*
 *.env
 
+_ORGANIZED/voice_harvest/
