@@ -7,3 +7,7 @@ CODEMASTER/_ORGANIZED/
 # Claude Code settings
 .claude/
 
+
+# Runtime logs
+logs/*.log
+
