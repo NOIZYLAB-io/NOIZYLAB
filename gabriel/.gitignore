@@ -1,0 +1,9 @@
+
+# Harvested code directories
+CODEMASTER/_HARVEST/
+CODEMASTER/_ORGANIZED/
+
+
+# Claude Code settings
+.claude/
+
