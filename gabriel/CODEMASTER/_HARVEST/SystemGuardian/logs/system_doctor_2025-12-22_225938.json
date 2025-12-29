@@ -1,0 +1,523 @@
+{
+  "version": "1.0.0",
+  "scan_time": "2025-12-22T22:59:38.986853",
+  "hostname": "GOD.local",
+  "os_version": "15.7.4",
+  "overall_status": "CRITICAL",
+  "modules": [
+    {
+      "name": "DISK DOCTOR",
+      "icon": "\ud83d\udcbe",
+      "overall_status": "CRITICAL",
+      "results": [
+        {
+          "name": "427k",
+          "status": "OK",
+          "message": "427k: 1.1Ti free / 1.8Ti",
+          "details": {
+            "filesystem": "/dev/disk3s3s1",
+            "size": "1.8Ti",
+            "used": "10Gi",
+            "available": "1.1Ti",
+            "percent": 1
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "0",
+          "status": "OK",
+          "message": "0: 1.1Ti free / 1.8Ti",
+          "details": {
+            "filesystem": "/dev/disk3s6",
+            "size": "1.8Ti",
+            "used": "20Ki",
+            "available": "1.1Ti",
+            "percent": 1
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "1.5k",
+          "status": "OK",
+          "message": "1.5k: 1.1Ti free / 1.8Ti",
+          "details": {
+            "filesystem": "/dev/disk3s4",
+            "size": "1.8Ti",
+            "used": "6.9Gi",
+            "available": "1.1Ti",
+            "percent": 1
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "102",
+          "status": "OK",
+          "message": "102: 1.1Ti free / 1.8Ti",
+          "details": {
+            "filesystem": "/dev/disk3s2",
+            "size": "1.8Ti",
+            "used": "71Mi",
+            "available": "1.1Ti",
+            "percent": 1
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "1",
+          "status": "OK",
+          "message": "1: 389Mi free / 500Mi",
+          "details": {
+            "filesystem": "/dev/disk1s2",
+            "size": "500Mi",
+            "used": "6.0Mi",
+            "available": "389Mi",
+            "percent": 2
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "72",
+          "status": "OK",
+          "message": "72: 389Mi free / 500Mi",
+          "details": {
+            "filesystem": "/dev/disk1s1",
+            "size": "500Mi",
+            "used": "51Mi",
+            "available": "389Mi",
+            "percent": 12
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "64",
+          "status": "OK",
+          "message": "64: 389Mi free / 500Mi",
+          "details": {
+            "filesystem": "/dev/disk1s3",
+            "size": "500Mi",
+            "used": "4.4Mi",
+            "available": "389Mi",
+            "percent": 2
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "4.4M",
+          "status": "OK",
+          "message": "4.4M: 1.1Ti free / 1.8Ti",
+          "details": {
+            "filesystem": "/dev/disk3s1",
+            "size": "1.8Ti",
+            "used": "737Gi",
+            "available": "1.1Ti",
+            "percent": 41
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "1.0k",
+          "status": "WARNING",
+          "message": "1.0k: 89% used (315Gi free)",
+          "details": {
+            "filesystem": "/dev/disk5s2",
+            "size": "2.7Ti",
+            "used": "2.4Ti",
+            "available": "315Gi",
+            "percent": 89
+          },
+          "fix_suggestion": "Consider cleaning up 1.0k"
+        },
+        {
+          "name": "150k",
+          "status": "OK",
+          "message": "150k: 2.7Ti free / 3.6Ti",
+          "details": {
+            "filesystem": "/dev/disk7s2",
+            "size": "3.6Ti",
+            "used": "924Gi",
+            "available": "2.7Ti",
+            "percent": 25
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "2.4M",
+          "status": "WARNING",
+          "message": "2.4M: 86% used (834Gi free)",
+          "details": {
+            "filesystem": "/dev/disk10",
+            "size": "5.5Ti",
+            "used": "4.6Ti",
+            "available": "834Gi",
+            "percent": 86
+          },
+          "fix_suggestion": "Consider cleaning up 2.4M"
+        },
+        {
+          "name": "234",
+          "status": "OK",
+          "message": "234: 1.8Ti free / 1.8Ti",
+          "details": {
+            "filesystem": "/dev/disk16s1",
+            "size": "1.8Ti",
+            "used": "2.1Mi",
+            "available": "1.8Ti",
+            "percent": 1
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "10k",
+          "status": "OK",
+          "message": "10k: 2.2Ti free / 3.6Ti",
+          "details": {
+            "filesystem": "/dev/disk13s2",
+            "size": "3.6Ti",
+            "used": "1.4Ti",
+            "available": "2.2Ti",
+            "percent": 40
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "2.0M",
+          "status": "OK",
+          "message": "2.0M: 607Gi free / 3.6Ti",
+          "details": {
+            "filesystem": "/dev/disk11s2",
+            "size": "3.6Ti",
+            "used": "3.0Ti",
+            "available": "607Gi",
+            "percent": 84
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "311k",
+          "status": "OK",
+          "message": "311k: 3.3Ti free / 3.6Ti",
+          "details": {
+            "filesystem": "/dev/disk12s2",
+            "size": "3.6Ti",
+            "used": "356Gi",
+            "available": "3.3Ti",
+            "percent": 10
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "26k",
+          "status": "OK",
+          "message": "26k: 1.7Ti free / 1.8Ti",
+          "details": {
+            "filesystem": "/dev/disk17s1",
+            "size": "1.8Ti",
+            "used": "60Gi",
+            "available": "1.7Ti",
+            "percent": 4
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "2.9M",
+          "status": "OK",
+          "message": "2.9M: 2.5Ti free / 11Ti",
+          "details": {
+            "filesystem": "/dev/disk15s2",
+            "size": "11Ti",
+            "used": "8.4Ti",
+            "available": "2.5Ti",
+            "percent": 78
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "4.5M",
+          "status": "WARNING",
+          "message": "4.5M: 93% used (265Gi free)",
+          "details": {
+            "filesystem": "/dev/disk4s2",
+            "size": "3.6Ti",
+            "used": "3.4Ti",
+            "available": "265Gi",
+            "percent": 93
+          },
+          "fix_suggestion": "Consider cleaning up 4.5M"
+        },
+        {
+          "name": "607k",
+          "status": "CRITICAL",
+          "message": "607k: 98% used (436Mi free)",
+          "details": {
+            "filesystem": "/dev/disk19s1",
+            "size": "16Gi",
+            "used": "16Gi",
+            "available": "436Mi",
+            "percent": 98
+          },
+          "fix_suggestion": "Free up space on 607k immediately!"
+        },
+        {
+          "name": "134k",
+          "status": "OK",
+          "message": "134k: 3.1Ti free / 3.6Ti",
+          "details": {
+            "filesystem": "/dev/disk6s2",
+            "size": "3.6Ti",
+            "used": "517Gi",
+            "available": "3.1Ti",
+            "percent": 14
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "45",
+          "status": "OK",
+          "message": "45: 73Mi free / 128Mi",
+          "details": {
+            "filesystem": "/dev/disk20s1",
+            "size": "128Mi",
+            "used": "55Mi",
+            "available": "73Mi",
+            "percent": 43
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "Volume Count",
+          "status": "OK",
+          "message": "37 volumes detected",
+          "details": {
+            "count": 37
+          },
+          "fix_suggestion": null
+        }
+      ]
+    },
+    {
+      "name": "SMART SCANNER",
+      "icon": "\ud83d\udd2c",
+      "overall_status": "UNKNOWN",
+      "results": [
+        {
+          "name": "smartctl",
+          "status": "UNKNOWN",
+          "message": "smartmontools not installed",
+          "details": {},
+          "fix_suggestion": "Install with: brew install smartmontools"
+        }
+      ]
+    },
+    {
+      "name": "MEMORY PROBE",
+      "icon": "\ud83e\udde0",
+      "overall_status": "WARNING",
+      "results": [
+        {
+          "name": "Physical Memory",
+          "status": "OK",
+          "message": "192 GB installed",
+          "details": {
+            "bytes": 206158430208,
+            "gigabytes": 192.0
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "Memory Pressure",
+          "status": "WARNING",
+          "message": "Memory pressure elevated (9.2GB compressed)",
+          "details": {
+            "free_gb": 6.5133819580078125,
+            "active_gb": 83.21405029296875,
+            "wired_gb": 8.910003662109375,
+            "compressed_gb": 9.204742431640625
+          },
+          "fix_suggestion": "Close unused applications to reduce memory pressure"
+        },
+        {
+          "name": "Swap Usage",
+          "status": "OK",
+          "message": "No swap in use",
+          "details": {
+            "used_mb": 0.0
+          },
+          "fix_suggestion": null
+        }
+      ]
+    },
+    {
+      "name": "THERMAL MONITOR",
+      "icon": "\ud83c\udf21\ufe0f",
+      "overall_status": "UNKNOWN",
+      "results": [
+        {
+          "name": "Thermal Status",
+          "status": "UNKNOWN",
+          "message": "Run with sudo for detailed thermal data",
+          "details": {},
+          "fix_suggestion": "Run: sudo python -m modules.cli --thermal"
+        }
+      ]
+    },
+    {
+      "name": "NETWORK PULSE",
+      "icon": "\ud83c\udf10",
+      "overall_status": "OK",
+      "results": [
+        {
+          "name": "Ethernet",
+          "status": "OK",
+          "message": "en0: Connected (10.0.0.71)",
+          "details": {
+            "interface": "en0",
+            "ip": "10.0.0.71"
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "feth4931",
+          "status": "OK",
+          "message": "feth4931: Connected (10.228.4.190)",
+          "details": {
+            "interface": "feth4931",
+            "ip": "10.228.4.190"
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "Interface en1",
+          "status": "OK",
+          "message": "en1: Connected (10.0.0.160)",
+          "details": {
+            "interface": "en1",
+            "ip": "10.0.0.160"
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "Bridge",
+          "status": "OK",
+          "message": "bridge100: Connected (10.211.55.2)",
+          "details": {
+            "interface": "bridge100",
+            "ip": "10.211.55.2"
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "Bridge",
+          "status": "OK",
+          "message": "bridge101: Connected (10.37.129.2)",
+          "details": {
+            "interface": "bridge101",
+            "ip": "10.37.129.2"
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "Interface en8",
+          "status": "OK",
+          "message": "en8: Connected (169.254.6.228)",
+          "details": {
+            "interface": "en8",
+            "ip": "169.254.6.228"
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "DNS Resolution",
+          "status": "OK",
+          "message": "DNS working correctly",
+          "details": {},
+          "fix_suggestion": null
+        }
+      ]
+    },
+    {
+      "name": "PROCESS AUDITOR",
+      "icon": "\u2699\ufe0f",
+      "overall_status": "WARNING",
+      "results": [
+        {
+          "name": "Total Processes",
+          "status": "OK",
+          "message": "1315 processes running",
+          "details": {
+            "count": 1315
+          },
+          "fix_suggestion": null
+        },
+        {
+          "name": "CPU Hogs",
+          "status": "WARNING",
+          "message": "10 process(es) using >50% CPU",
+          "details": {
+            "processes": [
+              {
+                "pid": "96114",
+                "cpu": 192.1,
+                "name": "Antigravity Helper (Plugin)"
+              },
+              {
+                "pid": "8796",
+                "cpu": 148.9,
+                "name": "ffmpeg"
+              },
+              {
+                "pid": "13638",
+                "cpu": 147.1,
+                "name": "ffmpeg"
+              },
+              {
+                "pid": "3685",
+                "cpu": 107.1,
+                "name": "language_server_macos_arm"
+              },
+              {
+                "pid": "19022",
+                "cpu": 105.4,
+                "name": "rg"
+              },
+              {
+                "pid": "1047",
+                "cpu": 100.0,
+                "name": "Code - Insiders Helper (Plugin)"
+              },
+              {
+                "pid": "15516",
+                "cpu": 99.9,
+                "name": "Code - Insiders Helper (Plugin)"
+              },
+              {
+                "pid": "26503",
+                "cpu": 97.2,
+                "name": "Code Helper (Plugin)"
+              },
+              {
+                "pid": "44117",
+                "cpu": 80.7,
+                "name": "Google Chrome Helper"
+              },
+              {
+                "pid": "26165",
+                "cpu": 79.9,
+                "name": "Code Helper (Plugin)"
+              }
+            ]
+          },
+          "fix_suggestion": "Consider killing: Antigravity Helper (Plugin), ffmpeg, ffmpeg"
+        },
+        {
+          "name": "Zombie Processes",
+          "status": "WARNING",
+          "message": "2 zombie process(es) detected",
+          "details": {
+            "count": 2
+          },
+          "fix_suggestion": "Zombie processes may require parent process restart"
+        }
+      ]
+    }
+  ]
+}

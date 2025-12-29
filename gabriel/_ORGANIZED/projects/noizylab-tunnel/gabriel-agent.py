@@ -7,6 +7,7 @@ Run on GABRIEL (Windows) to receive commands from Cloudflare Worker
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 import subprocess
+import shlex
 import socket
 import platform
 import psutil
@@ -55,19 +56,31 @@ class GabrielHandler(BaseHTTPRequestHandler):
             cmd = body.get('cmd', '')
             timeout = min(body.get('timeout', 30), 60)  # Max 60s
             
-            # Security: Only allow safe commands
-            cmd_base = cmd.split()[0].lower() if cmd else ''
+            # Security: Parse command safely using shlex
+            try:
+                cmd_args = shlex.split(cmd) if cmd else []
+            except ValueError as e:
+                self._json({'error': f'Invalid command syntax: {e}'}, 400)
+                return
+            
+            if not cmd_args:
+                self._json({'error': 'No command provided'}, 400)
+                return
+            
+            # Security: Only allow safe commands (whitelist check)
+            cmd_base = cmd_args[0].lower()
             if cmd_base not in ALLOWED_COMMANDS:
                 self._json({'error': f'Command not allowed: {cmd_base}'}, 403)
                 return
             
             try:
                 result = subprocess.run(
-                    cmd,
-                    shell=True,
+                    cmd_args,
+                    shell=False,
                     capture_output=True,
                     text=True,
-                    timeout=timeout
+                    timeout=timeout,
+                    check=False
                 )
                 self._json({
                     'output': result.stdout,
@@ -76,6 +89,8 @@ class GabrielHandler(BaseHTTPRequestHandler):
                 })
             except subprocess.TimeoutExpired:
                 self._json({'error': 'Command timed out'}, 408)
+            except FileNotFoundError:
+                self._json({'error': f'Command not found: {cmd_args[0]}'}, 404)
             except Exception as e:
                 self._json({'error': str(e)}, 500)
         else:

@@ -851,9 +851,9 @@ class AudioSmoother:
         Room types: studio, room, hall
         """
         room_settings = {
-            "studio": "aecho=0.8:0.88:6:0.05",  # Subtle
-            "room": "aecho=0.8:0.88:40:0.1",    # Small room
-            "hall": "aecho=0.8:0.9:100:0.2",    # Large hall
+            "studio": "aecho=0.8:0.88:6:0.005",  # Very subtle (10% of original)
+            "room": "aecho=0.8:0.88:40:0.01",    # Small room (10%)
+            "hall": "aecho=0.8:0.9:100:0.02",    # Large hall (10%)
         }
         try:
             out_path = output_path or audio_path.replace(".", f"_{room_type}.")
@@ -2713,18 +2713,19 @@ class AudioEffect(Enum):
 
 
 # FFmpeg audio filter chains for each effect
+# SFX volumes reduced by 90% (decay values lowered significantly)
 AUDIO_EFFECTS = {
     "none": "",
-    "reverb": "aecho=0.8:0.9:1000:0.3,aecho=0.8:0.88:500:0.25",
-    "echo": "aecho=0.8:0.9:500|1000:0.4|0.3",
-    "radio": "highpass=f=300,lowpass=f=3000,acrusher=level_in=8:level_out=18:bits=10:mode=log",
-    "telephone": "highpass=f=400,lowpass=f=3400,acrusher=bits=8",
+    "reverb": "aecho=0.8:0.9:1000:0.03,aecho=0.8:0.88:500:0.025",  # 10% echo
+    "echo": "aecho=0.8:0.9:500|1000:0.04|0.03",  # 10% echo
+    "radio": "highpass=f=300,lowpass=f=3000,volume=0.8",  # Simplified, lower volume
+    "telephone": "highpass=f=400,lowpass=f=3400,volume=0.7",  # Simplified
     "deep": "asetrate=44100*0.8,aresample=44100,atempo=1.25",
-    "robot": "afftfilt=real='hypot(re,im)*cos((random(0)*2-1)*2*3.14)':imag='hypot(re,im)*sin((random(1)*2-1)*2*3.14)':win_size=512:overlap=0.75",
-    "whisper": "lowpass=f=3000,highpass=f=200,volume=0.7,acompressor",
-    "godmode": "aecho=0.8:0.9:1000:0.3,bass=g=8,treble=g=3",
-    "underwater": "lowpass=f=500,vibrato=f=5:d=0.5",
-    "megaphone": "highpass=f=500,lowpass=f=4000,acrusher=bits=12,volume=1.5",
+    "robot": "volume=0.5",  # Simplified - just lower volume
+    "whisper": "lowpass=f=3000,highpass=f=200,volume=0.5,acompressor",
+    "godmode": "aecho=0.8:0.9:1000:0.03,bass=g=4,treble=g=1",  # 10% reverb, reduced bass
+    "underwater": "lowpass=f=500,volume=0.6",  # Simplified
+    "megaphone": "highpass=f=500,lowpass=f=4000,volume=0.7",  # No crusher, lower volume
 }
 
 

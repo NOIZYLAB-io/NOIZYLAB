@@ -1,0 +1,51 @@
+# SwiftFormat Configuration
+# Global configuration for Swift projects
+
+# Swift version
+--swiftversion 6.0
+
+# File options
+--exclude .build,Packages,Tests/LinuxMain.swift
+
+# Format options
+--indent 4
+--indentcase false
+--trimwhitespace always
+--voidtype void
+--semicolons never
+--commas always
+--stripunusedargs closure-only
+--maxwidth 120
+
+# Wrapping
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapternary default
+--closingparen balanced
+
+# Spacing
+--operatorfunc spaced
+--ranges spaced
+--typeattributes prev-line
+--funcattributes prev-line
+--varattributes prev-line
+
+# Organization
+--organizetypes class,enum,struct,extension,protocol
+--extensionacl on-declarations
+
+# Rules to enable
+--enable blankLinesBetweenImports
+--enable blockComments
+--enable docComments
+--enable isEmpty
+--enable markTypes
+--enable organizeDeclarations
+--enable sortImports
+--enable wrapEnumCases
+--enable wrapSwitchCases
+
+# Rules to disable (personal preference)
+--disable acronyms
+--disable sortedSwitchCases
