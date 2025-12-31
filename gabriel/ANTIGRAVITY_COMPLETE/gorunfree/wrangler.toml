@@ -1,0 +1,25 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# GORUNFREE - Voice Command Processor
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name = "gorunfree"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "production"
+VERSION = "1.0.0"
+ANTIGRAVITY_URL = "https://antigravity.YOUR_SUBDOMAIN.workers.dev"
+
+# KV for command history
+[[kv_namespaces]]
+binding = "KV"
+id = "YOUR_KV_NAMESPACE_ID"  # Replace after: wrangler kv:namespace create "KV"
+
+# Workers AI for transcription
+[ai]
+binding = "AI"
+
+[observability]
+enabled = true
