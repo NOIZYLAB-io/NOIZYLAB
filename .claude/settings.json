@@ -1,0 +1,88 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(pip:*)",
+      "Bash(pip3:*)",
+      "Bash(uv:*)",
+      "Bash(pnpm:*)",
+      "Bash(yarn:*)",
+      "Bash(bun:*)",
+      "Bash(cargo:*)",
+      "Bash(rustc:*)",
+      "Bash(go:*)",
+      "Bash(make:*)",
+      "Bash(cmake:*)",
+      "Bash(brew:*)",
+      "Bash(ls:*)",
+      "Bash(pwd:*)",
+      "Bash(which:*)",
+      "Bash(echo:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(date:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "Bash(jq:*)",
+      "Bash(yq:*)",
+      "Bash(docker:*)",
+      "Bash(docker-compose:*)",
+      "Bash(kubectl:*)",
+      "Bash(terraform:*)",
+      "Bash(code-insiders:*)",
+      "Bash(open:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(ffprobe:*)",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "Task",
+      "TodoWrite",
+      "NotebookEdit"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(sudo rm:*)",
+      "Bash(chmod 777:*)",
+      "Bash(:(){ :|:& };:)"
+    ]
+  },
+  "hooks": {
+    "user-prompt-submit": [
+      {
+        "matcher": "",
+        "hooks": [
+          "/Users/m2ultra/.claude/hooks/user-prompt-submit.sh"
+        ]
+      }
+    ],
+    "stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          "/Users/m2ultra/.claude/hooks/stop.sh"
+        ]
+      }
+    ]
+  },
+  "env": {
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  }
+}

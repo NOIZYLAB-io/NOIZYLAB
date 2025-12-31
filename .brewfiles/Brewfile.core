@@ -1,0 +1,65 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB CORE BREWFILE
+# Essential tools - install first on any new machine
+# Usage: brew bundle --file=~/.brewfiles/Brewfile.core
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Taps
+tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ABSOLUTELY ESSENTIAL - The Foundation
+# ═══════════════════════════════════════════════════════════════════════════
+brew "git"                    # Version control (duh)
+brew "git-lfs"                # Large file storage
+brew "gh"                     # GitHub CLI
+brew "curl"                   # HTTP client
+brew "wget"                   # HTTP downloads
+brew "jq"                     # JSON processor
+brew "yq"                     # YAML processor
+
+# ═══════════════════════════════════════════════════════════════════════════
+# MODERN CLI REPLACEMENTS - Rust-powered Speed
+# ═══════════════════════════════════════════════════════════════════════════
+brew "ripgrep"                # grep → rg (10x faster)
+brew "fd"                     # find → fd (5x faster)
+brew "eza"                    # ls → eza (pretty + git)
+brew "bat"                    # cat → bat (syntax highlighting)
+brew "delta"                  # diff → delta (beautiful diffs)
+brew "dust"                   # du → dust (visual disk usage)
+brew "duf"                    # df → duf (pretty disk free)
+brew "procs"                  # ps → procs (modern process viewer)
+brew "bottom"                 # top → btm (system monitor)
+brew "sd"                     # sed → sd (intuitive find/replace)
+brew "choose"                 # cut/awk → choose (field selection)
+brew "hyperfine"              # time → hyperfine (benchmarking)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SHELL POWER-UPS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "fzf"                    # Fuzzy finder (life-changing)
+brew "zoxide"                 # Smart cd (remembers paths)
+brew "starship"               # Cross-shell prompt
+brew "direnv"                 # Per-directory env vars
+brew "atuin"                  # Magical shell history (synced)
+brew "zsh-autosuggestions"    # Fish-like suggestions
+brew "zsh-syntax-highlighting" # Syntax colors in shell
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ESSENTIAL APPLICATIONS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "visual-studio-code-insiders"  # Editor
+cask "iterm2"                 # Terminal (or warp)
+cask "raycast"                # Launcher (replace Spotlight)
+cask "rectangle"              # Window management
+cask "maccy"                  # Clipboard manager
+cask "stats"                  # System monitor
+cask "appcleaner"             # Clean uninstalls
+
+# ═══════════════════════════════════════════════════════════════════════════
+# FONTS - The Essentials
+# ═══════════════════════════════════════════════════════════════════════════
+cask "font-fira-code"         # Ligatures
+cask "font-jetbrains-mono"    # JetBrains
+cask "font-meslo-lg-nerd-font" # Nerd fonts for icons

@@ -1,0 +1,125 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB SECURITY BREWFILE
+# Security tools, scanners, and cryptography
+# Usage: brew bundle --file=~/.brewfiles/Brewfile.security
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CRYPTOGRAPHY
+# ═══════════════════════════════════════════════════════════════════════════
+brew "gnupg"                  # GPG encryption
+brew "age"                    # Modern encryption (simple)
+brew "sops"                   # Secret management
+brew "openssl"                # SSL/TLS toolkit
+brew "libsodium"              # Modern crypto library
+brew "bcrypt"                 # Password hashing
+brew "argon2"                 # Password hashing (modern)
+brew "minisign"               # Simple signing
+brew "signify-osx"            # OpenBSD signify
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SSH & PKI
+# ═══════════════════════════════════════════════════════════════════════════
+brew "openssh"                # SSH client/server
+brew "ssh-copy-id"            # Copy SSH keys
+brew "sshpass"                # Non-interactive SSH
+brew "step"                   # Certificate management
+brew "cfssl"                  # PKI toolkit
+brew "mkcert"                 # Local SSL certs
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PASSWORD MANAGEMENT
+# ═══════════════════════════════════════════════════════════════════════════
+brew "pass"                   # Password store (GPG-based)
+brew "gopass"                 # Team password store
+brew "bitwarden-cli"          # Bitwarden CLI
+cask "1password"              # 1Password app
+cask "1password-cli"          # 1Password CLI
+cask "bitwarden"              # Bitwarden app
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SECRET SCANNING
+# ═══════════════════════════════════════════════════════════════════════════
+brew "gitleaks"               # Scan git repos for secrets
+brew "trufflehog"             # Deep secret scanning
+brew "detect-secrets"         # Yelp secret scanner
+brew "git-secrets"            # AWS secret prevention
+
+# ═══════════════════════════════════════════════════════════════════════════
+# VULNERABILITY SCANNING
+# ═══════════════════════════════════════════════════════════════════════════
+brew "trivy"                  # Container/IaC scanner
+brew "grype"                  # Vulnerability scanner
+brew "syft"                   # SBOM generator
+brew "semgrep"                # Static analysis
+brew "checkov"                # IaC security
+brew "tfsec"                  # Terraform security
+brew "kubesec"                # Kubernetes security
+brew "kube-bench"             # CIS benchmarks for K8s
+brew "osv-scanner"            # OSV vulnerability scanner
+
+# ═══════════════════════════════════════════════════════════════════════════
+# NETWORK SECURITY
+# ═══════════════════════════════════════════════════════════════════════════
+brew "nmap"                   # Port scanner
+brew "masscan"                # Fast port scanner
+brew "rustscan"               # Modern port scanner
+brew "nikto"                  # Web server scanner
+brew "nuclei"                 # Template-based scanner
+brew "httpx"                  # HTTP toolkit
+brew "subfinder"              # Subdomain discovery
+brew "amass"                  # Subdomain enumeration
+brew "dnsx"                   # DNS toolkit
+brew "mtr"                    # Network diagnostics
+brew "tcpdump"                # Packet capture
+brew "wireshark"              # Packet analysis (CLI)
+brew "termshark"              # Wireshark TUI
+brew "mitmproxy"              # HTTP proxy
+brew "zaproxy"                # OWASP ZAP (proxy)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# WEB SECURITY
+# ═══════════════════════════════════════════════════════════════════════════
+brew "sqlmap"                 # SQL injection
+brew "wfuzz"                  # Web fuzzer
+brew "ffuf"                   # Fast web fuzzer
+brew "gobuster"               # Directory bruteforce
+brew "feroxbuster"            # Faster ferox
+brew "hydra"                  # Login brute force
+brew "john"                   # Password cracker
+brew "hashcat"                # GPU password cracker
+
+# ═══════════════════════════════════════════════════════════════════════════
+# BINARY ANALYSIS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "radare2"                # Reverse engineering
+brew "binwalk"                # Firmware analysis
+brew "foremost"               # File carving
+brew "hexyl"                  # Hex viewer
+brew "xxd"                    # Hex dump
+cask "hopper-disassembler"    # Disassembler
+cask "hex-fiend"              # Hex editor
+
+# ═══════════════════════════════════════════════════════════════════════════
+# OSINT
+# ═══════════════════════════════════════════════════════════════════════════
+brew "theharvester"           # Email/domain harvesting
+brew "whois"                  # WHOIS lookup
+brew "dnsrecon"               # DNS reconnaissance
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SECURITY APPLICATIONS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "wireshark"              # Packet analysis (GUI)
+cask "burp-suite"             # Web security testing
+cask "charles"                # HTTP proxy
+cask "proxyman"               # Modern HTTP proxy
+cask "suspicious-package"     # Inspect installers
+cask "knockknock"             # Persistence scanner
+cask "blockblock"             # Monitor persistence
+cask "oversight"              # Mic/camera monitor
+cask "lulu"                   # Firewall
+cask "little-snitch"          # Advanced firewall
+cask "micro-snitch"           # Mic/camera alerts
+cask "ransomwhere"            # Ransomware detection
+cask "santa"                  # Binary authorization

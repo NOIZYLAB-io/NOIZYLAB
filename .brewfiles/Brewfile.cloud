@@ -1,0 +1,105 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB CLOUD BREWFILE
+# Containers, Kubernetes, and cloud infrastructure
+# Usage: brew bundle --file=~/.brewfiles/Brewfile.cloud
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CONTAINERS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "docker"                 # Container runtime
+brew "docker-compose"         # Container orchestration
+brew "docker-credential-helper" # Credential storage
+brew "podman"                 # Docker alternative
+brew "buildkit"               # Next-gen image builder
+brew "buildx"                 # Docker build extensions
+brew "lima"                   # Linux virtual machines
+brew "colima"                 # Container runtime (Docker Desktop alt)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CONTAINER TOOLS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "lazydocker"             # Terminal UI for docker (AMAZING)
+brew "ctop"                   # Container top
+brew "dive"                   # Docker image explorer
+brew "hadolint"               # Dockerfile linter
+brew "skopeo"                 # Container image operations
+brew "crane"                  # Container registry tool
+brew "regctl"                 # Registry client
+brew "trivy"                  # Security scanner
+brew "grype"                  # Vulnerability scanner
+brew "syft"                   # SBOM generator
+
+# ═══════════════════════════════════════════════════════════════════════════
+# KUBERNETES
+# ═══════════════════════════════════════════════════════════════════════════
+brew "kubectl"                # Kubernetes CLI
+brew "kubectx"                # Switch contexts/namespaces
+brew "k9s"                    # Kubernetes TUI (AMAZING)
+brew "stern"                  # Multi-pod log tailing
+brew "kustomize"              # K8s config management
+brew "helm"                   # K8s package manager
+brew "helmfile"               # Declarative Helm
+brew "krew"                   # kubectl plugin manager
+brew "kubeseal"               # Sealed secrets
+brew "kubeconform"            # K8s manifest validator
+brew "kubeval"                # K8s manifest validator alt
+brew "kube-linter"            # K8s best practices
+brew "kube-score"             # K8s security scoring
+brew "kind"                   # K8s in Docker
+brew "minikube"               # Local K8s
+brew "k3d"                    # K3s in Docker
+brew "velero"                 # K8s backup
+brew "fluxcd/tap/flux"        # GitOps operator
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CLOUD PROVIDERS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "awscli"                 # AWS CLI
+brew "aws-vault"              # AWS credentials
+brew "aws-sam-cli"            # AWS Serverless
+brew "eksctl"                 # EKS CLI
+brew "azure-cli"              # Azure CLI
+brew "google-cloud-sdk"       # GCP SDK
+
+# ═══════════════════════════════════════════════════════════════════════════
+# INFRASTRUCTURE AS CODE
+# ═══════════════════════════════════════════════════════════════════════════
+brew "terraform"              # Infrastructure as code
+brew "terragrunt"             # Terraform wrapper
+brew "terrascan"              # Terraform security
+brew "tfsec"                  # Terraform security scanner
+brew "checkov"                # IaC security scanner
+brew "infracost"              # Terraform cost estimation
+brew "opentofu"               # Terraform fork (open source)
+brew "pulumi"                 # IaC with real languages
+brew "ansible"                # Configuration management
+brew "packer"                 # Image builder
+
+# ═══════════════════════════════════════════════════════════════════════════
+# GITOPS & CD
+# ═══════════════════════════════════════════════════════════════════════════
+brew "argocd"                 # GitOps CD
+brew "tektoncd-cli"           # Tekton pipelines
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SECRETS & SECURITY
+# ═══════════════════════════════════════════════════════════════════════════
+brew "vault"                  # HashiCorp Vault
+brew "sops"                   # Secret encryption
+brew "age"                    # Modern encryption
+brew "step"                   # Certificate management
+brew "cfssl"                  # PKI toolkit
+brew "gitleaks"               # Secret scanner
+brew "trufflehog"             # Secret scanner
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CLOUD APPLICATIONS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "docker"                 # Docker Desktop
+cask "orbstack"               # Docker Desktop alt (FAST)
+cask "rancher"                # Kubernetes desktop
+cask "lens"                   # Kubernetes IDE
+cask "openlens"               # Lens fork (free)
+
+tap "fluxcd/tap"

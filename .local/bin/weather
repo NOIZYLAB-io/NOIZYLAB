@@ -1,0 +1,14 @@
+#!/bin/bash
+# ═══════════════════════════════════════════════════════════════════════════
+# weather - Quick weather check
+# Usage: weather [location]
+# ═══════════════════════════════════════════════════════════════════════════
+
+LOCATION="${1:-}"
+
+if [[ -n "$LOCATION" ]]; then
+    curl -s "wttr.in/${LOCATION}?format=3"
+else
+    curl -s "wttr.in/?format=3"
+fi
+echo ""

@@ -1,0 +1,100 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB AUDIO BREWFILE
+# Audio production, processing, and engineering tools
+# Usage: brew bundle --file=~/.brewfiles/Brewfile.audio
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUDIO PROCESSING CLI
+# ═══════════════════════════════════════════════════════════════════════════
+brew "ffmpeg"                 # Audio/video Swiss Army knife
+brew "sox"                    # Sound processing CLI
+brew "lame"                   # MP3 encoder
+brew "flac"                   # FLAC encoder/decoder
+brew "opus"                   # Opus codec
+brew "opusfile"               # Opus file library
+brew "libvorbis"              # Vorbis codec
+brew "libsndfile"             # Audio file library
+brew "libsamplerate"          # Sample rate conversion
+brew "rubberband"             # Time-stretching
+brew "fftw"                   # FFT library
+brew "chromaprint"            # Audio fingerprinting
+brew "yt-dlp"                 # Download audio from anywhere
+brew "beets"                  # Music library manager
+brew "shntool"                # WAVE file tools
+brew "cuetools"               # CUE sheet tools
+brew "mp3splt"                # Split MP3/OGG without re-encoding
+brew "eyeD3"                  # MP3 tagging
+brew "id3v2"                  # ID3 tag editor
+brew "mediainfo"              # Media file info
+brew "abcmidi"                # ABC to MIDI
+brew "timidity"               # MIDI player
+brew "fluidsynth"             # Software synthesizer
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUDIO ANALYSIS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "aubio"                  # Audio analysis (onset, pitch, tempo)
+brew "essentia"               # Audio analysis library
+brew "sonic-visualiser"       # Audio visualization (brew)
+brew "vamp-plugin-sdk"        # Audio analysis plugins
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUDIO ROUTING (macOS)
+# ═══════════════════════════════════════════════════════════════════════════
+cask "blackhole-16ch"         # Virtual audio driver (free)
+cask "loopback"               # Audio routing (pro)
+cask "soundsource"            # Audio control per-app
+cask "audio-hijack"           # Audio capture/processing
+cask "rogue-amoeba-license-manager" # Rogue Amoeba licensing
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DAWS (Digital Audio Workstations)
+# ═══════════════════════════════════════════════════════════════════════════
+cask "ableton-live-suite"     # Ableton Live
+cask "logic-pro"              # Logic Pro X
+cask "reaper"                 # REAPER (affordable pro DAW)
+cask "bitwig-studio"          # Bitwig Studio
+cask "fl-studio"              # FL Studio
+cask "audacity"               # Audacity (free)
+cask "ardour"                 # Ardour (open source)
+cask "garageband"             # GarageBand (free with macOS)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUDIO EDITORS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "fission"                # Quick audio editing
+cask "izotope-rx"             # Audio repair
+cask "soundforge"             # Professional audio editor
+cask "wave-editor"            # Simple wave editing
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PLUGIN MANAGERS & HOSTS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "native-access"          # Native Instruments
+cask "izotope-product-portal" # iZotope plugins
+cask "splice"                 # Sample library & plugins
+cask "plugin-alliance"        # Plugin Alliance
+cask "ilok-license-manager"   # iLok licensing
+cask "antares-central"        # Antares plugins
+cask "waves-central"          # Waves plugins
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUDIO INTERFACE CONTROL
+# ═══════════════════════════════════════════════════════════════════════════
+cask "focusrite-control"      # Focusrite interfaces
+cask "universal-audio-console" # UAD interfaces
+cask "motu-pro-audio-control" # MOTU interfaces
+cask "rme-totalmix"           # RME interfaces
+
+# ═══════════════════════════════════════════════════════════════════════════
+# UTILITIES
+# ═══════════════════════════════════════════════════════════════════════════
+cask "farrago"                # Soundboard
+cask "piezo"                  # Simple audio recording
+cask "nuage"                  # Soundcloud client
+cask "spotify"                # Spotify
+cask "tidal"                  # Tidal
+cask "vox"                    # Music player
+cask "swinsian"               # iTunes alternative
+cask "audirvana"              # Audiophile player

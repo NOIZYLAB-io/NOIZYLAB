@@ -1,0 +1,326 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[user]
+	email = 231563317+Noizyfish@users.noreply.github.com
+	name = NOIZYLAB
+
+[init]
+	defaultBranch = main
+	templateDir = ~/.git-templates
+
+[commit]
+	template = ~/.git-templates/commit-template.txt
+
+[core]
+	editor = code-insiders --wait
+	autocrlf = input
+	# Use delta for beautiful diffs (falls back to less if not installed)
+	pager = delta --dark --line-numbers 2>/dev/null || less -FRX
+	# Speed up git status
+	fsmonitor = true
+	untrackedcache = true
+
+[interactive]
+	# Use delta for git add -p
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = Dracula
+	plus-style = "syntax #2A363B"
+	minus-style = "syntax #3F2D3D"
+	plus-emph-style = "syntax #2A5A3E"
+	minus-emph-style = "syntax #5A2D3D"
+	hunk-header-style = "file line-number syntax"
+	file-style = "bold yellow ul"
+	file-decoration-style = "none"
+	commit-decoration-style = "bold yellow box ul"
+	hyperlinks = true
+
+[pull]
+	rebase = true
+
+[push]
+	default = current
+	autoSetupRemote = true
+
+[fetch]
+	prune = true
+
+[rebase]
+	autoStash = true
+
+[merge]
+	conflictStyle = diff3
+	tool = vscode
+
+[mergetool "vscode"]
+	cmd = code-insiders --wait --merge $REMOTE $LOCAL $BASE $MERGED
+
+[diff]
+	colorMoved = default
+	tool = vscode
+
+[difftool "vscode"]
+	cmd = code-insiders --wait --diff $LOCAL $REMOTE
+
+[color]
+	ui = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+
+[alias]
+	# ═══════════════════════════════════════════════════════════════════════════
+	# QUICK SHORTCUTS
+	# ═══════════════════════════════════════════════════════════════════════════
+	co = checkout
+	br = branch
+	ci = commit
+	st = status -sb
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	cp = cherry-pick
+	m = merge
+	rb = rebase
+	sw = switch
+	swc = switch -c
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# BEAUTIFUL LOG VIEWS
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Graph log with colors
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	# One-line log
+	ll = log --oneline -20
+	# Detailed log
+	ld = log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --date=short
+	# Log with stats
+	ls = log --oneline --stat
+	# Log with patches
+	lp = log -p
+	# Who did what
+	who = shortlog -sne
+	# Today's commits
+	today = log --since=midnight --oneline --author='$(git config user.email)'
+	# This week's commits
+	week = log --since='1 week ago' --oneline
+	# Graph view (tree)
+	tree = log --graph --oneline --decorate --all
+	# Full history graph
+	history = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# BRANCH MANAGEMENT
+	# ═══════════════════════════════════════════════════════════════════════════
+	branches = branch -a
+	remotes = remote -v
+	# List branches sorted by last commit
+	recent = branch --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+	# Find merged branches ready for cleanup
+	merged = branch --merged
+	# Find branches where upstream is gone
+	gone = "!git fetch -p && git branch -vv | grep ': gone]' | awk '{print $1}'"
+	# Delete gone branches
+	cleanup = "!git gone | xargs -n 1 git branch -d"
+	# Current branch name
+	current = rev-parse --abbrev-ref HEAD
+	# Rename current branch
+	rename = branch -m
+	# Track remote branch
+	track = !git branch --set-upstream-to=origin/$(git current)
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# COMMIT HELPERS
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Quick commit
+	cm = commit -m
+	# Commit all changes
+	ca = commit -a -m
+	# Amend without editing message
+	amend = commit --amend --no-edit
+	# Amend and edit message
+	amende = commit --amend
+	# Fixup commit for rebase
+	fixup = commit --fixup
+	# WIP commit
+	wip = !git add -A && git commit -m 'WIP: work in progress [skip ci]'
+	# Undo WIP
+	unwip = reset HEAD~1
+	# Save everything as WIP and switch
+	save = !git wip && git checkout
+	# Empty commit (trigger CI)
+	empty = commit --allow-empty -m
+	# Recommit (undo and redo)
+	recommit = !git reset --soft HEAD~1 && git commit
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# UNDO / RESET
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Undo last commit (keep changes)
+	undo = reset --soft HEAD~1
+	# Undo last commit (discard changes)
+	undohard = reset --hard HEAD~1
+	# Reset file to HEAD
+	resetfile = checkout HEAD --
+	# Uncommit (same as undo)
+	uncommit = reset --soft HEAD~1
+	# Discard all changes
+	nuke = !git reset --hard HEAD && git clean -fd
+	# Go back n commits
+	back = "!f() { git reset --soft HEAD~${1:-1}; }; f"
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# STASH
+	# ═══════════════════════════════════════════════════════════════════════════
+	sl = stash list
+	sp = stash pop
+	ss = stash save
+	sd = stash drop
+	sa = stash apply
+	# Stash with message
+	sm = stash save -m
+	# Stash including untracked
+	su = stash save --include-untracked
+	# Show stash diff
+	sshow = stash show -p
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# DIFF
+	# ═══════════════════════════════════════════════════════════════════════════
+	df = diff
+	dfs = diff --staged
+	# Word diff
+	dfw = diff --word-diff
+	# Stat diff
+	dft = diff --stat
+	# Compare branches
+	compare = diff --stat
+	# Show what changed in last commit
+	dlast = diff HEAD~1 HEAD
+	# Files changed in last commit
+	flast = diff --name-only HEAD~1 HEAD
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# SYNC
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Full sync (fetch + pull)
+	sync = !git fetch --all --prune && git pull --rebase
+	# Push and set upstream
+	pushu = push -u origin HEAD
+	# Force push safely
+	pushf = push --force-with-lease
+	# Pull with rebase
+	pullr = pull --rebase
+	# Update all branches
+	update = !git fetch --all --prune && git branch -vv
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# REBASE
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Interactive rebase on last n commits
+	ri = "!f() { git rebase -i HEAD~${1:-5}; }; f"
+	# Rebase on main
+	rom = rebase origin/main
+	# Rebase continue
+	rc = rebase --continue
+	# Rebase abort
+	ra = rebase --abort
+	# Rebase skip
+	rs = rebase --skip
+	# Autosquash
+	ria = "!f() { git rebase -i --autosquash HEAD~${1:-5}; }; f"
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# SEARCH
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Search commit messages
+	find = log --all --grep
+	# Search code
+	search = grep -n
+	# Find file by name
+	findfile = !git ls-files | grep -i
+	# Find who last modified a line
+	blame = blame -w -C -C -C
+	# Search in all branches
+	searchall = "!f() { git log --all -S\"$1\" --oneline; }; f"
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# INFO
+	# ═══════════════════════════════════════════════════════════════════════════
+	# List contributors
+	contributors = shortlog -sn --all
+	# Show aliases
+	aliases = config --get-regexp alias
+	# Root directory
+	root = rev-parse --show-toplevel
+	# Show tags
+	tags = tag -l
+	# Latest tag
+	lasttag = describe --tags --abbrev=0
+	# Show config
+	conf = config --list
+	# Show ignored files
+	ignored = ls-files --others --ignored --exclude-standard
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# MAINTENANCE
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Optimize repo
+	optimize = !git gc --aggressive && git prune
+	# Count objects
+	count = rev-list --all --count
+	# Show repo size
+	size = count-objects -vH
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# WORKFLOW HELPERS
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Start new feature branch
+	feature = "!f() { git checkout -b feature/$1; }; f"
+	# Start hotfix branch
+	hotfix = "!f() { git checkout -b hotfix/$1; }; f"
+	# Start bugfix branch
+	bugfix = "!f() { git checkout -b bugfix/$1; }; f"
+	# Publish branch
+	publish = !git push -u origin $(git current)
+	# Sync with main and rebase
+	syncmain = !git checkout main && git pull && git checkout - && git rebase main
+	# Squash merge
+	squash = merge --squash
+
+	# ═══════════════════════════════════════════════════════════════════════════
+	# GITHUB
+	# ═══════════════════════════════════════════════════════════════════════════
+	# Open PR (requires gh)
+	pr = !gh pr create
+	# View PRs
+	prs = !gh pr list
+	# View issues
+	issues = !gh issue list
+	# Open repo in browser
+	browse = !gh repo view --web
+	# Clone with gh
+	clone = !gh repo clone
+
+[help]
+	autocorrect = 10
+
+[credential]
+	helper = osxkeychain
+
+[init]
+	templateDir = ~/.git-templates

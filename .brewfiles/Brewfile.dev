@@ -1,0 +1,91 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB DEVELOPMENT BREWFILE
+# Full development environment
+# Usage: brew bundle --file=~/.brewfiles/Brewfile.dev
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LANGUAGES & RUNTIMES
+# ═══════════════════════════════════════════════════════════════════════════
+brew "python@3.12"            # Python 3.12
+brew "python@3.11"            # Python 3.11 (compatibility)
+brew "node"                   # Node.js LTS
+brew "pnpm"                   # Fast npm (save disk space)
+brew "bun"                    # Fast JS runtime + bundler
+brew "deno"                   # Secure JS/TS runtime
+brew "rust"                   # Rust toolchain
+brew "go"                     # Go language
+brew "zig"                    # Zig language
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PACKAGE MANAGERS & BUILD TOOLS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "uv"                     # Fast Python package manager (10-100x pip)
+brew "mise"                   # Polyglot version manager (replaces asdf/nvm/pyenv)
+brew "just"                   # Command runner (better make)
+brew "cmake"                  # Build system
+brew "ninja"                  # Fast build tool
+brew "meson"                  # Modern build system
+brew "sccache"                # Shared compilation cache
+
+# ═══════════════════════════════════════════════════════════════════════════
+# GIT POWER-UPS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "lazygit"                # Terminal UI for git (AMAZING)
+brew "git-absorb"             # Auto fixup commits
+brew "git-branchless"         # Git workflow improvements
+brew "git-cliff"              # Changelog generator
+brew "git-crypt"              # Encrypt files in git
+brew "git-filter-repo"        # Fast history rewrite
+brew "pre-commit"             # Git hooks manager
+brew "commitizen"             # Conventional commits
+brew "lefthook"               # Fast git hooks
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LINTERS & FORMATTERS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "shellcheck"             # Shell script linter
+brew "shfmt"                  # Shell formatter
+brew "hadolint"               # Dockerfile linter
+brew "yamllint"               # YAML linter
+brew "actionlint"             # GitHub Actions linter
+brew "markdownlint-cli"       # Markdown linter
+brew "prettier"               # Universal formatter
+brew "biome"                  # Fast JS/TS formatter (prettier alt)
+brew "taplo"                  # TOML formatter
+brew "sqlfluff"               # SQL linter
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CODE ANALYSIS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "semgrep"                # Code analysis
+brew "ast-grep"               # Structural code search
+brew "tokei"                  # Code statistics
+brew "scc"                    # Code counter (fast)
+brew "cloc"                   # Count lines of code
+brew "ctags"                  # Code navigation tags
+brew "cscope"                 # Code browser
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TESTING
+# ═══════════════════════════════════════════════════════════════════════════
+brew "act"                    # Run GitHub Actions locally
+brew "mkcert"                 # Local SSL certs
+brew "hey"                    # HTTP load testing (simple)
+brew "oha"                    # HTTP load testing (detailed)
+brew "vegeta"                 # HTTP load testing (scriptable)
+brew "k6"                     # Load testing (JS scripting)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DEVELOPMENT APPLICATIONS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "jetbrains-toolbox"      # JetBrains IDEs
+cask "sublime-text"           # Fast editor
+cask "sublime-merge"          # Fast git client
+cask "fork"                   # Git client
+cask "dash"                   # Documentation browser
+cask "devutils"               # Developer utilities
+cask "proxyman"               # HTTP debugging
+cask "paw"                    # API design
+
+tap "oven-sh/bun"

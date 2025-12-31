@@ -1,0 +1,23 @@
+#!/bin/bash
+# ═══════════════════════════════════════════════════════════════════════════
+# Post-commit hook: Notifications and stats
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Colors
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+# Get commit info
+COMMIT_HASH=$(git rev-parse --short HEAD)
+COMMIT_MSG=$(git log -1 --pretty=format:'%s')
+BRANCH=$(git branch --show-current)
+FILES_CHANGED=$(git diff-tree --no-commit-id --name-only -r HEAD | wc -l | tr -d ' ')
+INSERTIONS=$(git diff --stat HEAD~1 HEAD 2>/dev/null | tail -1 | grep -oE '[0-9]+ insertion' | grep -oE '[0-9]+' || echo "0")
+DELETIONS=$(git diff --stat HEAD~1 HEAD 2>/dev/null | tail -1 | grep -oE '[0-9]+ deletion' | grep -oE '[0-9]+' || echo "0")
+
+echo ""
+echo -e "${GREEN}✓ Committed ${CYAN}$COMMIT_HASH${NC} on ${CYAN}$BRANCH${NC}"
+echo -e "  ${COMMIT_MSG}"
+echo -e "  ${GREEN}+$INSERTIONS${NC} / ${CYAN}-$DELETIONS${NC} in $FILES_CHANGED file(s)"
+echo ""

@@ -1,0 +1,97 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB AI BREWFILE
+# AI, ML, and data science tools
+# Usage: brew bundle --file=~/.brewfiles/Brewfile.ai
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LOCAL AI / LLMs
+# ═══════════════════════════════════════════════════════════════════════════
+brew "ollama"                 # Run LLMs locally (llama, mistral, etc.)
+brew "llm"                    # CLI for LLMs (Simon Willison)
+brew "huggingface-cli"        # Hugging Face CLI
+brew "localai"                # Local AI API
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AI CLI TOOLS
+# ═══════════════════════════════════════════════════════════════════════════
+brew "aichat"                 # AI chat in terminal
+brew "mods"                   # AI-powered CLI (Charm)
+brew "glow"                   # Markdown renderer (for AI output)
+brew "gum"                    # Shell script UI (Charm)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PYTHON ML STACK (via Homebrew)
+# ═══════════════════════════════════════════════════════════════════════════
+brew "python@3.12"            # Python 3.12
+brew "uv"                     # Fast Python package manager
+brew "numpy"                  # Numerical computing
+brew "scipy"                  # Scientific computing
+brew "jupyterlab"             # Jupyter notebooks
+brew "black"                  # Python formatter
+brew "ruff"                   # Fast Python linter
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ML INFRASTRUCTURE
+# ═══════════════════════════════════════════════════════════════════════════
+brew "cmake"                  # Build system (for ML libs)
+brew "openblas"               # Linear algebra
+brew "libomp"                 # OpenMP for parallelism
+brew "hdf5"                   # Data format (ML models)
+brew "protobuf"               # Protocol buffers
+brew "arrow"                  # Columnar data format
+brew "duckdb"                 # Analytics (fast!)
+brew "redis"                  # Caching / queues
+brew "minio"                  # S3-compatible storage
+
+# ═══════════════════════════════════════════════════════════════════════════
+# VECTOR DATABASES
+# ═══════════════════════════════════════════════════════════════════════════
+brew "pgvector"               # Postgres vector extension
+brew "chroma"                 # Chroma vector DB (via pip)
+# Note: Pinecone, Weaviate, Qdrant are cloud/Docker-based
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DATA PROCESSING
+# ═══════════════════════════════════════════════════════════════════════════
+brew "jq"                     # JSON processing
+brew "miller"                 # CSV/JSON (like awk)
+brew "xsv"                    # Fast CSV toolkit
+brew "pup"                    # HTML parsing
+brew "pandoc"                 # Document conversion
+brew "poppler"                # PDF tools
+brew "tesseract"              # OCR
+brew "tesseract-lang"         # OCR languages
+
+# ═══════════════════════════════════════════════════════════════════════════
+# IMAGE / VIDEO PROCESSING
+# ═══════════════════════════════════════════════════════════════════════════
+brew "ffmpeg"                 # Video processing
+brew "imagemagick"            # Image processing
+brew "graphicsmagick"         # Image processing alt
+brew "vips"                   # Fast image processing
+brew "opencv"                 # Computer vision
+brew "exiftool"               # Image metadata
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUDIO / SPEECH
+# ═══════════════════════════════════════════════════════════════════════════
+brew "sox"                    # Audio processing
+brew "ffmpeg"                 # Audio extraction
+brew "whisper-cpp"            # Local speech-to-text
+
+# ═══════════════════════════════════════════════════════════════════════════
+# APPLICATIONS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "lm-studio"              # Local LLM GUI
+cask "jan"                    # Local AI assistant
+cask "msty"                   # Local AI assistant
+cask "diffusionbee"           # Stable Diffusion GUI
+cask "draw-things"            # Local image generation
+cask "macwhisper"             # Local transcription
+
+# ═══════════════════════════════════════════════════════════════════════════
+# JUPYTER / NOTEBOOKS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "visual-studio-code-insiders" # VS Code (Jupyter support)
+cask "zed"                    # Zed editor (fast, AI-native)

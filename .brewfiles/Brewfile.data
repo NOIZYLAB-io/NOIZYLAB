@@ -1,0 +1,76 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB DATA BREWFILE
+# Databases, data processing, and analysis tools
+# Usage: brew bundle --file=~/.brewfiles/Brewfile.data
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DATABASES
+# ═══════════════════════════════════════════════════════════════════════════
+brew "sqlite"                 # Embedded SQL
+brew "postgresql@16"          # PostgreSQL
+brew "mysql"                  # MySQL
+brew "redis"                  # Key-value store
+brew "mongodb-community"      # Document database
+brew "duckdb"                 # Analytical database (OLAP)
+brew "clickhouse"             # Fast analytics
+brew "questdb"                # Time-series database
+brew "valkey"                 # Redis fork
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DATABASE CLIENTS (Autocomplete + Syntax Highlighting)
+# ═══════════════════════════════════════════════════════════════════════════
+brew "pgcli"                  # Postgres CLI (autocomplete!)
+brew "mycli"                  # MySQL CLI (autocomplete!)
+brew "litecli"                # SQLite CLI (autocomplete!)
+brew "iredis"                 # Redis CLI (autocomplete!)
+brew "usql"                   # Universal SQL CLI (any database)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DATA PROCESSING
+# ═══════════════════════════════════════════════════════════════════════════
+brew "jq"                     # JSON processor
+brew "yq"                     # YAML processor
+brew "dasel"                  # JSON/YAML/TOML/XML selector
+brew "miller"                 # CSV/JSON processor (like awk for data)
+brew "xsv"                    # Fast CSV toolkit
+brew "q"                      # SQL on CSV/TSV
+brew "pup"                    # HTML parser (jq for HTML)
+brew "htmlq"                  # HTML parser alt
+brew "jo"                     # JSON output from shell
+brew "gron"                   # Make JSON greppable
+brew "fx"                     # Interactive JSON viewer
+brew "jless"                  # JSON pager
+brew "fq"                     # jq for binary formats (media files!)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DATA VISUALIZATION
+# ═══════════════════════════════════════════════════════════════════════════
+brew "visidata"               # Terminal spreadsheet
+brew "csview"                 # CSV viewer
+brew "tabview"                # CSV viewer alt
+brew "gnuplot"                # Plotting
+brew "graphviz"               # Graph visualization
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DATA TRANSFER
+# ═══════════════════════════════════════════════════════════════════════════
+brew "rclone"                 # Cloud storage sync
+brew "restic"                 # Backup tool
+brew "borgbackup"             # Dedup backup
+brew "rsync"                  # File sync
+brew "lsyncd"                 # Live sync
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DATABASE GUI APPLICATIONS
+# ═══════════════════════════════════════════════════════════════════════════
+cask "tableplus"              # Universal DB client (beautiful)
+cask "dbeaver-community"      # Universal DB client (feature-rich)
+cask "sequel-ace"             # MySQL client (free)
+cask "mongodb-compass"        # MongoDB GUI
+cask "redis-insight"          # Redis GUI
+cask "db-browser-for-sqlite"  # SQLite GUI
+cask "azure-data-studio"      # SQL Server + Postgres
+cask "datagrip"               # JetBrains DB IDE (paid)
+
+tap "mongodb/brew"

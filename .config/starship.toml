@@ -1,0 +1,232 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB Starship Prompt - HOT RODDED
+# Fast, minimal, informative
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Timeout for commands (ms)
+command_timeout = 1000
+
+# Newline between prompts
+add_newline = true
+
+# Prompt format
+format = """
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$python\
+$nodejs\
+$rust\
+$golang\
+$docker_context\
+$kubernetes\
+$cmd_duration\
+$line_break\
+$character"""
+
+# Right side prompt
+right_format = """$time"""
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DIRECTORY
+# ═══════════════════════════════════════════════════════════════════════════
+[directory]
+style = "bold cyan"
+truncation_length = 4
+truncate_to_repo = true
+fish_style_pwd_dir_length = 1
+home_symbol = "~"
+read_only = " 🔒"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[directory.substitutions]
+"Documents" = "📄"
+"Downloads" = "📥"
+"NOIZYLAB" = "🔊"
+"Desktop" = "🖥️"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# GIT
+# ═══════════════════════════════════════════════════════════════════════════
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "[$symbol$branch(:$remote_branch)]($style) "
+truncation_length = 20
+
+[git_status]
+style = "bold yellow"
+format = '([$all_status$ahead_behind]($style) )'
+conflicted = "⚔️ "
+ahead = "⬆️ ${count}"
+behind = "⬇️ ${count}"
+diverged = "⬆️ ${ahead_count}⬇️ ${behind_count}"
+untracked = "?${count}"
+stashed = "📦"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[git_state]
+format = '[\($state( $progress_current/$progress_total)\)]($style) '
+style = "bold yellow"
+rebase = "REBASING"
+merge = "MERGING"
+revert = "REVERTING"
+cherry_pick = "CHERRY-PICKING"
+bisect = "BISECTING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LANGUAGES
+# ═══════════════════════════════════════════════════════════════════════════
+[python]
+symbol = "🐍 "
+style = "bold yellow"
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+python_binary = ["python3", "python"]
+detect_files = ["requirements.txt", "pyproject.toml", "setup.py", ".python-version", "Pipfile"]
+
+[nodejs]
+symbol = "⬢ "
+style = "bold green"
+format = "[$symbol($version )]($style)"
+detect_files = ["package.json", ".nvmrc", ".node-version"]
+
+[rust]
+symbol = "🦀 "
+style = "bold red"
+format = "[$symbol($version )]($style)"
+
+[golang]
+symbol = "🐹 "
+style = "bold cyan"
+format = "[$symbol($version )]($style)"
+
+[lua]
+symbol = "🌙 "
+style = "bold blue"
+format = "[$symbol($version )]($style)"
+
+[java]
+symbol = "☕ "
+style = "bold red"
+format = "[$symbol($version )]($style)"
+
+[package]
+symbol = "📦 "
+style = "bold 208"
+format = "[$symbol$version]($style) "
+display_private = false
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CLOUD / CONTAINERS
+# ═══════════════════════════════════════════════════════════════════════════
+[docker_context]
+symbol = "🐳 "
+style = "bold blue"
+format = "[$symbol$context]($style) "
+only_with_files = true
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+
+[kubernetes]
+symbol = "⎈ "
+style = "bold blue"
+format = '[$symbol$context( \($namespace\))]($style) '
+disabled = false
+detect_files = ["k8s", "kubernetes", "kustomization.yaml"]
+
+[aws]
+symbol = "☁️ "
+style = "bold yellow"
+format = '[$symbol($profile )(\[$duration\] )]($style)'
+disabled = true  # Enable if using AWS
+
+[gcloud]
+symbol = "☁️ "
+style = "bold blue"
+format = '[$symbol$account(@$domain)(\($project\))]($style) '
+disabled = true  # Enable if using GCP
+
+# ═══════════════════════════════════════════════════════════════════════════
+# STATUS / DURATION
+# ═══════════════════════════════════════════════════════════════════════════
+[cmd_duration]
+min_time = 2_000
+style = "bold yellow"
+format = "[$duration]($style) "
+show_milliseconds = false
+
+[time]
+disabled = false
+style = "bold dim white"
+format = "[$time]($style)"
+time_format = "%H:%M"
+utc_time_offset = "local"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PROMPT CHARACTER
+# ═══════════════════════════════════════════════════════════════════════════
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+vimcmd_replace_one_symbol = "[❮](bold purple)"
+vimcmd_replace_symbol = "[❮](bold purple)"
+vimcmd_visual_symbol = "[❮](bold yellow)"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# OTHER
+# ═══════════════════════════════════════════════════════════════════════════
+[username]
+style_user = "bold yellow"
+style_root = "bold red"
+format = "[$user]($style) "
+disabled = true
+show_always = false
+
+[hostname]
+ssh_only = true
+style = "bold green"
+format = "[@$hostname]($style) "
+
+[memory_usage]
+disabled = true
+threshold = 75
+style = "bold dimmed white"
+format = "[$symbol${ram}]($style) "
+symbol = "🧠 "
+
+[battery]
+disabled = true
+
+[jobs]
+symbol = "✦"
+style = "bold blue"
+number_threshold = 1
+format = "[$symbol$number]($style) "
+
+[status]
+disabled = true
+style = "bold red"
+symbol = "✖"
+format = '[$symbol$status]($style) '
+
+[sudo]
+disabled = true
+style = "bold red"
+symbol = "🔐 "
+format = "[$symbol]($style)"
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CUSTOM COMMANDS (optional)
+# ═══════════════════════════════════════════════════════════════════════════
+[custom.git_email]
+command = "git config user.email 2>/dev/null | cut -d@ -f1"
+when = "git rev-parse --git-dir 2>/dev/null"
+style = "dim white"
+format = "[$output]($style) "
+disabled = true
