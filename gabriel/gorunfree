@@ -14,412 +14,40 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 show_help() {
     echo ""
-    echo "GORUNFREE - NOIZYLAB Master Command"
+    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
+    echo -e "${GREEN}GORUNFREE - NOIZYLAB Master Command${NC}"
+    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
     echo ""
-    echo "Usage: ./gorunfree [command] [options]"
+    echo "Usage: gorunfree [command] [options]"
     echo ""
-    echo "Commands:"
+    echo -e "${YELLOW}Deployment:${NC}"
     echo "  deploy [target]    Deploy to Cloudflare (all|repairs|edge|api)"
-    echo "  status             Show all system status"
     echo "  sync               Sync GitHub repo"
+    echo ""
+    echo -e "${YELLOW}Status & Monitoring:${NC}"
+    echo "  status             Show all system status"
+    echo "  health             Quick health check"
+    echo "  logs [worker]      Tail worker logs"
+    echo ""
+    echo -e "${YELLOW}AI Agents:${NC}"
     echo "  agent [name] [cmd] Invoke AI agent"
-    echo "  db [action]        Database operations"
-    echo "  aquarium [action]  Search THE_AQUARIUM archive (34TB)"
-    echo "  repairs [action]   Search repair tickets"
-    echo "  search [query]     Global search across all systems"
+    echo "  gabriel            Launch GABRIEL system"
+    echo "  brain              Launch God Brain"
+    echo "  dream              Launch DreamChamber"
+    echo ""
+    echo -e "${YELLOW}Database:${NC}"
+    echo "  db [action]        Database operations (list|query|backup)"
+    echo ""
+    echo -e "${YELLOW}Maintenance:${NC}"
+    echo "  clean              Clean temp files and caches"
+    echo "  maintain           Run daily maintenance"
+    echo "  backup             Backup NOIZYLAB system"
+    echo "  update             Update all dependencies"
+    echo ""
+    echo -e "${YELLOW}Help:${NC}"
     echo "  help               Show this help"
+    echo "  version            Show version"
     echo ""
-}
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# AQUARIUM ARCHIVE SEARCH (34TB Creative Archive)
-# ═══════════════════════════════════════════════════════════════════════════════
-aquarium() {
-    local action=${1:-help}
-    shift 2>/dev/null || true
-
-    case $action in
-        search)
-            aquarium_search "$@"
-            ;;
-        list)
-            aquarium_list "$@"
-            ;;
-        stats)
-            aquarium_stats
-            ;;
-        help|*)
-            echo ""
-            echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-            echo -e "${GREEN}THE AQUARIUM - 34TB Creative Archive${NC}"
-            echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-            echo ""
-            echo "Usage: ./gorunfree aquarium [action] [options]"
-            echo ""
-            echo "Actions:"
-            echo "  search <query>           Full-text search across archive"
-            echo "  search --project <name>  Search by project name"
-            echo "  search --year <range>    Search by year (e.g., 2005-2010)"
-            echo "  search --format <fmt>    Search by format (Pro Tools, Logic, WAV, etc)"
-            echo "  search --category <cat>  Search by category (music, sfx, voice, video)"
-            echo "  list [category]          List items (optionally by category)"
-            echo "  stats                    Show archive statistics"
-            echo ""
-            echo "Examples:"
-            echo "  ./gorunfree aquarium search \"Ed Edd\""
-            echo "  ./gorunfree aquarium search --year 2005-2010"
-            echo "  ./gorunfree aquarium search --format \"Pro Tools\" --year 2008"
-            echo "  ./gorunfree aquarium list music"
-            echo ""
-            ;;
-    esac
-}
-
-aquarium_search() {
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-    echo -e "${GREEN}AQUARIUM SEARCH${NC}"
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-
-    local query=""
-    local project=""
-    local year=""
-    local format=""
-    local category=""
-    local limit=50
-
-    # Parse arguments
-    while [[ $# -gt 0 ]]; do
-        case $1 in
-            --project|-p)
-                project="$2"
-                shift 2
-                ;;
-            --year|-y)
-                year="$2"
-                shift 2
-                ;;
-            --format|-f)
-                format="$2"
-                shift 2
-                ;;
-            --category|-c)
-                category="$2"
-                shift 2
-                ;;
-            --limit|-l)
-                limit="$2"
-                shift 2
-                ;;
-            *)
-                query="$1"
-                shift
-                ;;
-        esac
-    done
-
-    # Build API request
-    local api_url="https://noizylab-api.workers.dev/api/aquarium/search"
-    local params=""
-
-    [[ -n "$query" ]] && params="${params}&q=${query}"
-    [[ -n "$project" ]] && params="${params}&project=${project}"
-    [[ -n "$year" ]] && params="${params}&year=${year}"
-    [[ -n "$format" ]] && params="${params}&format=${format}"
-    [[ -n "$category" ]] && params="${params}&category=${category}"
-    params="${params}&limit=${limit}"
-
-    # Remove leading &
-    params="${params:1}"
-
-    echo -e "${YELLOW}Searching archive...${NC}"
-    echo ""
-
-    local response=$(curl -s "${api_url}?${params}" 2>/dev/null)
-
-    if [[ -z "$response" || "$response" == *"error"* ]]; then
-        # Fallback to local search if API not available
-        echo -e "${YELLOW}API not available. Searching local archives...${NC}"
-        aquarium_local_search "$query" "$project" "$year" "$format" "$category"
-    else
-        echo "$response" | python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    if 'results' in data:
-        print(f\"Found {len(data['results'])} items:\n\")
-        for item in data['results']:
-            print(f\"  [{item.get('category', 'unknown')}] {item.get('title', 'Untitled')}\")
-            print(f\"    Project: {item.get('project', 'N/A')} | Year: {item.get('year', 'N/A')}\")
-            print(f\"    Format: {item.get('format', 'N/A')} | Size: {item.get('size', 'N/A')}\")
-            print(f\"    Location: {item.get('location', 'N/A')}\")
-            print()
-    else:
-        print(json.dumps(data, indent=2))
-except Exception as e:
-    print(f'Parse error: {e}')
-" 2>/dev/null || echo "$response"
-    fi
-}
-
-aquarium_local_search() {
-    local query="$1"
-    local project="$2"
-    local year="$3"
-    local format="$4"
-    local category="$5"
-
-    # Search common archive locations
-    local search_paths=(
-        "/Volumes/THE_AQUARIUM"
-        "/Volumes/AQUARIUM_*"
-        "$HOME/THE_AQUARIUM"
-        "/mnt/aquarium"
-    )
-
-    local found=0
-
-    for base_path in "${search_paths[@]}"; do
-        if [[ -d "$base_path" ]]; then
-            echo -e "${GREEN}Searching: $base_path${NC}"
-
-            # Build find command
-            local find_cmd="find \"$base_path\" -type f"
-
-            if [[ -n "$query" ]]; then
-                find_cmd="$find_cmd -iname \"*${query}*\""
-            fi
-
-            if [[ -n "$format" ]]; then
-                case "$format" in
-                    "Pro Tools"|"protools"|"ptx")
-                        find_cmd="$find_cmd -name \"*.ptx\" -o -name \"*.ptf\""
-                        ;;
-                    "Logic"|"logic")
-                        find_cmd="$find_cmd -name \"*.logic\" -o -name \"*.logicx\""
-                        ;;
-                    "WAV"|"wav")
-                        find_cmd="$find_cmd -name \"*.wav\""
-                        ;;
-                    "AIFF"|"aiff")
-                        find_cmd="$find_cmd -name \"*.aiff\" -o -name \"*.aif\""
-                        ;;
-                    *)
-                        find_cmd="$find_cmd -iname \"*.${format}\""
-                        ;;
-                esac
-            fi
-
-            eval "$find_cmd" 2>/dev/null | head -50 | while read -r file; do
-                found=$((found + 1))
-                local filename=$(basename "$file")
-                local dirname=$(dirname "$file")
-                local size=$(ls -lh "$file" 2>/dev/null | awk '{print $5}')
-                echo -e "  ${GREEN}●${NC} $filename"
-                echo -e "    Location: $dirname"
-                echo -e "    Size: $size"
-                echo ""
-            done
-        fi
-    done
-
-    if [[ $found -eq 0 ]]; then
-        echo -e "${YELLOW}No local archives found. Mount THE_AQUARIUM volumes or use API.${NC}"
-    fi
-}
-
-aquarium_list() {
-    local category=${1:-all}
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-    echo -e "${GREEN}AQUARIUM LISTING: $category${NC}"
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-
-    curl -s "https://noizylab-api.workers.dev/api/aquarium/list?category=$category&limit=100" 2>/dev/null | \
-        python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    for item in data.get('items', []):
-        print(f\"  [{item.get('category')}] {item.get('title')}\")
-except:
-    print('API not available or no items found')
-" 2>/dev/null || echo "API not available"
-}
-
-aquarium_stats() {
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-    echo -e "${GREEN}THE AQUARIUM - Archive Statistics${NC}"
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-    echo ""
-
-    curl -s "https://noizylab-api.workers.dev/api/aquarium/stats" 2>/dev/null | \
-        python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    print(f\"  Total Items:    {data.get('total_items', 'N/A')}\")
-    print(f\"  Total Size:     {data.get('total_size', '34TB')}\")
-    print(f\"  Categories:     {data.get('categories', 'N/A')}\")
-    print(f\"  Year Range:     {data.get('year_range', 'N/A')}\")
-    print(f\"  Formats:        {data.get('formats', 'N/A')}\")
-    print()
-    if 'by_category' in data:
-        print('  By Category:')
-        for cat, count in data['by_category'].items():
-            print(f\"    {cat}: {count}\")
-except Exception as e:
-    print('Stats: 34TB archive spanning 40+ years')
-    print('Categories: Music, SFX, Voice, Video, Samples')
-" 2>/dev/null
-}
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# REPAIRS SEARCH
-# ═══════════════════════════════════════════════════════════════════════════════
-repairs_search() {
-    local action=${1:-help}
-    shift 2>/dev/null || true
-
-    case $action in
-        search)
-            repairs_do_search "$@"
-            ;;
-        status)
-            repairs_by_status "$@"
-            ;;
-        customer)
-            repairs_by_customer "$@"
-            ;;
-        help|*)
-            echo ""
-            echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-            echo -e "${GREEN}NOIZYLAB REPAIRS SEARCH${NC}"
-            echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-            echo ""
-            echo "Usage: ./gorunfree repairs [action] [options]"
-            echo ""
-            echo "Actions:"
-            echo "  search <query>         Search by ticket, name, or device"
-            echo "  status <status>        List repairs by status (intake|in_progress|completed)"
-            echo "  customer <name/email>  Find repairs by customer"
-            echo ""
-            echo "Examples:"
-            echo "  ./gorunfree repairs search \"NZ-ABC123\""
-            echo "  ./gorunfree repairs search \"MacBook\""
-            echo "  ./gorunfree repairs status in_progress"
-            echo "  ./gorunfree repairs customer \"john@example.com\""
-            echo ""
-            ;;
-    esac
-}
-
-repairs_do_search() {
-    local query="$1"
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-    echo -e "${GREEN}REPAIRS SEARCH: $query${NC}"
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-
-    curl -s "https://noizylab-api.workers.dev/api/repairs/search?q=$query" 2>/dev/null | \
-        python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    for r in data.get('repairs', []):
-        print(f\"  [{r.get('status')}] {r.get('ticket_id')} - {r.get('customer_name')}\")
-        print(f\"    Device: {r.get('device_type')} {r.get('device_model', '')}\")
-        print(f\"    Issue: {r.get('issue_description', 'N/A')[:60]}...\")
-        print(f\"    Created: {r.get('created_at')}\")
-        print()
-except Exception as e:
-    print(f'Error: {e}')
-" 2>/dev/null || echo "API error or no results"
-}
-
-repairs_by_status() {
-    local status="$1"
-    curl -s "https://noizylab-api.workers.dev/api/repairs/search?status=$status" 2>/dev/null | \
-        python3 -m json.tool 2>/dev/null || echo "API not available"
-}
-
-repairs_by_customer() {
-    local customer="$1"
-    curl -s "https://noizylab-api.workers.dev/api/repairs/search?customer=$customer" 2>/dev/null | \
-        python3 -m json.tool 2>/dev/null || echo "API not available"
-}
-
-# ═══════════════════════════════════════════════════════════════════════════════
-# GLOBAL UNIFIED SEARCH
-# ═══════════════════════════════════════════════════════════════════════════════
-global_search() {
-    local query="$1"
-
-    if [[ -z "$query" ]]; then
-        echo ""
-        echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-        echo -e "${GREEN}GLOBAL SEARCH - Search Across All Systems${NC}"
-        echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-        echo ""
-        echo "Usage: ./gorunfree search <query>"
-        echo ""
-        echo "Searches across:"
-        echo "  - THE AQUARIUM (34TB creative archive)"
-        echo "  - Repair tickets and customers"
-        echo "  - Knowledge Lake"
-        echo "  - Agent memory"
-        echo ""
-        return
-    fi
-
-    echo ""
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-    echo -e "${GREEN}GLOBAL SEARCH: $query${NC}"
-    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
-    echo ""
-
-    # Call unified search API
-    local response=$(curl -s "https://noizylab-api.workers.dev/api/search?q=$query" 2>/dev/null)
-
-    if [[ -n "$response" && "$response" != *"error"* ]]; then
-        echo "$response" | python3 -c "
-import sys, json
-try:
-    data = json.load(sys.stdin)
-    total = data.get('total', 0)
-    print(f'Found {total} results across all systems:\n')
-
-    for source, results in data.get('results', {}).items():
-        if results:
-            print(f'── {source.upper()} ({len(results)} results) ──')
-            for item in results[:5]:
-                if source == 'aquarium':
-                    print(f\"  ● {item.get('title')} [{item.get('category')}]\")
-                elif source == 'repairs':
-                    print(f\"  ● {item.get('ticket_id')} - {item.get('customer_name')}\")
-                elif source == 'knowledge':
-                    print(f\"  ● {item.get('title')} [{item.get('type')}]\")
-                else:
-                    print(f\"  ● {item}\")
-            print()
-except Exception as e:
-    print(f'Parse error: {e}')
-" 2>/dev/null || echo "$response"
-    else
-        # Fallback: search locally and via individual APIs
-        echo -e "${YELLOW}Unified API not available. Searching individual systems...${NC}"
-        echo ""
-
-        echo -e "${GREEN}── REPAIRS ──${NC}"
-        curl -s "https://noizylab-api.workers.dev/api/repairs/search?q=$query&limit=5" 2>/dev/null | \
-            python3 -c "import sys,json; [print(f\"  ● {r.get('ticket_id')} - {r.get('customer_name')}\") for r in json.load(sys.stdin).get('repairs',[])]" 2>/dev/null || echo "  (not available)"
-
-        echo ""
-        echo -e "${GREEN}── AQUARIUM ──${NC}"
-        aquarium_local_search "$query" "" "" "" "" 2>/dev/null | head -15
-
-        echo ""
-        echo -e "${GREEN}── KNOWLEDGE LAKE ──${NC}"
-        curl -s "https://noizylab-api.workers.dev/api/knowledge/search?q=$query&limit=5" 2>/dev/null | \
-            python3 -c "import sys,json; [print(f\"  ● {r.get('title')} [{r.get('type')}]\") for r in json.load(sys.stdin).get('results',[])]" 2>/dev/null || echo "  (not available)"
-    fi
 }
 
 deploy() {
@@ -488,6 +116,95 @@ invoke_agent() {
         echo "Agent endpoint not deployed yet"
 }
 
+health_check() {
+    echo -e "${BLUE}Quick Health Check...${NC}"
+
+    # Workers
+    local worker_status=$(curl -s -o /dev/null -w '%{http_code}' https://noizylab.rsplowman.workers.dev/health 2>/dev/null)
+    [ "$worker_status" = "200" ] && echo -e "${GREEN}[OK] Cloudflare Workers${NC}" || echo -e "${RED}[!!] Workers: $worker_status${NC}"
+
+    # Tailscale
+    tailscale status &>/dev/null && echo -e "${GREEN}[OK] Tailscale VPN${NC}" || echo -e "${YELLOW}[--] Tailscale not running${NC}"
+
+    # Ollama
+    curl -s http://localhost:11434/api/tags &>/dev/null && echo -e "${GREEN}[OK] Ollama${NC}" || echo -e "${YELLOW}[--] Ollama not running${NC}"
+
+    # Disk space
+    local disk_pct=$(df -h / | tail -1 | awk '{print $5}' | tr -d '%')
+    [ "$disk_pct" -lt 90 ] && echo -e "${GREEN}[OK] Disk: ${disk_pct}% used${NC}" || echo -e "${RED}[!!] Disk: ${disk_pct}% used${NC}"
+}
+
+tail_logs() {
+    local worker=${1:-noizylab-main}
+    echo -e "${BLUE}Tailing logs for $worker...${NC}"
+    cd "$REPO_ROOT/workers/$worker" 2>/dev/null && wrangler tail || echo "Worker not found: $worker"
+}
+
+launch_gabriel() {
+    echo -e "${BLUE}Launching GABRIEL...${NC}"
+    python3 "$REPO_ROOT/gabriel.py" "$@"
+}
+
+launch_brain() {
+    echo -e "${BLUE}Activating God Brain...${NC}"
+    python3 "$REPO_ROOT/brain/god_brain.py" "$@" 2>/dev/null || \
+        python3 "$REPO_ROOT/CODEMASTER/master_orchestrator.py" "$@"
+}
+
+launch_dream() {
+    echo -e "${BLUE}Entering DreamChamber...${NC}"
+    python3 "$REPO_ROOT/core/dreamchamber.py" "$@" 2>/dev/null || \
+        echo "DreamChamber not installed"
+}
+
+db_operations() {
+    local action=${1:-list}
+    echo -e "${BLUE}Database: $action${NC}"
+    case $action in
+        list)
+            wrangler d1 list 2>/dev/null || echo "D1 not configured"
+            ;;
+        query)
+            local db=${2:-noizylab-repairs}
+            local sql="$3"
+            wrangler d1 execute "$db" --command="$sql"
+            ;;
+        backup)
+            echo "Backup feature coming soon..."
+            ;;
+    esac
+}
+
+clean_system() {
+    echo -e "${BLUE}Cleaning system...${NC}"
+
+    # Clean Python cache
+    find "$REPO_ROOT" -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null
+    find "$REPO_ROOT" -type f -name "*.pyc" -delete 2>/dev/null
+
+    # Clean node modules cache
+    find "$REPO_ROOT" -name ".cache" -type d -exec rm -rf {} + 2>/dev/null
+
+    # Clean logs older than 7 days
+    find "$REPO_ROOT/logs" -type f -mtime +7 -delete 2>/dev/null
+
+    echo -e "${GREEN}[OK] Cleanup complete${NC}"
+}
+
+update_deps() {
+    echo -e "${BLUE}Updating dependencies...${NC}"
+
+    # NPM
+    if [ -f "$REPO_ROOT/package.json" ]; then
+        cd "$REPO_ROOT" && npm update
+    fi
+
+    # Wrangler
+    npm update -g wrangler 2>/dev/null
+
+    echo -e "${GREEN}[OK] Dependencies updated${NC}"
+}
+
 # Main command router
 case ${1:-help} in
     deploy)
@@ -496,23 +213,45 @@ case ${1:-help} in
     status)
         status
         ;;
+    health)
+        health_check
+        ;;
+    logs)
+        tail_logs "$2"
+        ;;
     sync)
         sync_repo
         ;;
     agent)
         invoke_agent "$2" "$3"
         ;;
-    aquarium)
-        shift
-        aquarium "$@"
+    gabriel)
+        launch_gabriel "${@:2}"
         ;;
-    repairs)
-        shift
-        repairs_search "$@"
+    brain)
+        launch_brain "${@:2}"
         ;;
-    search)
-        shift
-        global_search "$@"
+    dream)
+        launch_dream "${@:2}"
+        ;;
+    db)
+        db_operations "$2" "$3" "$4"
+        ;;
+    clean)
+        clean_system
+        ;;
+    maintain)
+        "$REPO_ROOT/scripts/daily_maintenance.sh"
+        ;;
+    backup)
+        "$REPO_ROOT/scripts/backup_noizylab.sh"
+        ;;
+    update)
+        update_deps
+        ;;
+    version)
+        echo "GORUNFREE v2.0 - NOIZYLAB Master Command"
+        echo "Built for MC96ECOUNIVERSE"
         ;;
     help|*)
         show_help

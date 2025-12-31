@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Run TURBO_VACUUM on home directory",
+    "status": "completed",
+    "activeForm": "Running TURBO_VACUUM cleanup"
+  },
+  {
+    "content": "Run TURBO_DEDUP to find duplicates",
+    "status": "completed",
+    "activeForm": "Running TURBO_DEDUP scan"
+  },
+  {
+    "content": "Run TURBO_OMEGA full protocol",
+    "status": "in_progress",
+    "activeForm": "Running TURBO_OMEGA protocol"
+  }
+]

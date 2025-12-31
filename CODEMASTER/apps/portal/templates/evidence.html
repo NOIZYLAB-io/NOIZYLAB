@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📋 Evidence Packs</h1>
+</div>
+
+<!-- Info Banner -->
+<div class="card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(0, 212, 170, 0.2) 100%); border: 1px solid var(--primary); margin-bottom: 1rem;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+        <span style="font-size: 2rem;">📋</span>
+        <div>
+            <div style="font-weight: bold; color: var(--text);">Evidence-First System</div>
+            <div style="color: var(--text-muted); font-size: 0.875rem;">
+                Every action produces an Evidence Pack. Claims without evidence are marked UNSUPPORTED.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value" id="total-packs">--</div>
+        <div class="stat-label">Total Packs</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="verified-packs">--</div>
+        <div class="stat-label">Verified</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="pending-packs">--</div>
+        <div class="stat-label">Pending</div>
+    </div>
+</div>
+
+<!-- Pack List -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Recent Evidence Packs</h3>
+        <div style="display: flex; gap: 0.5rem;">
+            <select id="status-filter" onchange="filterPacks()" style="padding: 0.5rem; border-radius: 8px; background: var(--surface-hover); border: 1px solid rgba(255,255,255,0.1); color: var(--text);">
+                <option value="">All Status</option>
+                <option value="verified">Verified</option>
+                <option value="pending">Pending</option>
+                <option value="partial">Partial</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="pack-list" class="loading">
+        <div class="spinner"></div>
+        Loading evidence packs...
+    </div>
+</div>
+
+<!-- Pack Detail Modal -->
+<dialog id="pack-modal" style="background: var(--surface); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); max-width: 900px; width: 95%; max-height: 90vh; overflow-y: auto;">
+    <div class="card" style="margin: 0; border: none;">
+        <div class="card-header">
+            <h3 class="card-title" id="modal-pack-title">Evidence Pack</h3>
+            <button onclick="document.getElementById('pack-modal').close()" class="btn btn-secondary" style="padding: 0.5rem;">
+                ✕
+            </button>
+        </div>
+        <div id="modal-pack-content">
+        </div>
+    </div>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let allPacks = [];
+    
+    async function loadPacks() {
+        document.getElementById('pack-list').innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
+        
+        try {
+            const packs = await fetch('/api/evidence/packs?limit=100').then(r => r.json());
+            allPacks = Array.isArray(packs) ? packs : [];
+            
+            // Update stats
+            document.getElementById('total-packs').textContent = allPacks.length;
+            document.getElementById('verified-packs').textContent = allPacks.filter(p => p.status === 'verified').length;
+            document.getElementById('pending-packs').textContent = allPacks.filter(p => p.status === 'pending').length;
+            
+            renderPacks(allPacks);
+        } catch (e) {
+            document.getElementById('pack-list').innerHTML = '<div style="color: var(--text-muted);">Service unavailable</div>';
+        }
+    }
+    
+    function filterPacks() {
+        const status = document.getElementById('status-filter').value;
+        if (!status) {
+            renderPacks(allPacks);
+            return;
+        }
+        const filtered = allPacks.filter(p => p.status === status);
+        renderPacks(filtered);
+    }
+    
+    function renderPacks(packs) {
+        if (!packs || packs.length === 0) {
+            document.getElementById('pack-list').innerHTML = '<div style="color: var(--text-muted); padding: 2rem; text-align: center;">No evidence packs found</div>';
+            return;
+        }
+        
+        document.getElementById('pack-list').innerHTML = `
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Pack ID</th>
+                        <th>Question</th>
+                        <th>Claims</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${packs.map(p => `
+                        <tr>
+                            <td style="font-family: monospace; font-size: 0.875rem; color: var(--primary);">
+                                ${p.pack_id || 'unknown'}
+                            </td>
+                            <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                ${p.question || 'N/A'}
+                            </td>
+                            <td>
+                                <span class="badge badge-info">${(p.claims || []).length} claims</span>
+                            </td>
+                            <td>
+                                ${getStatusBadge(p.status, p.verification)}
+                            </td>
+                            <td style="color: var(--text-muted);">
+                                ${p.created_at ? new Date(p.created_at).toLocaleDateString() : '--'}
+                            </td>
+                            <td>
+                                <button onclick="viewPack('${p.pack_id}')" class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; margin-right: 0.25rem;">
+                                    View
+                                </button>
+                                ${p.status !== 'verified' ? `
+                                    <button onclick="verifyPack('${p.pack_id}')" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                                        Verify
+                                    </button>
+                                ` : ''}
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+    
+    function getStatusBadge(status, verification) {
+        const confidence = verification?.confidence;
+        const confidenceStr = confidence ? ` (${Math.round(confidence * 100)}%)` : '';
+        
+        switch (status) {
+            case 'verified':
+                return `<span class="badge badge-success">✓ Verified${confidenceStr}</span>`;
+            case 'partial':
+                return `<span class="badge badge-warning">⚠ Partial${confidenceStr}</span>`;
+            case 'unsupported':
+                return `<span class="badge badge-danger">✗ Unsupported</span>`;
+            default:
+                return `<span class="badge badge-info">⏳ Pending</span>`;
+        }
+    }
+    
+    async function viewPack(packId) {
+        const modal = document.getElementById('pack-modal');
+        const content = document.getElementById('modal-pack-content');
+        const title = document.getElementById('modal-pack-title');
+        
+        content.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
+        modal.showModal();
+        
+        try {
+            const pack = await fetch(`/api/evidence/pack/${packId}`).then(r => r.json());
+            
+            title.textContent = `Evidence Pack: ${packId}`;
+            content.innerHTML = `
+                <!-- Question -->
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Question / Task</div>
+                    <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; font-size: 1rem;">
+                        ${pack.question || 'N/A'}
+                    </div>
+                </div>
+                
+                <!-- Status & Confidence -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="stat-card" style="padding: 1rem;">
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Status</div>
+                        <div style="margin-top: 0.5rem;">${getStatusBadge(pack.status, pack.verification)}</div>
+                    </div>
+                    <div class="stat-card" style="padding: 1rem;">
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Claims</div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary); margin-top: 0.5rem;">${(pack.claims || []).length}</div>
+                    </div>
+                    <div class="stat-card" style="padding: 1rem;">
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Actions</div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary); margin-top: 0.5rem;">${(pack.actions || []).length}</div>
+                    </div>
+                </div>
+                
+                <!-- Claims -->
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Claims</div>
+                    <div style="background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden;">
+                        ${(pack.claims || []).map((c, i) => `
+                            <div style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); ${i === pack.claims.length - 1 ? 'border-bottom: none;' : ''}">
+                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                                    <div style="flex: 1;">${c.claim_text || 'Unknown claim'}</div>
+                                    <div>${getClaimStatusBadge(c.status)}</div>
+                                </div>
+                                ${c.sources && c.sources.length > 0 ? `
+                                    <div style="font-size: 0.75rem; color: var(--text-muted);">
+                                        Sources: ${c.sources.map(s => `<code style="background: rgba(0,0,0,0.3); padding: 0.125rem 0.25rem; border-radius: 4px;">${s}</code>`).join(', ')}
+                                    </div>
+                                ` : '<div style="font-size: 0.75rem; color: var(--danger);">No evidence sources</div>'}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- Actions -->
+                ${pack.actions && pack.actions.length > 0 ? `
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Actions Taken</div>
+                        <div style="background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden;">
+                            ${pack.actions.map((a, i) => `
+                                <div style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); ${i === pack.actions.length - 1 ? 'border-bottom: none;' : ''}">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <span class="badge badge-info">${a.action || 'unknown'}</span>
+                                            ${a.timestamp ? `<span style="color: var(--text-muted); font-size: 0.75rem; margin-left: 0.5rem;">${new Date(a.timestamp).toLocaleString()}</span>` : ''}
+                                        </div>
+                                    </div>
+                                    ${a.params ? `<pre style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--text-muted); overflow-x: auto;">${JSON.stringify(a.params, null, 2)}</pre>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                <!-- Answer -->
+                <div style="margin-bottom: 1rem;">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Answer / Result</div>
+                    <div style="background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%); padding: 1rem; border-radius: 8px; border: 1px solid var(--primary);">
+                        ${pack.answer || 'No answer provided'}
+                    </div>
+                </div>
+                
+                <!-- Verification Info -->
+                ${pack.verification ? `
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Verification</div>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 8px; font-size: 0.75rem; overflow-x: auto;">${JSON.stringify(pack.verification, null, 2)}</pre>
+                    </div>
+                ` : ''}
+            `;
+        } catch (e) {
+            content.innerHTML = '<div style="color: var(--danger);">Failed to load evidence pack</div>';
+        }
+    }
+    
+    function getClaimStatusBadge(status) {
+        switch (status) {
+            case 'supported':
+                return '<span class="badge badge-success">✓ Supported</span>';
+            case 'partial':
+                return '<span class="badge badge-warning">⚠ Partial</span>';
+            case 'unsupported':
+                return '<span class="badge badge-danger">✗ Unsupported</span>';
+            default:
+                return '<span class="badge badge-info">? Unknown</span>';
+        }
+    }
+    
+    async function verifyPack(packId) {
+        if (!confirm('Run verification on this evidence pack?')) return;
+        
+        try {
+            const result = await fetch(`/api/evidence/verify/${packId}`, { method: 'POST' }).then(r => r.json());
+            
+            if (result.error) {
+                alert('Verification failed: ' + result.error);
+            } else {
+                alert('Verification complete!');
+                loadPacks();
+            }
+        } catch (e) {
+            alert('Verification failed');
+        }
+    }
+    
+    // Initial load
+    loadPacks();
+    
+    // Check URL for specific pack
+    const urlParams = new URLSearchParams(window.location.search);
+    const packId = urlParams.get('id');
+    if (packId) {
+        setTimeout(() => viewPack(packId), 500);
+    }
+</script>
+{% endblock %}

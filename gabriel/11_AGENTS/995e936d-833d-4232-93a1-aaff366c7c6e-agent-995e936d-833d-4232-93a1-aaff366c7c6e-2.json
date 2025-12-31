@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Scan 6TB NOIZYLAB_ARCHIVE",
+    "status": "in_progress",
+    "activeForm": "Scanning 6TB"
+  },
+  {
+    "content": "Copy 6TB Gabriel code",
+    "status": "pending",
+    "activeForm": "Copying 6TB code"
+  },
+  {
+    "content": "Scan 12TB for code",
+    "status": "pending",
+    "activeForm": "Scanning 12TB"
+  },
+  {
+    "content": "Final consolidation",
+    "status": "pending",
+    "activeForm": "Final consolidation"
+  }
+]

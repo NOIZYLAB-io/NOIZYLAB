@@ -1,16 +1,7 @@
+
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "CODEMASTER"
-		},
-		{
-			"path": "../.."
-		}
-	],
-	"settings": {
-		"git.ignoreLimitWarning": true
-	}
+    "settings": {
+        "chatgpt.openOnStartup": false,
+        "git.ignoreLimitWarning": true
+    }
 }

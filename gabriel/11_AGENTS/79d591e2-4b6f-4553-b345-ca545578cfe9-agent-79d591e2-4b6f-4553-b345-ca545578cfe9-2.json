@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Refactor install.sh for robustness and modularity",
+    "status": "completed",
+    "activeForm": "Refactoring install script"
+  },
+  {
+    "content": "Integrate Husky for automated pre-commit hooks",
+    "status": "completed",
+    "activeForm": "Integrating Husky"
+  },
+  {
+    "content": "Implement production-grade linting with ESLint and Prettier",
+    "status": "completed",
+    "activeForm": "Upgrading linter"
+  },
+  {
+    "content": "Create snippets for common patterns",
+    "status": "completed",
+    "activeForm": "Adding React snippets"
+  }
+]

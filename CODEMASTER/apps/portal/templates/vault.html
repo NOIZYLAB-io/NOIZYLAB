@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📦 Vault Browser</h1>
+</div>
+
+<!-- Search -->
+<div class="card" style="margin-bottom: 1rem;">
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search vault assets..." 
+               onkeypress="if(event.key === 'Enter') searchVault()">
+        <button onclick="searchVault()" class="btn btn-primary">
+            🔍 Search
+        </button>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid" id="vault-stats">
+    <div class="stat-card">
+        <div class="stat-value" id="total-assets">--</div>
+        <div class="stat-label">Total Assets</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="total-size">--</div>
+        <div class="stat-label">Total Size</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="asset-types">--</div>
+        <div class="stat-label">Asset Types</div>
+    </div>
+</div>
+
+<!-- Results -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title" id="results-title">Recent Assets</h3>
+        <div style="display: flex; gap: 0.5rem;">
+            <select id="type-filter" onchange="filterByType()" style="padding: 0.5rem; border-radius: 8px; background: var(--surface-hover); border: 1px solid rgba(255,255,255,0.1); color: var(--text);">
+                <option value="">All Types</option>
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="markdown">Markdown</option>
+                <option value="json">JSON</option>
+                <option value="image">Images</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="results" class="loading">
+        <div class="spinner"></div>
+        Loading assets...
+    </div>
+</div>
+
+<!-- Asset Detail Modal -->
+<dialog id="asset-modal" style="background: var(--surface); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); max-width: 800px; width: 90%;">
+    <div class="card" style="margin: 0; border: none;">
+        <div class="card-header">
+            <h3 class="card-title" id="modal-title">Asset Details</h3>
+            <button onclick="document.getElementById('asset-modal').close()" class="btn btn-secondary" style="padding: 0.5rem;">
+                ✕
+            </button>
+        </div>
+        <div id="modal-content">
+        </div>
+    </div>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let currentAssets = [];
+    
+    async function loadVaultStats() {
+        try {
+            const stats = await fetch('/api/vault/stats').then(r => r.json());
+            document.getElementById('total-assets').textContent = stats.total_assets || '0';
+            document.getElementById('total-size').textContent = formatSize(stats.total_size || 0);
+            document.getElementById('asset-types').textContent = Object.keys(stats.by_type || {}).length;
+        } catch (e) {
+            console.error('Failed to load vault stats:', e);
+        }
+    }
+    
+    async function loadRecentAssets() {
+        document.getElementById('results').innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
+        
+        try {
+            const assets = await fetch('/api/vault/recent?limit=50').then(r => r.json());
+            currentAssets = Array.isArray(assets) ? assets : [];
+            renderAssets(currentAssets);
+            document.getElementById('results-title').textContent = 'Recent Assets';
+        } catch (e) {
+            document.getElementById('results').innerHTML = '<div style="color: var(--text-muted);">Failed to load assets</div>';
+        }
+    }
+    
+    async function searchVault() {
+        const query = document.getElementById('search-input').value.trim();
+        if (!query) {
+            loadRecentAssets();
+            return;
+        }
+        
+        document.getElementById('results').innerHTML = '<div class="loading"><div class="spinner"></div> Searching...</div>';
+        
+        try {
+            const assets = await fetch(`/api/vault/search?q=${encodeURIComponent(query)}`).then(r => r.json());
+            currentAssets = Array.isArray(assets) ? assets : [];
+            renderAssets(currentAssets);
+            document.getElementById('results-title').textContent = `Search Results for "${query}"`;
+        } catch (e) {
+            document.getElementById('results').innerHTML = '<div style="color: var(--danger);">Search failed</div>';
+        }
+    }
+    
+    function filterByType() {
+        const type = document.getElementById('type-filter').value;
+        if (!type) {
+            renderAssets(currentAssets);
+            return;
+        }
+        
+        const filtered = currentAssets.filter(a => 
+            (a.asset_type || '').toLowerCase().includes(type.toLowerCase()) ||
+            (a.filename || '').toLowerCase().endsWith(`.${type}`)
+        );
+        renderAssets(filtered);
+    }
+    
+    function renderAssets(assets) {
+        if (!assets || assets.length === 0) {
+            document.getElementById('results').innerHTML = '<div style="color: var(--text-muted); padding: 2rem; text-align: center;">No assets found</div>';
+            return;
+        }
+        
+        document.getElementById('results').innerHTML = `
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Filename</th>
+                        <th>Type</th>
+                        <th>Size</th>
+                        <th>Hash</th>
+                        <th>Added</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${assets.map(a => `
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span>${getFileIcon(a.filename)}</span>
+                                    <span>${a.filename || 'unknown'}</span>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-info">${a.asset_type || 'file'}</span></td>
+                            <td style="color: var(--text-muted);">${formatSize(a.file_size || 0)}</td>
+                            <td style="font-family: monospace; font-size: 0.75rem; color: var(--text-muted);">${(a.content_hash || '').substring(0, 8)}...</td>
+                            <td style="color: var(--text-muted);">${a.created_at ? new Date(a.created_at).toLocaleDateString() : '--'}</td>
+                            <td>
+                                <button onclick="viewAsset('${a.asset_id}')" class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+    
+    async function viewAsset(assetId) {
+        const modal = document.getElementById('asset-modal');
+        const content = document.getElementById('modal-content');
+        const title = document.getElementById('modal-title');
+        
+        content.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
+        modal.showModal();
+        
+        try {
+            const asset = await fetch(`/api/vault/asset/${assetId}`).then(r => r.json());
+            
+            title.textContent = asset.filename || 'Asset Details';
+            content.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Type</div>
+                        <div>${asset.asset_type || 'unknown'}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Size</div>
+                        <div>${formatSize(asset.file_size || 0)}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Hash</div>
+                        <div style="font-family: monospace; font-size: 0.875rem;">${asset.content_hash || 'N/A'}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Added</div>
+                        <div>${asset.created_at ? new Date(asset.created_at).toLocaleString() : 'Unknown'}</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Path</div>
+                    <div style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 8px; font-family: monospace; font-size: 0.875rem; word-break: break-all;">
+                        ${asset.vault_path || 'N/A'}
+                    </div>
+                </div>
+                
+                ${asset.tags && asset.tags.length > 0 ? `
+                    <div style="margin-top: 1rem;">
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Tags</div>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            ${asset.tags.map(t => `<span class="badge badge-info">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${asset.metadata ? `
+                    <div style="margin-top: 1rem;">
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Metadata</div>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 8px; font-size: 0.75rem; overflow-x: auto;">${JSON.stringify(asset.metadata, null, 2)}</pre>
+                    </div>
+                ` : ''}
+            `;
+        } catch (e) {
+            content.innerHTML = '<div style="color: var(--danger);">Failed to load asset details</div>';
+        }
+    }
+    
+    function getFileIcon(filename) {
+        if (!filename) return '📄';
+        const ext = filename.split('.').pop().toLowerCase();
+        const icons = {
+            py: '🐍', js: '📜', ts: '📘', html: '🌐', css: '🎨',
+            json: '📋', yaml: '⚙️', yml: '⚙️', md: '📝',
+            png: '🖼️', jpg: '🖼️', jpeg: '🖼️', gif: '🖼️', svg: '🎭',
+            pdf: '📕', doc: '📘', docx: '📘',
+            sh: '🐚', bash: '🐚', zsh: '🐚',
+            sql: '🗄️', db: '🗄️',
+        };
+        return icons[ext] || '📄';
+    }
+    
+    function formatSize(bytes) {
+        if (bytes === 0) return '0 B';
+        const k = 1024;
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+    
+    // Initial load
+    loadVaultStats();
+    loadRecentAssets();
+</script>
+{% endblock %}

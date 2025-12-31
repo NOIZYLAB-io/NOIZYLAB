@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Fix GitHub login/authentication",
+    "status": "in_progress",
+    "activeForm": "Fixing GitHub login"
+  },
+  {
+    "content": "Fix SSH/Remote access",
+    "status": "pending",
+    "activeForm": "Fixing SSH access"
+  },
+  {
+    "content": "Fix API keys configuration",
+    "status": "pending",
+    "activeForm": "Fixing API keys"
+  },
+  {
+    "content": "Fix Cloud services login",
+    "status": "pending",
+    "activeForm": "Fixing cloud logins"
+  }
+]

@@ -1,0 +1,422 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🌐 Network Control</h1>
+    <div style="display: flex; gap: 0.5rem;">
+        <button onclick="runBackup()" class="btn btn-secondary">
+            💾 Backup All
+        </button>
+        <button onclick="refreshNetwork()" class="btn btn-secondary">
+            🔄 Refresh
+        </button>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value" id="total-network">--</div>
+        <div class="stat-label">Network Devices</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="switches">--</div>
+        <div class="stat-label">Switches</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="routers">--</div>
+        <div class="stat-label">Routers</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="firewalls">--</div>
+        <div class="stat-label">Firewalls</div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+    <!-- Device List -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Network Devices</h3>
+            <div style="display: flex; gap: 0.5rem;">
+                <select id="type-filter" onchange="filterDevices()" style="padding: 0.5rem; border-radius: 8px; background: var(--surface-hover); border: 1px solid rgba(255,255,255,0.1); color: var(--text);">
+                    <option value="">All Types</option>
+                    <option value="switch">Switches</option>
+                    <option value="router">Routers</option>
+                    <option value="firewall">Firewalls</option>
+                    <option value="access_point">Access Points</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="network-list" class="loading">
+            <div class="spinner"></div>
+            Loading network devices...
+        </div>
+    </div>
+    
+    <!-- Runbooks -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">📋 Runbooks</h3>
+        </div>
+        
+        <div id="runbook-list" class="loading">
+            <div class="spinner"></div>
+            Loading runbooks...
+        </div>
+    </div>
+</div>
+
+<!-- Device Detail Modal -->
+<dialog id="network-modal" style="background: var(--surface); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); max-width: 700px; width: 90%;">
+    <div class="card" style="margin: 0; border: none;">
+        <div class="card-header">
+            <h3 class="card-title" id="modal-network-title">Network Device</h3>
+            <button onclick="document.getElementById('network-modal').close()" class="btn btn-secondary" style="padding: 0.5rem;">
+                ✕
+            </button>
+        </div>
+        <div id="modal-network-content">
+        </div>
+    </div>
+</dialog>
+
+<!-- Runbook Modal -->
+<dialog id="runbook-modal" style="background: var(--surface); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); max-width: 600px; width: 90%;">
+    <div class="card" style="margin: 0; border: none;">
+        <div class="card-header">
+            <h3 class="card-title" id="runbook-modal-title">Execute Runbook</h3>
+            <button onclick="document.getElementById('runbook-modal').close()" class="btn btn-secondary" style="padding: 0.5rem;">
+                ✕
+            </button>
+        </div>
+        <div id="runbook-modal-content">
+        </div>
+    </div>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let allNetworkDevices = [];
+    
+    async function loadNetworkData() {
+        // Load devices
+        try {
+            const devices = await fetch('/api/network/devices').then(r => r.json());
+            allNetworkDevices = Array.isArray(devices) ? devices : [];
+            
+            // Update stats
+            document.getElementById('total-network').textContent = allNetworkDevices.length;
+            document.getElementById('switches').textContent = allNetworkDevices.filter(d => d.device_type === 'switch').length;
+            document.getElementById('routers').textContent = allNetworkDevices.filter(d => d.device_type === 'router').length;
+            document.getElementById('firewalls').textContent = allNetworkDevices.filter(d => d.device_type === 'firewall').length;
+            
+            renderDevices(allNetworkDevices);
+        } catch (e) {
+            document.getElementById('network-list').innerHTML = '<div style="color: var(--text-muted);">Service unavailable</div>';
+        }
+        
+        // Load runbooks
+        try {
+            const data = await fetch('/api/network/runbooks').then(r => r.json());
+            renderRunbooks(data.runbooks || []);
+        } catch (e) {
+            document.getElementById('runbook-list').innerHTML = '<div style="color: var(--text-muted);">Service unavailable</div>';
+        }
+    }
+    
+    function filterDevices() {
+        const type = document.getElementById('type-filter').value;
+        if (!type) {
+            renderDevices(allNetworkDevices);
+            return;
+        }
+        const filtered = allNetworkDevices.filter(d => d.device_type === type);
+        renderDevices(filtered);
+    }
+    
+    function renderDevices(devices) {
+        if (!devices || devices.length === 0) {
+            document.getElementById('network-list').innerHTML = '<div style="color: var(--text-muted); padding: 2rem; text-align: center;">No network devices found</div>';
+            return;
+        }
+        
+        document.getElementById('network-list').innerHTML = `
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Device</th>
+                        <th>IP Address</th>
+                        <th>Type</th>
+                        <th>Vendor</th>
+                        <th>Last Backup</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${devices.map(d => `
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span>${getDeviceIcon(d.device_type)}</span>
+                                    <div>
+                                        <div>${d.hostname}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-muted);">${d.device_id}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="font-family: monospace;">${d.ip_address || 'N/A'}</td>
+                            <td><span class="badge badge-info">${d.device_type || 'other'}</span></td>
+                            <td style="color: var(--text-muted);">${d.vendor || 'Unknown'}</td>
+                            <td style="color: var(--text-muted); font-size: 0.875rem;">
+                                ${d.last_config_backup ? formatTimeAgo(d.last_config_backup) : 'Never'}
+                            </td>
+                            <td>
+                                <button onclick="viewNetworkDevice('${d.device_id}')" class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                                    Details
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+    
+    function renderRunbooks(runbooks) {
+        if (!runbooks || runbooks.length === 0) {
+            document.getElementById('runbook-list').innerHTML = '<div style="color: var(--text-muted); padding: 1rem;">No runbooks available</div>';
+            return;
+        }
+        
+        document.getElementById('runbook-list').innerHTML = runbooks.map(rb => `
+            <div style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                    <div style="font-weight: 500;">${rb.name}</div>
+                    <button onclick="openRunbookModal('${rb.name}')" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                        ▶ Run
+                    </button>
+                </div>
+                <div style="font-size: 0.875rem; color: var(--text-muted);">${rb.description || 'No description'}</div>
+            </div>
+        `).join('');
+    }
+    
+    function getDeviceIcon(type) {
+        const icons = {
+            'switch': '🔀',
+            'router': '📡',
+            'firewall': '🛡️',
+            'access_point': '📶',
+            'server': '🖥️',
+        };
+        return icons[type] || '🌐';
+    }
+    
+    function formatTimeAgo(dateStr) {
+        const date = new Date(dateStr);
+        const now = new Date();
+        const seconds = Math.floor((now - date) / 1000);
+        
+        if (seconds < 60) return 'Just now';
+        if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+        if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+        return `${Math.floor(seconds / 86400)}d ago`;
+    }
+    
+    async function viewNetworkDevice(deviceId) {
+        const modal = document.getElementById('network-modal');
+        const content = document.getElementById('modal-network-content');
+        const title = document.getElementById('modal-network-title');
+        
+        content.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
+        modal.showModal();
+        
+        try {
+            const device = await fetch(`/api/network/device/${deviceId}`).then(r => r.json());
+            
+            title.textContent = device.hostname || deviceId;
+            content.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">IP Address</div>
+                        <div style="font-family: monospace; font-size: 1.1rem;">${device.ip_address || 'N/A'}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Type</div>
+                        <div><span class="badge badge-info">${device.device_type || 'other'}</span></div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Vendor</div>
+                        <div>${device.vendor || 'Unknown'}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Model</div>
+                        <div>${device.model || 'Unknown'}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">OS Version</div>
+                        <div>${device.os_version || 'Unknown'}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Last Seen</div>
+                        <div>${device.last_seen ? new Date(device.last_seen).toLocaleString() : 'Never'}</div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Last Config Backup</div>
+                    <div>${device.last_config_backup ? new Date(device.last_config_backup).toLocaleString() : 'Never backed up'}</div>
+                </div>
+                
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button onclick="backupDevice('${device.device_id}')" class="btn btn-secondary">
+                        💾 Backup Config
+                    </button>
+                    <button onclick="runOnDevice('get_interface_status', '${device.device_id}')" class="btn btn-secondary">
+                        📊 Interface Status
+                    </button>
+                    <button onclick="runOnDevice('quarantine_device', '${device.device_id}')" class="btn btn-danger">
+                        🔒 Quarantine
+                    </button>
+                </div>
+            `;
+        } catch (e) {
+            content.innerHTML = '<div style="color: var(--danger);">Failed to load device details</div>';
+        }
+    }
+    
+    function openRunbookModal(runbookName) {
+        const modal = document.getElementById('runbook-modal');
+        const content = document.getElementById('runbook-modal-content');
+        const title = document.getElementById('runbook-modal-title');
+        
+        title.textContent = `Execute: ${runbookName}`;
+        
+        // Build form based on runbook
+        let formHtml = '';
+        
+        if (runbookName === 'backup_configs_nightly') {
+            formHtml = `
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">Backup running configs for all devices.</p>
+                <button onclick="executeRunbook('${runbookName}', {})" class="btn btn-primary">
+                    ▶ Run Backup
+                </button>
+            `;
+        } else if (runbookName === 'get_interface_status') {
+            formHtml = `
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">Get interface status for selected devices.</p>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">Target Devices (comma-separated IDs)</label>
+                    <input type="text" id="rb-targets" placeholder="device1, device2" style="width: 100%; padding: 0.75rem; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text);">
+                </div>
+                <button onclick="executeRunbook('${runbookName}', {targets: document.getElementById('rb-targets').value})" class="btn btn-primary">
+                    ▶ Get Status
+                </button>
+            `;
+        } else if (runbookName === 'quarantine_device') {
+            formHtml = `
+                <p style="color: var(--danger); margin-bottom: 1rem;">⚠️ This will shut down the specified interface!</p>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">Device ID</label>
+                    <input type="text" id="rb-device" placeholder="device-id" style="width: 100%; padding: 0.75rem; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text);">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">Interface</label>
+                    <input type="text" id="rb-interface" placeholder="GigabitEthernet0/1" style="width: 100%; padding: 0.75rem; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text);">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.875rem;">Reason</label>
+                    <input type="text" id="rb-reason" placeholder="Security incident" style="width: 100%; padding: 0.75rem; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text);">
+                </div>
+                <button onclick="executeRunbook('${runbookName}', {device: document.getElementById('rb-device').value, interface: document.getElementById('rb-interface').value, reason: document.getElementById('rb-reason').value})" class="btn btn-danger">
+                    🔒 Quarantine
+                </button>
+            `;
+        }
+        
+        content.innerHTML = formHtml;
+        modal.showModal();
+    }
+    
+    async function executeRunbook(name, params) {
+        const modal = document.getElementById('runbook-modal');
+        const content = document.getElementById('runbook-modal-content');
+        
+        content.innerHTML = '<div class="loading"><div class="spinner"></div> Executing runbook...</div>';
+        
+        try {
+            const body = {
+                parameters: {}
+            };
+            
+            if (params.targets) {
+                body.target_devices = params.targets.split(',').map(s => s.trim()).filter(s => s);
+            }
+            if (params.device) {
+                body.target_devices = [params.device.trim()];
+            }
+            if (params.interface) {
+                body.parameters.interface = params.interface;
+            }
+            if (params.reason) {
+                body.parameters.reason = params.reason;
+            }
+            
+            const result = await fetch(`/api/network/runbook/${name}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(body)
+            }).then(r => r.json());
+            
+            if (result.error) {
+                content.innerHTML = `
+                    <div style="color: var(--danger); margin-bottom: 1rem;">❌ ${result.error}</div>
+                    <button onclick="document.getElementById('runbook-modal').close()" class="btn btn-secondary">Close</button>
+                `;
+            } else {
+                content.innerHTML = `
+                    <div style="color: var(--success); margin-bottom: 1rem;">✅ ${result.summary || 'Runbook completed'}</div>
+                    <div style="margin-bottom: 1rem;">
+                        <div style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 0.5rem;">Evidence Pack</div>
+                        <code style="background: rgba(0,0,0,0.3); padding: 0.5rem; border-radius: 4px;">${result.evidence_pack_id || 'N/A'}</code>
+                    </div>
+                    <button onclick="document.getElementById('runbook-modal').close(); loadNetworkData();" class="btn btn-primary">Done</button>
+                `;
+            }
+        } catch (e) {
+            content.innerHTML = `
+                <div style="color: var(--danger); margin-bottom: 1rem;">❌ Execution failed</div>
+                <button onclick="document.getElementById('runbook-modal').close()" class="btn btn-secondary">Close</button>
+            `;
+        }
+    }
+    
+    async function runBackup() {
+        if (!confirm('Run config backup for all devices?')) return;
+        executeRunbook('backup_configs_nightly', {});
+    }
+    
+    async function backupDevice(deviceId) {
+        executeRunbook('backup_configs_nightly', {targets: deviceId});
+    }
+    
+    function runOnDevice(runbook, deviceId) {
+        openRunbookModal(runbook);
+        // Pre-fill device ID
+        setTimeout(() => {
+            const deviceInput = document.getElementById('rb-device') || document.getElementById('rb-targets');
+            if (deviceInput) deviceInput.value = deviceId;
+        }, 100);
+    }
+    
+    function refreshNetwork() {
+        loadNetworkData();
+    }
+    
+    // Initial load
+    loadNetworkData();
+</script>
+{% endblock %}

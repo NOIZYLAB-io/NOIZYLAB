@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📊 Dashboard</h1>
+    <div>
+        <span id="last-updated" style="color: var(--text-muted); font-size: 0.875rem;"></span>
+    </div>
+</div>
+
+<!-- Stats Grid -->
+<div class="stats-grid" id="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value" id="stat-vault">--</div>
+        <div class="stat-label">Vault Assets</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="stat-evidence">--</div>
+        <div class="stat-label">Evidence Packs</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="stat-devices">--</div>
+        <div class="stat-label">Fleet Devices</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="stat-network">--</div>
+        <div class="stat-label">Network Devices</div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+    <!-- Recent Activity -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">📥 Recent Vault Activity</h3>
+            <a href="/vault" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                View All
+            </a>
+        </div>
+        <div id="recent-assets" class="loading">
+            <div class="spinner"></div>
+            Loading...
+        </div>
+    </div>
+    
+    <!-- Fleet Status -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">🖥️ Fleet Status</h3>
+            <a href="/fleet" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                View All
+            </a>
+        </div>
+        <div id="fleet-status" class="loading">
+            <div class="spinner"></div>
+            Loading...
+        </div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+    <!-- Recent Evidence Packs -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">📋 Recent Evidence Packs</h3>
+            <a href="/evidence" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                View All
+            </a>
+        </div>
+        <div id="recent-evidence" class="loading">
+            <div class="spinner"></div>
+            Loading...
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">⚡ Quick Actions</h3>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <a href="/vault" class="btn btn-secondary">
+                🔍 Search Vault
+            </a>
+            <a href="/chat" class="btn btn-secondary">
+                🤖 Ask AI
+            </a>
+            <button onclick="runBackup()" class="btn btn-secondary">
+                💾 Backup Configs
+            </button>
+            <button onclick="checkHealth()" class="btn btn-secondary">
+                🏥 Health Check
+            </button>
+        </div>
+        
+        <div id="action-result" style="margin-top: 1rem; display: none;" class="card" style="background: rgba(0,0,0,0.3);">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    async function loadDashboard() {
+        // Load stats
+        try {
+            // Vault stats
+            const vaultStats = await fetch('/api/vault/stats').then(r => r.json());
+            document.getElementById('stat-vault').textContent = vaultStats.total_assets || '0';
+        } catch (e) {
+            document.getElementById('stat-vault').textContent = '--';
+        }
+        
+        try {
+            // Evidence stats
+            const evidencePacks = await fetch('/api/evidence/packs?limit=1').then(r => r.json());
+            document.getElementById('stat-evidence').textContent = Array.isArray(evidencePacks) ? evidencePacks.length : '--';
+        } catch (e) {
+            document.getElementById('stat-evidence').textContent = '--';
+        }
+        
+        try {
+            // Fleet stats
+            const devices = await fetch('/api/fleet/devices').then(r => r.json());
+            document.getElementById('stat-devices').textContent = Array.isArray(devices) ? devices.length : '--';
+            
+            // Fleet status table
+            if (Array.isArray(devices)) {
+                const online = devices.filter(d => d.state === 'online').length;
+                const offline = devices.filter(d => d.state === 'offline').length;
+                document.getElementById('fleet-status').innerHTML = `
+                    <div style="display: flex; gap: 2rem; margin-bottom: 1rem;">
+                        <div>
+                            <span style="color: var(--success); font-size: 1.5rem; font-weight: bold;">${online}</span>
+                            <span style="color: var(--text-muted);"> online</span>
+                        </div>
+                        <div>
+                            <span style="color: var(--danger); font-size: 1.5rem; font-weight: bold;">${offline}</span>
+                            <span style="color: var(--text-muted);"> offline</span>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Device</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${devices.slice(0, 5).map(d => `
+                                <tr>
+                                    <td>${d.hostname || d.device_id}</td>
+                                    <td>${d.device_type || 'unknown'}</td>
+                                    <td><span class="badge badge-${d.state === 'online' ? 'success' : 'danger'}">${d.state}</span></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+        } catch (e) {
+            document.getElementById('stat-devices').textContent = '--';
+            document.getElementById('fleet-status').innerHTML = '<div style="color: var(--text-muted);">Service unavailable</div>';
+        }
+        
+        try {
+            // Network stats
+            const networkDevices = await fetch('/api/network/devices').then(r => r.json());
+            document.getElementById('stat-network').textContent = Array.isArray(networkDevices) ? networkDevices.length : '--';
+        } catch (e) {
+            document.getElementById('stat-network').textContent = '--';
+        }
+        
+        // Recent assets
+        try {
+            const recent = await fetch('/api/vault/recent?limit=5').then(r => r.json());
+            if (Array.isArray(recent) && recent.length > 0) {
+                document.getElementById('recent-assets').innerHTML = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>Type</th>
+                                <th>Added</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${recent.map(a => `
+                                <tr>
+                                    <td>${a.filename || 'unknown'}</td>
+                                    <td><span class="badge badge-info">${a.asset_type || 'file'}</span></td>
+                                    <td style="color: var(--text-muted);">${a.created_at ? new Date(a.created_at).toLocaleDateString() : '--'}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            } else {
+                document.getElementById('recent-assets').innerHTML = '<div style="color: var(--text-muted);">No recent assets</div>';
+            }
+        } catch (e) {
+            document.getElementById('recent-assets').innerHTML = '<div style="color: var(--text-muted);">Service unavailable</div>';
+        }
+        
+        // Recent evidence
+        try {
+            const evidence = await fetch('/api/evidence/packs?limit=5').then(r => r.json());
+            if (Array.isArray(evidence) && evidence.length > 0) {
+                document.getElementById('recent-evidence').innerHTML = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Pack ID</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${evidence.map(p => `
+                                <tr>
+                                    <td><a href="/evidence?id=${p.pack_id}" style="color: var(--primary);">${p.pack_id}</a></td>
+                                    <td><span class="badge badge-${p.status === 'verified' ? 'success' : 'warning'}">${p.status}</span></td>
+                                    <td style="color: var(--text-muted);">${p.created_at ? new Date(p.created_at).toLocaleDateString() : '--'}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            } else {
+                document.getElementById('recent-evidence').innerHTML = '<div style="color: var(--text-muted);">No evidence packs</div>';
+            }
+        } catch (e) {
+            document.getElementById('recent-evidence').innerHTML = '<div style="color: var(--text-muted);">Service unavailable</div>';
+        }
+        
+        // Update timestamp
+        document.getElementById('last-updated').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+    }
+    
+    async function runBackup() {
+        const result = document.getElementById('action-result');
+        result.style.display = 'block';
+        result.innerHTML = '<div class="loading"><div class="spinner"></div> Running backup...</div>';
+        
+        try {
+            const response = await fetch('/api/network/runbook/backup_configs_nightly', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({})
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                result.innerHTML = `<div style="color: var(--success);">✅ Backup complete: ${data.summary || 'Success'}</div>`;
+            } else {
+                result.innerHTML = `<div style="color: var(--danger);">❌ ${data.error || 'Backup failed'}</div>`;
+            }
+        } catch (e) {
+            result.innerHTML = `<div style="color: var(--danger);">❌ Service unavailable</div>`;
+        }
+    }
+    
+    async function checkHealth() {
+        const result = document.getElementById('action-result');
+        result.style.display = 'block';
+        result.innerHTML = '<div class="loading"><div class="spinner"></div> Checking health...</div>';
+        
+        try {
+            const response = await fetch('/api/status');
+            const data = await response.json();
+            
+            const services = Object.entries(data.services);
+            const online = services.filter(([_, s]) => s.status === 'online').length;
+            
+            result.innerHTML = `
+                <div style="color: ${online === services.length ? 'var(--success)' : 'var(--warning)'};">
+                    ${online === services.length ? '✅' : '⚠️'} ${online}/${services.length} services online
+                </div>
+            `;
+        } catch (e) {
+            result.innerHTML = `<div style="color: var(--danger);">❌ Health check failed</div>`;
+        }
+    }
+    
+    // Load on page ready
+    loadDashboard();
+    
+    // Auto-refresh every 60 seconds
+    setInterval(loadDashboard, 60000);
+</script>
+{% endblock %}

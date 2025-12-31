@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Deep scan ALL home directory locations",
+    "status": "completed",
+    "activeForm": "Deep scanning home directory"
+  },
+  {
+    "content": "Scan all external volumes thoroughly",
+    "status": "completed",
+    "activeForm": "Scanning external volumes"
+  },
+  {
+    "content": "Find ALL scattered code files",
+    "status": "completed",
+    "activeForm": "Finding all scattered code"
+  },
+  {
+    "content": "Catalog duplicates vs unique code",
+    "status": "completed",
+    "activeForm": "Cataloging duplicates"
+  },
+  {
+    "content": "Consolidate unique code to CODEMASTER",
+    "status": "completed",
+    "activeForm": "Consolidating unique code"
+  },
+  {
+    "content": "Push clean repo to GitHub",
+    "status": "in_progress",
+    "activeForm": "Pushing to GitHub"
+  }
+]

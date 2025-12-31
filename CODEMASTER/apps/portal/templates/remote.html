@@ -1,0 +1,356 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🖥️ Remote Control</h1>
+    <div style="display: flex; gap: 0.5rem;">
+        <button onclick="loadDevices()" class="btn btn-secondary">🔄 Refresh</button>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 350px 1fr; gap: 1rem; height: calc(100vh - 200px);">
+    <!-- Device List -->
+    <div class="card" style="overflow-y: auto; margin: 0;">
+        <div class="card-header" style="position: sticky; top: 0; background: var(--surface); z-index: 10;">
+            <h3 class="card-title">Devices</h3>
+            <span id="device-count" class="badge badge-info">0</span>
+        </div>
+        
+        <div class="search-box" style="margin-bottom: 1rem;">
+            <input type="text" id="device-search" placeholder="Search devices..." 
+                   oninput="filterDevices()">
+        </div>
+        
+        <div id="device-list">
+            <div class="loading">
+                <div class="spinner"></div>
+                Loading devices...
+            </div>
+        </div>
+    </div>
+    
+    <!-- Device Details / Session -->
+    <div class="card" style="margin: 0; display: flex; flex-direction: column;">
+        <div id="device-details">
+            <div style="text-align: center; padding: 4rem 2rem; color: var(--text-muted);">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🖥️</div>
+                <div style="font-size: 1.25rem;">Select a device to view details</div>
+                <div style="margin-top: 0.5rem;">or start a remote session</div>
+            </div>
+        </div>
+        
+        <!-- Session iframe (hidden by default) -->
+        <iframe id="session-frame" style="display: none; flex: 1; border: none; border-radius: 8px;"></iframe>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let allDevices = [];
+    let selectedDevice = null;
+    
+    async function loadDevices() {
+        document.getElementById('device-list').innerHTML = `
+            <div class="loading">
+                <div class="spinner"></div>
+                Loading devices...
+            </div>
+        `;
+        
+        try {
+            // Try Mesh service first, fall back to Fleet
+            let response = await fetch('/api/mesh/devices');
+            let data = await response.json();
+            
+            if (data.error) {
+                // Fall back to Fleet devices
+                response = await fetch('/api/fleet/devices');
+                data = await response.json();
+            }
+            
+            allDevices = data.devices || [];
+            renderDevices(allDevices);
+            document.getElementById('device-count').textContent = allDevices.length;
+            
+        } catch (e) {
+            document.getElementById('device-list').innerHTML = `
+                <div style="color: var(--danger); padding: 1rem;">
+                    Failed to load devices
+                </div>
+            `;
+        }
+    }
+    
+    function renderDevices(devices) {
+        if (devices.length === 0) {
+            document.getElementById('device-list').innerHTML = `
+                <div style="color: var(--text-muted); padding: 1rem; text-align: center;">
+                    No devices found
+                </div>
+            `;
+            return;
+        }
+        
+        const html = devices.map(device => `
+            <div class="device-item ${selectedDevice?.id === device.id ? 'selected' : ''}" 
+                 onclick="selectDevice('${device.id}')"
+                 data-name="${device.name.toLowerCase()}"
+                 data-host="${(device.host || '').toLowerCase()}">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span class="status-dot ${device.connected ? 'online' : 'offline'}"></span>
+                    <div>
+                        <div style="font-weight: 500;">${device.name}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">
+                            ${device.os || device.platform?.system || 'Unknown OS'}
+                        </div>
+                    </div>
+                </div>
+                ${device.connected ? '<span class="badge badge-success">Online</span>' : '<span class="badge badge-danger">Offline</span>'}
+            </div>
+        `).join('');
+        
+        document.getElementById('device-list').innerHTML = html;
+    }
+    
+    function filterDevices() {
+        const query = document.getElementById('device-search').value.toLowerCase();
+        const filtered = allDevices.filter(d => 
+            d.name.toLowerCase().includes(query) || 
+            (d.host || '').toLowerCase().includes(query)
+        );
+        renderDevices(filtered);
+    }
+    
+    async function selectDevice(deviceId) {
+        selectedDevice = allDevices.find(d => d.id === deviceId);
+        
+        // Update UI
+        document.querySelectorAll('.device-item').forEach(el => el.classList.remove('selected'));
+        event.currentTarget?.classList.add('selected');
+        
+        // Hide session frame
+        document.getElementById('session-frame').style.display = 'none';
+        
+        // Show device details
+        const details = document.getElementById('device-details');
+        
+        if (!selectedDevice) {
+            details.innerHTML = `<div style="color: var(--danger); padding: 1rem;">Device not found</div>`;
+            return;
+        }
+        
+        details.innerHTML = `
+            <div style="padding: 0.5rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                    <div>
+                        <h2 style="margin: 0; font-size: 1.5rem;">${selectedDevice.name}</h2>
+                        <div style="color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem;">
+                            <span class="status-dot ${selectedDevice.connected ? 'online' : 'offline'}"></span>
+                            ${selectedDevice.connected ? 'Online' : 'Offline'}
+                            ${selectedDevice.host ? ` • ${selectedDevice.host}` : ''}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Session Actions -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+                    <button onclick="startSession('desktop')" class="btn btn-primary" style="padding: 1rem; flex-direction: column; gap: 0.5rem;" ${!selectedDevice.connected ? 'disabled' : ''}>
+                        <span style="font-size: 1.5rem;">🖥️</span>
+                        <span>Desktop</span>
+                    </button>
+                    <button onclick="startSession('terminal')" class="btn btn-secondary" style="padding: 1rem; flex-direction: column; gap: 0.5rem;" ${!selectedDevice.connected ? 'disabled' : ''}>
+                        <span style="font-size: 1.5rem;">💻</span>
+                        <span>Terminal</span>
+                    </button>
+                    <button onclick="startSession('files')" class="btn btn-secondary" style="padding: 1rem; flex-direction: column; gap: 0.5rem;" ${!selectedDevice.connected ? 'disabled' : ''}>
+                        <span style="font-size: 1.5rem;">📁</span>
+                        <span>Files</span>
+                    </button>
+                </div>
+                
+                <!-- Power Actions -->
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">Power Actions</div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button onclick="powerAction('restart')" class="btn btn-secondary" ${!selectedDevice.connected ? 'disabled' : ''}>
+                            🔄 Restart
+                        </button>
+                        <button onclick="powerAction('shutdown')" class="btn btn-secondary" ${!selectedDevice.connected ? 'disabled' : ''}>
+                            ⏹️ Shutdown
+                        </button>
+                        <button onclick="powerAction('wake')" class="btn btn-secondary">
+                            ⚡ Wake
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- System Info -->
+                <div class="card" style="background: rgba(0,0,0,0.2); margin: 0;">
+                    <div class="card-title" style="margin-bottom: 0.75rem;">System Info</div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; font-size: 0.875rem;">
+                        <div><span style="color: var(--text-muted);">OS:</span> ${selectedDevice.os || 'Unknown'}</div>
+                        <div><span style="color: var(--text-muted);">Agent:</span> ${selectedDevice.agent_version || 'N/A'}</div>
+                        <div><span style="color: var(--text-muted);">Group:</span> ${selectedDevice.group_name || 'None'}</div>
+                        <div><span style="color: var(--text-muted);">Last Seen:</span> ${selectedDevice.last_connect ? new Date(selectedDevice.last_connect).toLocaleString() : 'N/A'}</div>
+                    </div>
+                </div>
+                
+                <!-- Quick Command -->
+                <div style="margin-top: 1rem;">
+                    <div style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">Quick Command</div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="quick-command" placeholder="Enter command..." 
+                               style="flex: 1; padding: 0.5rem; border-radius: 6px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text);"
+                               ${!selectedDevice.connected ? 'disabled' : ''}>
+                        <button onclick="runCommand()" class="btn btn-primary" ${!selectedDevice.connected ? 'disabled' : ''}>
+                            ▶ Run
+                        </button>
+                    </div>
+                    <div id="command-output" style="margin-top: 0.5rem; display: none; padding: 0.75rem; background: rgba(0,0,0,0.3); border-radius: 6px; font-family: monospace; font-size: 0.75rem; max-height: 200px; overflow-y: auto;"></div>
+                </div>
+            </div>
+        `;
+    }
+    
+    async function startSession(type) {
+        if (!selectedDevice) return;
+        
+        try {
+            const response = await fetch(`/api/mesh/sessions/${type}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({device_id: selectedDevice.id})
+            });
+            
+            const data = await response.json();
+            
+            if (data.error) {
+                alert('Failed to create session: ' + data.error);
+                return;
+            }
+            
+            if (data.url) {
+                // Open in iframe
+                document.getElementById('device-details').innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem;">
+                        <div>
+                            <strong>${selectedDevice.name}</strong> - ${type.charAt(0).toUpperCase() + type.slice(1)} Session
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button onclick="openInNewTab('${data.url}')" class="btn btn-secondary">
+                                ↗️ Pop Out
+                            </button>
+                            <button onclick="selectDevice('${selectedDevice.id}')" class="btn btn-secondary">
+                                ✕ Close
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                const frame = document.getElementById('session-frame');
+                frame.src = data.url;
+                frame.style.display = 'block';
+            }
+            
+        } catch (e) {
+            alert('Session error: ' + e.message);
+        }
+    }
+    
+    function openInNewTab(url) {
+        window.open(url, '_blank');
+    }
+    
+    async function powerAction(action) {
+        if (!selectedDevice) return;
+        
+        if (!confirm(`Are you sure you want to ${action} ${selectedDevice.name}?`)) {
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/mesh/devices/${selectedDevice.id}/power`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({device_id: selectedDevice.id, action})
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                alert(`${action} command sent to ${selectedDevice.name}`);
+            } else {
+                alert('Failed: ' + (data.error || 'Unknown error'));
+            }
+            
+        } catch (e) {
+            alert('Error: ' + e.message);
+        }
+    }
+    
+    async function runCommand() {
+        if (!selectedDevice) return;
+        
+        const command = document.getElementById('quick-command').value.trim();
+        if (!command) return;
+        
+        const output = document.getElementById('command-output');
+        output.style.display = 'block';
+        output.textContent = 'Running...';
+        
+        try {
+            const response = await fetch(`/api/mesh/devices/${selectedDevice.id}/command`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({command})
+            });
+            
+            const data = await response.json();
+            
+            if (data.error) {
+                output.innerHTML = `<span style="color: var(--danger);">Error: ${data.error}</span>`;
+            } else {
+                output.textContent = data.result?.output || data.result || 'Command sent (async execution)';
+            }
+            
+        } catch (e) {
+            output.innerHTML = `<span style="color: var(--danger);">Error: ${e.message}</span>`;
+        }
+    }
+    
+    // Initial load
+    loadDevices();
+</script>
+
+<style>
+    .device-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 0.5rem;
+        transition: all 0.2s;
+    }
+    
+    .device-item:hover {
+        background: var(--surface-hover);
+    }
+    
+    .device-item.selected {
+        background: var(--primary);
+        color: #000;
+    }
+    
+    .device-item.selected .status-dot.online {
+        background: #000;
+    }
+    
+    .device-item.selected .badge {
+        background: rgba(0,0,0,0.2);
+        color: #000;
+    }
+</style>
+{% endblock %}

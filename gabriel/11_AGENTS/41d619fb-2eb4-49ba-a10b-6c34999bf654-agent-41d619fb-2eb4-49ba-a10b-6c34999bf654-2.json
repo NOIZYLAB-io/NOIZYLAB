@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Clean up NOIZYLAB (11GB → 555MB)",
+    "status": "completed",
+    "activeForm": "Cleaning NOIZYLAB"
+  },
+  {
+    "content": "Search OneDrive for code files",
+    "status": "in_progress",
+    "activeForm": "Searching OneDrive"
+  },
+  {
+    "content": "Find audio/video in OneDrive",
+    "status": "pending",
+    "activeForm": "Finding media files"
+  },
+  {
+    "content": "Organize OneDrive files",
+    "status": "pending",
+    "activeForm": "Organizing OneDrive"
+  }
+]

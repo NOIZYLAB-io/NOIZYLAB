@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Create NOIZYLAB/GABRIEL/CODEMASTER structure",
+    "status": "completed",
+    "activeForm": "Creating CODEMASTER structure"
+  },
+  {
+    "content": "Merge root NOIZYLAB/CODEMASTER into GABRIEL/CODEMASTER",
+    "status": "completed",
+    "activeForm": "Merging root CODEMASTER"
+  },
+  {
+    "content": "Merge GABRIEL_UNIFIED into GABRIEL/CODEMASTER",
+    "status": "completed",
+    "activeForm": "Merging GABRIEL_UNIFIED"
+  },
+  {
+    "content": "Delete alternate location versions",
+    "status": "in_progress",
+    "activeForm": "Deleting alternate versions"
+  },
+  {
+    "content": "Update all path references",
+    "status": "pending",
+    "activeForm": "Updating path references"
+  }
+]

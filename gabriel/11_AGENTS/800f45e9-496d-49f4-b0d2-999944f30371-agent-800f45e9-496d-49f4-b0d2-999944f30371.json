@@ -1,0 +1,27 @@
+[
+  {
+    "content": "SUNDAY AUDIO sorted (3,974 files)",
+    "status": "completed",
+    "activeForm": "SUNDAY sorted"
+  },
+  {
+    "content": "DESIGN stems copied to 4TB Lacie",
+    "status": "completed",
+    "activeForm": "DESIGN copied"
+  },
+  {
+    "content": "BFA 96 libraries organized",
+    "status": "completed",
+    "activeForm": "BFA sorted"
+  },
+  {
+    "content": "Map all libraries for shuttle reorg",
+    "status": "in_progress",
+    "activeForm": "Mapping for shuttle"
+  },
+  {
+    "content": "Shuttle & consolidate libraries",
+    "status": "pending",
+    "activeForm": "Shuttling libraries"
+  }
+]

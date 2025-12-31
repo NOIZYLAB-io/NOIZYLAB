@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🖥️ Fleet Dashboard</h1>
+    <button onclick="refreshFleet()" class="btn btn-secondary">
+        🔄 Refresh
+    </button>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value" id="total-devices">--</div>
+        <div class="stat-label">Total Devices</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" style="color: var(--success);" id="online-devices">--</div>
+        <div class="stat-label">Online</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" style="color: var(--danger);" id="offline-devices">--</div>
+        <div class="stat-label">Offline</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="active-sessions">--</div>
+        <div class="stat-label">Active Sessions</div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+    <!-- Device List -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Devices</h3>
+            <div style="display: flex; gap: 0.5rem;">
+                <select id="state-filter" onchange="filterDevices()" style="padding: 0.5rem; border-radius: 8px; background: var(--surface-hover); border: 1px solid rgba(255,255,255,0.1); color: var(--text);">
+                    <option value="">All States</option>
+                    <option value="online">Online</option>
+                    <option value="offline">Offline</option>
+                    <option value="pending">Pending</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="device-list" class="loading">
+            <div class="spinner"></div>
+            Loading devices...
+        </div>
+    </div>
+    
+    <!-- Active Sessions -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Active Sessions</h3>
+        </div>
+        
+        <div id="session-list" class="loading">
+            <div class="spinner"></div>
+            Loading sessions...
+        </div>
+    </div>
+</div>
+
+<!-- Device Detail Modal -->
+<dialog id="device-modal" style="background: var(--surface); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); max-width: 600px; width: 90%;">
+    <div class="card" style="margin: 0; border: none;">
+        <div class="card-header">
+            <h3 class="card-title" id="modal-device-title">Device Details</h3>
+            <button onclick="document.getElementById('device-modal').close()" class="btn btn-secondary" style="padding: 0.5rem;">
+                ✕
+            </button>
+        </div>
+        <div id="modal-device-content">
+        </div>
+    </div>
+</dialog>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let allDevices = [];
+    
+    async function loadFleetData() {
+        // Load devices
+        try {
+            const devices = await fetch('/api/fleet/devices').then(r => r.json());
+            allDevices = Array.isArray(devices) ? devices : [];
+            
+            // Update stats
+            document.getElementById('total-devices').textContent = allDevices.length;
+            document.getElementById('online-devices').textContent = allDevices.filter(d => d.state === 'online').length;
+            document.getElementById('offline-devices').textContent = allDevices.filter(d => d.state === 'offline').length;
+            
+            renderDevices(allDevices);
+        } catch (e) {
+            document.getElementById('device-list').innerHTML = '<div style="color: var(--text-muted);">Service unavailable</div>';
+        }
+        
+        // Load sessions
+        try {
+            const sessions = await fetch('/api/fleet/sessions').then(r => r.json());
+            const sessionList = Array.isArray(sessions) ? sessions : [];
+            
+            document.getElementById('active-sessions').textContent = sessionList.length;
+            renderSessions(sessionList);
+        } catch (e) {
+            document.getElementById('session-list').innerHTML = '<div style="color: var(--text-muted);">Service unavailable</div>';
+        }
+    }
+    
+    function filterDevices() {
+        const state = document.getElementById('state-filter').value;
+        if (!state) {
+            renderDevices(allDevices);
+            return;
+        }
+        const filtered = allDevices.filter(d => d.state === state);
+        renderDevices(filtered);
+    }
+    
+    function renderDevices(devices) {
+        if (!devices || devices.length === 0) {
+            document.getElementById('device-list').innerHTML = '<div style="color: var(--text-muted); padding: 2rem; text-align: center;">No devices found</div>';
+            return;
+        }
+        
+        document.getElementById('device-list').innerHTML = `
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Device</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Last Seen</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${devices.map(d => `
+                        <tr>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span>${getDeviceIcon(d.device_type)}</span>
+                                    <div>
+                                        <div>${d.hostname || d.device_id}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-muted);">${d.device_id}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-info">${d.device_type || 'unknown'}</span></td>
+                            <td>${getStateBadge(d.state)}</td>
+                            <td style="color: var(--text-muted); font-size: 0.875rem;">
+                                ${d.last_seen ? formatTimeAgo(d.last_seen) : 'Never'}
+                            </td>
+                            <td>
+                                <button onclick="viewDevice('${d.device_id}')" class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; margin-right: 0.25rem;">
+                                    Details
+                                </button>
+                                ${d.state === 'online' || d.state === 'enrolled' ? `
+                                    <button onclick="startSession('${d.device_id}')" class="btn btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                                        Connect
+                                    </button>
+                                ` : ''}
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+    
+    function renderSessions(sessions) {
+        if (!sessions || sessions.length === 0) {
+            document.getElementById('session-list').innerHTML = '<div style="color: var(--text-muted); padding: 1rem; text-align: center;">No active sessions</div>';
+            return;
+        }
+        
+        document.getElementById('session-list').innerHTML = sessions.map(s => `
+            <div style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                    <button onclick="endSession('${s.session_id}')" class="btn btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                        End
+                    </button>
+                </div>
+                <div style="font-size: 0.875rem;">
+                    <div>Device: <span style="color: var(--primary);">${s.device_id}</span></div>
+                    <div style="color: var(--text-muted);">User: ${s.user_id || 'Unknown'}</div>
+                    <div style="color: var(--text-muted); font-size: 0.75rem;">Started: ${s.started_at ? formatTimeAgo(s.started_at) : 'Unknown'}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function getDeviceIcon(type) {
+        const icons = {
+            'server': '🖥️',
+            'workstation': '💻',
+            'laptop': '💻',
+            'mobile': '📱',
+            'tablet': '📱',
+            'iot': '📡',
+            'network': '🌐',
+        };
+        return icons[type] || '🖥️';
+    }
+    
+    function getStateBadge(state) {
+        switch (state) {
+            case 'online':
+                return '<span class="badge badge-success">🟢 Online</span>';
+            case 'offline':
+                return '<span class="badge badge-danger">🔴 Offline</span>';
+            case 'pending':
+                return '<span class="badge badge-warning">🟡 Pending</span>';
+            case 'enrolled':
+                return '<span class="badge badge-info">✓ Enrolled</span>';
+            case 'maintenance':
+                return '<span class="badge badge-warning">🔧 Maintenance</span>';
+            default:
+                return `<span class="badge">${state}</span>`;
+        }
+    }
+    
+    function formatTimeAgo(dateStr) {
+        const date = new Date(dateStr);
+        const now = new Date();
+        const seconds = Math.floor((now - date) / 1000);
+        
+        if (seconds < 60) return 'Just now';
+        if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+        if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+        return `${Math.floor(seconds / 86400)}d ago`;
+    }
+    
+    async function viewDevice(deviceId) {
+        const modal = document.getElementById('device-modal');
+        const content = document.getElementById('modal-device-content');
+        const title = document.getElementById('modal-device-title');
+        
+        content.innerHTML = '<div class="loading"><div class="spinner"></div> Loading...</div>';
+        modal.showModal();
+        
+        try {
+            const device = await fetch(`/api/fleet/device/${deviceId}`).then(r => r.json());
+            
+            title.textContent = device.hostname || deviceId;
+            content.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Device ID</div>
+                        <div style="font-family: monospace;">${device.device_id}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Status</div>
+                        <div>${getStateBadge(device.state)}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Type</div>
+                        <div>${device.device_type || 'Unknown'}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Last Seen</div>
+                        <div>${device.last_seen ? new Date(device.last_seen).toLocaleString() : 'Never'}</div>
+                    </div>
+                </div>
+                
+                ${device.fingerprint ? `
+                    <div style="margin-bottom: 1rem;">
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Fingerprint</div>
+                        <div style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 8px; font-family: monospace; font-size: 0.875rem;">
+                            ${device.fingerprint}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                <div style="margin-bottom: 1rem;">
+                    <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Enrolled</div>
+                    <div>${device.enrolled_at ? new Date(device.enrolled_at).toLocaleString() : 'Not enrolled'}</div>
+                </div>
+                
+                ${device.metadata && Object.keys(device.metadata).length > 0 ? `
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 0.5rem;">Metadata</div>
+                        <pre style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 8px; font-size: 0.75rem; overflow-x: auto;">${JSON.stringify(device.metadata, null, 2)}</pre>
+                    </div>
+                ` : ''}
+                
+                <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+                    ${device.state === 'online' || device.state === 'enrolled' ? `
+                        <button onclick="startSession('${device.device_id}'); document.getElementById('device-modal').close();" class="btn btn-primary">
+                            🔗 Start Session
+                        </button>
+                    ` : ''}
+                    ${device.state === 'pending' ? `
+                        <button onclick="enrollDevice('${device.device_id}')" class="btn btn-primary">
+                            ✓ Enroll Device
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+        } catch (e) {
+            content.innerHTML = '<div style="color: var(--danger);">Failed to load device details</div>';
+        }
+    }
+    
+    async function startSession(deviceId) {
+        try {
+            const result = await fetch(`/api/fleet/session/start/${deviceId}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({user_id: 'portal-user'})
+            }).then(r => r.json());
+            
+            if (result.error) {
+                alert('Failed to start session: ' + result.error);
+            } else {
+                alert('Session started: ' + result.session_id);
+                loadFleetData();
+            }
+        } catch (e) {
+            alert('Failed to start session');
+        }
+    }
+    
+    async function endSession(sessionId) {
+        if (!confirm('End this session?')) return;
+        
+        try {
+            await fetch(`/api/fleet/session/end/${sessionId}`, { method: 'POST' });
+            loadFleetData();
+        } catch (e) {
+            alert('Failed to end session');
+        }
+    }
+    
+    async function enrollDevice(deviceId) {
+        try {
+            const result = await fetch(`/api/fleet/device/${deviceId}/enroll`, { method: 'POST' }).then(r => r.json());
+            
+            if (result.error) {
+                alert('Enrollment failed: ' + result.error);
+            } else {
+                alert('Device enrolled!');
+                document.getElementById('device-modal').close();
+                loadFleetData();
+            }
+        } catch (e) {
+            alert('Enrollment failed');
+        }
+    }
+    
+    function refreshFleet() {
+        loadFleetData();
+    }
+    
+    // Initial load
+    loadFleetData();
+    
+    // Auto-refresh every 30 seconds
+    setInterval(loadFleetData, 30000);
+</script>
+{% endblock %}

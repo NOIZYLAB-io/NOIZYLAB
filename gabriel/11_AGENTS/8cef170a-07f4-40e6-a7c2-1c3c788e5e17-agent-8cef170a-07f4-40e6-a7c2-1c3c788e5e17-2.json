@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Find all Python code across system",
+    "status": "completed",
+    "activeForm": "Finding Python code"
+  },
+  {
+    "content": "Find all JavaScript/TypeScript code",
+    "status": "completed",
+    "activeForm": "Finding JS/TS code"
+  },
+  {
+    "content": "Find all shell scripts",
+    "status": "completed",
+    "activeForm": "Finding shell scripts"
+  },
+  {
+    "content": "Harvest codemate Python tools",
+    "status": "in_progress",
+    "activeForm": "Harvesting codemate tools"
+  },
+  {
+    "content": "Harvest gemini scripts",
+    "status": "pending",
+    "activeForm": "Harvesting gemini scripts"
+  },
+  {
+    "content": "Commit all harvested code",
+    "status": "pending",
+    "activeForm": "Committing code"
+  }
+]

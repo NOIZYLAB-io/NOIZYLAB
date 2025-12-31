@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Build voice platform decision matrix",
+    "status": "in_progress",
+    "activeForm": "Building voice platform decision matrix"
+  },
+  {
+    "content": "Create NOIZYVOICE hero voice system",
+    "status": "pending",
+    "activeForm": "Creating hero voice system"
+  },
+  {
+    "content": "Integrate with Cloudflare Workers",
+    "status": "pending",
+    "activeForm": "Integrating with Cloudflare"
+  }
+]

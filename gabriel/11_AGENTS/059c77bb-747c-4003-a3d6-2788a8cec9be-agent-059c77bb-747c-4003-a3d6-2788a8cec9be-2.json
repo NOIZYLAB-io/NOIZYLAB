@@ -1,0 +1,17 @@
+[
+  {
+    "content": "Create destination folder on 12TB drive for audio/video files",
+    "status": "completed",
+    "activeForm": "Creating destination folder on 12TB drive"
+  },
+  {
+    "content": "Move all 3000 audio/video files (6.3GB) to 12TB drive",
+    "status": "in_progress",
+    "activeForm": "Moving audio/video files to 12TB drive"
+  },
+  {
+    "content": "Verify files were moved successfully",
+    "status": "pending",
+    "activeForm": "Verifying file transfer"
+  }
+]

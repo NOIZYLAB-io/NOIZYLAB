@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🤖 AI Assistant</h1>
+    <button onclick="clearChat()" class="btn btn-secondary">
+        🗑️ Clear
+    </button>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 300px; gap: 1rem; height: calc(100vh - 200px);">
+    <!-- Chat Area -->
+    <div class="card" style="display: flex; flex-direction: column; margin: 0;">
+        <!-- Messages -->
+        <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 1rem;">
+            <div class="chat-message assistant">
+                <div style="font-weight: bold; margin-bottom: 0.5rem;">🤖 CODEMASTER AI</div>
+                <div>Hello! I'm your CODEMASTER AI assistant. I can help you with:</div>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li>Searching the vault</li>
+                    <li>Understanding evidence packs</li>
+                    <li>Fleet device management</li>
+                    <li>Network runbook execution</li>
+                    <li>General questions about your system</li>
+                </ul>
+                <div>How can I help you today?</div>
+            </div>
+        </div>
+        
+        <!-- Input -->
+        <div style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <div style="display: flex; gap: 0.5rem;">
+                <input type="text" id="chat-input" placeholder="Ask me anything..." 
+                       style="flex: 1; padding: 0.75rem 1rem; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text);"
+                       onkeypress="if(event.key === 'Enter') sendMessage()">
+                <button onclick="sendMessage()" class="btn btn-primary" id="send-btn">
+                    ➤ Send
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="card" style="margin: 0;">
+        <div class="card-header" style="padding: 0.75rem 0; border: none;">
+            <h3 class="card-title">Quick Actions</h3>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <button onclick="askQuick('Show me recent vault activity')" class="btn btn-secondary" style="justify-content: flex-start; padding: 0.75rem;">
+                📦 Recent vault activity
+            </button>
+            <button onclick="askQuick('How many devices are online in the fleet?')" class="btn btn-secondary" style="justify-content: flex-start; padding: 0.75rem;">
+                🖥️ Fleet status
+            </button>
+            <button onclick="askQuick('Show me pending evidence packs')" class="btn btn-secondary" style="justify-content: flex-start; padding: 0.75rem;">
+                📋 Pending evidence
+            </button>
+            <button onclick="askQuick('What network devices need a backup?')" class="btn btn-secondary" style="justify-content: flex-start; padding: 0.75rem;">
+                🌐 Backup status
+            </button>
+            <button onclick="askQuick('Summarize system health')" class="btn btn-secondary" style="justify-content: flex-start; padding: 0.75rem;">
+                🏥 System health
+            </button>
+        </div>
+        
+        <div style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+            <div class="card-title" style="margin-bottom: 0.75rem;">AI Gateway</div>
+            <div id="ai-stats" style="font-size: 0.875rem; color: var(--text-muted);">
+                Loading...
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    
+    let isLoading = false;
+    
+    function addMessage(role, content) {
+        const div = document.createElement('div');
+        div.className = `chat-message ${role}`;
+        
+        if (role === 'assistant') {
+            div.innerHTML = `
+                <div style="font-weight: bold; margin-bottom: 0.5rem;">🤖 CODEMASTER AI</div>
+                <div>${formatMessage(content)}</div>
+            `;
+        } else {
+            div.innerHTML = `<div>${escapeHtml(content)}</div>`;
+        }
+        
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function addLoadingMessage() {
+        const div = document.createElement('div');
+        div.className = 'chat-message assistant';
+        div.id = 'loading-message';
+        div.innerHTML = `
+            <div style="font-weight: bold; margin-bottom: 0.5rem;">🤖 CODEMASTER AI</div>
+            <div class="loading" style="padding: 0;">
+                <div class="spinner"></div>
+                Thinking...
+            </div>
+        `;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    function removeLoadingMessage() {
+        const loading = document.getElementById('loading-message');
+        if (loading) loading.remove();
+    }
+    
+    function formatMessage(content) {
+        // Simple markdown-like formatting
+        let formatted = escapeHtml(content);
+        
+        // Code blocks
+        formatted = formatted.replace(/```([\s\S]*?)```/g, '<pre style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 8px; overflow-x: auto; margin: 0.5rem 0;">$1</pre>');
+        
+        // Inline code
+        formatted = formatted.replace(/`([^`]+)`/g, '<code style="background: rgba(0,0,0,0.3); padding: 0.125rem 0.25rem; border-radius: 4px;">$1</code>');
+        
+        // Bold
+        formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        
+        // Line breaks
+        formatted = formatted.replace(/\n/g, '<br>');
+        
+        return formatted;
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message || isLoading) return;
+        
+        isLoading = true;
+        sendBtn.disabled = true;
+        chatInput.value = '';
+        
+        addMessage('user', message);
+        addLoadingMessage();
+        
+        try {
+            const response = await fetch('/api/ai/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message})
+            });
+            
+            const data = await response.json();
+            
+            removeLoadingMessage();
+            
+            if (data.error) {
+                addMessage('assistant', `Sorry, I encountered an error: ${data.error}`);
+            } else {
+                addMessage('assistant', data.content || data.response || 'I received your message but have no response.');
+            }
+        } catch (e) {
+            removeLoadingMessage();
+            addMessage('assistant', 'Sorry, I couldn\'t connect to the AI service. Please try again later.');
+        }
+        
+        isLoading = false;
+        sendBtn.disabled = false;
+        chatInput.focus();
+    }
+    
+    function askQuick(question) {
+        chatInput.value = question;
+        sendMessage();
+    }
+    
+    function clearChat() {
+        chatMessages.innerHTML = `
+            <div class="chat-message assistant">
+                <div style="font-weight: bold; margin-bottom: 0.5rem;">🤖 CODEMASTER AI</div>
+                <div>Chat cleared. How can I help you?</div>
+            </div>
+        `;
+    }
+    
+    async function loadAIStats() {
+        try {
+            const stats = await fetch('/api/ai/stats').then(r => r.json());
+            document.getElementById('ai-stats').innerHTML = `
+                <div style="margin-bottom: 0.25rem;">Requests: <span style="color: var(--primary);">${stats.total_requests || 0}</span></div>
+                <div style="margin-bottom: 0.25rem;">Cache hits: <span style="color: var(--success);">${stats.cache_hits || 0}</span></div>
+                <div>Status: <span style="color: ${stats.error ? 'var(--danger)' : 'var(--success)'};">${stats.error ? 'Offline' : 'Online'}</span></div>
+            `;
+        } catch (e) {
+            document.getElementById('ai-stats').innerHTML = `
+                <div style="color: var(--danger);">AI Gateway offline</div>
+            `;
+        }
+    }
+    
+    // WebSocket for real-time updates (optional)
+    let ws;
+    function connectWebSocket() {
+        try {
+            ws = new WebSocket(`ws://${window.location.host}/ws`);
+            
+            ws.onopen = () => {
+                console.log('WebSocket connected');
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                if (data.type === 'chat_response') {
+                    removeLoadingMessage();
+                    if (data.error) {
+                        addMessage('assistant', `Error: ${data.error}`);
+                    } else {
+                        addMessage('assistant', data.content);
+                    }
+                    isLoading = false;
+                    sendBtn.disabled = false;
+                }
+            };
+            
+            ws.onclose = () => {
+                console.log('WebSocket disconnected, reconnecting...');
+                setTimeout(connectWebSocket, 5000);
+            };
+        } catch (e) {
+            console.error('WebSocket error:', e);
+        }
+    }
+    
+    // Initial load
+    loadAIStats();
+    setInterval(loadAIStats, 60000);
+    
+    // Focus input
+    chatInput.focus();
+</script>
+{% endblock %}

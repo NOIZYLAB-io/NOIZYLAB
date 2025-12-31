@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Review git status and understand all changes",
+    "status": "completed",
+    "activeForm": "Reviewing git status and understanding changes"
+  },
+  {
+    "content": "Stage all deleted files",
+    "status": "completed",
+    "activeForm": "Staging all deleted files"
+  },
+  {
+    "content": "Stage modified zsh config files",
+    "status": "completed",
+    "activeForm": "Staging modified zsh config files"
+  },
+  {
+    "content": "Create comprehensive commit message",
+    "status": "completed",
+    "activeForm": "Creating comprehensive commit message"
+  },
+  {
+    "content": "Remove large files from git history",
+    "status": "completed",
+    "activeForm": "Removing large files from git history"
+  },
+  {
+    "content": "Push changes to remote",
+    "status": "pending",
+    "activeForm": "Pushing changes to remote"
+  }
+]

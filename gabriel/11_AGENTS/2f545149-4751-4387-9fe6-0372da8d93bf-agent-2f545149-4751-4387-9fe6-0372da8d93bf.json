@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Set up TTS voice cloning module for NLR_01",
+    "status": "completed",
+    "activeForm": "Setting up TTS voice cloning"
+  },
+  {
+    "content": "Install Coqui TTS for voice cloning",
+    "status": "completed",
+    "activeForm": "Installing Coqui TTS"
+  },
+  {
+    "content": "Set up voice recording session",
+    "status": "in_progress",
+    "activeForm": "Setting up voice recording"
+  },
+  {
+    "content": "Record Rob's voice samples",
+    "status": "pending",
+    "activeForm": "Recording voice samples"
+  },
+  {
+    "content": "Train Rob's custom voice model",
+    "status": "pending",
+    "activeForm": "Training custom voice model"
+  },
+  {
+    "content": "Integrate TTS with NLR_01 assistant",
+    "status": "pending",
+    "activeForm": "Integrating TTS with assistant"
+  }
+]

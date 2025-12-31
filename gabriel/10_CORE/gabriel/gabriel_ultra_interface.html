@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GABRIEL // ULTRA INTERFACE v12.0</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            overflow: hidden;
+            font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+            color: #00FFCC;
+            cursor: none;
+        }
+
+        /* CUSTOM CURSOR */
+        #cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00FFCC;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out, opacity 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        #cursor.active {
+            transform: scale(0.5);
+            background: #00FFCC;
+        }
+
+        #cursor-trail {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* HOLOGRAPHIC HUD */
+        #hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        #hud-top-left {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+
+        #hud-top-right {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            text-align: right;
+        }
+
+        #hud-bottom-left {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+        }
+
+        #hud-bottom-right {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            text-align: right;
+        }
+
+        .hud-label {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hud-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        .hud-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hud-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00FFCC, #00FF88);
+            transition: width 0.3s ease-out;
+        }
+
+        /* TITLE */
+        #title-container {
+            position: absolute;
+            top: 50%;
+            left: 50px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        #title {
+            font-size: 6rem;
+            font-weight: 100;
+            letter-spacing: -5px;
+            line-height: 1;
+            background: linear-gradient(180deg, #FFF 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+
+        #subtitle {
+            font-size: 1rem;
+            letter-spacing: 8px;
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        /* TERMINAL */
+        #terminal {
+            position: absolute;
+            bottom: 100px;
+            right: 30px;
+            width: 450px;
+            pointer-events: auto;
+            z-index: 200;
+        }
+
+        #response-box {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        #response-box.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        #command-input {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 255, 204, 0.5);
+            border-radius: 8px;
+            color: #00FFCC;
+            padding: 18px 20px;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        #command-input:focus {
+            border-color: #00FFCC;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+        }
+
+        #command-input::placeholder {
+            color: rgba(0, 255, 204, 0.4);
+        }
+
+        #send-btn {
+            background: linear-gradient(135deg, #00FFCC, #00CC99);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 18px 30px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
+        }
+
+        /* SCANLINES */
+        #scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* FPS COUNTER */
+        #fps {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            opacity: 0.4;
+            z-index: 1001;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+    <script type="importmap">
+        { "imports": { 
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }}
+    </script>
+</head>
+
+<body>
+    <!-- CUSTOM CURSOR -->
+    <div id="cursor"></div>
+    <div id="cursor-trail"></div>
+
+    <!-- SCANLINES -->
+    <div id="scanlines"></div>
+
+    <!-- FPS -->
+    <div id="fps">60 FPS</div>
+
+    <!-- HOLOGRAPHIC HUD -->
+    <div id="hud">
+        <div id="hud-top-left">
+            <div class="hud-label">SYSTEM STATUS</div>
+            <div class="hud-value" id="status-text">STANDBY</div>
+            <div class="hud-bar">
+                <div class="hud-bar-fill" id="status-bar" style="width: 20%"></div>
+            </div>
+        </div>
+
+        <div id="hud-top-right">
+            <div class="hud-label">NEURAL CORE</div>
+            <div class="hud-value" style="color: #FF00FF">M2 ULTRA</div>
+        </div>
+
+        <div id="hud-bottom-left">
+            <div class="hud-label">INTERFACE</div>
+            <div class="hud-value">v12.0</div>
+        </div>
+
+        <div id="hud-bottom-right">
+            <div class="hud-label">RENDERING</div>
+            <div class="hud-value" id="render-mode">GPU ACCELERATED</div>
+        </div>
+    </div>
+
+    <!-- TITLE -->
+    <div id="title-container">
+        <h1 id="title">GABRIEL</h1>
+        <div id="subtitle">ULTRA INTERFACE</div>
+    </div>
+
+    <!-- TERMINAL -->
+    <div id="terminal">
+        <div id="response-box"></div>
+        <div id="input-container">
+            <input type="text" id="command-input" placeholder="TRANSMIT DIRECTIVE..." autocomplete="off" />
+            <button id="send-btn">▶</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        // ========== PHYSICS ENGINE (SMOOTH INERTIA) ==========
+        class PhysicsValue {
+            constructor(value = 0, damping = 0.92, speed = 0.08) {
+                this.current = value;
+                this.target = value;
+                this.velocity = 0;
+                this.damping = damping;
+                this.speed = speed;
+            }
+
+            set(value) {
+                this.target = value;
+            }
+
+            update() {
+                const force = (this.target - this.current) * this.speed;
+                this.velocity += force;
+                this.velocity *= this.damping;
+                this.current += this.velocity;
+                return this.current;
+            }
+        }
+
+        // ========== STATE ==========
+        const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+        const cameraOffset = { x: new PhysicsValue(0), y: new PhysicsValue(0) };
+        const parallaxLayers = [];
+        let avatar, mouthMesh;
+        let socket, isConnected = false;
+        let mouthOpenValue = 0;
+        let frameCount = 0, lastTime = performance.now(), fps = 60;
+
+        // ========== SCENE SETUP ==========
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x030303);
+        scene.fog = new THREE.Fog(0x030303, 3, 8);
+
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 1.5, 1.8);
+
+        const renderer = new THREE.WebGLRenderer({
+            antialias: true,
+            powerPreference: 'high-performance'
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.insertBefore(renderer.domElement, document.body.firstChild);
+
+        // ========== LIGHTING ==========
+        const ambientLight = new THREE.AmbientLight(0x111111);
+        scene.add(ambientLight);
+
+        // Key Light (Cyan)
+        const keyLight = new THREE.SpotLight(0x00FFCC, 20);
+        keyLight.position.set(2.5, 3, 2);
+        keyLight.angle = Math.PI / 4;
+        keyLight.penumbra = 0.5;
+        keyLight.castShadow = true;
+        keyLight.shadow.mapSize.width = 2048;
+        keyLight.shadow.mapSize.height = 2048;
+        scene.add(keyLight);
+
+        // Rim Light (Magenta)
+        const rimLight = new THREE.SpotLight(0xFF00FF, 12);
+        rimLight.position.set(-2.5, 2, -1);
+        rimLight.angle = Math.PI / 3;
+        rimLight.penumbra = 0.7;
+        scene.add(rimLight);
+
+        // Fill Light (Blue)
+        const fillLight = new THREE.PointLight(0x0066FF, 5);
+        fillLight.position.set(0, 0.5, 3);
+        scene.add(fillLight);
+
+        // ========== GROUND PLANE ==========
+        const groundGeometry = new THREE.PlaneGeometry(20, 20);
+        const groundMaterial = new THREE.MeshStandardMaterial({
+            color: 0x050505,
+            metalness: 0.8,
+            roughness: 0.4
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.position.y = 0;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        // ========== AVATAR ==========
+        const loader = new GLTFLoader();
+        const avatarUrl = 'https://models.readyplayer.me/64b772c085002958742f36e4.glb';
+
+        loader.load(avatarUrl, (gltf) => {
+            avatar = gltf.scene;
+            avatar.position.set(0, 0, 0);
+            scene.add(avatar);
+
+            avatar.traverse((child) => {
+                if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+
+                    if (child.morphTargetDictionary && child.morphTargetDictionary['mouthOpen']) {
+                        mouthMesh = child;
+                    }
+                }
+            });
+
+            document.getElementById('status-text').innerText = 'READY';
+            document.getElementById('status-bar').style.width = '60%';
+        });
+
+        // ========== CUSTOM CURSOR ==========
+        const cursor = document.getElementById('cursor');
+        const cursorTrail = document.getElementById('cursor-trail');
+
+        document.addEventListener('mousemove', (e) => {
+            mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+
+            // Direct cursor update (no physics for responsiveness)
+            cursor.style.left = e.clientX - 10 + 'px';
+            cursor.style.top = e.clientY - 10 + 'px';
+
+            // Trail follows with delay
+            setTimeout(() => {
+                cursorTrail.style.left = e.clientX - 20 + 'px';
+                cursorTrail.style.top = e.clientY - 20 + 'px';
+            }, 50);
+        });
+
+        document.addEventListener('mousedown', () => cursor.classList.add('active'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('active'));
+
+        // ========== KEYBOARD ==========
+        document.addEventListener('keydown', (e) => {
+            // ESC to clear
+            if (e.key === 'Escape') {
+                document.getElementById('response-box').classList.remove('active');
+            }
+            // Focus input with /
+            if (e.key === '/') {
+                e.preventDefault();
+                document.getElementById('command-input').focus();
+            }
+        });
+
+        // ========== WEBSOCKET ==========
+        function connect() {
+            socket = new WebSocket('ws://localhost:8000/ws/gabriel');
+
+            socket.onopen = () => {
+                isConnected = true;
+                document.getElementById('status-text').innerText = 'ONLINE';
+                document.getElementById('status-text').style.color = '#00FF00';
+                document.getElementById('status-bar').style.width = '100%';
+            };
+
+            socket.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.type === 'response') {
+                        const box = document.getElementById('response-box');
+                        box.innerHTML = data.content.replace(/\n/g, '<br>');
+                        box.classList.add('active');
+                        animateSpeech(data.content.length * 15);
+                    }
+                } catch (e) { }
+            };
+
+            socket.onclose = () => {
+                isConnected = false;
+                document.getElementById('status-text').innerText = 'OFFLINE';
+                document.getElementById('status-text').style.color = '#FF0000';
+                setTimeout(connect, 3000);
+            };
+        }
+
+        function sendMessage(text) {
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({ type: 'text', content: text }));
+            }
+        }
+
+        function animateSpeech(duration) {
+            const start = Date.now();
+            function speak() {
+                const elapsed = Date.now() - start;
+                if (elapsed < duration) {
+                    mouthOpenValue = Math.sin(elapsed * 0.025) * 0.4 + 0.3 + Math.random() * 0.1;
+                    requestAnimationFrame(speak);
+                } else {
+                    mouthOpenValue = 0;
+                }
+            }
+            speak();
+        }
+
+        // ========== UI EVENTS ==========
+        document.getElementById('send-btn').addEventListener('click', () => {
+            const input = document.getElementById('command-input');
+            if (input.value.trim()) {
+                if (!isConnected) connect();
+                sendMessage(input.value);
+                input.value = '';
+            }
+        });
+
+        document.getElementById('command-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const input = document.getElementById('command-input');
+                if (input.value.trim()) {
+                    if (!isConnected) connect();
+                    sendMessage(input.value);
+                    input.value = '';
+                }
+            }
+        });
+
+        document.getElementById('command-input').addEventListener('focus', () => {
+            if (!isConnected) connect();
+        });
+
+        // ========== RENDER LOOP (60FPS+ PHYSICS) ==========
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // FPS Counter
+            frameCount++;
+            const now = performance.now();
+            if (now - lastTime >= 1000) {
+                fps = frameCount;
+                document.getElementById('fps').innerText = `${fps} FPS`;
+                frameCount = 0;
+                lastTime = now;
+            }
+
+            // Smooth mouse lerp
+            mouse.x += (mouse.targetX - mouse.x) * 0.08;
+            mouse.y += (mouse.targetY - mouse.y) * 0.08;
+
+            // Camera parallax with physics
+            cameraOffset.x.set(mouse.x * 0.3);
+            cameraOffset.y.set(mouse.y * 0.15);
+
+            camera.position.x = cameraOffset.x.update();
+            camera.position.y = 1.5 + cameraOffset.y.update();
+            camera.lookAt(0, 1.4, 0);
+
+            // Avatar subtle movement
+            if (avatar) {
+                avatar.rotation.y = mouse.x * 0.1;
+                avatar.position.y = Math.sin(now * 0.001) * 0.008;
+            }
+
+            // Lip sync
+            if (mouthMesh && mouthMesh.morphTargetDictionary) {
+                const index = mouthMesh.morphTargetDictionary['mouthOpen'];
+                if (index !== undefined) {
+                    const current = mouthMesh.morphTargetInfluences[index];
+                    mouthMesh.morphTargetInfluences[index] = THREE.MathUtils.lerp(current, mouthOpenValue, 0.25);
+                }
+            }
+
+            // Light animation
+            keyLight.position.x = 2.5 + Math.sin(now * 0.0005) * 0.5;
+            rimLight.position.x = -2.5 + Math.cos(now * 0.0007) * 0.3;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // ========== RESIZE ==========
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Auto-connect on load
+        setTimeout(connect, 1000);
+    </script>
+</body>
+
+</html>

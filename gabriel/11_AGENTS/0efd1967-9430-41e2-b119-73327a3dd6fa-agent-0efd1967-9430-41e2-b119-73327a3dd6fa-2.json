@@ -1,0 +1,42 @@
+[
+  {
+    "content": "Create comprehensive English language guide structure",
+    "status": "in_progress",
+    "activeForm": "Creating English language guide structure"
+  },
+  {
+    "content": "Add phonetics and pronunciation rules",
+    "status": "pending",
+    "activeForm": "Adding phonetics and pronunciation"
+  },
+  {
+    "content": "Add grammar rules and patterns",
+    "status": "pending",
+    "activeForm": "Adding grammar rules"
+  },
+  {
+    "content": "Add vocabulary by category",
+    "status": "pending",
+    "activeForm": "Adding vocabulary categories"
+  },
+  {
+    "content": "Add idioms, expressions, and slang",
+    "status": "pending",
+    "activeForm": "Adding idioms and expressions"
+  },
+  {
+    "content": "Add speech patterns for different contexts",
+    "status": "pending",
+    "activeForm": "Adding speech patterns"
+  },
+  {
+    "content": "Add Winston/British accent specifics",
+    "status": "pending",
+    "activeForm": "Adding British accent guide"
+  },
+  {
+    "content": "Integrate with voice system for practice",
+    "status": "pending",
+    "activeForm": "Integrating with voice system"
+  }
+]

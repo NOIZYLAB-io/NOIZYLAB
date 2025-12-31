@@ -1,20 +1,104 @@
+# ══════════════════════════════════════════════════════════════
+# GABRIEL .gitignore - MC96DIGIUNIVERSE GORUNFREE PROTOCOL ⚡
+# ══════════════════════════════════════════════════════════════
 
-# Harvested code directories
-CODEMASTER/_HARVEST/
-CODEMASTER/_ORGANIZED/
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*~
 
+# IDE
+.vscode/
+.idea/
+*.code-workspace
 
-# Claude Code settings
-.claude/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.venv/
+venv/
+ENV/
+.eggs/
+*.egg-info/
+dist/
+build/
 
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log
+.npm/
+.yarn/
 
-# Runtime logs
-logs/*.log
+# Logs
+logs/
+*.log
 
-
-# Environment files
+# Environment
 .env
+.env.local
 .env.*
-*.env
+*.pem
+*.key
+secrets/
 
-_ORGANIZED/voice_harvest/
+# Claude / AI
+.claude/
+.codex/
+
+# Large directories (stored externally)
+CODEMASTER/
+CODE/
+SystemGuardian/
+00_CONTROL_PLANE/
+
+# Temp
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Archives
+*.zip
+*.tar.gz
+*.7z
+
+# Database
+*.db
+*.sqlite3
+
+# Wrangler
+.wrangler/
+.dev.vars
+
+# Test outputs
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Shell script duplicates & junk
+*-[0-9].sh
+*-[0-9][0-9].sh
+*_[0-9].sh
+GORUNFREE_2025*.sh
+*_gorunfree.sh
+
+# Archive directories (large, not needed in repo)
+archive/
+deep_archive/
+
+# Old/Legacy (keep local only)
+legacy/
+docs_legacy/
+
+# Widget builds
+widget/*.app/
+
+# Recovered/backup files
+*_recovered/
+*_backup/
+*.metadata.json
