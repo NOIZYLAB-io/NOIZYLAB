@@ -1,0 +1,46 @@
+{
+  "name": "directives",
+  "layer_num": 9,
+  "items": {
+    "6679901145c2": {
+      "id": "6679901145c2",
+      "key": "always use uvloop for async on M2 Ultra",
+      "value": {
+        "directive": "always use uvloop for async on M2 Ultra",
+        "type": "MUST",
+        "reason": "Maximum performance",
+        "active": true
+      },
+      "created_at": "2026-01-01T00:33:38.146985",
+      "access_count": 0,
+      "last_accessed": null
+    },
+    "6161a8d7f86b": {
+      "id": "6161a8d7f86b",
+      "key": "never block the event loop",
+      "value": {
+        "directive": "never block the event loop",
+        "type": "NEVER",
+        "reason": "Kills performance",
+        "active": true
+      },
+      "created_at": "2026-01-01T00:33:38.147178",
+      "access_count": 0,
+      "last_accessed": null
+    },
+    "76bb7ab03b07": {
+      "id": "76bb7ab03b07",
+      "key": "prefer orjson over standard json",
+      "value": {
+        "directive": "prefer orjson over standard json",
+        "type": "PREFER",
+        "reason": "Speed",
+        "active": true
+      },
+      "created_at": "2026-01-01T00:33:38.147329",
+      "access_count": 0,
+      "last_accessed": null
+    }
+  },
+  "persisted_at": "2026-01-01T00:33:38.147392"
+}
