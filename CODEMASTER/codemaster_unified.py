@@ -550,14 +550,15 @@ async def ai_brain_chat(request: AIBrainChatRequest):
             max_tokens=request.max_tokens,
             temperature=request.temperature
         )
-        result = await brain.chat(brain_req)
+        result = await brain.think(brain_req)
         return {
             "id": str(uuid.uuid4())[:8],
-            "model": request.model,
-            "response": result.get("response", ""),
-            "tokens": result.get("usage", {}),
-            "cost": result.get("cost"),
+            "model": result.model_used,
+            "response": result.content,
+            "tokens": {"input": result.input_tokens, "output": result.output_tokens},
+            "cost": result.cost,
             "routed_agent": request.agent,
+            "elapsed_ms": result.elapsed_ms,
             "timestamp": datetime.now().isoformat()
         }
     except Exception as e:
@@ -634,12 +635,12 @@ async def ai_brain_swarm_query(task: SwarmTask):
             system = f"You are {primary_agent} {agent_info['emoji']}, the {agent_info['role']}. Domain: {agent_info['domain']}. Be helpful and efficient."
             brain_req = BrainRequest(
                 prompt=task.content,
-                model="claude-sonnet-4",
+                model="claude-sonnet",
                 system=system,
                 max_tokens=2048
             )
-            result = await brain.chat(brain_req)
-            ai_response = result.get("response", "")
+            result = await brain.think(brain_req)
+            ai_response = result.content
         except Exception as e:
             ai_response = f"[Error: {str(e)}]"
     else:
