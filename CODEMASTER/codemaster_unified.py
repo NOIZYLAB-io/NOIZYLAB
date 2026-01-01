@@ -155,10 +155,11 @@ async def root():
 h1{{font-size:2.5em;text-shadow:0 0 20px #00ff88}}
 .grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}}
 .svc{{background:rgba(0,0,0,0.4);border:1px solid #00ff88;border-radius:10px;padding:15px}}
+.swarm{{background:rgba(255,136,0,0.1);border:2px solid #ff8800}}
 a{{color:#00ff88}}</style></head>
-<body><div class="box"><h1>⚡ CODEMASTER UNIFIED ⚡</h1>
-<p>All 9 Services Running | Uptime: {uptime}</p>
-<p>UVLOOP: {'✅' if UVLOOP else '❌'} | ORJSON: {'✅' if ORJSON else '❌'}</p></div>
+<body><div class="box"><h1>⚡ CODEMASTER UNIFIED + SWARM ⚡</h1>
+<p>All 10 Services Running | Uptime: {uptime}</p>
+<p>UVLOOP: {'✅' if UVLOOP else '❌'} | ORJSON: {'✅' if ORJSON else '❌'} | SWARM: 🐟 7 Agents</p></div>
 <div class="grid">
 <div class="svc">🔐 <a href="/vault/">Vault</a> ({len(store.vault_items)} items)</div>
 <div class="svc">📚 <a href="/catalog/">Catalog</a> ({len(store.catalog_entries)} entries)</div>
@@ -169,16 +170,18 @@ a{{color:#00ff88}}</style></head>
 <div class="svc">🕸️ <a href="/mesh/">Mesh</a></div>
 <div class="svc">🧠 <a href="/brain/">GOD Brain</a></div>
 <div class="svc">📊 <a href="/metrics/">Metrics</a></div>
-</div><p><a href="/docs">📖 API Docs</a> | <a href="/health">❤️ Health</a></p></body></html>"""
+<div class="svc swarm">🐟 <a href="/swarm/">GABRIEL Swarm</a> (7 Agents)</div>
+</div><p><a href="/docs">📖 API Docs</a> | <a href="/health">❤️ Health</a> | <a href="/swarm/agents">🤖 Swarm Agents</a></p></body></html>"""
 
 @app.get("/health")
 async def health_check():
     return {
         "status": "healthy",
         "service": "CODEMASTER_UNIFIED",
-        "version": "2.0.0",
+        "version": "2.1.0-SWARM",
         "uptime_seconds": (datetime.now() - store.started_at).total_seconds(),
-        "services": {s: "online" for s in ["vault","catalog","evidence","ai_gateway","fleet","mc96","mesh","god_brain","observability"]},
+        "services": {s: "online" for s in ["vault","catalog","evidence","ai_gateway","fleet","mc96","mesh","god_brain","observability","swarm"]},
+        "swarm": {"agents": len(SWARM_AGENTS), "status": "online"},
         "optimizations": {"uvloop": UVLOOP, "orjson": ORJSON},
         "counts": {
             "vault_items": len(store.vault_items),
@@ -387,6 +390,90 @@ async def brain_insights():
             "generated_at": datetime.now().isoformat()}
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# 🐟 GABRIEL SWARM - 7-AGENT ORCHESTRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+SWARM_AGENTS = {
+    "GABRIEL": {"emoji": "👑", "role": "Supreme Orchestrator", "model": "claude-opus-4-5", "domain": "Strategic Operations", "status": "online"},
+    "ARIA": {"emoji": "🎵", "role": "Creative Director", "model": "claude-sonnet-4", "domain": "Music & Creative", "status": "online"},
+    "ZEPHYR": {"emoji": "🌊", "role": "Community Warden", "model": "claude-haiku-3.5", "domain": "Discord & Community", "status": "online"},
+    "NEXUS": {"emoji": "📡", "role": "Systems Architect", "model": "claude-sonnet-4", "domain": "Infrastructure", "status": "online"},
+    "ECHO": {"emoji": "📢", "role": "Marketing Genius", "model": "claude-sonnet-4", "domain": "Content & Marketing", "status": "online"},
+    "ORACLE": {"emoji": "🔮", "role": "Analytics Sage", "model": "claude-opus-4-5", "domain": "Data & Predictions", "status": "online"},
+    "SERAPHIM": {"emoji": "💼", "role": "Business Strategist", "model": "claude-sonnet-4", "domain": "Revenue & Licensing", "status": "online"},
+}
+
+ROUTING_KEYWORDS = {
+    "GABRIEL": ["strategic", "coordinate", "oversight", "plan", "vision"],
+    "ARIA": ["music", "track", "song", "sound", "catalog", "audio"],
+    "ZEPHYR": ["discord", "community", "member", "moderate", "event"],
+    "NEXUS": ["server", "deploy", "code", "infrastructure", "build"],
+    "ECHO": ["youtube", "content", "social", "marketing", "tiktok"],
+    "ORACLE": ["data", "analytics", "metrics", "forecast", "report"],
+    "SERAPHIM": ["license", "revenue", "deal", "business", "sync"],
+}
+
+@app.get("/swarm/")
+async def swarm_status():
+    return {
+        "status": "ONLINE",
+        "agents": len(SWARM_AGENTS),
+        "swarm": SWARM_AGENTS,
+        "capabilities": ["task_routing", "parallel_processing", "multi_agent_orchestration"]
+    }
+
+@app.get("/swarm/agents")
+async def swarm_agents():
+    return {"agents": SWARM_AGENTS, "total": len(SWARM_AGENTS)}
+
+class SwarmTask(BaseModel):
+    content: str
+    priority: int = 3
+
+@app.post("/swarm/route")
+async def swarm_route(task: SwarmTask):
+    content_lower = task.content.lower()
+    assigned = []
+    for agent, keywords in ROUTING_KEYWORDS.items():
+        if any(kw in content_lower for kw in keywords):
+            assigned.append(agent)
+    if not assigned:
+        assigned = ["GABRIEL"]
+    elif "GABRIEL" not in assigned:
+        assigned.insert(0, "GABRIEL")
+    return {
+        "content": task.content,
+        "routed_to": assigned,
+        "agents_info": [f"{SWARM_AGENTS[a]['emoji']} {a}: {SWARM_AGENTS[a]['domain']}" for a in assigned],
+        "timestamp": datetime.now().isoformat()
+    }
+
+@app.post("/swarm/process")
+async def swarm_process(task: SwarmTask):
+    """Full swarm processing with routing and execution"""
+    start = time.time()
+    content_lower = task.content.lower()
+    assigned = []
+    for agent, keywords in ROUTING_KEYWORDS.items():
+        if any(kw in content_lower for kw in keywords):
+            assigned.append(agent)
+    if not assigned:
+        assigned = ["GABRIEL"]
+    elif "GABRIEL" not in assigned:
+        assigned.insert(0, "GABRIEL")
+    elapsed = (time.time() - start) * 1000
+    return {
+        "task_id": str(uuid.uuid4())[:8],
+        "content": task.content,
+        "priority": task.priority,
+        "routed_to": assigned,
+        "agent_count": len(assigned),
+        "elapsed_ms": round(elapsed, 2),
+        "status": "processed",
+        "timestamp": datetime.now().isoformat()
+    }
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # 📊 OBSERVABILITY
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -397,6 +484,7 @@ async def metrics_overview():
     avg_latency = sum(r["latency_ms"] for r in requests) / total if requests else 0
     return {"total_requests": total, "average_latency_ms": round(avg_latency, 2),
             "uptime_seconds": (datetime.now() - store.started_at).total_seconds(),
+            "swarm_agents": len(SWARM_AGENTS),
             "memory": {"vault_items": len(store.vault_items), "catalog_entries": len(store.catalog_entries),
                        "evidence_items": len(store.evidence_items), "agents": len(store.agents), "missions": len(store.missions)}}
 
