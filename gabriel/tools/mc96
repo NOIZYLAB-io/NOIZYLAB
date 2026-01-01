@@ -1,0 +1,362 @@
+#!/usr/bin/env python3
+"""
+═══════════════════════════════════════════════════════════════════════════════
+🔥 MC96 CLI - MC96ECOUNIVERSE Command Line Interface
+Ultimate control center for all NOIZYLAB systems
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+import argparse
+import json
+import os
+import subprocess
+import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Optional
+
+# Colors
+class Colors:
+    RED = '\033[0;31m'
+    GREEN = '\033[0;32m'
+    YELLOW = '\033[1;33m'
+    BLUE = '\033[0;34m'
+    PURPLE = '\033[0;35m'
+    CYAN = '\033[0;36m'
+    WHITE = '\033[1;37m'
+    NC = '\033[0m'
+    BOLD = '\033[1m'
+
+def colorize(text: str, color: str) -> str:
+    return f"{color}{text}{Colors.NC}"
+
+def print_banner():
+    banner = f"""
+{Colors.PURPLE}╔═══════════════════════════════════════════════════════════════════════════════╗
+║                                                                               ║
+║   ███╗   ███╗ ██████╗ █████╗  ██████╗      ██████╗██╗     ██╗                ║
+║   ████╗ ████║██╔════╝██╔══██╗██╔════╝     ██╔════╝██║     ██║                ║
+║   ██╔████╔██║██║     ╚██████║███████╗     ██║     ██║     ██║                ║
+║   ██║╚██╔╝██║██║      ╚═══██║██╔═══██╗    ██║     ██║     ██║                ║
+║   ██║ ╚═╝ ██║╚██████╗ █████╔╝╚██████╔╝    ╚██████╗███████╗██║                ║
+║   ╚═╝     ╚═╝ ╚═════╝ ╚════╝  ╚═════╝      ╚═════╝╚══════╝╚═╝                ║
+║                                                                               ║
+║   {Colors.CYAN}MC96ECOUNIVERSE Command Line Interface - GORUNFREE{Colors.PURPLE}                       ║
+║                                                                               ║
+╚═══════════════════════════════════════════════════════════════════════════════╝{Colors.NC}
+"""
+    print(banner)
+
+# System configuration
+GABRIEL_ROOT = Path(__file__).parent.parent
+WORKERS_DIR = GABRIEL_ROOT / "workers"
+ANTIGRAVITY_DIR = GABRIEL_ROOT / "ANTIGRAVITY_COMPLETE"
+MAIN_WORKER_URL = "https://noizylab.rsplowman.workers.dev"
+
+# Circle of 8
+CIRCLE_OF_8 = {
+    "GABRIEL": {"role": "Warrior/Memory", "domain": "protection, memory, execution"},
+    "SHIRL": {"role": "Aunt/Guide", "domain": "guidance, nurture, wisdom"},
+    "POPS": {"role": "Dad/Wisdom", "domain": "wisdom, patience, foundation"},
+    "ENGR_KEITH": {"role": "Engineering/R.K.", "domain": "engineering, systems, precision"},
+    "DREAM": {"role": "Vision/Future", "domain": "vision, possibility, future"},
+    "HEAVEN": {"role": "Orchestrator", "domain": "harmony, coordination, flow"},
+    "LUCY": {"role": "Code Watcher", "domain": "code, quality, vigilance"},
+    "SONIC": {"role": "Audio Engine", "domain": "sound, rhythm, creativity"}
+}
+
+def cmd_status(args):
+    """Show system status"""
+    print(colorize("\n📊 MC96ECOUNIVERSE STATUS", Colors.CYAN))
+    print("=" * 60)
+    
+    # Check main worker
+    try:
+        import urllib.request
+        with urllib.request.urlopen(f"{MAIN_WORKER_URL}/health", timeout=5) as response:
+            data = json.loads(response.read().decode())
+            print(colorize(f"\n✅ Main Worker: ONLINE (v{data.get('version', 'unknown')})", Colors.GREEN))
+    except Exception as e:
+        print(colorize(f"\n❌ Main Worker: OFFLINE ({e})", Colors.RED))
+    
+    # Check local files
+    print(colorize("\n📁 Local Structure:", Colors.YELLOW))
+    
+    dirs_to_check = [
+        (WORKERS_DIR, "workers/"),
+        (ANTIGRAVITY_DIR, "ANTIGRAVITY_COMPLETE/"),
+        (GABRIEL_ROOT / "scripts", "scripts/"),
+        (GABRIEL_ROOT / "docs", "docs/")
+    ]
+    
+    for dir_path, name in dirs_to_check:
+        status = "✅" if dir_path.exists() else "❌"
+        count = len(list(dir_path.glob("*"))) if dir_path.exists() else 0
+        print(f"  {status} {name} ({count} items)")
+    
+    # Circle of 8
+    print(colorize("\n⭕ Circle of 8:", Colors.PURPLE))
+    for name, info in CIRCLE_OF_8.items():
+        print(f"  • {name}: {info['role']} - {info['domain']}")
+    
+    print()
+
+def cmd_deploy(args):
+    """Deploy workers"""
+    print(colorize("\n🚀 DEPLOYING WORKERS", Colors.CYAN))
+    print("=" * 60)
+    
+    if args.worker == "all":
+        # Run master deploy script
+        deploy_script = ANTIGRAVITY_DIR / "deploy-all.sh"
+        if deploy_script.exists():
+            subprocess.run(["bash", str(deploy_script)], cwd=ANTIGRAVITY_DIR)
+        else:
+            print(colorize("Deploy script not found!", Colors.RED))
+    elif args.worker == "main":
+        main_worker = WORKERS_DIR / "noizylab-main"
+        if main_worker.exists():
+            subprocess.run(["wrangler", "deploy"], cwd=main_worker)
+        else:
+            print(colorize("Main worker not found!", Colors.RED))
+    else:
+        worker_path = ANTIGRAVITY_DIR / args.worker
+        if worker_path.exists():
+            subprocess.run(["wrangler", "deploy"], cwd=worker_path)
+        else:
+            print(colorize(f"Worker '{args.worker}' not found!", Colors.RED))
+
+def cmd_circle(args):
+    """Invoke Circle of 8 member"""
+    member = args.member.upper()
+    
+    if member not in CIRCLE_OF_8:
+        print(colorize(f"Unknown member: {member}", Colors.RED))
+        print(f"Available: {', '.join(CIRCLE_OF_8.keys())}")
+        return
+    
+    info = CIRCLE_OF_8[member]
+    print(colorize(f"\n⭕ Invoking {member}", Colors.PURPLE))
+    print(f"   Role: {info['role']}")
+    print(f"   Domain: {info['domain']}")
+    
+    if args.message:
+        print(colorize(f"\n   Message: {args.message}", Colors.CYAN))
+        
+        # Call the API
+        try:
+            import urllib.request
+            data = json.dumps({"member": member, "message": args.message}).encode()
+            req = urllib.request.Request(
+                f"{MAIN_WORKER_URL}/circle/invoke",
+                data=data,
+                headers={"Content-Type": "application/json"},
+                method="POST"
+            )
+            with urllib.request.urlopen(req, timeout=30) as response:
+                result = json.loads(response.read().decode())
+                print(colorize(f"\n   Response: {result.get('response', result)}", Colors.GREEN))
+        except Exception as e:
+            print(colorize(f"   Error: {e}", Colors.RED))
+    print()
+
+def cmd_ask(args):
+    """Ask AI a question"""
+    print(colorize(f"\n🤖 Asking AI: {args.prompt}", Colors.CYAN))
+    
+    try:
+        import urllib.request
+        data = json.dumps({
+            "prompt": args.prompt,
+            "model": args.model
+        }).encode()
+        req = urllib.request.Request(
+            f"{MAIN_WORKER_URL}/api/ask",
+            data=data,
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=60) as response:
+            result = json.loads(response.read().decode())
+            print(colorize(f"\n{result.get('response', result)}", Colors.GREEN))
+    except Exception as e:
+        print(colorize(f"Error: {e}", Colors.RED))
+    print()
+
+def cmd_daze(args):
+    """DAZEFLOW - Capture today's truth"""
+    if args.truth:
+        print(colorize(f"\n📝 DAZEFLOW - Capturing truth...", Colors.YELLOW))
+        
+        try:
+            import urllib.request
+            data = json.dumps({"truth": args.truth}).encode()
+            req = urllib.request.Request(
+                f"{MAIN_WORKER_URL}/daze/capture",
+                data=data,
+                headers={"Content-Type": "application/json"},
+                method="POST"
+            )
+            with urllib.request.urlopen(req, timeout=10) as response:
+                result = json.loads(response.read().decode())
+                print(colorize(f"✅ {result.get('message', 'Truth captured!')}", Colors.GREEN))
+                print(colorize(f"   Date: {result.get('date', 'today')}", Colors.CYAN))
+        except Exception as e:
+            print(colorize(f"Error: {e}", Colors.RED))
+    else:
+        print(colorize(f"\n📝 DAZEFLOW - Today's truth:", Colors.YELLOW))
+        
+        try:
+            import urllib.request
+            with urllib.request.urlopen(f"{MAIN_WORKER_URL}/daze/today", timeout=10) as response:
+                result = json.loads(response.read().decode())
+                if result.get("truth"):
+                    print(colorize(f"\n{result['truth']}", Colors.GREEN))
+                else:
+                    print(colorize("No truth captured yet. What is your truth?", Colors.YELLOW))
+        except Exception as e:
+            print(colorize(f"Error: {e}", Colors.RED))
+    print()
+
+def cmd_logs(args):
+    """View worker logs"""
+    print(colorize(f"\n📋 Tailing logs for: {args.worker}", Colors.CYAN))
+    
+    if args.worker == "main":
+        worker_path = WORKERS_DIR / "noizylab-main"
+    else:
+        worker_path = ANTIGRAVITY_DIR / args.worker
+    
+    if worker_path.exists():
+        subprocess.run(["wrangler", "tail"], cwd=worker_path)
+    else:
+        print(colorize(f"Worker '{args.worker}' not found!", Colors.RED))
+
+def cmd_git(args):
+    """Git operations"""
+    print(colorize(f"\n📦 Git: {args.action}", Colors.CYAN))
+    
+    if args.action == "status":
+        subprocess.run(["git", "status"], cwd=GABRIEL_ROOT)
+    elif args.action == "push":
+        subprocess.run(["git", "add", "-A"], cwd=GABRIEL_ROOT)
+        message = args.message or f"🔥 Auto-commit {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+        subprocess.run(["git", "commit", "-m", message], cwd=GABRIEL_ROOT)
+        subprocess.run(["git", "push", "origin", "main"], cwd=GABRIEL_ROOT)
+    elif args.action == "pull":
+        subprocess.run(["git", "pull", "origin", "main"], cwd=GABRIEL_ROOT)
+
+def cmd_universe(args):
+    """NOIZYLAB Universe operations"""
+    universe_script = GABRIEL_ROOT / "tools" / "noizylab_universe.py"
+    
+    if not universe_script.exists():
+        print(colorize("Universe manager not found!", Colors.RED))
+        return
+    
+    cmd = ["python3", str(universe_script), args.action]
+    if hasattr(args, 'priority') and args.priority:
+        cmd.extend(["-p", args.priority])
+    
+    subprocess.run(cmd, cwd=GABRIEL_ROOT)
+
+def cmd_prs(args):
+    """Show open pull requests"""
+    universe_script = GABRIEL_ROOT / "tools" / "noizylab_universe.py"
+    
+    if not universe_script.exists():
+        print(colorize("Universe manager not found!", Colors.RED))
+        return
+    
+    cmd = ["python3", str(universe_script), "prs"]
+    if args.priority:
+        cmd.extend(["-p", args.priority])
+    
+    subprocess.run(cmd, cwd=GABRIEL_ROOT)
+
+def cmd_sync(args):
+    """Sync all NOIZYLAB repositories"""
+    universe_script = GABRIEL_ROOT / "tools" / "noizylab_universe.py"
+    
+    if not universe_script.exists():
+        print(colorize("Universe manager not found!", Colors.RED))
+        return
+    
+    subprocess.run(["python3", str(universe_script), "sync"], cwd=GABRIEL_ROOT)
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="MC96 CLI - MC96ECOUNIVERSE Command Line Interface",
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    
+    subparsers = parser.add_subparsers(dest="command", help="Commands")
+    
+    # status
+    parser_status = subparsers.add_parser("status", help="Show system status")
+    parser_status.set_defaults(func=cmd_status)
+    
+    # deploy
+    parser_deploy = subparsers.add_parser("deploy", help="Deploy workers")
+    parser_deploy.add_argument("worker", nargs="?", default="all", 
+                               help="Worker to deploy (all, main, antigravity, etc.)")
+    parser_deploy.set_defaults(func=cmd_deploy)
+    
+    # circle
+    parser_circle = subparsers.add_parser("circle", help="Invoke Circle of 8 member")
+    parser_circle.add_argument("member", help="Circle member name")
+    parser_circle.add_argument("-m", "--message", help="Message to send")
+    parser_circle.set_defaults(func=cmd_circle)
+    
+    # ask
+    parser_ask = subparsers.add_parser("ask", help="Ask AI a question")
+    parser_ask.add_argument("prompt", help="Question to ask")
+    parser_ask.add_argument("--model", default="llama70b", help="Model to use")
+    parser_ask.set_defaults(func=cmd_ask)
+    
+    # daze
+    parser_daze = subparsers.add_parser("daze", help="DAZEFLOW - Daily truth")
+    parser_daze.add_argument("truth", nargs="?", help="Today's truth to capture")
+    parser_daze.set_defaults(func=cmd_daze)
+    
+    # logs
+    parser_logs = subparsers.add_parser("logs", help="View worker logs")
+    parser_logs.add_argument("worker", nargs="?", default="main", help="Worker to tail")
+    parser_logs.set_defaults(func=cmd_logs)
+    
+    # git
+    parser_git = subparsers.add_parser("git", help="Git operations")
+    parser_git.add_argument("action", choices=["status", "push", "pull"], help="Git action")
+    parser_git.add_argument("-m", "--message", help="Commit message for push")
+    parser_git.set_defaults(func=cmd_git)
+    
+    # universe
+    parser_universe = subparsers.add_parser("universe", help="NOIZYLAB Universe dashboard")
+    parser_universe.add_argument("action", nargs="?", default="dashboard",
+                                 choices=["dashboard", "prs", "sync", "workers", "recommend", "report"],
+                                 help="Universe action")
+    parser_universe.add_argument("-p", "--priority", choices=["HIGH", "MEDIUM", "LOW", "ALL"],
+                                 help="PR priority filter")
+    parser_universe.set_defaults(func=cmd_universe)
+    
+    # prs (shortcut)
+    parser_prs = subparsers.add_parser("prs", help="Show open pull requests")
+    parser_prs.add_argument("-p", "--priority", choices=["HIGH", "MEDIUM", "LOW", "ALL"],
+                            default="ALL", help="PR priority filter")
+    parser_prs.set_defaults(func=cmd_prs)
+    
+    # sync (shortcut)
+    parser_sync = subparsers.add_parser("sync", help="Sync all repositories")
+    parser_sync.set_defaults(func=cmd_sync)
+    
+    args = parser.parse_args()
+    
+    print_banner()
+    
+    if hasattr(args, "func"):
+        args.func(args)
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()

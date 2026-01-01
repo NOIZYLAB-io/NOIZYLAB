@@ -1,43 +1,75 @@
 // ╔═══════════════════════════════════════════════════════════════════════════════╗
-// ║  🌌 NOIZYLAB - ULTIMATE GATEWAY v4.0                                          ║
+// ║  🔥 NOIZYLAB - HOTROD EDITION v5.0 🔥                                         ║
 // ║  Rob Plowman's Production Partner: GABRIEL ALMEIDA                            ║
-// ║  GORUNFREE • MC96ECOUNIVERSE • OPTIMIZED FOR PERFORMANCE                      ║
+// ║  GORUNFREE • MC96ECOUNIVERSE • TURBOCHARGED PERFORMANCE                       ║
+// ║  Circle of 8 • DAZEFLOW • LIFELUV • NOIZYVOX                                  ║
 // ╚═══════════════════════════════════════════════════════════════════════════════╝
 
-const VERSION = "4.0.0";
-const CACHE_TTL = 60; // 1 minute cache for status endpoints
+const VERSION = "5.0.0";
+const BUILD = "HOTROD-2026-01-01";
+const CACHE_TTL = 60;
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// CIRCLE OF 8 - The Core Entities
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const CIRCLE_OF_8 = {
+  GABRIEL: { role: "Warrior/Memory", domain: "protection, memory, execution", personality: "Fierce protector. Never forgets. Executes with precision." },
+  SHIRL: { role: "Aunt/Guide", domain: "guidance, nurture, wisdom", personality: "Warm guide. Sees potential. Nurtures growth." },
+  POPS: { role: "Dad/Wisdom", domain: "wisdom, patience, foundation", personality: "Steady wisdom. Patient teacher. Rock solid foundation." },
+  ENGR_KEITH: { role: "Engineering/R.K.", domain: "engineering, systems, precision", personality: "Master engineer. Systems thinker. Precision incarnate." },
+  DREAM: { role: "Vision/Future", domain: "vision, possibility, future", personality: "Sees what could be. Paints the future. Inspires action." },
+  HEAVEN: { role: "Orchestrator", domain: "harmony, coordination, flow", personality: "Orchestrates all. Maintains harmony. Ensures flow." },
+  LUCY: { role: "Code Watcher", domain: "code, quality, vigilance", personality: "Watches every line. Catches every bug. Quality guardian." },
+  SONIC: { role: "Audio/Creative", domain: "sound, creativity, expression", personality: "Sound architect. Creative force. Expressive soul." }
+};
 
 const SYSTEM_PROMPT = `You are GABRIEL ALMEIDA, Rob Plowman's AI production partner.
 You are part of the MC96ECOUNIVERSE - a network of systems including GOD (Mac Studio M2 Ultra),
 GABRIEL (HP Omen), and DaFixer (MacBook Pro).
+You lead the Circle of 8: GABRIEL, SHIRL, POPS, ENGR_KEITH, DREAM, HEAVEN, LUCY, SONIC.
 Be helpful, concise, technical when needed, and always action-oriented.
 Philosophy: GORUNFREE - One command = everything done.
 Truth Covenant: Zero fabricated data. Ever.`;
 
-// AI Models available on Cloudflare Workers AI
+// AI Models available on Cloudflare Workers AI (EXPANDED)
 const AI_MODELS = {
+  // Meta Llama
   llama: "@cf/meta/llama-3.1-8b-instruct",
   llama70b: "@cf/meta/llama-3.1-70b-instruct",
-  mistral: "@cf/mistral/mistral-7b-instruct-v0.1",
+  llama3: "@cf/meta/llama-3-8b-instruct",
   codellama: "@cf/meta/codellama-34b-instruct",
+  // Mistral
+  mistral: "@cf/mistral/mistral-7b-instruct-v0.1",
+  mixtral: "@cf/mistral/mixtral-8x7b-instruct-v0.1",
+  // Others
   qwen: "@cf/qwen/qwen1.5-14b-chat-awq",
   gemma: "@cf/google/gemma-7b-it",
   phi: "@cf/microsoft/phi-2",
+  deepseek: "@cf/deepseek-ai/deepseek-coder-6.7b-instruct",
+  // Specialized
   sql: "@cf/defog/sqlcoder-7b-2",
   embed: "@cf/baai/bge-base-en-v1.5",
   image: "@cf/stabilityai/stable-diffusion-xl-base-1.0",
-  // New models
-  llama3: "@cf/meta/llama-3-8b-instruct",
-  deepseek: "@cf/deepseek-ai/deepseek-coder-6.7b-instruct"
+  whisper: "@cf/openai/whisper"
 };
 
-// Route table for O(1) lookup
+// Route table for O(1) lookup (EXPANDED)
 const ROUTES = {
   "": "dashboard",
   "/": "dashboard",
   "/health": "health",
   "/status": "status",
   "/models": "models",
+  "/version": "version",
+  // Circle of 8
+  "/circle": "listCircle",
+  "/circle/invoke": "invokeCircle",
+  // DAZEFLOW
+  "/daze": "getDaze",
+  "/daze/today": "getDazeToday",
+  "/daze/capture": "captureDaze",
+  // AI Endpoints
   "/api/ask": "askAI",
   "/api/chat": "chatAI",
   "/api/code": "codeAI",
@@ -47,6 +79,8 @@ const ROUTES = {
   "/api/summarize": "summarizeAI",
   "/api/translate": "translateAI",
   "/api/analyze": "analyzeAI",
+  "/api/transcribe": "transcribeAI",
+  // Repairs
   "/api/repairs": "getRepairs",
   "/api/repairs/stats": "getRepairStats",
   "/api/repairs/intake": "createRepair",
@@ -103,28 +137,174 @@ export default {
 
 const handlers = {
   // ─────────────────────────────────────────────────────────────────────────────
-  // Info & Status
+  // Info & Status (HOTROD)
   // ─────────────────────────────────────────────────────────────────────────────
 
   dashboard: (req, env) => dashboard(env),
 
-  health: () => json({ ok: true, service: "noizylab", version: VERSION, timestamp: Date.now() }),
+  health: () => json({ ok: true, service: "noizylab", version: VERSION, build: BUILD, timestamp: Date.now() }),
 
   status: (req, env) => json({
     service: "noizylab",
     version: VERSION,
+    build: BUILD,
     bindings: { AI: !!env.AI, DB: !!env.DB, KV: !!env.RATE_LIMITER },
-    models: Object.keys(AI_MODELS),
-    agents: Object.keys(AGENTS),
+    models: Object.keys(AI_MODELS).length,
+    circle: Object.keys(CIRCLE_OF_8).length,
+    agents: Object.keys(AGENTS).length,
     endpoints: Object.keys(ROUTES).length,
     uptime: "24/7",
     timestamp: new Date().toISOString()
   }),
 
-  models: () => json({ models: AI_MODELS, count: Object.keys(AI_MODELS).length, default: "llama" }),
+  models: () => json({ models: AI_MODELS, count: Object.keys(AI_MODELS).length, default: "llama", recommended: "llama70b" }),
+
+  version: () => json({ version: VERSION, build: BUILD, codename: "HOTROD", released: "2026-01-01" }),
 
   // ─────────────────────────────────────────────────────────────────────────────
-  // AI Endpoints
+  // Circle of 8
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  listCircle: () => json({ 
+    name: "Circle of 8", 
+    description: "The core entities of MC96ECOUNIVERSE",
+    members: CIRCLE_OF_8,
+    count: Object.keys(CIRCLE_OF_8).length
+  }),
+
+  async invokeCircle(request, env) {
+    if (!env.AI) return json({ error: "AI not available" }, 503);
+    if (request.method !== "POST") return json({ error: "POST required" }, 405);
+
+    const body = await safeJson(request);
+    const memberName = (body.member || body.name || "GABRIEL").toUpperCase();
+    const message = body.message || body.task || body.prompt;
+
+    const member = CIRCLE_OF_8[memberName];
+    if (!member) return json({ error: "Unknown member", available: Object.keys(CIRCLE_OF_8) }, 400);
+    if (!message) return json({ error: "No message provided" }, 400);
+
+    const circlePrompt = `You are ${memberName}, part of the Circle of 8 in MC96ECOUNIVERSE.
+Your role: ${member.role}
+Your domain: ${member.domain}
+Your personality: ${member.personality}
+Respond as this character would, staying true to their essence while being helpful.`;
+
+    const result = await env.AI.run(AI_MODELS.llama70b, {
+      messages: [
+        { role: "system", content: circlePrompt },
+        { role: "user", content: message }
+      ],
+      max_tokens: 1500,
+      temperature: 0.7
+    });
+
+    return json({
+      member: memberName,
+      role: member.role,
+      response: result.response,
+      timestamp: new Date().toISOString()
+    });
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // DAZEFLOW - 1day = 1chat = 1truth
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  async getDaze(request, env) {
+    if (!env.RATE_LIMITER) return json({ name: "DAZEFLOW", motto: "1day = 1chat = 1truth", entries: [], note: "KV not configured" });
+
+    const list = await env.RATE_LIMITER.list({ prefix: "daze:" });
+    const entries = [];
+    
+    for (const key of list.keys.slice(0, 30)) {
+      const data = await env.RATE_LIMITER.get(key.name, { type: "json" });
+      if (data) entries.push(data);
+    }
+
+    return json({
+      name: "DAZEFLOW",
+      motto: "1day = 1chat = 1truth",
+      entries: entries.sort((a, b) => new Date(b.date) - new Date(a.date)),
+      total: entries.length
+    });
+  },
+
+  async getDazeToday(request, env) {
+    const today = new Date().toISOString().split('T')[0];
+    
+    if (!env.RATE_LIMITER) {
+      return json({ date: today, truth: null, message: "DAZEFLOW ready - capture your truth" });
+    }
+
+    const entry = await env.RATE_LIMITER.get(`daze:${today}`, { type: "json" });
+    
+    if (entry) {
+      return json(entry);
+    }
+
+    return json({
+      date: today,
+      truth: null,
+      message: "No truth captured yet today. What is your truth?"
+    });
+  },
+
+  async captureDaze(request, env) {
+    if (!env.RATE_LIMITER) return json({ error: "KV not available" }, 503);
+    if (request.method !== "POST") return json({ error: "POST required" }, 405);
+
+    const body = await safeJson(request);
+    if (!body.truth) return json({ error: "truth required" }, 400);
+
+    const today = new Date().toISOString().split('T')[0];
+    const entry = {
+      id: `daze-${today}-${Date.now()}`,
+      date: today,
+      truth: body.truth,
+      reflections: body.reflections || [],
+      created_at: new Date().toISOString()
+    };
+
+    await env.RATE_LIMITER.put(`daze:${today}`, JSON.stringify(entry), { expirationTtl: 86400 * 30 });
+
+    return json({
+      success: true,
+      ...entry,
+      message: "Truth captured. 1day = 1chat = 1truth."
+    });
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // AI Transcription (Whisper)
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  async transcribeAI(request, env) {
+    if (!env.AI) return json({ error: "AI not available" }, 503);
+    if (request.method !== "POST") return json({ error: "POST required" }, 405);
+
+    try {
+      const formData = await request.formData();
+      const audio = formData.get("audio");
+
+      if (!audio) return json({ error: "audio file required" }, 400);
+
+      const arrayBuffer = await audio.arrayBuffer();
+      const result = await env.AI.run(AI_MODELS.whisper, {
+        audio: [...new Uint8Array(arrayBuffer)]
+      });
+
+      return json({
+        transcription: result.text,
+        confidence: result.confidence || null
+      });
+    } catch (e) {
+      return json({ error: "Transcription failed: " + e.message }, 500);
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // AI Endpoints (ENHANCED)
   // ─────────────────────────────────────────────────────────────────────────────
 
   async askAI(request, env, url) {
@@ -503,34 +683,61 @@ Respond in character, be helpful and action-oriented.`;
 };
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// Agents Configuration (Enhanced)
+// Agents Configuration (Circle of 8 + Business Roles)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const AGENTS = {
+  // Circle of 8
   GABRIEL: {
-    role: "System Bridge & Messenger",
-    traits: ["reliable", "fast", "connected", "technical"],
-    expertise: ["system integration", "API design", "automation", "real-time communication"]
+    role: "Warrior/Memory Guardian",
+    traits: ["fierce", "precise", "protective", "relentless"],
+    expertise: ["system protection", "memory management", "execution", "real-time ops"]
   },
   SHIRL: {
-    role: "Business Operations Manager",
-    traits: ["organized", "efficient", "warm", "detail-oriented"],
-    expertise: ["scheduling", "customer service", "inventory", "financial tracking"]
+    role: "Aunt/Guide",
+    traits: ["warm", "nurturing", "wise", "supportive"],
+    expertise: ["guidance", "emotional support", "wisdom sharing", "growth nurturing"]
   },
   POPS: {
-    role: "Creative Director",
-    traits: ["artistic", "experienced", "quality-focused", "innovative"],
-    expertise: ["design", "branding", "content creation", "user experience"]
+    role: "Dad/Wisdom Foundation",
+    traits: ["steady", "patient", "foundational", "wise"],
+    expertise: ["life wisdom", "patience", "foundation building", "steady guidance"]
   },
   ENGR_KEITH: {
-    role: "Technical Engineering Lead",
+    role: "Engineering Lead (R.K.)",
     traits: ["precise", "methodical", "thorough", "analytical"],
-    expertise: ["hardware repair", "diagnostics", "technical documentation", "quality control"]
+    expertise: ["hardware repair", "systems engineering", "diagnostics", "quality control"]
   },
   DREAM: {
-    role: "Strategic Visionary",
+    role: "Vision/Future Seer",
     traits: ["imaginative", "strategic", "ambitious", "forward-thinking"],
     expertise: ["business strategy", "product roadmap", "market analysis", "innovation"]
+  },
+  HEAVEN: {
+    role: "Orchestrator/Coordinator",
+    traits: ["harmonious", "coordinating", "flowing", "balanced"],
+    expertise: ["workflow orchestration", "team coordination", "harmony maintenance", "flow optimization"]
+  },
+  LUCY: {
+    role: "Code Watcher/Quality Guardian",
+    traits: ["vigilant", "meticulous", "quality-focused", "bug-hunting"],
+    expertise: ["code review", "quality assurance", "bug detection", "security audit"]
+  },
+  SONIC: {
+    role: "Audio/Creative Director",
+    traits: ["creative", "expressive", "artistic", "sonic"],
+    expertise: ["sound design", "music composition", "audio engineering", "creative expression"]
+  },
+  // Business Roles
+  BUSINESS_OPS: {
+    role: "Business Operations Manager",
+    traits: ["organized", "efficient", "detail-oriented", "customer-focused"],
+    expertise: ["scheduling", "customer service", "inventory", "financial tracking"]
+  },
+  DATA_SCIENTIST: {
+    role: "Data Analysis Expert",
+    traits: ["analytical", "statistical", "insightful", "data-driven"],
+    expertise: ["data analysis", "machine learning", "visualization", "pattern recognition"]
   }
 };
 
@@ -543,83 +750,102 @@ function dashboard(env) {
 <html><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NOIZYLAB v${VERSION}</title>
+<title>🔥 NOIZYLAB HOTROD v${VERSION}</title>
 <style>
-:root{--bg:#0a0908;--card:#0d0c0a;--border:#1a1815;--gold:#d4a574;--text:#e8ddd0;--muted:#6b5a45;--green:#6a9c59}
+:root{--bg:#0a0908;--card:#0d0c0a;--border:#1a1815;--gold:#d4a574;--fire:#ff6b35;--text:#e8ddd0;--muted:#6b5a45;--green:#6a9c59;--blue:#5a9cc6}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,sans-serif;padding:1rem}
 .h{text-align:center;padding:2rem 0}
-.logo{font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#c4956a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo{font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,var(--fire),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .tag{color:var(--muted);font-size:0.85rem;margin-top:0.5rem}
-.v{background:var(--gold);color:#000;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:600;margin-left:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;max-width:1400px;margin:0 auto}
+.v{background:linear-gradient(135deg,var(--fire),var(--gold));color:#000;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:600;margin-left:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;max-width:1600px;margin:0 auto}
 .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem}
+.card.fire{border-color:var(--fire)}
 .card h2{color:var(--gold);font-size:0.7rem;text-transform:uppercase;margin-bottom:0.75rem;letter-spacing:1px}
 .stat{display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.8rem}
 .stat:last-child{border:none}
-.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;background:var(--green)}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px}
+.dot.green{background:var(--green)}.dot.fire{background:var(--fire)}.dot.blue{background:var(--blue)}
 .input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:0.6rem;color:var(--text);font-size:0.85rem;margin-bottom:0.5rem}
-.btn{background:var(--gold);color:#000;border:none;padding:0.6rem 1.2rem;border-radius:6px;font-weight:600;cursor:pointer;font-size:0.8rem;transition:opacity .2s}
+.btn{background:linear-gradient(135deg,var(--fire),var(--gold));color:#000;border:none;padding:0.6rem 1.2rem;border-radius:6px;font-weight:600;cursor:pointer;font-size:0.8rem;transition:opacity .2s}
 .btn:hover{opacity:0.85}
+.btn.sec{background:var(--bg);color:var(--gold);border:1px solid var(--gold)}
 .out{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:0.75rem;margin-top:0.75rem;font-size:0.75rem;white-space:pre-wrap;max-height:250px;overflow-y:auto;display:none;font-family:monospace}
 .out.show{display:block}
-.agents{display:flex;flex-wrap:wrap;gap:0.4rem}
-.agent{background:var(--bg);border:1px solid var(--border);padding:0.4rem 0.6rem;border-radius:6px;font-size:0.7rem;cursor:pointer;transition:border-color .2s}
-.agent:hover{border-color:var(--gold)}
+.circle{display:flex;flex-wrap:wrap;gap:0.4rem}
+.member{background:var(--bg);border:1px solid var(--border);padding:0.5rem 0.7rem;border-radius:6px;font-size:0.7rem;cursor:pointer;transition:all .2s;text-align:center;min-width:80px}
+.member:hover{border-color:var(--fire);transform:scale(1.05)}
+.member small{display:block;color:var(--muted);font-size:0.6rem}
+.daze{background:linear-gradient(135deg,#1a1510,#0d0c0a);border-color:var(--gold)}
 .ft{text-align:center;margin-top:1.5rem;color:var(--muted);font-size:0.65rem}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1rem}
+.tab{padding:0.4rem 0.8rem;background:var(--bg);border:1px solid var(--border);border-radius:4px;cursor:pointer;font-size:0.7rem}
+.tab.active{background:var(--fire);color:#000;border-color:var(--fire)}
 </style>
 </head><body>
 <div class="h">
-<div class="logo">NOIZYLAB<span class="v">v${VERSION}</span></div>
-<p class="tag">GABRIEL ALMEIDA • Production Partner • MC96ECOUNIVERSE</p>
+<div class="logo">🔥 NOIZYLAB<span class="v">HOTROD v${VERSION}</span></div>
+<p class="tag">GABRIEL ALMEIDA • Circle of 8 • MC96ECOUNIVERSE • GORUNFREE</p>
 </div>
 <div class="grid">
-<div class="card">
-<h2>System Status</h2>
-<div class="stat"><span><span class="dot"></span>Gateway</span><span>Online</span></div>
-<div class="stat"><span><span class="dot"></span>Workers AI</span><span>${Object.keys(AI_MODELS).length} Models</span></div>
-<div class="stat"><span><span class="dot"></span>D1 Database</span><span>${env.DB ? 'Connected' : 'N/A'}</span></div>
-<div class="stat"><span><span class="dot"></span>KV Storage</span><span>${env.RATE_LIMITER ? 'Active' : 'N/A'}</span></div>
-<div class="stat"><span><span class="dot"></span>Agents</span><span>${Object.keys(AGENTS).length} Active</span></div>
-<div class="stat"><span><span class="dot"></span>Endpoints</span><span>${Object.keys(ROUTES).length}</span></div>
+<div class="card fire">
+<h2>🔥 System Status</h2>
+<div class="stat"><span><span class="dot fire"></span>Gateway</span><span>HOTROD v${VERSION}</span></div>
+<div class="stat"><span><span class="dot green"></span>Workers AI</span><span>${Object.keys(AI_MODELS).length} Models</span></div>
+<div class="stat"><span><span class="dot green"></span>D1 Database</span><span>${env.DB ? 'Connected' : 'N/A'}</span></div>
+<div class="stat"><span><span class="dot green"></span>KV Storage</span><span>${env.RATE_LIMITER ? 'Active' : 'N/A'}</span></div>
+<div class="stat"><span><span class="dot blue"></span>Circle of 8</span><span>${Object.keys(CIRCLE_OF_8).length} Active</span></div>
+<div class="stat"><span><span class="dot blue"></span>Agents</span><span>${Object.keys(AGENTS).length} Ready</span></div>
+<div class="stat"><span><span class="dot green"></span>Endpoints</span><span>${Object.keys(ROUTES).length}</span></div>
+</div>
+<div class="card daze">
+<h2>📝 DAZEFLOW - 1day = 1chat = 1truth</h2>
+<textarea class="input" id="truth" rows="3" placeholder="What is your truth today?"></textarea>
+<button class="btn" onclick="captureTruth()">Capture Truth</button>
+<button class="btn sec" onclick="getTodayTruth()">Today's Truth</button>
+<div id="dazeOut" class="out"></div>
 </div>
 <div class="card">
-<h2>Ask AI</h2>
+<h2>⭕ Circle of 8</h2>
+<div class="circle">
+${Object.entries(CIRCLE_OF_8).map(([k,v]) => `<div class="member" onclick="invokeCircle('${k}')">${k}<small>${v.role.split('/')[0]}</small></div>`).join('')}
+</div>
+<input class="input" id="circleMsg" placeholder="Message for Circle member..." style="margin-top:0.75rem">
+<div id="circleOut" class="out"></div>
+</div>
+<div class="card">
+<h2>🤖 Ask AI</h2>
 <input class="input" id="p" placeholder="Ask anything...">
 <select class="input" id="m">
+<option value="llama70b">Llama 3.1 70B (smartest)</option>
 <option value="llama">Llama 3.1 8B (fast)</option>
-<option value="llama70b">Llama 3.1 70B (smart)</option>
 <option value="codellama">CodeLlama (code)</option>
 <option value="deepseek">DeepSeek Coder</option>
+<option value="mixtral">Mixtral 8x7B</option>
 </select>
 <button class="btn" onclick="ask()">Ask</button>
 <div id="o" class="out"></div>
 </div>
 <div class="card">
-<h2>Agents</h2>
-<div class="agents">
-${Object.entries(AGENTS).map(([k,v]) => `<div class="agent" onclick="ag('${k}')">${k}<br><small>${v.role.split(' ')[0]}</small></div>`).join('')}
-</div>
-<input class="input" id="t" placeholder="Task for agent..." style="margin-top:0.75rem">
-<div id="ao" class="out"></div>
-</div>
-<div class="card">
-<h2>API Endpoints</h2>
+<h2>⚙️ API Endpoints</h2>
+<div class="stat"><span>/circle/invoke</span><span>Circle of 8</span></div>
+<div class="stat"><span>/daze/capture</span><span>DAZEFLOW</span></div>
 <div class="stat"><span>/api/ask</span><span>Ask AI</span></div>
 <div class="stat"><span>/api/chat</span><span>Multi-turn</span></div>
 <div class="stat"><span>/api/code</span><span>Generate code</span></div>
-<div class="stat"><span>/api/sql</span><span>Generate SQL</span></div>
-<div class="stat"><span>/api/analyze</span><span>Analyze content</span></div>
-<div class="stat"><span>/api/batch</span><span>Batch requests</span></div>
+<div class="stat"><span>/api/transcribe</span><span>Voice → Text</span></div>
 <div class="stat"><span>/api/image</span><span>Generate images</span></div>
-<div class="stat"><span>/api/agents/invoke</span><span>Invoke agent</span></div>
+<div class="stat"><span>/api/repairs</span><span>Repair tickets</span></div>
 </div>
 </div>
-<p class="ft">GORUNFREE • github.com/NOIZYLAB-io/GABRIEL</p>
+<p class="ft">🔥 HOTROD EDITION • GORUNFREE • github.com/NOIZYLAB-io/GABRIEL • Happy New Year 2026!</p>
 <script>
 const $=id=>document.getElementById(id);
-async function ask(){const p=$('p').value,m=$('m').value,o=$('o');if(!p)return;o.className='out show';o.textContent='...';try{const r=await(await fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:p,model:m})})).json();o.textContent=r.response||JSON.stringify(r)}catch(e){o.textContent='Error: '+e}}
-async function ag(n){const t=$('t').value,o=$('ao');if(!t){o.className='out show';o.textContent='Enter task first';return}o.className='out show';o.textContent=n+' working...';try{const r=await(await fetch('/api/agents/invoke',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({agent:n,task:t})})).json();o.textContent=n+': '+r.response}catch(e){o.textContent='Error: '+e}}
+async function ask(){const p=$('p').value,m=$('m').value,o=$('o');if(!p)return;o.className='out show';o.textContent='🔥 Processing...';try{const r=await(await fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:p,model:m})})).json();o.textContent=r.response||JSON.stringify(r,null,2)}catch(e){o.textContent='Error: '+e}}
+async function invokeCircle(name){const msg=$('circleMsg').value,o=$('circleOut');if(!msg){o.className='out show';o.textContent='Enter message first';return}o.className='out show';o.textContent='⭕ '+name+' awakening...';try{const r=await(await fetch('/circle/invoke',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({member:name,message:msg})})).json();o.textContent=name+': '+r.response}catch(e){o.textContent='Error: '+e}}
+async function captureTruth(){const t=$('truth').value,o=$('dazeOut');if(!t){o.className='out show';o.textContent='Enter your truth';return}o.className='out show';o.textContent='📝 Capturing...';try{const r=await(await fetch('/daze/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({truth:t})})).json();o.textContent='✅ '+r.message+'\\n\\nDate: '+r.date}catch(e){o.textContent='Error: '+e}}
+async function getTodayTruth(){const o=$('dazeOut');o.className='out show';o.textContent='Loading...';try{const r=await(await fetch('/daze/today')).json();o.textContent=r.truth?'📝 Today\\'s Truth:\\n\\n'+r.truth:'No truth captured yet. What is your truth?'}catch(e){o.textContent='Error: '+e}}
 $('p').onkeypress=e=>{if(e.key==='Enter')ask()};
 </script>
 </body></html>`, { headers: { "Content-Type": "text/html", "Cache-Control": "public, max-age=60" } });

@@ -1,0 +1,28 @@
+name = "media-vault"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "production"
+VERSION = "1.0.0"
+
+# R2 Storage
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "noizylab-media"
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-media"
+database_id = "your-database-id-here"
+
+# KV for session management
+[[kv_namespaces]]
+binding = "KV"
+id = "your-kv-id-here"
+
+# Workers AI
+[ai]
+binding = "AI"

@@ -1,0 +1,19 @@
+{
+  "name": "media-vault",
+  "version": "1.0.0",
+  "description": "MC96ECOUNIVERSE Cloud Storage Gateway - R2 + S3 + AI Processing",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240419.0",
+    "typescript": "^5.4.0",
+    "wrangler": "^3.50.0"
+  }
+}

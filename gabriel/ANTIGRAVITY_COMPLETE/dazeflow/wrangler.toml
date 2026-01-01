@@ -1,0 +1,23 @@
+name = "dazeflow"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "production"
+VERSION = "1.0.0"
+
+# KV for entries
+[[kv_namespaces]]
+binding = "KV"
+id = "your-kv-id-here"
+
+# D1 for structured data
+[[d1_databases]]
+binding = "DB"
+database_name = "dazeflow"
+database_id = "your-database-id-here"
+
+# Workers AI
+[ai]
+binding = "AI"

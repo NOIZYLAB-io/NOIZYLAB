@@ -88,14 +88,14 @@ app.post('/transcribe', async (c) => {
   }
 
   const formData = await c.req.formData();
-  const audio = formData.get('audio') as File;
+  const audio = formData.get('audio');
 
-  if (!audio) {
+  if (!audio || typeof audio === 'string') {
     return c.json({ error: 'audio file required' }, 400);
   }
 
   try {
-    const arrayBuffer = await audio.arrayBuffer();
+    const arrayBuffer = await (audio as Blob).arrayBuffer();
     
     const result = await c.env.AI.run('@cf/openai/whisper', {
       audio: [...new Uint8Array(arrayBuffer)]
