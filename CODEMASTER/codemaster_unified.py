@@ -7,7 +7,7 @@
 ║      ██║     ██║   ██║██║  ██║██╔══╝  ██║╚██╔╝██║██╔══██║╚════██║   ██║           ║
 ║      ╚██████╗╚██████╔╝██████╔╝███████╗██║ ╚═╝ ██║██║  ██║███████║   ██║           ║
 ║       ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝           ║
-║   ⚡ UNIFIED v2.3.0-TURBO - 12 SERVICES + AI BRAIN + SWARM + TURBO ENGINE ⚡      ║
+║  ⚡ UNIFIED v2.4.0-MEGA - 13 SERVICES + AI BRAIN + SWARM + MEGA ENGINE ⚡       ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
 """
 
@@ -60,6 +60,14 @@ except ImportError:
     CPU_COUNT = os.cpu_count() or 4
     MEMORY_GB = 8
     IS_M2_ULTRA = False
+
+# Import MEGA ENGINE
+try:
+    from mega_engine import MEGA_ENGINE, MegaEngine, MegaCache
+    MEGA_AVAILABLE = True
+except ImportError:
+    MEGA_AVAILABLE = False
+    MEGA_ENGINE = None
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -171,17 +179,19 @@ async def track_requests(request: Request, call_next):
 @app.get("/", response_class=HTMLResponse)
 async def root():
     uptime = datetime.now() - store.started_at
-    return f"""<!DOCTYPE html><html><head><title>CODEMASTER</title>
+    return f"""<!DOCTYPE html><html><head><title>CODEMASTER v2.4.0-MEGA</title>
 <style>body{{background:#1a1a2e;color:#00ff88;font-family:monospace;padding:40px}}
 .box{{background:rgba(0,255,136,0.1);border:2px solid #00ff88;border-radius:15px;padding:30px;margin:20px 0}}
 h1{{font-size:2.5em;text-shadow:0 0 20px #00ff88}}
 .grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}}
 .svc{{background:rgba(0,0,0,0.4);border:1px solid #00ff88;border-radius:10px;padding:15px}}
 .swarm{{background:rgba(255,136,0,0.1);border:2px solid #ff8800}}
+.mega{{background:rgba(255,0,136,0.1);border:2px solid #ff0088}}
+.family{{background:rgba(136,0,255,0.15);border:2px solid #8800ff}}
 a{{color:#00ff88}}</style></head>
-<body><div class="box"><h1>⚡ CODEMASTER UNIFIED + SWARM ⚡</h1>
-<p>All 12 Services Running | Uptime: {uptime}</p>
-<p>UVLOOP: {'✅' if UVLOOP else '❌'} | ORJSON: {'✅' if ORJSON else '❌'} | SWARM: 🐟 7 Agents | AI BRAIN: {'🧠' if AI_BRAIN_AVAILABLE else '⚠️'} | TURBO: {'🚀' if TURBO_AVAILABLE else '⚠️'}</p></div>
+<body><div class="box"><h1>⚡ CODEMASTER v2.4.0-MEGA ⚡</h1>
+<p>All 13 Services Running | Uptime: {uptime}</p>
+<p>UVLOOP: {'✅' if UVLOOP else '❌'} | ORJSON: {'✅' if ORJSON else '❌'} | SWARM: 🐟 11 Agents (7 AI + 4 Family) | AI BRAIN: {'🧠' if AI_BRAIN_AVAILABLE else '⚠️'} | MEGA: {'⚡' if MEGA_AVAILABLE else '⚠️'}</p></div>
 <div class="grid">
 <div class="svc">🔐 <a href="/vault/">Vault</a> ({len(store.vault_items)} items)</div>
 <div class="svc">📚 <a href="/catalog/">Catalog</a> ({len(store.catalog_entries)} entries)</div>
@@ -192,23 +202,29 @@ a{{color:#00ff88}}</style></head>
 <div class="svc">🕸️ <a href="/mesh/">Mesh</a></div>
 <div class="svc">🧠 <a href="/brain/">GOD Brain</a></div>
 <div class="svc">📊 <a href="/metrics/">Metrics</a></div>
-<div class="svc swarm">🐟 <a href="/swarm/">GABRIEL Swarm</a> (7 Agents)</div>
+<div class="svc swarm">🐟 <a href="/swarm/">GABRIEL Swarm</a> (11 Agents)</div>
 <div class="svc swarm">🧠 <a href="/ai/brain">AI Brain ULTRA</a> (5 Providers)</div>
 <div class="svc swarm">🚀 <a href="/turbo/">TURBO Engine</a> ({CPU_COUNT} cores)</div>
-</div><p><a href="/docs">📖 API Docs</a> | <a href="/health">❤️ Health</a> | <a href="/turbo/metrics">⚡ TURBO Metrics</a></p></body></html>"""
+<div class="svc mega">⚡ <a href="/mega/">MEGA Engine</a> (HYPERVELOCITY)</div>
+</div>
+<div class="box family"><h2>👨‍👩‍👧‍👦 THE FAMILY HIVE</h2>
+<p>🎛️ ENGR_KEITH (Master Sound Engineer) | ✨ DREAM (Creative Visionary) | 🎹 POPS (Music Legend) | 💎 SHIRL (Operations Director)</p>
+</div>
+<p><a href="/docs">📖 API Docs</a> | <a href="/health">❤️ Health</a> | <a href="/mega/status">⚡ MEGA Status</a> | <a href="/swarm/agents">🐟 Swarm</a></p></body></html>"""
 
 @app.get("/health")
 async def health_check():
     return {
         "status": "healthy",
         "service": "CODEMASTER_UNIFIED",
-        "version": "2.3.0-TURBO",
+        "version": "2.4.0-MEGA",
         "uptime_seconds": (datetime.now() - store.started_at).total_seconds(),
-        "services": {s: "online" for s in ["vault","catalog","evidence","ai_gateway","fleet","mc96","mesh","god_brain","observability","swarm","ai_brain","turbo"]},
+        "services": {s: "online" for s in ["vault","catalog","evidence","ai_gateway","fleet","mc96","mesh","god_brain","observability","swarm","ai_brain","turbo","mega"]},
         "swarm": {"agents": len(SWARM_AGENTS), "status": "online"},
         "ai_brain": {"status": "online" if AI_BRAIN_AVAILABLE else "fallback", "providers": 5},
         "turbo": {"status": "online" if TURBO_AVAILABLE else "unavailable", "is_m2_ultra": IS_M2_ULTRA},
-        "optimizations": {"uvloop": UVLOOP, "orjson": ORJSON, "turbo_engine": TURBO_AVAILABLE},
+        "mega": {"status": "online" if MEGA_AVAILABLE else "unavailable", "hypervelocity": MEGA_AVAILABLE},
+        "optimizations": {"uvloop": UVLOOP, "orjson": ORJSON, "turbo_engine": TURBO_AVAILABLE, "mega_engine": MEGA_AVAILABLE},
         "counts": {
             "vault_items": len(store.vault_items),
             "catalog_entries": len(store.catalog_entries),
@@ -801,6 +817,108 @@ async def turbo_hardware():
     }
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# ⚡ MEGA ENGINE ENDPOINTS - HYPERVELOCITY CODEBASE INTELLIGENCE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class MegaScanRequest(BaseModel):
+    path: Optional[str] = "/Users/m2ultra/NOIZYLAB"
+    depth: Optional[int] = 15
+
+class MegaGrepRequest(BaseModel):
+    pattern: str
+    path: Optional[str] = "/Users/m2ultra/NOIZYLAB"
+    limit: Optional[int] = 200
+    case_sensitive: Optional[bool] = False
+
+class MegaMineRequest(BaseModel):
+    source: str
+    destination: str
+    extensions: Optional[List[str]] = None
+
+class MegaParallelRequest(BaseModel):
+    commands: List[str]
+    cwd: Optional[str] = None
+    timeout: Optional[int] = 30
+
+@app.get("/mega/")
+async def mega_status():
+    """MEGA ENGINE status"""
+    if MEGA_AVAILABLE and MEGA_ENGINE:
+        return MEGA_ENGINE.status()
+    return {"status": "unavailable", "message": "MEGA ENGINE not loaded"}
+
+@app.get("/mega/status")
+async def mega_full_status():
+    """Full MEGA ENGINE status with cache stats"""
+    if MEGA_AVAILABLE and MEGA_ENGINE:
+        status = MEGA_ENGINE.status()
+        status["timestamp"] = datetime.now().isoformat()
+        return status
+    return {"status": "unavailable"}
+
+@app.post("/mega/scan")
+async def mega_turbo_scan(req: MegaScanRequest):
+    """⚡ TURBO SCAN - Parallel codebase scanning with intelligence"""
+    if not MEGA_AVAILABLE or not MEGA_ENGINE:
+        return {"error": "MEGA ENGINE not available"}
+    result = await MEGA_ENGINE.turbo_scan(req.path, req.depth)
+    return result
+
+@app.post("/mega/grep")
+async def mega_hyper_grep(req: MegaGrepRequest):
+    """⚡ HYPER GREP - Parallel content search"""
+    if not MEGA_AVAILABLE or not MEGA_ENGINE:
+        return {"error": "MEGA ENGINE not available"}
+    result = await MEGA_ENGINE.hyper_grep(req.pattern, req.path, req.limit, req.case_sensitive)
+    return result
+
+@app.post("/mega/mine")
+async def mega_mine_codebase(req: MegaMineRequest):
+    """⚡ MINE CODEBASE - Extract and deduplicate code files"""
+    if not MEGA_AVAILABLE or not MEGA_ENGINE:
+        return {"error": "MEGA ENGINE not available"}
+    result = await MEGA_ENGINE.mine_codebase(req.source, req.destination, req.extensions)
+    return result
+
+@app.post("/mega/parallel")
+async def mega_parallel_execute(req: MegaParallelRequest):
+    """⚡ PARALLEL EXECUTE - Run multiple commands simultaneously"""
+    if not MEGA_AVAILABLE or not MEGA_ENGINE:
+        return {"error": "MEGA ENGINE not available"}
+    result = await MEGA_ENGINE.parallel_execute(req.commands, req.cwd, req.timeout)
+    return result
+
+@app.get("/mega/warp")
+async def mega_warp_drive():
+    """🚀 WARP DRIVE - Cloudflare Tunnel status"""
+    if not MEGA_AVAILABLE or not MEGA_ENGINE:
+        return {"error": "MEGA ENGINE not available"}
+    result = await MEGA_ENGINE.warp_drive()
+    return result
+
+@app.get("/mega/cache")
+async def mega_cache_stats():
+    """Cache statistics"""
+    if MEGA_AVAILABLE and MEGA_ENGINE:
+        return MEGA_ENGINE.cache.stats()
+    return {"error": "MEGA ENGINE not available"}
+
+@app.post("/mega/cache/clear")
+async def mega_cache_clear():
+    """Clear MEGA ENGINE cache"""
+    if MEGA_AVAILABLE and MEGA_ENGINE:
+        MEGA_ENGINE.cache.clear()
+        return {"status": "cleared", "message": "MEGA cache cleared"}
+    return {"error": "MEGA ENGINE not available"}
+
+@app.post("/mega/gc/{action}")
+async def mega_gc_control(action: str):
+    """GC Control - freeze/thaw/collect/status"""
+    if not MEGA_AVAILABLE or not MEGA_ENGINE:
+        return {"error": "MEGA ENGINE not available"}
+    return MEGA_ENGINE.gc_control(action)
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # 📊 OBSERVABILITY
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -852,7 +970,7 @@ async def startup():
 ║      ██║     ██║   ██║██║  ██║██╔══╝  ██║╚██╔╝██║██╔══██║╚════██║   ██║           ║
 ║      ╚██████╗╚██████╔╝██████╔╝███████╗██║ ╚═╝ ██║██║  ██║███████║   ██║           ║
 ║       ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝           ║
-║           ⚡ UNIFIED v2.3.0-TURBO + AI BRAIN + SWARM + TURBO ⚡                    ║
+║      ⚡ UNIFIED v2.4.0-MEGA + AI BRAIN + SWARM + MEGA ENGINE ⚡                    ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║  🔐 Vault:        /vault/      │  🚀 Fleet:        /fleet/                        ║
 ║  📚 Catalog:      /catalog/    │  🏛️ MC96:         /mc96/                         ║
@@ -861,12 +979,13 @@ async def startup():
 ║  📊 Metrics:      /metrics/    │  📖 Docs:         /docs                          ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║  🐟 SWARM:        /swarm/      │  🧠 AI BRAIN:     /ai/brain                      ║
-║  └─ 7 Agents Online            │  └─ Claude, OpenAI, Gemini, Groq, Ollama         ║
+║  └─ 11 Agents (7 AI + 4 Human) │  └─ Claude, OpenAI, Gemini, Groq, Ollama         ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
-║  🚀 TURBO:        /turbo/      │  💻 Hardware:     {CPU_COUNT} cores, {MEMORY_GB:.0f}GB RAM
-║  └─ {'MAXIMUM POWER! ⚡' if IS_M2_ULTRA else 'Standard Mode':20}  │  └─ {'M2 ULTRA DETECTED! 🔥' if IS_M2_ULTRA else 'Optimized for system':24}
+║  🚀 TURBO:        /turbo/      │  ⚡ MEGA:         /mega/                         ║
+║  └─ {'MAXIMUM POWER! ⚡' if IS_M2_ULTRA else 'Standard Mode':20}  │  └─ HYPERVELOCITY CODEBASE INTELLIGENCE        ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
-║  UVLOOP: {'✅' if UVLOOP else '❌':4} | ORJSON: {'✅' if ORJSON else '❌':4} | AI_BRAIN: {'✅' if AI_BRAIN_AVAILABLE else '⚠️':4} | TURBO: {'✅' if TURBO_AVAILABLE else '⚠️':4}       ║
+║  💻 Hardware: {CPU_COUNT} cores, {MEMORY_GB:.0f}GB RAM {'(M2 ULTRA! 🔥)' if IS_M2_ULTRA else '':20}                         ║
+║  UVLOOP: {'✅' if UVLOOP else '❌':4} | ORJSON: {'✅' if ORJSON else '❌':4} | AI_BRAIN: {'✅' if AI_BRAIN_AVAILABLE else '⚠️':4} | TURBO: {'✅' if TURBO_AVAILABLE else '⚠️':4} | MEGA: {'✅' if MEGA_AVAILABLE else '⚠️':4}  ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
     """)
 
