@@ -7,7 +7,7 @@
 ║      ██║     ██║   ██║██║  ██║██╔══╝  ██║╚██╔╝██║██╔══██║╚════██║   ██║           ║
 ║      ╚██████╗╚██████╔╝██████╔╝███████╗██║ ╚═╝ ██║██║  ██║███████║   ██║           ║
 ║       ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝           ║
-║                   ⚡ UNIFIED SERVICE - ALL 9 SERVICES IN ONE ⚡                    ║
+║        ⚡ UNIFIED SERVICE v2.2.0 - 11 SERVICES + AI BRAIN + SWARM ⚡              ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
 """
 
@@ -38,6 +38,14 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+
+# Import AI Brain
+try:
+    from ai_brain_ultra import AIBrainUltra, AIRequest as BrainRequest, AI_MODELS
+    AI_BRAIN_AVAILABLE = True
+except ImportError:
+    AI_BRAIN_AVAILABLE = False
+    AI_MODELS = {}
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -158,8 +166,8 @@ h1{{font-size:2.5em;text-shadow:0 0 20px #00ff88}}
 .swarm{{background:rgba(255,136,0,0.1);border:2px solid #ff8800}}
 a{{color:#00ff88}}</style></head>
 <body><div class="box"><h1>⚡ CODEMASTER UNIFIED + SWARM ⚡</h1>
-<p>All 10 Services Running | Uptime: {uptime}</p>
-<p>UVLOOP: {'✅' if UVLOOP else '❌'} | ORJSON: {'✅' if ORJSON else '❌'} | SWARM: 🐟 7 Agents</p></div>
+<p>All 11 Services Running | Uptime: {uptime}</p>
+<p>UVLOOP: {'✅' if UVLOOP else '❌'} | ORJSON: {'✅' if ORJSON else '❌'} | SWARM: 🐟 7 Agents | AI BRAIN: {'🧠' if AI_BRAIN_AVAILABLE else '⚠️'}</p></div>
 <div class="grid">
 <div class="svc">🔐 <a href="/vault/">Vault</a> ({len(store.vault_items)} items)</div>
 <div class="svc">📚 <a href="/catalog/">Catalog</a> ({len(store.catalog_entries)} entries)</div>
@@ -171,17 +179,19 @@ a{{color:#00ff88}}</style></head>
 <div class="svc">🧠 <a href="/brain/">GOD Brain</a></div>
 <div class="svc">📊 <a href="/metrics/">Metrics</a></div>
 <div class="svc swarm">🐟 <a href="/swarm/">GABRIEL Swarm</a> (7 Agents)</div>
-</div><p><a href="/docs">📖 API Docs</a> | <a href="/health">❤️ Health</a> | <a href="/swarm/agents">🤖 Swarm Agents</a></p></body></html>"""
+<div class="svc swarm">🧠 <a href="/ai/brain">AI Brain ULTRA</a> (5 Providers)</div>
+</div><p><a href="/docs">📖 API Docs</a> | <a href="/health">❤️ Health</a> | <a href="/ai/brain/providers">🤖 AI Providers</a></p></body></html>"""
 
 @app.get("/health")
 async def health_check():
     return {
         "status": "healthy",
         "service": "CODEMASTER_UNIFIED",
-        "version": "2.1.0-SWARM",
+        "version": "2.2.0-ULTRA",
         "uptime_seconds": (datetime.now() - store.started_at).total_seconds(),
-        "services": {s: "online" for s in ["vault","catalog","evidence","ai_gateway","fleet","mc96","mesh","god_brain","observability","swarm"]},
+        "services": {s: "online" for s in ["vault","catalog","evidence","ai_gateway","fleet","mc96","mesh","god_brain","observability","swarm","ai_brain"]},
         "swarm": {"agents": len(SWARM_AGENTS), "status": "online"},
+        "ai_brain": {"status": "online" if AI_BRAIN_AVAILABLE else "fallback", "providers": 5},
         "optimizations": {"uvloop": UVLOOP, "orjson": ORJSON},
         "counts": {
             "vault_items": len(store.vault_items),
@@ -474,6 +484,180 @@ async def swarm_process(task: SwarmTask):
     }
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# 🧠 AI BRAIN ULTRA - MULTI-PROVIDER AI
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Initialize AI Brain (lazy load)
+_ai_brain = None
+
+def get_ai_brain():
+    global _ai_brain
+    if _ai_brain is None and AI_BRAIN_AVAILABLE:
+        _ai_brain = AIBrainUltra()
+    return _ai_brain
+
+class AIBrainChatRequest(BaseModel):
+    prompt: str
+    model: str = "claude-sonnet-4"
+    system: Optional[str] = None
+    max_tokens: int = 4096
+    temperature: float = 0.7
+    agent: Optional[str] = None  # Use specific swarm agent
+
+@app.get("/ai/brain")
+async def ai_brain_status():
+    """AI Brain status and capabilities"""
+    brain = get_ai_brain()
+    if not brain:
+        return {"status": "unavailable", "error": "AI Brain module not loaded"}
+    return {
+        "status": "online",
+        "version": "2.2.0-ULTRA",
+        "providers": list(AI_MODELS.keys()) if AI_MODELS else ["claude", "openai", "gemini", "groq", "ollama"],
+        "models": AI_MODELS if AI_MODELS else {},
+        "capabilities": ["chat", "stream", "multi_provider", "swarm_routing", "cost_tracking"],
+        "swarm_integration": True,
+        "agents": list(SWARM_AGENTS.keys())
+    }
+
+@app.post("/ai/brain/chat")
+async def ai_brain_chat(request: AIBrainChatRequest):
+    """Chat with AI Brain (non-streaming)"""
+    brain = get_ai_brain()
+    if not brain:
+        # Fallback to simulated response
+        return {
+            "id": str(uuid.uuid4())[:8],
+            "model": request.model,
+            "response": f"[AI Brain offline - simulated response for: {request.prompt[:100]}...]",
+            "tokens": {"prompt": len(request.prompt.split()), "completion": 50},
+            "routed_agent": request.agent,
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    # Route to specific agent if provided
+    system_prompt = request.system
+    if request.agent and request.agent.upper() in SWARM_AGENTS:
+        agent_info = SWARM_AGENTS[request.agent.upper()]
+        system_prompt = f"You are {request.agent}, the {agent_info['role']} for NOIZYLAB. Your domain: {agent_info['domain']}. {system_prompt or ''}"
+    
+    try:
+        # Create request for AI Brain
+        brain_req = BrainRequest(
+            prompt=request.prompt,
+            model=request.model,
+            system=system_prompt,
+            max_tokens=request.max_tokens,
+            temperature=request.temperature
+        )
+        result = await brain.chat(brain_req)
+        return {
+            "id": str(uuid.uuid4())[:8],
+            "model": request.model,
+            "response": result.get("response", ""),
+            "tokens": result.get("usage", {}),
+            "cost": result.get("cost"),
+            "routed_agent": request.agent,
+            "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        return {
+            "id": str(uuid.uuid4())[:8],
+            "model": request.model,
+            "error": str(e),
+            "timestamp": datetime.now().isoformat()
+        }
+
+@app.get("/ai/brain/providers")
+async def ai_brain_providers():
+    """List all AI providers and their models"""
+    providers = {
+        "claude": {
+            "status": "available" if os.getenv("ANTHROPIC_API_KEY") else "needs_key",
+            "models": ["claude-opus-4", "claude-sonnet-4", "claude-haiku-3.5"],
+            "features": ["chat", "streaming", "vision"]
+        },
+        "openai": {
+            "status": "available" if os.getenv("OPENAI_API_KEY") else "needs_key",
+            "models": ["gpt-4o", "gpt-4o-mini", "o1", "o1-mini"],
+            "features": ["chat", "streaming", "vision", "functions"]
+        },
+        "gemini": {
+            "status": "available" if os.getenv("GOOGLE_API_KEY") else "needs_key",
+            "models": ["gemini-2.0-flash", "gemini-1.5-pro"],
+            "features": ["chat", "streaming"]
+        },
+        "groq": {
+            "status": "available" if os.getenv("GROQ_API_KEY") else "needs_key",
+            "models": ["llama-3.3-70b", "mixtral-8x7b"],
+            "features": ["chat", "ultra_fast"]
+        },
+        "ollama": {
+            "status": "local",
+            "models": ["llama3", "mistral", "codellama"],
+            "features": ["chat", "local", "offline"]
+        }
+    }
+    return {"providers": providers, "total": len(providers)}
+
+@app.get("/ai/brain/costs")
+async def ai_brain_costs():
+    """Get AI cost tracking"""
+    brain = get_ai_brain()
+    if brain and hasattr(brain, 'cost_tracker'):
+        return {"costs": brain.cost_tracker, "timestamp": datetime.now().isoformat()}
+    return {"costs": {"total": 0, "by_model": {}}, "note": "Cost tracking not available", "timestamp": datetime.now().isoformat()}
+
+@app.post("/ai/brain/swarm")
+async def ai_brain_swarm_query(task: SwarmTask):
+    """Route query through swarm AND get AI response"""
+    start = time.time()
+    
+    # Route through swarm
+    content_lower = task.content.lower()
+    assigned = []
+    for agent, keywords in ROUTING_KEYWORDS.items():
+        if any(kw in content_lower for kw in keywords):
+            assigned.append(agent)
+    if not assigned:
+        assigned = ["GABRIEL"]
+    elif "GABRIEL" not in assigned:
+        assigned.insert(0, "GABRIEL")
+    
+    # Primary agent handles the query
+    primary_agent = assigned[0]
+    agent_info = SWARM_AGENTS[primary_agent]
+    
+    brain = get_ai_brain()
+    if brain:
+        try:
+            system = f"You are {primary_agent} {agent_info['emoji']}, the {agent_info['role']}. Domain: {agent_info['domain']}. Be helpful and efficient."
+            brain_req = BrainRequest(
+                prompt=task.content,
+                model="claude-sonnet-4",
+                system=system,
+                max_tokens=2048
+            )
+            result = await brain.chat(brain_req)
+            ai_response = result.get("response", "")
+        except Exception as e:
+            ai_response = f"[Error: {str(e)}]"
+    else:
+        ai_response = f"[{primary_agent} {agent_info['emoji']} acknowledged: {task.content[:100]}...]"
+    
+    elapsed = (time.time() - start) * 1000
+    return {
+        "task_id": str(uuid.uuid4())[:8],
+        "content": task.content,
+        "routed_to": assigned,
+        "primary_agent": primary_agent,
+        "agent_info": f"{agent_info['emoji']} {agent_info['role']}",
+        "response": ai_response,
+        "elapsed_ms": round(elapsed, 2),
+        "timestamp": datetime.now().isoformat()
+    }
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # 📊 OBSERVABILITY
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -525,7 +709,7 @@ async def startup():
 ║      ██║     ██║   ██║██║  ██║██╔══╝  ██║╚██╔╝██║██╔══██║╚════██║   ██║           ║
 ║      ╚██████╗╚██████╔╝██████╔╝███████╗██║ ╚═╝ ██║██║  ██║███████║   ██║           ║
 ║       ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝           ║
-║                        ⚡ UNIFIED SERVICE STARTED ⚡                               ║
+║                ⚡ UNIFIED v2.2.0 + AI BRAIN + SWARM ⚡                             ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║  🔐 Vault:        /vault/      │  🚀 Fleet:        /fleet/                        ║
 ║  📚 Catalog:      /catalog/    │  🏛️ MC96:         /mc96/                         ║
@@ -533,7 +717,10 @@ async def startup():
 ║  🤖 AI Gateway:   /ai/         │  🧠 GOD Brain:    /brain/                        ║
 ║  📊 Metrics:      /metrics/    │  📖 Docs:         /docs                          ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
-║  UVLOOP: {'✅':4} | ORJSON: {'✅' if ORJSON else '❌':4} | Loaded: {len(store.vault_items)} vault items                          ║
+║  🐟 SWARM:        /swarm/      │  🧠 AI BRAIN:     /ai/brain                      ║
+║  └─ 7 Agents Online            │  └─ Claude, OpenAI, Gemini, Groq, Ollama         ║
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║  UVLOOP: {'✅' if UVLOOP else '❌':4} | ORJSON: {'✅' if ORJSON else '❌':4} | AI_BRAIN: {'✅' if AI_BRAIN_AVAILABLE else '⚠️':4} | Loaded: {len(store.vault_items)} items   ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
     """)
 
