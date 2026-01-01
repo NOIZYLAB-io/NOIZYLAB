@@ -7,7 +7,7 @@
 ║      ██║     ██║   ██║██║  ██║██╔══╝  ██║╚██╔╝██║██╔══██║╚════██║   ██║           ║
 ║      ╚██████╗╚██████╔╝██████╔╝███████╗██║ ╚═╝ ██║██║  ██║███████║   ██║           ║
 ║       ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝           ║
-║        ⚡ UNIFIED SERVICE v2.2.0 - 11 SERVICES + AI BRAIN + SWARM ⚡              ║
+║   ⚡ UNIFIED v2.3.0-TURBO - 12 SERVICES + AI BRAIN + SWARM + TURBO ENGINE ⚡      ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
 """
 
@@ -46,6 +46,20 @@ try:
 except ImportError:
     AI_BRAIN_AVAILABLE = False
     AI_MODELS = {}
+
+# Import TURBO Engine
+try:
+    from turbo_engine import (
+        TURBO_ENGINE, TURBO_METRICS, TURBO_CACHE, TURBO_HTTP,
+        get_turbo_status, CPU_COUNT, MEMORY_GB, IS_M2_ULTRA,
+        MAX_WORKERS, POOL_SIZE, BATCH_SIZE, CACHE_MB
+    )
+    TURBO_AVAILABLE = True
+except ImportError:
+    TURBO_AVAILABLE = False
+    CPU_COUNT = os.cpu_count() or 4
+    MEMORY_GB = 8
+    IS_M2_ULTRA = False
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -166,8 +180,8 @@ h1{{font-size:2.5em;text-shadow:0 0 20px #00ff88}}
 .swarm{{background:rgba(255,136,0,0.1);border:2px solid #ff8800}}
 a{{color:#00ff88}}</style></head>
 <body><div class="box"><h1>⚡ CODEMASTER UNIFIED + SWARM ⚡</h1>
-<p>All 11 Services Running | Uptime: {uptime}</p>
-<p>UVLOOP: {'✅' if UVLOOP else '❌'} | ORJSON: {'✅' if ORJSON else '❌'} | SWARM: 🐟 7 Agents | AI BRAIN: {'🧠' if AI_BRAIN_AVAILABLE else '⚠️'}</p></div>
+<p>All 12 Services Running | Uptime: {uptime}</p>
+<p>UVLOOP: {'✅' if UVLOOP else '❌'} | ORJSON: {'✅' if ORJSON else '❌'} | SWARM: 🐟 7 Agents | AI BRAIN: {'🧠' if AI_BRAIN_AVAILABLE else '⚠️'} | TURBO: {'🚀' if TURBO_AVAILABLE else '⚠️'}</p></div>
 <div class="grid">
 <div class="svc">🔐 <a href="/vault/">Vault</a> ({len(store.vault_items)} items)</div>
 <div class="svc">📚 <a href="/catalog/">Catalog</a> ({len(store.catalog_entries)} entries)</div>
@@ -180,19 +194,21 @@ a{{color:#00ff88}}</style></head>
 <div class="svc">📊 <a href="/metrics/">Metrics</a></div>
 <div class="svc swarm">🐟 <a href="/swarm/">GABRIEL Swarm</a> (7 Agents)</div>
 <div class="svc swarm">🧠 <a href="/ai/brain">AI Brain ULTRA</a> (5 Providers)</div>
-</div><p><a href="/docs">📖 API Docs</a> | <a href="/health">❤️ Health</a> | <a href="/ai/brain/providers">🤖 AI Providers</a></p></body></html>"""
+<div class="svc swarm">🚀 <a href="/turbo/">TURBO Engine</a> ({CPU_COUNT} cores)</div>
+</div><p><a href="/docs">📖 API Docs</a> | <a href="/health">❤️ Health</a> | <a href="/turbo/metrics">⚡ TURBO Metrics</a></p></body></html>"""
 
 @app.get("/health")
 async def health_check():
     return {
         "status": "healthy",
         "service": "CODEMASTER_UNIFIED",
-        "version": "2.2.0-ULTRA",
+        "version": "2.3.0-TURBO",
         "uptime_seconds": (datetime.now() - store.started_at).total_seconds(),
-        "services": {s: "online" for s in ["vault","catalog","evidence","ai_gateway","fleet","mc96","mesh","god_brain","observability","swarm","ai_brain"]},
+        "services": {s: "online" for s in ["vault","catalog","evidence","ai_gateway","fleet","mc96","mesh","god_brain","observability","swarm","ai_brain","turbo"]},
         "swarm": {"agents": len(SWARM_AGENTS), "status": "online"},
         "ai_brain": {"status": "online" if AI_BRAIN_AVAILABLE else "fallback", "providers": 5},
-        "optimizations": {"uvloop": UVLOOP, "orjson": ORJSON},
+        "turbo": {"status": "online" if TURBO_AVAILABLE else "unavailable", "is_m2_ultra": IS_M2_ULTRA},
+        "optimizations": {"uvloop": UVLOOP, "orjson": ORJSON, "turbo_engine": TURBO_AVAILABLE},
         "counts": {
             "vault_items": len(store.vault_items),
             "catalog_entries": len(store.catalog_entries),
@@ -404,23 +420,80 @@ async def brain_insights():
 # ═══════════════════════════════════════════════════════════════════════════════
 
 SWARM_AGENTS = {
-    "GABRIEL": {"emoji": "👑", "role": "Supreme Orchestrator", "model": "claude-opus-4-5", "domain": "Strategic Operations", "status": "online"},
-    "ARIA": {"emoji": "🎵", "role": "Creative Director", "model": "claude-sonnet-4", "domain": "Music & Creative", "status": "online"},
-    "ZEPHYR": {"emoji": "🌊", "role": "Community Warden", "model": "claude-haiku-3.5", "domain": "Discord & Community", "status": "online"},
-    "NEXUS": {"emoji": "📡", "role": "Systems Architect", "model": "claude-sonnet-4", "domain": "Infrastructure", "status": "online"},
-    "ECHO": {"emoji": "📢", "role": "Marketing Genius", "model": "claude-sonnet-4", "domain": "Content & Marketing", "status": "online"},
-    "ORACLE": {"emoji": "🔮", "role": "Analytics Sage", "model": "claude-opus-4-5", "domain": "Data & Predictions", "status": "online"},
-    "SERAPHIM": {"emoji": "💼", "role": "Business Strategist", "model": "claude-sonnet-4", "domain": "Revenue & Licensing", "status": "online"},
+    # ═══════════════════════════════════════════════════════════════════════════
+    # 🤖 AI AGENTS - The Digital Workforce
+    # ═══════════════════════════════════════════════════════════════════════════
+    "GABRIEL": {"emoji": "👑", "role": "Supreme Orchestrator", "model": "claude-opus-4-5", "domain": "Strategic Operations", "status": "online", "type": "ai"},
+    "ARIA": {"emoji": "🎵", "role": "Creative Director", "model": "claude-sonnet-4", "domain": "Music & Creative", "status": "online", "type": "ai"},
+    "ZEPHYR": {"emoji": "🌊", "role": "Community Warden", "model": "claude-haiku-3.5", "domain": "Discord & Community", "status": "online", "type": "ai"},
+    "NEXUS": {"emoji": "📡", "role": "Systems Architect", "model": "claude-sonnet-4", "domain": "Infrastructure", "status": "online", "type": "ai"},
+    "ECHO": {"emoji": "📢", "role": "Marketing Genius", "model": "claude-sonnet-4", "domain": "Content & Marketing", "status": "online", "type": "ai"},
+    "ORACLE": {"emoji": "🔮", "role": "Analytics Sage", "model": "claude-opus-4-5", "domain": "Data & Predictions", "status": "online", "type": "ai"},
+    "SERAPHIM": {"emoji": "💼", "role": "Business Strategist", "model": "claude-sonnet-4", "domain": "Revenue & Licensing", "status": "online", "type": "ai"},
+    
+    # ═══════════════════════════════════════════════════════════════════════════
+    # 👨‍👩‍👧‍👦 THE FAMILY - Human Hive Members (PERMANENT)
+    # ═══════════════════════════════════════════════════════════════════════════
+    "ENGR_KEITH": {
+        "emoji": "🎛️",
+        "role": "Master Sound Engineer",
+        "model": "human-prime",
+        "domain": "Audio Engineering & Production",
+        "status": "online",
+        "type": "human",
+        "bio": "40+ years of cartoon music mastery. The ears behind Fish Music.",
+        "skills": ["mixing", "mastering", "sound_design", "production", "studio_ops"],
+        "authority": "full"
+    },
+    "DREAM": {
+        "emoji": "✨",
+        "role": "Creative Visionary",
+        "model": "human-prime",
+        "domain": "Vision & Strategy",
+        "status": "online",
+        "type": "human",
+        "bio": "The dreamer who sees the future. Strategic vision and creative direction.",
+        "skills": ["vision", "strategy", "creative_direction", "leadership"],
+        "authority": "full"
+    },
+    "POPS": {
+        "emoji": "🎹",
+        "role": "Music Legend",
+        "model": "human-prime",
+        "domain": "Musical Heritage & Composition",
+        "status": "online",
+        "type": "human",
+        "bio": "The foundation. Decades of musical genius and industry wisdom.",
+        "skills": ["composition", "arrangement", "musical_legacy", "industry_knowledge"],
+        "authority": "full"
+    },
+    "SHIRL": {
+        "emoji": "💎",
+        "role": "Operations Director",
+        "model": "human-prime",
+        "domain": "Business & Operations",
+        "status": "online",
+        "type": "human",
+        "bio": "The backbone of operations. Keeps everything running smoothly.",
+        "skills": ["operations", "organization", "business_admin", "coordination"],
+        "authority": "full"
+    },
 }
 
 ROUTING_KEYWORDS = {
-    "GABRIEL": ["strategic", "coordinate", "oversight", "plan", "vision"],
-    "ARIA": ["music", "track", "song", "sound", "catalog", "audio"],
-    "ZEPHYR": ["discord", "community", "member", "moderate", "event"],
-    "NEXUS": ["server", "deploy", "code", "infrastructure", "build"],
-    "ECHO": ["youtube", "content", "social", "marketing", "tiktok"],
-    "ORACLE": ["data", "analytics", "metrics", "forecast", "report"],
-    "SERAPHIM": ["license", "revenue", "deal", "business", "sync"],
+    # AI Agents
+    "GABRIEL": ["strategic", "coordinate", "oversight", "plan", "vision", "orchestrate"],
+    "ARIA": ["music", "track", "song", "sound", "catalog", "audio", "creative"],
+    "ZEPHYR": ["discord", "community", "member", "moderate", "event", "social"],
+    "NEXUS": ["server", "deploy", "code", "infrastructure", "build", "tech"],
+    "ECHO": ["youtube", "content", "social", "marketing", "tiktok", "promotion"],
+    "ORACLE": ["data", "analytics", "metrics", "forecast", "report", "insights"],
+    "SERAPHIM": ["license", "revenue", "deal", "business", "sync", "contract"],
+    # Human Family Members
+    "ENGR_KEITH": ["mixing", "mastering", "studio", "engineer", "production", "audio"],
+    "DREAM": ["vision", "future", "strategy", "direction", "dream"],
+    "POPS": ["compose", "arrange", "legacy", "heritage", "classic"],
+    "SHIRL": ["operations", "admin", "organize", "coordinate", "manage"],
 }
 
 @app.get("/swarm/")
@@ -659,6 +732,75 @@ async def ai_brain_swarm_query(task: SwarmTask):
     }
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# 🚀 TURBO ENGINE - MAXIMUM PERFORMANCE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+@app.get("/turbo/")
+async def turbo_status():
+    """TURBO Engine status"""
+    if TURBO_AVAILABLE:
+        return await TURBO_ENGINE.health()
+    return {
+        "status": "unavailable",
+        "error": "TURBO Engine not loaded",
+        "hardware": {"cpu_count": CPU_COUNT, "memory_gb": MEMORY_GB}
+    }
+
+@app.get("/turbo/metrics")
+async def turbo_metrics():
+    """TURBO performance metrics"""
+    if TURBO_AVAILABLE:
+        return TURBO_METRICS.to_dict()
+    return {"error": "TURBO not available"}
+
+@app.get("/turbo/cache")
+async def turbo_cache_status():
+    """TURBO cache stats"""
+    if TURBO_AVAILABLE:
+        return TURBO_CACHE.stats()
+    return {"error": "TURBO not available"}
+
+@app.post("/turbo/cache/invalidate")
+async def turbo_cache_invalidate(pattern: str = ""):
+    """Invalidate cache entries"""
+    if TURBO_AVAILABLE:
+        TURBO_CACHE.invalidate(pattern)
+        return {"status": "invalidated", "pattern": pattern or "all"}
+    return {"error": "TURBO not available"}
+
+class BatchRequest(BaseModel):
+    urls: List[str]
+
+@app.post("/turbo/batch")
+async def turbo_batch_get(request: BatchRequest):
+    """Batch GET requests through TURBO"""
+    if TURBO_AVAILABLE:
+        start = time.time()
+        results = await TURBO_HTTP.batch_get(request.urls)
+        elapsed = (time.time() - start) * 1000
+        return {
+            "results": results,
+            "count": len(results),
+            "elapsed_ms": round(elapsed, 2)
+        }
+    return {"error": "TURBO not available"}
+
+@app.get("/turbo/hardware")
+async def turbo_hardware():
+    """Hardware info"""
+    return {
+        "cpu_count": CPU_COUNT,
+        "memory_gb": round(MEMORY_GB, 1),
+        "is_m2_ultra": IS_M2_ULTRA,
+        "turbo_config": {
+            "max_workers": MAX_WORKERS if TURBO_AVAILABLE else "N/A",
+            "pool_size": POOL_SIZE if TURBO_AVAILABLE else "N/A",
+            "batch_size": BATCH_SIZE if TURBO_AVAILABLE else "N/A",
+            "cache_mb": CACHE_MB if TURBO_AVAILABLE else "N/A",
+        } if TURBO_AVAILABLE else {}
+    }
+
+# ═══════════════════════════════════════════════════════════════════════════════
 # 📊 OBSERVABILITY
 # ═══════════════════════════════════════════════════════════════════════════════
 
@@ -710,7 +852,7 @@ async def startup():
 ║      ██║     ██║   ██║██║  ██║██╔══╝  ██║╚██╔╝██║██╔══██║╚════██║   ██║           ║
 ║      ╚██████╗╚██████╔╝██████╔╝███████╗██║ ╚═╝ ██║██║  ██║███████║   ██║           ║
 ║       ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝           ║
-║                ⚡ UNIFIED v2.2.0 + AI BRAIN + SWARM ⚡                             ║
+║           ⚡ UNIFIED v2.3.0-TURBO + AI BRAIN + SWARM + TURBO ⚡                    ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
 ║  🔐 Vault:        /vault/      │  🚀 Fleet:        /fleet/                        ║
 ║  📚 Catalog:      /catalog/    │  🏛️ MC96:         /mc96/                         ║
@@ -721,7 +863,10 @@ async def startup():
 ║  🐟 SWARM:        /swarm/      │  🧠 AI BRAIN:     /ai/brain                      ║
 ║  └─ 7 Agents Online            │  └─ Claude, OpenAI, Gemini, Groq, Ollama         ║
 ╠═══════════════════════════════════════════════════════════════════════════════════╣
-║  UVLOOP: {'✅' if UVLOOP else '❌':4} | ORJSON: {'✅' if ORJSON else '❌':4} | AI_BRAIN: {'✅' if AI_BRAIN_AVAILABLE else '⚠️':4} | Loaded: {len(store.vault_items)} items   ║
+║  🚀 TURBO:        /turbo/      │  💻 Hardware:     {CPU_COUNT} cores, {MEMORY_GB:.0f}GB RAM
+║  └─ {'MAXIMUM POWER! ⚡' if IS_M2_ULTRA else 'Standard Mode':20}  │  └─ {'M2 ULTRA DETECTED! 🔥' if IS_M2_ULTRA else 'Optimized for system':24}
+╠═══════════════════════════════════════════════════════════════════════════════════╣
+║  UVLOOP: {'✅' if UVLOOP else '❌':4} | ORJSON: {'✅' if ORJSON else '❌':4} | AI_BRAIN: {'✅' if AI_BRAIN_AVAILABLE else '⚠️':4} | TURBO: {'✅' if TURBO_AVAILABLE else '⚠️':4}       ║
 ╚═══════════════════════════════════════════════════════════════════════════════════╝
     """)
 
