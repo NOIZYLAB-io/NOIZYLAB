@@ -3,7 +3,7 @@ import {
   RealtimeKitProvider,
   useRealtimeKitClient,
 } from "@cloudflare/realtimekit-react";
-import { RTKMeeting } from "@cloudflare/realtimekit-react-ui";
+import { MeetingShell } from "./MeetingShell";
 
 type StartResp = {
   ok: boolean;
@@ -12,6 +12,8 @@ type StartResp = {
   expiresAt: string;
   meetingId: string;
   staffAuthToken: string;
+  wsUrl?: string;
+  ticketId?: number;
 };
 
 async function startSession(ticketId?: number) {
@@ -23,16 +25,23 @@ async function startSession(ticketId?: number) {
   return await r.json();
 }
 
-export default function StaffSession() {
+export default function StaffSession({ ticketId }: { ticketId?: number }) {
   const [session, setSession] = useState<StartResp | null>(null);
+  const [wsUrl, setWsUrl] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [meeting, initMeeting] = useRealtimeKitClient();
 
-  const handleStart = async (ticketId?: number) => {
+  const handleStart = async () => {
     setErr(null);
     const res = (await startSession(ticketId)) as StartResp;
     if (!res.ok) return setErr("Failed to start session");
     setSession(res);
+    
+    // Build wsUrl for chat
+    const origin = window.location.origin;
+    const wsProtocol = origin.startsWith('https') ? 'wss' : 'ws';
+    const wsOrigin = origin.replace(/^http/, wsProtocol);
+    setWsUrl(`${wsOrigin}/ws/room/${res.roomId}`);
   };
 
   useEffect(() => {
@@ -43,13 +52,14 @@ export default function StaffSession() {
     });
   }, [session?.staffAuthToken]);
 
-  if (!session) {
+  if (!session || !wsUrl) {
     return (
       <div style={{ maxWidth: 420, margin: "40px auto", fontFamily: "system-ui" }}>
         <h2>Staff: Start Live Help</h2>
+        {ticketId && <p style={{ opacity: 0.7 }}>Ticket #{ticketId}</p>}
         <button
           style={{ width: "100%", padding: 12, fontSize: 16 }}
-          onClick={() => handleStart()}
+          onClick={handleStart}
         >
           Start Session
         </button>
@@ -67,7 +77,7 @@ export default function StaffSession() {
         <p style={{ opacity: 0.7 }}>Expires: {new Date(session.expiresAt).toLocaleTimeString()}</p>
       </div>
       <RealtimeKitProvider value={meeting}>
-        <RTKMeeting />
+        <MeetingShell wsUrl={wsUrl} ticketId={ticketId} isStaff={true} />
       </RealtimeKitProvider>
     </div>
   );

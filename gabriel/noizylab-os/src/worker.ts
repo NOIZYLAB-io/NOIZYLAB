@@ -12,9 +12,12 @@ type Env = {
   TURNSTILE_SECRET: string;
   APP_NAME: string;
 
-  AI_BASE_URL: string;
-  AI_API_KEY: string;
+  // AI: external API or Workers AI binding
+  AI_BASE_URL?: string;
+  AI_API_KEY?: string;
+  AI?: Ai;
 
+  // RealtimeKit
   CF_ACCOUNT_ID: string;
   RTK_APP_ID: string;
   CF_API_TOKEN: string;
@@ -32,10 +35,9 @@ async function rtkFetch(env: Env, path: string, init: RequestInit) {
       ...(init.headers || {}),
     },
   });
+  if (!r.ok) throw new Error(`RTK API ${r.status}`);
   const data = await r.json<any>();
-  if (!data?.success) {
-    throw new Error(`RTK API error: ${JSON.stringify(data?.errors ?? data)}`);
-  }
+  if (!data?.success) throw new Error(`RTK: ${JSON.stringify(data?.errors ?? data)}`);
   return data.result;
 }
 
@@ -69,6 +71,17 @@ export default {
   async fetch(req: Request, env: Env): Promise<Response> {
     const { url, path, method } = route(req);
 
+    // CORS preflight (zero latency)
+    if (method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, X-Turnstile-Token, X-Ticket-PublicId, X-Ticket-Secret",
+        },
+      });
+    }
+
     // Static homepage (optional). In production, serve from Pages.
     if (path === "/" && method === "GET") {
       return new Response(
@@ -77,54 +90,50 @@ export default {
       );
     }
 
-    // WebSocket room
+    // WebSocket room (zero latency passthrough)
     if (path.startsWith("/ws/room/") && method === "GET") {
       const roomId = path.split("/").pop()!;
       const id = env.ROOMS.idFromName(roomId);
-      const stub = env.ROOMS.get(id);
-      return stub.fetch(req);
+      return env.ROOMS.get(id).fetch(req);
     }
 
     // --------------------
-    // PUBLIC: Create Ticket
+    // PUBLIC: Create Ticket (optimized: parallel writes)
     // --------------------
     if (path === "/public/tickets" && method === "POST") {
-      const body = await readJson(req);
+      const [body, ip] = [await readJson(req), getIP(req)];
       if (!body) return bad(400, "Bad JSON");
 
-      const ip = getIP(req);
       const ts = body.turnstileToken as string | undefined;
       if (!ts) return bad(400, "Missing turnstileToken");
 
+      // Verify Turnstile first (blocks bots early)
       const v = await verifyTurnstile(env.TURNSTILE_SECRET, ts, ip);
       if (!v.success) return bad(403, "Turnstile failed");
 
       const publicId = crypto.randomUUID().slice(0, 8).toUpperCase();
       const secret = crypto.randomUUID();
-      const secretHash = await sha256Hex(secret);
-
-      const created = nowISO();
-      const status = "TRIAGE";
+      const [secretHash, created] = [await sha256Hex(secret), nowISO()];
       const channel = (body.channel ?? "portal") as string;
-      const subject = (body.subject ?? "").slice(0, 200);
+      const subject = String(body.subject ?? "").slice(0, 200);
 
       const ins = await env.DB.prepare(
         "INSERT INTO tickets (public_id, status, channel, subject, created_at, updated_at) VALUES (?,?,?,?,?,?)"
-      ).bind(publicId, status, channel, subject, created, created).run();
+      ).bind(publicId, "TRIAGE", channel, subject, created, created).run();
 
       const ticketId = ins.meta.last_row_id as number;
 
-      await env.DB.prepare(
-        "INSERT INTO ticket_access (ticket_id, secret_hash) VALUES (?,?)"
-      ).bind(ticketId, secretHash).run();
-
-      await writeEvent(env, ticketId, "CREATED", "public", ip ?? null, { channel, subject });
+      // Parallel: access + event writes
+      await Promise.all([
+        env.DB.prepare("INSERT INTO ticket_access (ticket_id, secret_hash) VALUES (?,?)").bind(ticketId, secretHash).run(),
+        writeEvent(env, ticketId, "CREATED", "public", ip ?? null, { channel, subject }),
+      ]);
 
       return json({ ok: true, ticketPublicId: publicId, secret });
     }
 
     // --------------------
-    // PUBLIC: Status page data
+    // PUBLIC: Status page data (optimized: parallel reads)
     // --------------------
     if (path.startsWith("/public/status/") && method === "GET") {
       const publicId = path.split("/").pop()!;
@@ -134,15 +143,14 @@ export default {
       const t = await getTicketByPublic(env, publicId);
       if (!t) return bad(404, "Not found");
 
-      const access = await env.DB.prepare("SELECT secret_hash FROM ticket_access WHERE ticket_id=?")
-        .bind(t.id).first<any>();
+      // Parallel: verify access + fetch events
+      const [access, ev, secretHash] = await Promise.all([
+        env.DB.prepare("SELECT secret_hash FROM ticket_access WHERE ticket_id=?").bind(t.id).first<any>(),
+        env.DB.prepare("SELECT type, actor_type, actor_id, payload_json, created_at FROM events WHERE ticket_id=? ORDER BY id ASC").bind(t.id).all<any>(),
+        sha256Hex(secret),
+      ]);
 
-      const secretHash = await sha256Hex(secret);
       if (!access || access.secret_hash !== secretHash) return bad(403, "Bad secret");
-
-      const ev = await env.DB.prepare(
-        "SELECT type, actor_type, actor_id, payload_json, created_at FROM events WHERE ticket_id=? ORDER BY id ASC"
-      ).bind(t.id).all<any>();
 
       return json({
         ok: true,
@@ -162,42 +170,48 @@ export default {
     }
 
     // --------------------
-    // PUBLIC: Upload (Worker-proxy to R2) + logs event
+    // PUBLIC: Upload (optimized: parallel verify + early size check)
     // --------------------
     if (path === "/public/upload" && method === "POST") {
-      const ip = getIP(req);
       const turnstileToken = req.headers.get("X-Turnstile-Token") ?? "";
       const publicId = req.headers.get("X-Ticket-PublicId") ?? "";
       const secret = req.headers.get("X-Ticket-Secret") ?? "";
-
       if (!turnstileToken || !publicId || !secret) return bad(400, "Missing headers");
-      const v = await verifyTurnstile(env.TURNSTILE_SECRET, turnstileToken, ip);
-      if (!v.success) return bad(403, "Turnstile failed");
 
-      const t = await getTicketByPublic(env, publicId);
+      // Early size check via Content-Length header
+      const contentLength = parseInt(req.headers.get("Content-Length") ?? "0", 10);
+      if (contentLength > 15 * 1024 * 1024) return bad(413, "Max 15MB");
+
+      const ip = getIP(req);
+
+      // Parallel: verify turnstile + get ticket
+      const [v, t] = await Promise.all([
+        verifyTurnstile(env.TURNSTILE_SECRET, turnstileToken, ip),
+        getTicketByPublic(env, publicId),
+      ]);
+
+      if (!v.success) return bad(403, "Turnstile failed");
       if (!t) return bad(404, "Ticket not found");
 
-      const access = await env.DB.prepare("SELECT secret_hash FROM ticket_access WHERE ticket_id=?")
-        .bind(t.id).first<any>();
-      const secretHash = await sha256Hex(secret);
+      // Verify secret
+      const [access, secretHash] = await Promise.all([
+        env.DB.prepare("SELECT secret_hash FROM ticket_access WHERE ticket_id=?").bind(t.id).first<any>(),
+        sha256Hex(secret),
+      ]);
       if (!access || access.secret_hash !== secretHash) return bad(403, "Bad secret");
 
       const contentType = req.headers.get("Content-Type") ?? "application/octet-stream";
       const blob = await req.arrayBuffer();
-
-      // Guardrail: keep uploads small for free-first
       if (blob.byteLength > 15 * 1024 * 1024) return bad(413, "Max 15MB");
 
       const key = `${publicId}/${Date.now()}-${crypto.randomUUID()}`;
-      await env.UPLOADS.put(key, blob, { httpMetadata: { contentType } });
 
-      await env.DB.prepare(
-        "INSERT INTO uploads (ticket_id, r2_key, mime, size, created_at) VALUES (?,?,?,?,?)"
-      ).bind(t.id, key, contentType, blob.byteLength, nowISO()).run();
-
-      await writeEvent(env, t.id, "UPLOAD_ADDED", "public", ip ?? null, {
-        key, mime: contentType, size: blob.byteLength
-      });
+      // Parallel: R2 put + DB insert + event
+      await Promise.all([
+        env.UPLOADS.put(key, blob, { httpMetadata: { contentType } }),
+        env.DB.prepare("INSERT INTO uploads (ticket_id, r2_key, mime, size, created_at) VALUES (?,?,?,?,?)").bind(t.id, key, contentType, blob.byteLength, nowISO()).run(),
+        writeEvent(env, t.id, "UPLOAD_ADDED", "public", ip ?? null, { key, mime: contentType, size: blob.byteLength }),
+      ]);
 
       return json({ ok: true, key });
     }
@@ -279,6 +293,14 @@ export default {
       const wsUrl = `${url.origin}/ws/room/${row.room_id}?token=${wsToken}`;
 
       return json({ ok: true, meetingId, authToken, roomId: row.room_id, wsUrl, exp });
+    }
+
+    // --------------------
+    // STAFF: health check
+    // --------------------
+    if (path === "/staff/health" && method === "GET") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      return json({ ok: true, ts: nowISO() });
     }
 
     // --------------------

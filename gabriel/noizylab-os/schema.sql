@@ -51,6 +51,9 @@ CREATE TABLE IF NOT EXISTS live_rooms (
   FOREIGN KEY(ticket_id) REFERENCES tickets(id) ON DELETE SET NULL
 );
 
+CREATE INDEX IF NOT EXISTS idx_live_rooms_code ON live_rooms(code);
+CREATE INDEX IF NOT EXISTS idx_live_rooms_expires ON live_rooms(expires_at);
+
 CREATE TABLE IF NOT EXISTS followups (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   ticket_id INTEGER NOT NULL,
@@ -68,4 +71,45 @@ CREATE TABLE IF NOT EXISTS persona_tags (
   confidence REAL,
   updated_at TEXT NOT NULL,
   FOREIGN KEY(ticket_id) REFERENCES tickets(id) ON DELETE CASCADE
+);
+
+-- PLAYBOOK TABLES
+CREATE TABLE IF NOT EXISTS playbooks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  code TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL,
+  persona TEXT,
+  tags_json TEXT,
+  created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS playbook_steps (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  playbook_id INTEGER NOT NULL,
+  os TEXT NOT NULL,           -- "win" | "mac" | "both"
+  step_order INTEGER NOT NULL,
+  title TEXT NOT NULL,
+  detail TEXT,
+  FOREIGN KEY(playbook_id) REFERENCES playbooks(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS playbook_runs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ticket_id INTEGER NOT NULL,
+  playbook_id INTEGER NOT NULL,
+  status TEXT NOT NULL,       -- "running" | "completed"
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  FOREIGN KEY(ticket_id) REFERENCES tickets(id) ON DELETE CASCADE,
+  FOREIGN KEY(playbook_id) REFERENCES playbooks(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS playbook_run_steps (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  run_id INTEGER NOT NULL,
+  step_id INTEGER NOT NULL,
+  done INTEGER NOT NULL DEFAULT 0,
+  done_at TEXT,
+  FOREIGN KEY(run_id) REFERENCES playbook_runs(id) ON DELETE CASCADE,
+  FOREIGN KEY(step_id) REFERENCES playbook_steps(id) ON DELETE CASCADE
 );

@@ -3,11 +3,11 @@ import {
   RealtimeKitProvider,
   useRealtimeKitClient,
 } from "@cloudflare/realtimekit-react";
-import { RTKMeeting } from "@cloudflare/realtimekit-react-ui";
+import { MeetingShell } from "./MeetingShell";
 
 type JoinResp = { ok: boolean; authToken: string; meetingId: string; roomId: string; wsUrl: string };
 
-function JoinForm({ onJoin }: { onJoin: (authToken: string, roomId: string) => void }) {
+function JoinForm({ onJoin }: { onJoin: (authToken: string, roomId: string, wsUrl: string) => void }) {
   const [code, setCode] = useState("");
   const [name, setName] = useState("");
   const [err, setErr] = useState<string | null>(null);
@@ -41,7 +41,7 @@ function JoinForm({ onJoin }: { onJoin: (authToken: string, roomId: string) => v
           });
           const j = (await r.json()) as JoinResp;
           if (!j.ok) return setErr("Join failed. Check the code.");
-          onJoin(j.authToken, j.roomId);
+          onJoin(j.authToken, j.roomId, j.wsUrl);
         }}
       >
         Join
@@ -58,6 +58,7 @@ function JoinForm({ onJoin }: { onJoin: (authToken: string, roomId: string) => v
 export default function App() {
   const [authToken, setAuthToken] = useState<string | null>(null);
   const [roomId, setRoomId] = useState<string | null>(null);
+  const [wsUrl, setWsUrl] = useState<string | null>(null);
 
   const [meeting, initMeeting] = useRealtimeKitClient();
 
@@ -69,12 +70,13 @@ export default function App() {
     });
   }, [authToken]);
 
-  if (!authToken || !roomId) {
+  if (!authToken || !roomId || !wsUrl) {
     return (
       <JoinForm
-        onJoin={(t, rId) => {
+        onJoin={(t, rId, ws) => {
           setAuthToken(t);
           setRoomId(rId);
+          setWsUrl(ws);
         }}
       />
     );
@@ -82,7 +84,7 @@ export default function App() {
 
   return (
     <RealtimeKitProvider value={meeting}>
-      <RTKMeeting />
+      <MeetingShell wsUrl={wsUrl} ticketId={undefined} isStaff={false} />
     </RealtimeKitProvider>
   );
 }
