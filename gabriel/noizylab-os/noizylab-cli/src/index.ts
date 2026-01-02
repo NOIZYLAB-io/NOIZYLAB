@@ -224,6 +224,21 @@ program
   });
 
 program
+  .command("staff:note")
+  .description("Add note to ticket (tracks first response for SLA)")
+  .requiredOption("--ticketId <id>")
+  .requiredOption("--note <text>")
+  .option("--public", "Make note visible to client")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/staff/tickets/${opt.ticketId}/note`,
+      json: { note: opt.note, isPublic: !!opt.public }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
   .command("estimate:send")
   .description("Create+send estimate and print approve/decline links (staff)")
   .requiredOption("--ticketId <id>")
@@ -430,10 +445,254 @@ program
   });
 
 program
+  .command("ops:run")
+  .description("Run a single ops job immediately (staff)")
+  .requiredOption("--type <retention_purge|followups_run|metrics_rollup>")
+  .option("--limit <n>", "200")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/ops/run",
+      json: { type: opt.type, limit: toInt(opt.limit) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
   .command("dlq:list")
   .description("List DLQ quarantined jobs (staff)")
   .action(async () => {
     const out = await http({ path: "/staff/dlq/list" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// GENIUS UPGRADES
+//
+
+// Control lanes (session guardrails)
+program
+  .command("control:grant")
+  .description("Grant remote control lane with 30m auto-revoke (staff)")
+  .requiredOption("--ticketId <id>")
+  .option("--minutes <n>", "30")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/control/grant",
+      json: { ticketId: toInt(opt.ticketId), minutes: toInt(opt.minutes) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("control:revoke")
+  .description("Revoke control lane (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/control/revoke",
+      json: { ticketId: toInt(opt.ticketId) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("control:expire")
+  .description("Expire stale control lanes (staff)")
+  .action(async () => {
+    const out = await http({ method: "POST", path: "/staff/control/expire", json: {} });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Tag discipline
+program
+  .command("tags:validate")
+  .description("Validate tags against controlled enum (staff)")
+  .requiredOption("--tag <TAG>", "Repeatable", (v, p: string[]) => (p.push(v), p), [])
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/tags/validate",
+      json: { tags: opt.tag }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("tags:enum")
+  .description("List allowed tag enum (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/tags/enum" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Playbook compiler
+program
+  .command("playbooks:compile")
+  .description("Compile playbook to client + tech versions (staff)")
+  .requiredOption("--code <PBx>")
+  .option("--os <os>", "both")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/playbooks/compile",
+      json: { code: toUpperCode(opt.code), os: opt.os }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Anti-repeat D3 nudge
+program
+  .command("followups:d3")
+  .description("Schedule D3 micro-check-in (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/followups/d3",
+      json: { ticketId: toInt(opt.ticketId) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Triage autopilot
+program
+  .command("ai:autopilot")
+  .description("Auto-suggest playbook based on tags (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/ai/autopilot",
+      json: { ticketId: toInt(opt.ticketId) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Fix receipts
+program
+  .command("receipt:get")
+  .description("Get fix receipt for ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/receipt/get?ticketId=${encodeURIComponent(opt.ticketId)}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("receipt:generate")
+  .description("Generate fix receipt manually (staff)")
+  .requiredOption("--ticketId <id>")
+  .requiredOption("--invoiceId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/receipt/generate",
+      json: { ticketId: toInt(opt.ticketId), invoiceId: toInt(opt.invoiceId) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// R2 Snapshot Exports
+program
+  .command("export:snapshot")
+  .description("Create R2 snapshot + signed download URL (staff)")
+  .requiredOption("--ticketId <id>")
+  .option("--redact", "Redact PII from export", false)
+  .option("--expiresMinutes <n>", "60")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/export/snapshot",
+      json: {
+        ticketId: toInt(opt.ticketId),
+        redact: opt.redact,
+        expiresMinutes: toInt(opt.expiresMinutes)
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Auto-close guard
+program
+  .command("autoclose:schedule")
+  .description("Schedule auto-close for ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .option("--warnDays <n>", "5")
+  .option("--closeDays <n>", "7")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/autoclose/schedule",
+      json: {
+        ticketId: toInt(opt.ticketId),
+        warnDays: toInt(opt.warnDays),
+        closeDays: toInt(opt.closeDays)
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("autoclose:cancel")
+  .description("Cancel auto-close for ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/autoclose/cancel",
+      json: { ticketId: toInt(opt.ticketId) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("autoclose:run")
+  .description("Run auto-close processor (staff)")
+  .option("--limit <n>", "50")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/autoclose/run",
+      json: { limit: toInt(opt.limit) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// EXPORTS
+//
+program
+  .command("export:snapshot")
+  .description("Create R2 export snapshot with signed URL (staff)")
+  .requiredOption("--ticketId <id>")
+  .option("--redact", "Redact PII")
+  .option("--expiresMinutes <n>", "60")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/export/snapshot",
+      json: {
+        ticketId: toInt(opt.ticketId),
+        redacted: !!opt.redact,
+        expiresMinutes: toInt(opt.expiresMinutes)
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("export:case")
+  .description("Get case bundle JSON inline (staff)")
+  .requiredOption("--ticketId <id>")
+  .option("--redact", "Redact PII")
+  .action(async (opt) => {
+    const redact = opt.redact ? "1" : "0";
+    const out = await http({
+      path: `/staff/tickets/${opt.ticketId}/bundle?redact=${redact}`
+    });
     console.log(JSON.stringify(out, null, 2));
   });
 
@@ -661,6 +920,998 @@ program
     if (opt.listen !== false) {
       await wsListen(payload.wsUrl);
     }
+  });
+
+// ====================
+// HOT ROD COMMANDS
+// ====================
+
+//
+// SLA
+//
+program
+  .command("sla:stats")
+  .description("Get SLA dashboard stats (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/sla/stats" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("sla:targets")
+  .description("List SLA targets (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/sla/targets" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("sla:set")
+  .description("Set SLA target for ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .option("--slaTargetId <id>", "1")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/sla/set",
+      json: { ticketId: toInt(opt.ticketId), slaTargetId: toInt(opt.slaTargetId) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// CLIENT HEALTH
+//
+program
+  .command("client:health")
+  .description("Get client health score (staff)")
+  .requiredOption("--clientId <id>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/clients/${opt.clientId}/health` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("client:at-risk")
+  .description("List at-risk clients (staff)")
+  .option("--threshold <n>", "50")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/clients/at-risk?threshold=${opt.threshold}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("sentiment:record")
+  .description("Record client sentiment (staff)")
+  .requiredOption("--clientId <id>")
+  .option("--ticketId <id>")
+  .requiredOption("--score <-2 to +2>")
+  .option("--source <source>", "manual")
+  .option("--notes <text>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/sentiment/record",
+      json: {
+        clientId: toInt(opt.clientId),
+        ticketId: opt.ticketId ? toInt(opt.ticketId) : null,
+        score: toInt(opt.score),
+        source: opt.source,
+        notes: opt.notes
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// HEATMAP
+//
+program
+  .command("heatmap")
+  .description("Get activity heatmap (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/heatmap" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ESCALATIONS
+//
+program
+  .command("escalations:run")
+  .description("Run escalation check (staff)")
+  .option("--limit <n>", "50")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/escalations/run",
+      json: { limit: toInt(opt.limit) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("escalations:list")
+  .description("List escalations for ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/tickets/${opt.ticketId}/escalations` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// BULK OPERATIONS
+//
+program
+  .command("bulk:tag")
+  .description("Bulk tag tickets (staff)")
+  .requiredOption("--ticketIds <ids>", "Comma-separated ticket IDs")
+  .requiredOption("--tags <tags>", "Comma-separated tags")
+  .action(async (opt) => {
+    const ticketIds = opt.ticketIds.split(",").map((s: string) => toInt(s.trim()));
+    const tags = opt.tags.split(",").map((s: string) => s.trim().toUpperCase());
+    const out = await http({
+      method: "POST",
+      path: "/staff/bulk/tag",
+      json: { ticketIds, tags }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("bulk:close")
+  .description("Bulk close tickets (staff)")
+  .requiredOption("--ticketIds <ids>", "Comma-separated ticket IDs")
+  .action(async (opt) => {
+    const ticketIds = opt.ticketIds.split(",").map((s: string) => toInt(s.trim()));
+    const out = await http({
+      method: "POST",
+      path: "/staff/bulk/close",
+      json: { ticketIds }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("bulk:history")
+  .description("List bulk operation history (staff)")
+  .option("--limit <n>", "50")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/bulk/history?limit=${opt.limit}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// TEMPLATES
+//
+program
+  .command("templates:list")
+  .description("List ticket templates (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/templates" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("templates:create")
+  .description("Create ticket template (staff)")
+  .requiredOption("--code <code>")
+  .requiredOption("--name <name>")
+  .requiredOption("--subject <subject>")
+  .option("--defaultTags <tags>", "Comma-separated tags")
+  .option("--playbookCodes <codes>", "Comma-separated playbook codes")
+  .option("--slaTargetId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/templates/create",
+      json: {
+        code: opt.code,
+        name: opt.name,
+        subject: opt.subject,
+        defaultTags: opt.defaultTags?.split(",").map((s: string) => s.trim().toUpperCase()) ?? [],
+        playbookCodes: opt.playbookCodes?.split(",").map((s: string) => s.trim()) ?? [],
+        slaTargetId: opt.slaTargetId ? toInt(opt.slaTargetId) : null
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("templates:use")
+  .description("Create ticket from template (staff)")
+  .requiredOption("--templateCode <code>")
+  .option("--clientId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/templates/create-ticket",
+      json: {
+        templateCode: opt.templateCode,
+        clientId: opt.clientId ? toInt(opt.clientId) : null
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// DUPLICATES & LINKS
+//
+program
+  .command("tickets:duplicates")
+  .description("Find potential duplicate tickets (staff)")
+  .requiredOption("--clientId <id>")
+  .requiredOption("--subject <text>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/tickets/duplicates",
+      json: { clientId: toInt(opt.clientId), subject: opt.subject }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("tickets:link")
+  .description("Link two tickets (staff)")
+  .requiredOption("--ticketId <id>")
+  .requiredOption("--linkedTicketId <id>")
+  .option("--linkType <type>", "duplicate|related|parent|child", "related")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/tickets/link",
+      json: {
+        ticketId: toInt(opt.ticketId),
+        linkedTicketId: toInt(opt.linkedTicketId),
+        linkType: opt.linkType
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// WEBHOOKS
+//
+program
+  .command("webhooks:list")
+  .description("List webhooks (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/webhooks" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("webhooks:create")
+  .description("Create webhook (staff)")
+  .requiredOption("--name <name>")
+  .requiredOption("--url <url>")
+  .option("--secret <secret>")
+  .option("--events <events>", "Comma-separated event types (or * for all)", "*")
+  .action(async (opt) => {
+    const events = opt.events === "*" ? ["*"] : opt.events.split(",").map((s: string) => s.trim());
+    const out = await http({
+      method: "POST",
+      path: "/staff/webhooks/create",
+      json: { name: opt.name, url: opt.url, secret: opt.secret, events }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("webhooks:toggle")
+  .description("Toggle webhook active status (staff)")
+  .requiredOption("--id <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/staff/webhooks/${opt.id}/toggle`
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("webhooks:test")
+  .description("Test webhook delivery (staff)")
+  .requiredOption("--id <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/staff/webhooks/${opt.id}/test`
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// SAVED SEARCHES
+//
+program
+  .command("searches:list")
+  .description("List saved searches (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/searches" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("searches:save")
+  .description("Save a search (staff)")
+  .requiredOption("--name <name>")
+  .requiredOption("--query <json>", "JSON query object")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/searches/save",
+      json: { name: opt.name, query: JSON.parse(opt.query) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - KNOWLEDGE BASE
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("kb:list")
+  .description("List knowledge base articles (public)")
+  .option("--category <cat>", "Filter by category")
+  .option("--limit <n>", "Max results", "20")
+  .action(async (opt) => {
+    let path = `/public/kb/articles?limit=${opt.limit}`;
+    if (opt.category) path += `&category=${encodeURIComponent(opt.category)}`;
+    const out = await http({ path });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("kb:get")
+  .description("Get KB article by slug")
+  .requiredOption("--slug <slug>")
+  .action(async (opt) => {
+    const out = await http({ path: `/public/kb/article/${opt.slug}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("kb:search")
+  .description("Search knowledge base")
+  .requiredOption("--q <query>")
+  .action(async (opt) => {
+    const out = await http({ path: `/public/kb/search?q=${encodeURIComponent(opt.q)}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("kb:create")
+  .description("Create KB article (staff)")
+  .requiredOption("--title <title>")
+  .requiredOption("--slug <slug>")
+  .requiredOption("--content <content>")
+  .option("--category <cat>")
+  .option("--tags <tags>", "Comma-separated tags")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/kb/articles",
+      json: {
+        title: opt.title,
+        slug: opt.slug,
+        content: opt.content,
+        category: opt.category,
+        tags: opt.tags ? opt.tags.split(",").map((t: string) => t.trim()) : []
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("kb:update")
+  .description("Update KB article (staff)")
+  .requiredOption("--id <id>")
+  .option("--title <title>")
+  .option("--content <content>")
+  .option("--category <cat>")
+  .option("--status <status>", "draft|published|archived")
+  .action(async (opt) => {
+    const out = await http({
+      method: "PATCH",
+      path: `/staff/kb/article/${opt.id}`,
+      json: {
+        title: opt.title,
+        content: opt.content,
+        category: opt.category,
+        status: opt.status
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("kb:rate")
+  .description("Rate a KB article")
+  .requiredOption("--id <id>")
+  .requiredOption("--helpful <bool>", "true or false")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/staff/kb/article/${opt.id}/rate`,
+      json: { helpful: opt.helpful === "true" }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("kb:suggest")
+  .description("Get AI-suggested KB articles for query")
+  .requiredOption("--q <query>")
+  .action(async (opt) => {
+    const out = await http({ path: `/public/kb/suggest?q=${encodeURIComponent(opt.q)}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - EMAIL
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("email:send")
+  .description("Send email from ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .requiredOption("--to <email>")
+  .requiredOption("--subject <subject>")
+  .requiredOption("--body <body>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/email/send",
+      json: {
+        ticketId: toInt(opt.ticketId),
+        to: opt.to,
+        subject: opt.subject,
+        body: opt.body
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("email:threads")
+  .description("Get email threads for ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/email/threads/${opt.ticketId}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - APPOINTMENTS
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("appointments:slots")
+  .description("Get available appointment slots (public)")
+  .option("--date <date>", "Date YYYY-MM-DD (default: today)")
+  .option("--days <n>", "Number of days to fetch", "7")
+  .action(async (opt) => {
+    let path = `/public/appointments/slots?days=${opt.days}`;
+    if (opt.date) path += `&date=${opt.date}`;
+    const out = await http({ path });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("appointments:book")
+  .description("Book an appointment (public)")
+  .requiredOption("--slotId <id>")
+  .requiredOption("--email <email>")
+  .option("--name <name>")
+  .option("--ticketId <id>")
+  .option("--notes <notes>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/public/appointments/book",
+      json: {
+        slotId: toInt(opt.slotId),
+        email: opt.email,
+        name: opt.name,
+        ticketId: opt.ticketId ? toInt(opt.ticketId) : undefined,
+        notes: opt.notes
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("appointments:cancel")
+  .description("Cancel an appointment")
+  .requiredOption("--id <id>")
+  .option("--reason <reason>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/public/appointments/${opt.id}/cancel`,
+      json: { reason: opt.reason }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("appointments:list")
+  .description("List appointments (staff)")
+  .option("--date <date>", "Filter by date")
+  .option("--status <status>", "Filter by status")
+  .action(async (opt) => {
+    let path = "/staff/appointments?limit=50";
+    if (opt.date) path += `&date=${opt.date}`;
+    if (opt.status) path += `&status=${opt.status}`;
+    const out = await http({ path });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("appointments:confirm")
+  .description("Confirm an appointment (staff)")
+  .requiredOption("--id <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/staff/appointments/${opt.id}/confirm`
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("availability:set")
+  .description("Set staff availability (staff)")
+  .requiredOption("--staffId <id>")
+  .requiredOption("--dayOfWeek <n>", "0-6, Sunday=0")
+  .requiredOption("--startTime <time>", "HH:MM")
+  .requiredOption("--endTime <time>", "HH:MM")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/availability/set",
+      json: {
+        staffId: opt.staffId,
+        dayOfWeek: toInt(opt.dayOfWeek),
+        startTime: opt.startTime,
+        endTime: opt.endTime
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("availability:generate")
+  .description("Generate appointment slots (staff)")
+  .requiredOption("--days <n>", "Days to generate")
+  .option("--durationMins <n>", "Slot duration", "30")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/availability/generate-slots",
+      json: {
+        days: toInt(opt.days),
+        durationMins: toInt(opt.durationMins)
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - NOTIFICATIONS
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("notifications:send")
+  .description("Send notification (staff)")
+  .requiredOption("--userId <id>")
+  .requiredOption("--channel <chan>", "email|push|sms")
+  .requiredOption("--title <title>")
+  .requiredOption("--body <body>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/notifications/send",
+      json: {
+        userId: opt.userId,
+        channel: opt.channel,
+        title: opt.title,
+        body: opt.body
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("notifications:prefs")
+  .description("Get notification preferences")
+  .requiredOption("--userId <id>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/notifications/prefs/${opt.userId}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("notifications:prefs:set")
+  .description("Set notification preferences")
+  .requiredOption("--userId <id>")
+  .requiredOption("--prefs <json>", "JSON preferences object")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/staff/notifications/prefs/${opt.userId}`,
+      json: JSON.parse(opt.prefs)
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - REPORTS
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("reports:generate")
+  .description("Generate a report (staff)")
+  .requiredOption("--type <type>", "ticket_volume|sla_compliance|staff_performance|client_satisfaction")
+  .option("--startDate <date>")
+  .option("--endDate <date>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/reports/generate",
+      json: {
+        type: opt.type,
+        params: { startDate: opt.startDate, endDate: opt.endDate }
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("reports:schedule")
+  .description("Schedule recurring report (staff)")
+  .requiredOption("--name <name>")
+  .requiredOption("--type <type>")
+  .requiredOption("--schedule <cron>", "Cron expression or daily|weekly|monthly")
+  .option("--recipients <emails>", "Comma-separated emails")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/reports/schedule",
+      json: {
+        name: opt.name,
+        type: opt.type,
+        schedule: opt.schedule,
+        recipients: opt.recipients ? opt.recipients.split(",").map((e: string) => e.trim()) : []
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("reports:list")
+  .description("List scheduled reports (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/reports/list" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - WORKSPACES (MULTI-TENANT)
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("workspace:create")
+  .description("Create a workspace (staff)")
+  .requiredOption("--name <name>")
+  .requiredOption("--slug <slug>")
+  .option("--plan <plan>", "free|pro|enterprise", "free")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/workspaces/create",
+      json: { name: opt.name, slug: opt.slug, plan: opt.plan }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("workspace:list")
+  .description("List workspaces (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/workspaces" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("workspace:invite")
+  .description("Invite user to workspace (staff)")
+  .requiredOption("--workspaceId <id>")
+  .requiredOption("--email <email>")
+  .option("--role <role>", "owner|admin|member|viewer", "member")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/staff/workspaces/${opt.workspaceId}/invite`,
+      json: { email: opt.email, role: opt.role }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("workspace:members")
+  .description("List workspace members (staff)")
+  .requiredOption("--workspaceId <id>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/workspaces/${opt.workspaceId}/members` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - API KEYS
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("apikeys:create")
+  .description("Create API key (staff)")
+  .requiredOption("--name <name>")
+  .option("--scopes <scopes>", "Comma-separated scopes (or * for all)", "*")
+  .option("--expiresIn <days>", "Expire in N days")
+  .action(async (opt) => {
+    const scopes = opt.scopes === "*" ? ["*"] : opt.scopes.split(",").map((s: string) => s.trim());
+    const json: any = { name: opt.name, scopes };
+    if (opt.expiresIn) {
+      json.expiresAt = new Date(Date.now() + toInt(opt.expiresIn) * 86400_000).toISOString();
+    }
+    const out = await http({
+      method: "POST",
+      path: "/staff/apikeys/create",
+      json
+    });
+    console.log(JSON.stringify(out, null, 2));
+    if (out.key) {
+      console.log("\n⚠️  SAVE THIS KEY NOW - it won't be shown again!");
+    }
+  });
+
+program
+  .command("apikeys:list")
+  .description("List API keys (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/apikeys" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("apikeys:revoke")
+  .description("Revoke API key (staff)")
+  .requiredOption("--id <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "DELETE",
+      path: `/staff/apikeys/${opt.id}`
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - INTEGRATIONS
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("integrations:list")
+  .description("List integrations (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/integrations" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("integrations:config")
+  .description("Configure integration (staff)")
+  .requiredOption("--provider <name>", "slack|discord|jira|zendesk|etc")
+  .requiredOption("--config <json>", "JSON config object")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/integrations/config",
+      json: {
+        provider: opt.provider,
+        config: JSON.parse(opt.config)
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("integrations:toggle")
+  .description("Toggle integration active status (staff)")
+  .requiredOption("--id <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: `/staff/integrations/${opt.id}/toggle`
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - AUDIT & COMPLIANCE
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("audit:log")
+  .description("View audit log (staff)")
+  .option("--resourceType <type>")
+  .option("--resourceId <id>")
+  .option("--actorId <id>")
+  .option("--action <action>")
+  .option("--limit <n>", "Max results", "100")
+  .action(async (opt) => {
+    let path = `/staff/audit/log?limit=${opt.limit}`;
+    if (opt.resourceType) path += `&resourceType=${opt.resourceType}`;
+    if (opt.resourceId) path += `&resourceId=${opt.resourceId}`;
+    if (opt.actorId) path += `&actorId=${opt.actorId}`;
+    if (opt.action) path += `&action=${opt.action}`;
+    const out = await http({ path });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("gdpr:export")
+  .description("Export user data (GDPR) (staff)")
+  .requiredOption("--email <email>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/gdpr/export",
+      json: { email: opt.email }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("gdpr:delete")
+  .description("Delete user data (GDPR) (staff)")
+  .requiredOption("--email <email>")
+  .option("--confirm", "Confirm deletion")
+  .action(async (opt) => {
+    if (!opt.confirm) {
+      console.log("⚠️  This action is IRREVERSIBLE. Add --confirm to proceed.");
+      return;
+    }
+    const out = await http({
+      method: "POST",
+      path: "/staff/gdpr/delete",
+      json: { email: opt.email }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - TIME TRACKING
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("timer:start")
+  .description("Start time tracker on ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .requiredOption("--staffId <id>")
+  .option("--description <desc>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/timer/start",
+      json: {
+        ticketId: toInt(opt.ticketId),
+        staffId: opt.staffId,
+        description: opt.description
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("timer:stop")
+  .description("Stop time tracker (staff)")
+  .requiredOption("--timerId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/timer/stop",
+      json: { timerId: toInt(opt.timerId) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("timer:summary")
+  .description("Get time summary for ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/tickets/${opt.ticketId}/time` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - SURVEYS
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("survey:send")
+  .description("Send satisfaction survey (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/survey/send",
+      json: { ticketId: toInt(opt.ticketId) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("survey:stats")
+  .description("Get survey statistics (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/survey/stats" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// ═══════════════════════════════════════════════════════════════════
+// LEGENDARY UPGRADES - CANNED RESPONSES
+// ═══════════════════════════════════════════════════════════════════
+//
+program
+  .command("canned:list")
+  .description("List canned responses (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/canned" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("canned:create")
+  .description("Create canned response (staff)")
+  .requiredOption("--code <code>")
+  .requiredOption("--title <title>")
+  .requiredOption("--body <body>")
+  .option("--category <cat>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/canned/create",
+      json: {
+        code: opt.code,
+        title: opt.title,
+        body: opt.body,
+        category: opt.category
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("canned:use")
+  .description("Get canned response by code (staff)")
+  .requiredOption("--code <code>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/canned/${opt.code}` });
+    console.log(JSON.stringify(out, null, 2));
   });
 
 await program.parseAsync(process.argv);
