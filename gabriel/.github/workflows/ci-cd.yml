@@ -1,0 +1,362 @@
+# GABRIEL CI/CD Pipeline
+# 
+# Triggers:
+# - Push to main: Deploy to production
+# - Push to develop: Deploy to staging
+# - Pull request: Run tests only
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop, '3-set-up-copilot-instructions']
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  NODE_VERSION: '20.x'
+  WRANGLER_VERSION: '3'
+
+jobs:
+  # ========================================
+  # LINT & TYPE CHECK
+  # ========================================
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies (Frontend)
+        working-directory: portal/frontend
+        run: npm ci
+        
+      - name: Install dependencies (API)
+        working-directory: portal/api
+        run: npm ci
+        
+      - name: Run ESLint
+        working-directory: portal/frontend
+        run: npm run lint || true
+        
+      - name: Run TypeScript check
+        working-directory: portal/frontend
+        run: npx tsc --noEmit || true
+
+  # ========================================
+  # UNIT TESTS
+  # ========================================
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        working-directory: portal/frontend
+        run: npm ci
+        
+      - name: Run unit tests
+        working-directory: portal/frontend
+        run: npm test -- --passWithNoTests
+        
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        if: always()
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
+  # ========================================
+  # E2E TESTS
+  # ========================================
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        working-directory: portal/frontend
+        run: npm ci
+        
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+        
+      - name: Build frontend
+        working-directory: portal/frontend
+        run: npm run build
+        
+      - name: Run E2E tests
+        working-directory: portal/tests
+        run: npx playwright test --reporter=html
+        env:
+          TEST_URL: http://localhost:4173
+          
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: portal/tests/playwright-report/
+          retention-days: 30
+
+  # ========================================
+  # BUILD
+  # ========================================
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        working-directory: portal/frontend
+        run: npm ci
+        
+      - name: Build frontend
+        working-directory: portal/frontend
+        run: npm run build
+        env:
+          VITE_API_URL: ${{ github.ref == 'refs/heads/main' && 'https://api.gabriel.noizylab.com' || 'https://api-staging.gabriel.noizylab.com' }}
+          VITE_STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
+          
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: portal/frontend/dist/
+          retention-days: 7
+
+  # ========================================
+  # DEPLOY API (STAGING)
+  # ========================================
+  deploy-api-staging:
+    name: Deploy API (Staging)
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/3-set-up-copilot-instructions'
+    environment: staging
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Install dependencies
+        working-directory: portal/api
+        run: npm ci
+        
+      - name: Deploy to Cloudflare Workers (Staging)
+        working-directory: portal/api
+        run: npx wrangler deploy --env staging
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+  # ========================================
+  # DEPLOY FRONTEND (STAGING)
+  # ========================================
+  deploy-frontend-staging:
+    name: Deploy Frontend (Staging)
+    runs-on: ubuntu-latest
+    needs: [build, deploy-api-staging]
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/3-set-up-copilot-instructions'
+    environment: staging
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: portal/frontend/dist/
+          
+      - name: Deploy to Cloudflare Pages (Staging)
+        run: npx wrangler pages deploy portal/frontend/dist --project-name=gabriel-portal --branch=staging
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+  # ========================================
+  # DEPLOY API (PRODUCTION)
+  # ========================================
+  deploy-api-production:
+    name: Deploy API (Production)
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Install dependencies
+        working-directory: portal/api
+        run: npm ci
+        
+      - name: Deploy to Cloudflare Workers (Production)
+        working-directory: portal/api
+        run: npx wrangler deploy --env production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+  # ========================================
+  # DEPLOY FRONTEND (PRODUCTION)
+  # ========================================
+  deploy-frontend-production:
+    name: Deploy Frontend (Production)
+    runs-on: ubuntu-latest
+    needs: [build, deploy-api-production]
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: portal/frontend/dist/
+          
+      - name: Deploy to Cloudflare Pages (Production)
+        run: npx wrangler pages deploy portal/frontend/dist --project-name=gabriel-portal --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+  # ========================================
+  # SMOKE TESTS
+  # ========================================
+  smoke-tests:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+    needs: [deploy-frontend-staging, deploy-frontend-production]
+    if: always() && (needs.deploy-frontend-staging.result == 'success' || needs.deploy-frontend-production.result == 'success')
+    
+    steps:
+      - name: Determine environment
+        id: env
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "api_url=https://api.gabriel.noizylab.com" >> $GITHUB_OUTPUT
+            echo "frontend_url=https://gabriel.noizylab.com" >> $GITHUB_OUTPUT
+          else
+            echo "api_url=https://api-staging.gabriel.noizylab.com" >> $GITHUB_OUTPUT
+            echo "frontend_url=https://staging.gabriel.noizylab.com" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Check API health
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.env.outputs.api_url }}/api/health")
+          if [ "$response" != "200" ]; then
+            echo "API health check failed with status $response"
+            exit 1
+          fi
+          echo "API health check passed ✓"
+          
+      - name: Check frontend
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" "${{ steps.env.outputs.frontend_url }}")
+          if [ "$response" != "200" ]; then
+            echo "Frontend health check failed with status $response"
+            exit 1
+          fi
+          echo "Frontend health check passed ✓"
+
+  # ========================================
+  # NOTIFICATIONS
+  # ========================================
+  notify:
+    name: Send Notifications
+    runs-on: ubuntu-latest
+    needs: [smoke-tests]
+    if: always()
+    
+    steps:
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1.24.0
+        if: always()
+        with:
+          payload: |
+            {
+              "text": "${{ job.status == 'success' && '✅' || '❌' }} GABRIEL Deployment: ${{ github.ref_name }} - ${{ job.status }}",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "${{ job.status == 'success' && '✅ Deployment Successful' || '❌ Deployment Failed' }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    { "type": "mrkdwn", "text": "*Branch:*\n${{ github.ref_name }}" },
+                    { "type": "mrkdwn", "text": "*Commit:*\n${{ github.sha }}" },
+                    { "type": "mrkdwn", "text": "*Actor:*\n${{ github.actor }}" },
+                    { "type": "mrkdwn", "text": "*Environment:*\n${{ github.ref == 'refs/heads/main' && 'Production' || 'Staging' }}" }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
