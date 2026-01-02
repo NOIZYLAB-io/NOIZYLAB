@@ -1,0 +1,19 @@
+name = "noizylab-chat-agent"
+main = "src/worker.ts"
+compatibility_date = "2024-12-30"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "your-d1-id-here"
+
+[[kv_namespaces]]
+binding = "CHAT_SESSIONS"
+id = "your-kv-id-here"
+
+[vars]
+ENVIRONMENT = "production"
+
+# Secrets (set via wrangler secret put)
+# ANTHROPIC_API_KEY = "..."
+# OPENAI_API_KEY = "..."

@@ -1,0 +1,18 @@
+name = "noizylab-ebay-sniper"
+main = "src/worker.ts"
+compatibility_date = "2024-12-30"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "your-d1-id-here"
+
+[triggers]
+crons = ["0 6 * * *"]  # Daily at 6 AM UTC
+
+[vars]
+ENVIRONMENT = "production"
+
+# Secrets (set via wrangler secret put)
+# EBAY_APP_ID = "..."
+# SLACK_WEBHOOK_URL = "..."
