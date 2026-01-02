@@ -1,0 +1,1 @@
+python3 /Users/rsp_ms/parallels_win10_auto_setup.py

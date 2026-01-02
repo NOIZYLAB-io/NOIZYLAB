@@ -1,0 +1,53 @@
+import os
+import logging
+from datetime import datetime
+from pathlib import Path
+from typing import Optional, Tuple
+
+logging.basicConfig(level=logging.INFO)
+
+INVALID_CHARS = set(r'<>:"/\\|?*')
+
+def sanitize_filename(filename: str) -> str:
+    """
+    Remove invalid characters from filename for cross-platform safety.
+    """
+    return ''.join(c for c in filename if c not in INVALID_CHARS)
+
+def save_to_noizy(
+    text: str,
+    filename: Optional[str] = None,
+    folder: str = "NoizyAI_Documents",
+    append: bool = False
+) -> Tuple[bool, Optional[Path]]:
+    """
+    Saves given text into ~/Documents/<folder>/<filename>.txt
+    - text: the string content to save
+    - filename: optional; if None, uses timestamp
+    - folder: default = "NoizyAI_Documents" but you can change to "Noizy_Documents"
+    - append: if True, appends to file; else overwrites
+    Returns (success, file_path)
+    """
+    base = Path.home() / "Documents" / folder
+    try:
+        base.mkdir(parents=True, exist_ok=True)
+    except Exception as e:
+        logging.error(f"Failed to create folder {base}: {e}")
+        return False, None
+
+    if not filename:
+        filename = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = sanitize_filename(filename)
+    if not filename.endswith(".txt"):
+        filename += ".txt"
+    file_path = base / filename
+
+    mode = "a" if append else "w"
+    try:
+        with open(file_path, mode, encoding="utf-8") as f:
+            f.write(text)
+        logging.info(f"Saved to {file_path}")
+        return True, file_path
+    except Exception as e:
+        logging.error(f"Failed to save file {file_path}: {e}")
+        return False, None

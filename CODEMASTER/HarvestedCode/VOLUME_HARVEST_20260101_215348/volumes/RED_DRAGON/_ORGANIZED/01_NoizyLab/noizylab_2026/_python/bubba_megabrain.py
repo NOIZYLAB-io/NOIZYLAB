@@ -1,0 +1,200 @@
+#!/usr/bin/env python3
+"""
+bubba_megabrain.py
+Bubba’s giant stew pot of code: Cha-Cha bridge, Bubba’s brain,
+Super Brain stub, mute/unmute persistence, and Hand of God hooks.
+"""
+
+import sys, subprocess, json, shutil
+from datetime import datetime
+from pathlib import Path
+
+# ---------- Paths ----------
+WORKSPACE = Path.home() / "Documents" / "Noizyfish_Aquarium" / "Noizy_Workspace"
+SAVE_DIR = WORKSPACE / "Saved_Notes"
+SAVE_DIR.mkdir(parents=True, exist_ok=True)
+
+VOICE = "Siri Voice 3"  # confirm with `say -v "?"`
+MUTE_FILE = WORKSPACE / "mute_state.json"
+
+# ---------- Silence Control ----------
+def get_mute_state():
+    if MUTE_FILE.exists():
+        try:
+            return json.loads(MUTE_FILE.read_text()).get("mute", False)
+        except Exception:
+            return False
+    return False
+
+def set_mute_state(state: bool):
+    MUTE_FILE.write_text(json.dumps({"mute": state}))
+    return state
+
+def speak(msg: str):
+    if get_mute_state():
+        return
+    subprocess.run(["say", "-v", VOICE, msg], check=False)
+
+# ---------- Logging ----------
+def save_log(name, content):
+    f = SAVE_DIR / f"{name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    f.write_text(content, encoding="utf-8")
+    return f
+
+def run(cmd):
+    try:
+        out = subprocess.check_output(cmd, text=True, stderr=subprocess.STDOUT)
+        return out.strip()
+    except subprocess.CalledProcessError as e:
+        return f"Error: {e.output}"
+
+# ---------- Bubba’s Skills ----------
+def audit_workspace():
+    files = [
+        "hand_of_god.py", "cha_cha_hotrod.py", "cha_cha_listener.py",
+        "cha_cha_to_bubba.py", "bubba_core.py", "super_brain.py"
+    ]
+    report = ["Bubba Workspace Audit:"]
+    for f in files:
+        path = WORKSPACE / f
+        report.append(f"{f}: {'✅ FOUND' if path.exists() else '❌ MISSING'}")
+    log = "\n".join(report)
+    save_log("audit", log)
+    return log
+
+def run_diagnostics():
+    cmds = {
+        "Python": ["python3", "--version"],
+        "Disk": ["df", "-h", "/"],
+        "Memory": ["vm_stat"]
+    }
+    report = ["Bubba Diagnostics:"]
+    for name, cmd in cmds.items():
+        report.append(f"\n## {name}\n{run(cmd)}")
+    log = "\n".join(report)
+    save_log("diagnostics", log)
+    return log
+
+def list_projects():
+    base = Path.home() / "Documents" / "Noizyfish_Aquarium"
+    if not base.exists():
+        return "No Noizyfish_Aquarium folder found."
+    projects = [p.name for p in base.iterdir() if p.is_dir()]
+    log = "Bubba Projects:\n" + "\n".join(projects)
+    save_log("projects", log)
+    return log
+
+def parallels_status():
+    apps = run(["pgrep", "-fl", "Parallels"])
+    vms = run(["prlctl", "list"]) if shutil.which("prlctl") else "prlctl not installed."
+    report = f"Parallels Processes:\n{apps}\n\nVMs:\n{vms}"
+    save_log("parallels", report)
+    return report
+
+def launch_parallels():
+    run(["open", "-a", "Parallels Desktop"])
+    return "Launched Parallels Desktop."
+
+# ---------- Super Brain Stub ----------
+def super_brain(prompt="Hello from Bubba"):
+    sb = WORKSPACE / "super_brain.py"
+    if not sb.exists():
+        return f"Super Brain stub missing at {sb}"
+    try:
+        result = subprocess.check_output(["python3", str(sb), prompt], text=True)
+        save_log("super_brain", result)
+        return result.strip()
+    except subprocess.CalledProcessError as e:
+        return f"Super Brain error: {e.output}"
+
+def noizy_brain(prompt="Hello from Bubba"):
+    nb = WORKSPACE / "noizy_brain.py"
+    if not nb.exists():
+        return f"Noizy Brain stub missing at {nb}"
+    try:
+        result = subprocess.check_output(["python3", str(nb), prompt], text=True)
+        save_log("noizy_brain", result)
+        return result.strip()
+    except subprocess.CalledProcessError as e:
+        return f"Noizy Brain error: {e.output}"
+
+# ---------- App Store Prep ----------
+def prep_app_store(target="apple"):
+    if target == "apple":
+        steps = [
+            "Check Apple Developer account",
+            "Ensure Xcode + CLT installed",
+            "Generate app bundle (stub)",
+            "Sign & notarize (manual step)"
+        ]
+    else:
+        steps = [
+            "Check Microsoft Partner Center account",
+            "Ensure Windows VM has Visual Studio",
+            "Generate MSIX package (stub)",
+            "Upload via Partner dashboard"
+        ]
+    report = f"App Store Prep for {target.capitalize()}:\n- " + "\n- ".join(steps)
+    save_log(f"appstore_{target}", report)
+    return report
+
+# ---------- Command Router ----------
+def help_text():
+    return (
+        "Bubba’s Big Bowl of Skills:\n"
+        "- audit workspace\n"
+        "- run diagnostics\n"
+        "- list projects\n"
+        "- parallels status\n"
+        "- launch parallels\n"
+        "- super brain <prompt>\n"
+        "- noizy brain <prompt>\n"
+        "- prep appstore apple\n"
+        "- prep appstore microsoft\n"
+        "- mute / unmute / silence\n"
+        "- help\n"
+    )
+
+def handle_command(cmd: str):
+    cmd = cmd.lower()
+    if "audit" in cmd:
+        return audit_workspace()
+    elif "diagnostic" in cmd:
+        return run_diagnostics()
+    elif "list" in cmd or "project" in cmd:
+        return list_projects()
+    elif "parallels status" in cmd:
+        return parallels_status()
+    elif "launch parallels" in cmd:
+        return launch_parallels()
+    elif "super brain" in cmd:
+        prompt = cmd.replace("super brain", "").strip() or "Hello from Bubba"
+        return super_brain(prompt)
+    elif "noizy brain" in cmd:
+        prompt = cmd.replace("noizy brain", "").strip() or "Hello from Bubba"
+        return noizy_brain(prompt)
+    elif "prep appstore" in cmd:
+        return prep_app_store("microsoft" if "microsoft" in cmd else "apple")
+    elif "mute" in cmd or "silence" in cmd:
+        set_mute_state(True)
+        return "🔇 Cha-Cha is muted."
+    elif "unmute" in cmd:
+        set_mute_state(False)
+        return "🔊 Cha-Cha is unmuted."
+    elif "help" in cmd:
+        return help_text()
+    else:
+        return "❓ Bubba doesn’t know that command yet. Try 'help'."
+
+# ---------- Entry ----------
+def main():
+    if len(sys.argv) < 2:
+        print(help_text())
+        return
+    command = " ".join(sys.argv[1:])
+    result = handle_command(command)
+    print(result)
+    speak(f"Bubba says: {result}")
+
+if __name__ == "__main__":
+    main()
