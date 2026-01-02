@@ -1,0 +1,65 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB OS v1 - Wrangler Configuration
+# GO RUN FREE, AI-managed, fully logged
+# ═══════════════════════════════════════════════════════════════════════════
+
+name = "noizylab-v1"
+main = "index.ts"
+compatibility_date = "2024-01-01"
+
+# ───────────────────────────────────────────────────────────────────────────
+# D1 Database
+# ───────────────────────────────────────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-v1"
+database_id = "YOUR_D1_DATABASE_ID"  # wrangler d1 create noizylab-v1
+
+# ───────────────────────────────────────────────────────────────────────────
+# R2 Storage (uploads)
+# ───────────────────────────────────────────────────────────────────────────
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "noizylab-uploads"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Durable Objects (live rooms)
+# ───────────────────────────────────────────────────────────────────────────
+[durable_objects]
+bindings = [
+  { name = "LIVE_ROOM", class_name = "LiveRoom" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["LiveRoom"]
+
+# ───────────────────────────────────────────────────────────────────────────
+# AI Gateway
+# ───────────────────────────────────────────────────────────────────────────
+[ai]
+binding = "AI"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Secrets (set via wrangler secret put)
+# ───────────────────────────────────────────────────────────────────────────
+# TURNSTILE_SECRET  - Cloudflare Turnstile secret key
+# ACCESS_AUD        - Cloudflare Access audience tag for staff auth
+
+# ───────────────────────────────────────────────────────────────────────────
+# Development
+# ───────────────────────────────────────────────────────────────────────────
+[env.dev]
+name = "noizylab-v1-dev"
+
+[[env.dev.d1_databases]]
+binding = "DB"
+database_name = "noizylab-v1-dev"
+database_id = "YOUR_DEV_D1_DATABASE_ID"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Custom Domain (optional)
+# ───────────────────────────────────────────────────────────────────────────
+# routes = [
+#   { pattern = "support.noizylab.io/*", zone_name = "noizylab.io" }
+# ]

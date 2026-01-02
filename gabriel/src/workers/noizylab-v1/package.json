@@ -1,0 +1,38 @@
+{
+  "name": "noizylab-v1",
+  "version": "1.0.0",
+  "description": "NoizyLab OS v1 - GO RUN FREE, AI-managed, fully logged",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:dev": "wrangler deploy --env dev",
+    "db:create": "wrangler d1 create noizylab-v1",
+    "db:migrate": "wrangler d1 execute noizylab-v1 --file=./schema.sql",
+    "db:migrate:local": "wrangler d1 execute noizylab-v1 --local --file=./schema.sql",
+    "db:studio": "wrangler d1 execute noizylab-v1 --command 'SELECT 1'",
+    "r2:create": "wrangler r2 bucket create noizylab-uploads",
+    "tail": "wrangler tail",
+    "types": "wrangler types",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.11.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "typescript": "^5.0.0",
+    "wrangler": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

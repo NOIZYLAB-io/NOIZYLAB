@@ -1,0 +1,116 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NOIZYLAB OS - Cloudflare Worker Configuration
+# GO RUN FREE Hot-Rod Support Platform
+# ═══════════════════════════════════════════════════════════════════════════
+
+name = "noizylab"
+main = "index.ts"
+compatibility_date = "2024-01-01"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Environment Variables
+# ───────────────────────────────────────────────────────────────────────────
+[vars]
+ENVIRONMENT = "production"
+APP_NAME = "NoizyLab OS"
+VERSION = "1.0.0"
+
+# ───────────────────────────────────────────────────────────────────────────
+# D1 Database - Ticket Storage
+# ───────────────────────────────────────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "YOUR_D1_DATABASE_ID"  # Replace after: wrangler d1 create noizylab-db
+
+# ───────────────────────────────────────────────────────────────────────────
+# R2 Storage - File Uploads
+# ───────────────────────────────────────────────────────────────────────────
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "noizylab-uploads"
+# Create with: wrangler r2 bucket create noizylab-uploads
+
+# ───────────────────────────────────────────────────────────────────────────
+# Durable Objects - Real-time Chat & Presence
+# ───────────────────────────────────────────────────────────────────────────
+[durable_objects]
+bindings = [
+  { name = "CHAT_ROOM", class_name = "ChatRoom" },
+  { name = "PRESENCE", class_name = "Presence" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ChatRoom", "Presence"]
+
+# ───────────────────────────────────────────────────────────────────────────
+# AI Gateway - Genius Jobs
+# ───────────────────────────────────────────────────────────────────────────
+[ai]
+binding = "AI"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Secrets (set via wrangler secret put)
+# ───────────────────────────────────────────────────────────────────────────
+# TURNSTILE_SECRET_KEY - Cloudflare Turnstile
+# STRIPE_WEBHOOK_SECRET - Stripe webhook verification
+# EMAIL_API_KEY - Cloudflare Email API
+# STAFF_API_KEY - Staff authentication
+
+# ───────────────────────────────────────────────────────────────────────────
+# Routes & Custom Domains
+# ───────────────────────────────────────────────────────────────────────────
+# routes = [
+#   { pattern = "support.noizylab.io/*", zone_name = "noizylab.io" }
+# ]
+
+# ───────────────────────────────────────────────────────────────────────────
+# Development Environment
+# ───────────────────────────────────────────────────────────────────────────
+[env.development]
+vars = { ENVIRONMENT = "development" }
+
+[[env.development.d1_databases]]
+binding = "DB"
+database_name = "noizylab-db-dev"
+database_id = "YOUR_DEV_D1_DATABASE_ID"
+
+[[env.development.r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "noizylab-uploads-dev"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Preview Environment (for PRs)
+# ───────────────────────────────────────────────────────────────────────────
+[env.preview]
+vars = { ENVIRONMENT = "preview" }
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "noizylab-db-preview"
+database_id = "YOUR_PREVIEW_D1_DATABASE_ID"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Build Settings
+# ───────────────────────────────────────────────────────────────────────────
+[build]
+command = "npm run build"
+
+# ───────────────────────────────────────────────────────────────────────────
+# Limits & Performance
+# ───────────────────────────────────────────────────────────────────────────
+# Cloudflare Workers limits:
+# - CPU time: 50ms (unbound: 30s)
+# - Memory: 128MB
+# - Request size: 100MB
+# - Subrequests: 50 (unbound: 1000)
+
+# ───────────────────────────────────────────────────────────────────────────
+# Observability
+# ───────────────────────────────────────────────────────────────────────────
+# Enable Workers Analytics Engine for metrics
+# analytics_engine_datasets = ["METRICS"]
+
+# Tail workers for logging
+# tail_consumers = [{ service = "log-collector" }]

@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NoizyLab OS</title>
+</head>
+<body>
+  <h1>NoizyLab OS (demo)</h1>
+
+  <h2>Create Ticket</h2>
+  <p>In production, embed Turnstile widget + pass turnstileToken.</p>
+  <input id="subject" placeholder="Subject" />
+  <input id="turnstile" placeholder="Turnstile token" />
+  <button id="create">Create</button>
+  <pre id="out"></pre>
+
+  <script>
+    const out = document.querySelector("#out");
+    document.querySelector("#create").onclick = async () => {
+      const subject = document.querySelector("#subject").value;
+      const turnstileToken = document.querySelector("#turnstile").value;
+
+      const r = await fetch("/public/tickets", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ subject, channel:"portal", turnstileToken })
+      });
+
+      out.textContent = await r.text();
+    };
+  </script>
+</body>
+</html>
+        </div>
+        <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY" data-callback="onTurnstile"></div>
+        <button type="submit" class="submit" id="create-submit" disabled>Submit Ticket</button>
+      </form>
+      <div id="create-result" class="result" style="display:none"></div>
+      <div id="create-error" class="error" style="display:none"></div>
+    </div>
+    
+    <!-- Check Status Panel -->
+    <div id="status-panel" class="panel">
+      <form id="status-form" onsubmit="checkStatus(event)">
+        <div class="field">
+          <label>Ticket ID</label>
+          <input type="text" name="ticketId" required placeholder="NL-XXXXXX">
+        </div>
+        <div class="field">
+          <label>Secret</label>
+          <input type="text" name="secret" required placeholder="Your ticket secret">
+        </div>
+        <button type="submit" class="submit">Check Status</button>
+      </form>
+      <div id="status-result" style="display:none"></div>
+      <div id="status-error" class="error" style="display:none"></div>
+    </div>
+    
+    <!-- Live Help Panel -->
+    <div id="live-panel" class="panel">
+      <form id="live-form" onsubmit="joinLive(event)">
+        <div class="field">
+          <label>Join Code</label>
+          <input type="text" name="code" required placeholder="6-digit code" maxlength="6" pattern="[0-9]{6}">
+        </div>
+        <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITE_KEY" data-callback="onTurnstileLive"></div>
+        <button type="submit" class="submit" id="live-submit" disabled>Join Session</button>
+      </form>
+      <div id="live-result" class="result" style="display:none"></div>
+      <div id="live-error" class="error" style="display:none"></div>
+    </div>
+  </div>
+
+  <script>
+    const API = ''; // Same origin
+    let turnstileToken = null;
+    let turnstileTokenLive = null;
+
+    function onTurnstile(token) { turnstileToken = token; document.getElementById('create-submit').disabled = false; }
+    function onTurnstileLive(token) { turnstileTokenLive = token; document.getElementById('live-submit').disabled = false; }
+
+    function showPanel(name) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('show'));
+      document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(name + '-panel').classList.add('show');
+      event.target.closest('.btn').classList.add('active');
+    }
+
+    async function createTicket(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      data.turnstile_token = turnstileToken;
+      
+      document.getElementById('create-result').style.display = 'none';
+      document.getElementById('create-error').style.display = 'none';
+      
+      try {
+        const res = await fetch(API + '/public/tickets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error);
+        
+        document.getElementById('create-result').innerHTML = `
+          <p><strong>Ticket Created!</strong></p>
+          <p>ID: <code>${json.ticketPublicId}</code></p>
+          <p>Secret: <code>${json.secret}</code></p>
+          <p style="color:var(--muted);margin-top:0.5rem">Save these to check your status later.</p>
+        `;
+        document.getElementById('create-result').style.display = 'block';
+        form.reset();
+      } catch (err) {
+        document.getElementById('create-error').textContent = err.message;
+        document.getElementById('create-error').style.display = 'block';
+      }
+    }
+
+    async function checkStatus(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      
+      document.getElementById('status-result').style.display = 'none';
+      document.getElementById('status-error').style.display = 'none';
+      
+      try {
+        const res = await fetch(API + `/public/status/${data.ticketId}?secret=${data.secret}`);
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error);
+        
+        const timeline = json.timeline.map(e => `
+          <div class="timeline-item">
+            <div class="time">${new Date(e.created_at).toLocaleString()}</div>
+            <div class="event">${formatEvent(e.type, e.payload)}</div>
+          </div>
+        `).join('');
+        
+        document.getElementById('status-result').innerHTML = `
+          <div class="status-card">
+            <div class="status-header">
+              <h3>${json.ticket.subject}</h3>
+              <span class="status-badge">${json.ticket.status}</span>
+            </div>
+            <p style="color:var(--muted)">Created ${new Date(json.ticket.created_at).toLocaleString()}</p>
+            <div class="timeline">${timeline}</div>
+          </div>
+        `;
+        document.getElementById('status-result').style.display = 'block';
+      } catch (err) {
+        document.getElementById('status-error').textContent = err.message;
+        document.getElementById('status-error').style.display = 'block';
+      }
+    }
+
+    async function joinLive(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      data.turnstile_token = turnstileTokenLive;
+      
+      document.getElementById('live-result').style.display = 'none';
+      document.getElementById('live-error').style.display = 'none';
+      
+      try {
+        const res = await fetch(API + '/public/live/join', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error);
+        
+        // Connect to WebSocket
+        const wsUrl = (location.protocol === 'https:' ? 'wss:' : 'ws:') + '//' + location.host + json.ws_url;
+        document.getElementById('live-result').innerHTML = `
+          <p><strong>Joining...</strong></p>
+          <p>Mode: ${json.mode}</p>
+          <p style="color:var(--muted)">Connecting to live session...</p>
+        `;
+        document.getElementById('live-result').style.display = 'block';
+        
+        // TODO: Full WebRTC/chat UI
+        const ws = new WebSocket(wsUrl);
+        ws.onopen = () => console.log('Connected');
+        ws.onmessage = (e) => console.log('Message:', e.data);
+        ws.onerror = (e) => console.error('WS Error:', e);
+      } catch (err) {
+        document.getElementById('live-error').textContent = err.message;
+        document.getElementById('live-error').style.display = 'block';
+      }
+    }
+
+    function formatEvent(type, payload) {
+      const labels = {
+        'CREATED': 'Ticket created',
+        'STATUS_CHANGED': `Status: ${payload.to}`,
+        'MESSAGE_OUT': 'Message received',
+        'MESSAGE_IN': 'Your message sent',
+        'UPLOAD': `File: ${payload.filename}`,
+        'LIVE_CREATED': 'Live session available',
+        'LIVE_JOINED': 'Joined live session',
+        'LIVE_ENDED': 'Live session ended',
+        'PLAYBOOK_STARTED': `Started: ${payload.name}`,
+        'PLAYBOOK_COMPLETED': `Completed: ${payload.name}`,
+        'RESOLVED': 'Issue resolved'
+      };
+      return labels[type] || type;
+    }
+  </script>
+</body>
+</html>
