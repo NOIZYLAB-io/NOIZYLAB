@@ -1,13 +1,14 @@
-name = "gabriel-vision-api"
-main = "src/index.js"
+name = "gabriel-api"
+main = "src/worker.ts"
 compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
 
 # Account settings
 account_id = "YOUR_ACCOUNT_ID"
 
 # R2 Buckets
 [[r2_buckets]]
-binding = "R2_SCANS"
+binding = "GABRIEL_BUCKET"
 bucket_name = "gabriel-scans"
 
 [[r2_buckets]]
@@ -16,18 +17,45 @@ bucket_name = "gabriel-references"
 
 # KV Namespaces
 [[kv_namespaces]]
-binding = "KV_RESULTS"
+binding = "GABRIEL_KV"
 id = "YOUR_KV_ID"
 
 [[kv_namespaces]]
-binding = "KV_API_KEYS"
-id = "YOUR_API_KEYS_KV_ID"
+binding = "RATE_LIMIT_KV"
+id = "YOUR_RATE_LIMIT_KV_ID"
+
+# Queue for background processing
+[[queues.producers]]
+queue = "gabriel-scan-queue"
+binding = "SCAN_QUEUE"
+
+[[queues.consumers]]
+queue = "gabriel-scan-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+max_retries = 3
+dead_letter_queue = "gabriel-dlq"
+
+# AI bindings
+[ai]
+binding = "AI"
+
+# Scheduled triggers (cron jobs)
+[triggers]
+crons = [
+  "0 0 * * *",    # Daily at midnight: aggregate metrics
+  "0 */6 * * *", # Every 6 hours: cleanup expired data
+  "0 9 * * 1",   # Weekly Monday 9am: generate reports
+]
 
 # Environment variables (secrets - set via wrangler secret put)
+# STRIPE_SECRET_KEY
+# STRIPE_WEBHOOK_SECRET
+# RESEND_API_KEY
+# ERROR_WEBHOOK_URL
 # GEMINI_API_KEY
 # ANTHROPIC_API_KEY
 # ELEVENLABS_API_KEY
-# ELEVENLABS_VOICE_ID
 
 # Routes
 routes = [
@@ -41,9 +69,14 @@ local_protocol = "http"
 
 # Production settings
 [env.production]
+vars = { ENVIRONMENT = "production", VERSION = "1.0.0" }
 routes = [
   { pattern = "api.noizylab.ai/*", zone_name = "noizylab.ai" }
 ]
+
+# Development settings
+[env.development]
+vars = { ENVIRONMENT = "development", VERSION = "1.0.0-dev" }
 
 # Observability
 [observability]

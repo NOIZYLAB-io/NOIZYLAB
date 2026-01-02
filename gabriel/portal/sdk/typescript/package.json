@@ -1,0 +1,52 @@
+{
+  "name": "@gabriel/sdk",
+  "version": "1.0.0",
+  "description": "Official TypeScript SDK for GABRIEL board inspection API",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "gabriel",
+    "pcb",
+    "inspection",
+    "ai",
+    "electronics",
+    "repair",
+    "vision"
+  ],
+  "author": "NOIZYLAB",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Noizyfish/GABRIEL"
+  },
+  "homepage": "https://gabriel.noizylab.com",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
