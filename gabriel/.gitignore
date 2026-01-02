@@ -9,9 +9,10 @@ Thumbs.db
 *~
 
 # IDE
-.vscode/
 .idea/
 *.code-workspace
+!GABRIEL.code-workspace
+# Keep .vscode/ for shared settings (GitLens, extensions, etc.)
 
 # Python
 __pycache__/
@@ -49,6 +50,9 @@ secrets/
 # Claude / AI
 .claude/
 .codex/
+
+# Agent memory (runtime data)
+memory/
 
 # Large directories (stored externally)
 CODEMASTER/

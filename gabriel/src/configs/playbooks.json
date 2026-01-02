@@ -1,0 +1,850 @@
+{
+  "playbooks": {
+    "PB1": {
+      "id": "PB1",
+      "name": "Browser Diet",
+      "emoji": "🌪️",
+      "targetPersona": "P1",
+      "description": "Tame the tab tornado and optimize browser performance",
+      "estimatedTime": "30-60 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB1-F1",
+            "action": "Audit browser extensions",
+            "details": "List all extensions, identify unused or suspicious ones",
+            "required": true
+          },
+          {
+            "id": "PB1-F2",
+            "action": "Remove/disable unnecessary extensions",
+            "details": "Keep only essential extensions, disable the rest",
+            "required": true
+          },
+          {
+            "id": "PB1-F3",
+            "action": "Reset browser policies",
+            "details": "Clear any enterprise or malware policies",
+            "required": false
+          },
+          {
+            "id": "PB1-F4",
+            "action": "Clean browser profile",
+            "details": "Clear cache, cookies (selective), browsing data",
+            "required": true
+          },
+          {
+            "id": "PB1-F5",
+            "action": "Trim startup pages",
+            "details": "Reduce or eliminate pages that open on startup",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB1-P1",
+            "action": "Set up work/personal browser profiles",
+            "details": "Separate profiles to compartmentalize usage"
+          },
+          {
+            "id": "PB1-P2",
+            "action": "Enable tab sleeping/discarding",
+            "details": "Chrome: Tab Discarding, Firefox: Unload Tabs, Edge: Sleeping Tabs"
+          },
+          {
+            "id": "PB1-P3",
+            "action": "Recommend tab management extension",
+            "details": "OneTab, Session Buddy, or built-in tab groups"
+          }
+        ]
+      },
+      "followup": {
+        "days": 7,
+        "check": "Extension count audit",
+        "questions": [
+          "How many extensions are installed now?",
+          "Has browser performance improved?",
+          "Are you using the tab management strategy?"
+        ]
+      }
+    },
+    "PB2": {
+      "id": "PB2",
+      "name": "Space Guard",
+      "emoji": "📦",
+      "targetPersona": "P2",
+      "description": "Reclaim disk space and prevent storage surprises",
+      "estimatedTime": "45-90 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB2-F1",
+            "action": "Scan top 10 largest folders",
+            "details": "Use Disk Inventory X (Mac), WinDirStat (Windows), or du command",
+            "required": true
+          },
+          {
+            "id": "PB2-F2",
+            "action": "Identify and stop sync loops",
+            "details": "Check for iCloud/OneDrive/GDrive duplicating local files",
+            "required": true
+          },
+          {
+            "id": "PB2-F3",
+            "action": "Quarantine Downloads folder",
+            "details": "Sort, archive, or delete old downloads",
+            "required": true
+          },
+          {
+            "id": "PB2-F4",
+            "action": "Clear system caches",
+            "details": "Safe cache clearing (not all caches)",
+            "required": false
+          },
+          {
+            "id": "PB2-F5",
+            "action": "Empty trash/recycle bin",
+            "details": "Verify nothing important, then empty",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB2-P1",
+            "action": "Set up storage alerts",
+            "details": "Alert at 20%, 15%, 10% free space"
+          },
+          {
+            "id": "PB2-P2",
+            "action": "Configure cloud storage properly",
+            "details": "Use 'Files On-Demand' or 'Optimize Storage'"
+          },
+          {
+            "id": "PB2-P3",
+            "action": "Create archive strategy",
+            "details": "External drive or cloud for old files"
+          }
+        ]
+      },
+      "followup": {
+        "days": 30,
+        "check": "Storage trend check",
+        "questions": [
+          "Current free space percentage?",
+          "Have you received any storage alerts?",
+          "Are old files being archived?"
+        ]
+      }
+    },
+    "PB3": {
+      "id": "PB3",
+      "name": "No Snake Oil",
+      "emoji": "🐍",
+      "targetPersona": "P3",
+      "description": "Remove PUPs and block future infections",
+      "estimatedTime": "60-120 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB3-F1",
+            "action": "Scan with Malwarebytes",
+            "details": "Full system scan, remove all findings",
+            "required": true
+          },
+          {
+            "id": "PB3-F2",
+            "action": "Remove suspicious programs",
+            "details": "Check installed programs list, remove unfamiliar items",
+            "required": true
+          },
+          {
+            "id": "PB3-F3",
+            "action": "Reset browser policies",
+            "details": "Remove enterprise policies set by malware",
+            "required": true
+          },
+          {
+            "id": "PB3-F4",
+            "action": "Reset browser settings",
+            "details": "Homepage, search engine, new tab page",
+            "required": true
+          },
+          {
+            "id": "PB3-F5",
+            "action": "Block known install vectors",
+            "details": "Remove bundler installers, fake download buttons",
+            "required": false
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB3-P1",
+            "action": "Install uBlock Origin",
+            "details": "Blocks malicious ads and fake download buttons"
+          },
+          {
+            "id": "PB3-P2",
+            "action": "Set up approved installer sources",
+            "details": "Official sites only, no download aggregators"
+          },
+          {
+            "id": "PB3-P3",
+            "action": "Optional: DNS filtering",
+            "details": "NextDNS, Cloudflare Gateway, or Pi-hole"
+          }
+        ]
+      },
+      "followup": {
+        "days": 7,
+        "check": "PUP rescan",
+        "questions": [
+          "Any new popups or redirects?",
+          "Is the browser still clean?",
+          "Have you installed anything new?"
+        ]
+      }
+    },
+    "PB4": {
+      "id": "PB4",
+      "name": "Update Safe-Window",
+      "emoji": "🔄",
+      "targetPersona": "P4",
+      "description": "Safely update systems with rollback protection",
+      "estimatedTime": "60-180 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB4-F1",
+            "action": "Check current OS/app versions",
+            "details": "Document what's currently installed",
+            "required": true
+          },
+          {
+            "id": "PB4-F2",
+            "action": "Create backup/snapshot",
+            "details": "Time Machine, System Restore point, or disk image",
+            "required": true
+          },
+          {
+            "id": "PB4-F3",
+            "action": "Research known issues",
+            "details": "Check release notes for update gotchas",
+            "required": true
+          },
+          {
+            "id": "PB4-F4",
+            "action": "Apply updates in controlled order",
+            "details": "OS first, then drivers, then apps",
+            "required": true
+          },
+          {
+            "id": "PB4-F5",
+            "action": "Verify functionality post-update",
+            "details": "Test critical workflows",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB4-P1",
+            "action": "Schedule regular update window",
+            "details": "Weekly or monthly, client-approved time"
+          },
+          {
+            "id": "PB4-P2",
+            "action": "Enable automatic backup before updates",
+            "details": "Time Machine, File History, or third-party"
+          },
+          {
+            "id": "PB4-P3",
+            "action": "Document critical software versions",
+            "details": "Know what versions are required for work"
+          }
+        ]
+      },
+      "followup": {
+        "days": 14,
+        "check": "Next update appointment",
+        "questions": [
+          "Any issues since the update?",
+          "Ready for next update cycle?",
+          "Is automatic backup running?"
+        ]
+      }
+    },
+    "PB5": {
+      "id": "PB5",
+      "name": "Password Cleanroom",
+      "emoji": "🔐",
+      "targetPersona": "P5",
+      "description": "Recover access and establish proper password hygiene",
+      "estimatedTime": "60-120 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB5-F1",
+            "action": "Map all critical accounts",
+            "details": "Email, Apple ID, Microsoft, banking, social",
+            "required": true
+          },
+          {
+            "id": "PB5-F2",
+            "action": "Verify recovery options",
+            "details": "Recovery email, phone, security questions",
+            "required": true
+          },
+          {
+            "id": "PB5-F3",
+            "action": "Reset passwords for locked accounts",
+            "details": "Use official recovery flows",
+            "required": true
+          },
+          {
+            "id": "PB5-F4",
+            "action": "Set up or reset MFA",
+            "details": "Authenticator app preferred over SMS",
+            "required": true
+          },
+          {
+            "id": "PB5-F5",
+            "action": "Generate and store backup codes",
+            "details": "Print or secure storage for MFA backup codes",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB5-P1",
+            "action": "Set up password manager",
+            "details": "1Password, Bitwarden, or Apple Keychain"
+          },
+          {
+            "id": "PB5-P2",
+            "action": "Create unique passwords for critical accounts",
+            "details": "At minimum: email, Apple/Microsoft, banking"
+          },
+          {
+            "id": "PB5-P3",
+            "action": "Store emergency recovery info",
+            "details": "Physical backup of recovery codes/keys"
+          }
+        ]
+      },
+      "followup": {
+        "days": 30,
+        "check": "Lockout prevention check",
+        "questions": [
+          "Have you been locked out of anything?",
+          "Is password manager being used?",
+          "Are backup codes stored safely?"
+        ]
+      }
+    },
+    "PB6": {
+      "id": "PB6",
+      "name": "Wi-Fi Stabilizer",
+      "emoji": "📶",
+      "targetPersona": "P6",
+      "description": "Diagnose and fix wireless connectivity issues",
+      "estimatedTime": "30-90 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB6-F1",
+            "action": "Isolate the problem",
+            "details": "ISP vs router vs device vs interference",
+            "required": true
+          },
+          {
+            "id": "PB6-F2",
+            "action": "Test with Ethernet",
+            "details": "Rule out Wi-Fi specific issues",
+            "required": true
+          },
+          {
+            "id": "PB6-F3",
+            "action": "Check router firmware",
+            "details": "Update if outdated",
+            "required": true
+          },
+          {
+            "id": "PB6-F4",
+            "action": "Optimize channel selection",
+            "details": "Use Wi-Fi analyzer, pick less congested channel",
+            "required": false
+          },
+          {
+            "id": "PB6-F5",
+            "action": "Reset DNS settings",
+            "details": "Try 1.1.1.1 or 8.8.8.8",
+            "required": false
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB6-P1",
+            "action": "Eliminate double-NAT",
+            "details": "ISP modem in bridge mode if using own router"
+          },
+          {
+            "id": "PB6-P2",
+            "action": "Remove problematic extenders",
+            "details": "Replace with mesh or proper AP if needed"
+          },
+          {
+            "id": "PB6-P3",
+            "action": "Document working configuration",
+            "details": "SSID, channel, DNS for reference"
+          }
+        ]
+      },
+      "followup": {
+        "days": 7,
+        "check": "Stability verification",
+        "questions": [
+          "Any disconnections this week?",
+          "Speed test results?",
+          "Any new devices added to network?"
+        ]
+      }
+    },
+    "PB7": {
+      "id": "PB7",
+      "name": "Peripheral Detox",
+      "emoji": "🔌",
+      "targetPersona": "P7",
+      "description": "Clean up device drivers and simplify peripherals",
+      "estimatedTime": "45-90 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB7-F1",
+            "action": "List all connected devices",
+            "details": "Device Manager (Win) or System Report (Mac)",
+            "required": true
+          },
+          {
+            "id": "PB7-F2",
+            "action": "Remove ghost/unused devices",
+            "details": "Uninstall drivers for disconnected devices",
+            "required": true
+          },
+          {
+            "id": "PB7-F3",
+            "action": "Reinstall problematic drivers",
+            "details": "From manufacturer, not Windows Update if possible",
+            "required": true
+          },
+          {
+            "id": "PB7-F4",
+            "action": "Test each device individually",
+            "details": "Direct USB connection, not through hub",
+            "required": true
+          },
+          {
+            "id": "PB7-F5",
+            "action": "Update dock/hub firmware",
+            "details": "If using dock or USB hub",
+            "required": false
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB7-P1",
+            "action": "Establish one dock standard",
+            "details": "Single brand/model for consistency"
+          },
+          {
+            "id": "PB7-P2",
+            "action": "Create driver pack",
+            "details": "Download and store known-good drivers"
+          },
+          {
+            "id": "PB7-P3",
+            "action": "Document working setup",
+            "details": "Which ports for which devices"
+          }
+        ]
+      },
+      "followup": {
+        "days": 7,
+        "check": "Peripheral stability test",
+        "questions": [
+          "Are all devices working reliably?",
+          "Any driver update prompts?",
+          "New devices added?"
+        ]
+      }
+    },
+    "PB8": {
+      "id": "PB8",
+      "name": "Cloud Sync Sanity",
+      "emoji": "☁️",
+      "targetPersona": "P8",
+      "description": "Untangle multiple cloud services and stop duplicates",
+      "estimatedTime": "60-120 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB8-F1",
+            "action": "Map all active cloud services",
+            "details": "iCloud, OneDrive, Google Drive, Dropbox, etc.",
+            "required": true
+          },
+          {
+            "id": "PB8-F2",
+            "action": "Identify source of truth",
+            "details": "Which service should own which files?",
+            "required": true
+          },
+          {
+            "id": "PB8-F3",
+            "action": "Pause all syncing",
+            "details": "Stop sync on all services temporarily",
+            "required": true
+          },
+          {
+            "id": "PB8-F4",
+            "action": "Resolve duplicates",
+            "details": "Keep newest/best, archive rest",
+            "required": true
+          },
+          {
+            "id": "PB8-F5",
+            "action": "Relink folders correctly",
+            "details": "One service per folder/category",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB8-P1",
+            "action": "Establish one cloud per category",
+            "details": "Work = OneDrive, Personal = iCloud, etc."
+          },
+          {
+            "id": "PB8-P2",
+            "action": "Disable Desktop/Documents sync duplication",
+            "details": "Don't let multiple services sync same folders"
+          },
+          {
+            "id": "PB8-P3",
+            "action": "Document cloud architecture",
+            "details": "What syncs where"
+          }
+        ]
+      },
+      "followup": {
+        "days": 7,
+        "check": "Sync conflict verification",
+        "questions": [
+          "Any new duplicate files?",
+          "Sync status showing clean?",
+          "Any files missing or moved?"
+        ]
+      }
+    },
+    "PB9": {
+      "id": "PB9",
+      "name": "Thermal Rescue",
+      "emoji": "🌡️",
+      "targetPersona": "P9",
+      "description": "Cool down overheating systems and prevent damage",
+      "estimatedTime": "30-90 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB9-F1",
+            "action": "Check current temperatures",
+            "details": "Use monitoring software to baseline temps",
+            "required": true
+          },
+          {
+            "id": "PB9-F2",
+            "action": "Identify heat source",
+            "details": "CPU? GPU? SSD? Blocked vents?",
+            "required": true
+          },
+          {
+            "id": "PB9-F3",
+            "action": "Clean vents and fans",
+            "details": "Compressed air, careful cleaning",
+            "required": true
+          },
+          {
+            "id": "PB9-F4",
+            "action": "Kill rogue background processes",
+            "details": "Activity Monitor / Task Manager review",
+            "required": true
+          },
+          {
+            "id": "PB9-F5",
+            "action": "Test under load",
+            "details": "Verify temps stay acceptable",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB9-P1",
+            "action": "Schedule cleaning every 6-12 months",
+            "details": "Calendar reminder for maintenance"
+          },
+          {
+            "id": "PB9-P2",
+            "action": "Improve airflow setup",
+            "details": "Laptop stand, not on blankets/pillows"
+          },
+          {
+            "id": "PB9-P3",
+            "action": "Install temperature monitoring",
+            "details": "Alert if temps exceed threshold"
+          }
+        ]
+      },
+      "followup": {
+        "days": 30,
+        "check": "Heat and performance check",
+        "questions": [
+          "Current temperature readings?",
+          "Any throttling or slowdowns?",
+          "Fan noise levels?"
+        ]
+      }
+    },
+    "PB10": {
+      "id": "PB10",
+      "name": "Creative Workstation Tune",
+      "emoji": "🎨",
+      "targetPersona": "P10",
+      "description": "Optimize for video editing and creative work",
+      "estimatedTime": "60-120 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB10-F1",
+            "action": "Audit scratch/cache locations",
+            "details": "Premiere, After Effects, Photoshop cache settings",
+            "required": true
+          },
+          {
+            "id": "PB10-F2",
+            "action": "Move scratch to fast drive",
+            "details": "SSD preferred, not the system drive if possible",
+            "required": true
+          },
+          {
+            "id": "PB10-F3",
+            "action": "Check external drive health",
+            "details": "SMART status on all project drives",
+            "required": true
+          },
+          {
+            "id": "PB10-F4",
+            "action": "Organize library locations",
+            "details": "Fonts, plugins, presets in known locations",
+            "required": false
+          },
+          {
+            "id": "PB10-F5",
+            "action": "Clear render cache",
+            "details": "Remove old project caches",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB10-P1",
+            "action": "Establish project folder standard",
+            "details": "Consistent folder structure for all projects"
+          },
+          {
+            "id": "PB10-P2",
+            "action": "Set up nightly incremental backup",
+            "details": "Time Machine, Backblaze, or rsync"
+          },
+          {
+            "id": "PB10-P3",
+            "action": "Document optimal settings",
+            "details": "Export presets, screenshot preferences"
+          }
+        ]
+      },
+      "followup": {
+        "days": 14,
+        "check": "Next deadline preparation",
+        "questions": [
+          "Any project deadlines coming up?",
+          "Render times acceptable?",
+          "Backup running successfully?"
+        ]
+      }
+    },
+    "PB11": {
+      "id": "PB11",
+      "name": "Hardware Truth Test",
+      "emoji": "💀",
+      "targetPersona": "P12",
+      "description": "Diagnose failing hardware and protect data",
+      "estimatedTime": "60-180 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB11-F1",
+            "action": "IMMEDIATE: Backup critical data",
+            "details": "Before any diagnostics, get data safe",
+            "required": true
+          },
+          {
+            "id": "PB11-F2",
+            "action": "Run disk diagnostics",
+            "details": "SMART check, manufacturer tools",
+            "required": true
+          },
+          {
+            "id": "PB11-F3",
+            "action": "Run memory test",
+            "details": "Apple Diagnostics, Windows Memory Diagnostic, MemTest86",
+            "required": true
+          },
+          {
+            "id": "PB11-F4",
+            "action": "Check battery health",
+            "details": "Cycle count, capacity, any swelling",
+            "required": true
+          },
+          {
+            "id": "PB11-F5",
+            "action": "Document findings",
+            "details": "Screenshot all diagnostic results",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB11-P1",
+            "action": "Create replacement/migration plan",
+            "details": "Timeline and budget for new hardware if needed"
+          },
+          {
+            "id": "PB11-P2",
+            "action": "Set up redundant backup",
+            "details": "If hardware is questionable, backup twice"
+          },
+          {
+            "id": "PB11-P3",
+            "action": "Schedule migration if needed",
+            "details": "Don't wait for complete failure"
+          }
+        ]
+      },
+      "followup": {
+        "days": 7,
+        "check": "Restore verification",
+        "questions": [
+          "Was backup verified/restored successfully?",
+          "Hardware replacement decision made?",
+          "Any new symptoms?"
+        ]
+      }
+    },
+    "PB12": {
+      "id": "PB12",
+      "name": "Backup Bulletproof",
+      "emoji": "🛡️",
+      "targetPersona": "ALL",
+      "description": "Establish 3-2-1 backup strategy",
+      "estimatedTime": "45-90 min",
+      "fix": {
+        "steps": [
+          {
+            "id": "PB12-F1",
+            "action": "Audit current backup status",
+            "details": "What's backed up? What's not? When was last backup?",
+            "required": true
+          },
+          {
+            "id": "PB12-F2",
+            "action": "Identify critical data",
+            "details": "Documents, photos, projects - prioritize",
+            "required": true
+          },
+          {
+            "id": "PB12-F3",
+            "action": "Set up local backup",
+            "details": "Time Machine, File History, or equivalent",
+            "required": true
+          },
+          {
+            "id": "PB12-F4",
+            "action": "Set up cloud backup",
+            "details": "Backblaze, iCloud, OneDrive backup",
+            "required": true
+          },
+          {
+            "id": "PB12-F5",
+            "action": "Verify backup is running",
+            "details": "Check logs, verify files exist",
+            "required": true
+          }
+        ]
+      },
+      "prevent": {
+        "steps": [
+          {
+            "id": "PB12-P1",
+            "action": "Enable automatic backup",
+            "details": "No manual intervention needed"
+          },
+          {
+            "id": "PB12-P2",
+            "action": "Schedule monthly restore test",
+            "details": "Actually restore a file to verify"
+          },
+          {
+            "id": "PB12-P3",
+            "action": "Document backup architecture",
+            "details": "What goes where, how to restore"
+          }
+        ]
+      },
+      "followup": {
+        "days": 30,
+        "check": "Monthly backup verification",
+        "questions": [
+          "Is backup still running?",
+          "When was last successful backup?",
+          "Have you tested a restore?"
+        ]
+      }
+    }
+  },
+  "rules": {
+    "alwaysSuggestBackup": true,
+    "backupBeforeRiskyOps": true,
+    "documentEveryStep": true,
+    "followupRequired": true
+  }
+}

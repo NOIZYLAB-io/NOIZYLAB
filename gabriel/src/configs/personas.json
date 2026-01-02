@@ -1,0 +1,278 @@
+{
+  "personas": {
+    "P1": {
+      "id": "P1",
+      "name": "Tab Tornado",
+      "emoji": "🌪️",
+      "description": "50+ tabs open, browser slowdown, memory hog",
+      "commonTags": ["PERF-TABS", "PERF-LOWRAM", "PERF-STARTUP"],
+      "suggestedPlaybook": "PB1",
+      "indicators": [
+        "mentions many tabs",
+        "browser slow",
+        "computer freezes",
+        "runs out of memory",
+        "chrome/firefox/edge using lots of RAM"
+      ],
+      "questions": [
+        "How many browser tabs do you typically have open?",
+        "Which browser do you use?",
+        "Do you have multiple browser windows?"
+      ],
+      "calmResponse": "Browsers can slow down with lots of open tabs. Let's get yours running smooth again."
+    },
+    "P2": {
+      "id": "P2",
+      "name": "Storage Closet",
+      "emoji": "📦",
+      "description": "Disk full, hoarding files, never deletes anything",
+      "commonTags": ["STOR-LOWDISK", "STOR-EXTERNALDRIVE", "FILE-PERMISSIONS"],
+      "suggestedPlaybook": "PB2",
+      "indicators": [
+        "disk full",
+        "no space",
+        "can't save files",
+        "startup disk almost full",
+        "storage warning"
+      ],
+      "questions": [
+        "When did you last see the storage warning?",
+        "Do you use cloud storage (iCloud/OneDrive/Google Drive)?",
+        "Is this your only storage device?"
+      ],
+      "calmResponse": "Storage fills up over time. We'll find the space hogs and set up alerts so this doesn't surprise you again."
+    },
+    "P3": {
+      "id": "P3",
+      "name": "Click-Yes Optimizer",
+      "emoji": "🖱️",
+      "description": "PUPs, toolbars, fake optimizers, clicks YES on everything",
+      "commonTags": ["SEC-PUP", "SEC-BROWSERHIJACK", "USR-CLICKYES"],
+      "suggestedPlaybook": "PB3",
+      "indicators": [
+        "popups",
+        "weird toolbar",
+        "homepage changed",
+        "search goes to wrong site",
+        "installed something by accident",
+        "optimizer",
+        "cleaner"
+      ],
+      "questions": [
+        "Did you recently install any software or browser extension?",
+        "Are you seeing pop-ups or redirects?",
+        "Has your homepage or search engine changed?"
+      ],
+      "calmResponse": "Unwanted software sneaks in easily. We'll clean it out and set up protection to block it in the future."
+    },
+    "P4": {
+      "id": "P4",
+      "name": "Update Avoider",
+      "emoji": "⏸️",
+      "description": "Months behind on updates, 'don't fix what works' mentality",
+      "commonTags": ["UPD-OS", "UPD-APP", "USR-UPDATEAVOID"],
+      "suggestedPlaybook": "PB4",
+      "indicators": [
+        "haven't updated",
+        "update keeps asking",
+        "skip updates",
+        "don't want to update",
+        "updates break things"
+      ],
+      "questions": [
+        "When did you last update your operating system?",
+        "Have updates caused problems for you before?",
+        "Are there specific apps you're worried about updating?"
+      ],
+      "calmResponse": "Updates can feel risky, but they fix security holes. We'll find a safe time and make a backup first."
+    },
+    "P5": {
+      "id": "P5",
+      "name": "Password Spiral",
+      "emoji": "🔐",
+      "description": "Locked out, no recovery options, password chaos",
+      "commonTags": ["AUTH-PASSWORDRESET", "AUTH-MFA", "USR-PASSWORDCHAOS"],
+      "suggestedPlaybook": "PB5",
+      "indicators": [
+        "locked out",
+        "forgot password",
+        "can't get into",
+        "account suspended",
+        "verification code won't work",
+        "lost authenticator"
+      ],
+      "questions": [
+        "Which account are you locked out of?",
+        "Do you have access to your recovery email or phone?",
+        "Do you use a password manager?"
+      ],
+      "calmResponse": "Getting locked out is stressful. We'll map out your accounts and set up proper recovery options."
+    },
+    "P6": {
+      "id": "P6",
+      "name": "Wi-Fi Whiplash",
+      "emoji": "📶",
+      "description": "Connection drops constantly, blames router, never checks device",
+      "commonTags": ["NET-WIFIDROP", "NET-DNS", "NET-ROUTER"],
+      "suggestedPlaybook": "PB6",
+      "indicators": [
+        "wifi drops",
+        "keeps disconnecting",
+        "internet slow",
+        "no internet",
+        "connection unstable"
+      ],
+      "questions": [
+        "Does this happen on other devices too?",
+        "How far are you from the router?",
+        "Did this start after any changes (new router, moved desk)?"
+      ],
+      "calmResponse": "Wi-Fi issues are frustrating. We'll figure out if it's the router, your device, or something in between."
+    },
+    "P7": {
+      "id": "P7",
+      "name": "Peripheral Collector",
+      "emoji": "🔌",
+      "description": "5 printers, 3 mice, driver chaos, USB hub madness",
+      "commonTags": ["DRV-USB", "DRV-PRINTER", "DRV-AUDIO"],
+      "suggestedPlaybook": "PB7",
+      "indicators": [
+        "printer not working",
+        "USB not recognized",
+        "driver issue",
+        "external device",
+        "dock not working",
+        "monitor not detected"
+      ],
+      "questions": [
+        "What device is having trouble?",
+        "Have you tried it on a different USB port or computer?",
+        "Did you recently add any new devices?"
+      ],
+      "calmResponse": "External devices can get finicky. We'll clean out old drivers and get your setup working reliably."
+    },
+    "P8": {
+      "id": "P8",
+      "name": "Cloud Sync Tangle",
+      "emoji": "☁️",
+      "description": "iCloud + OneDrive + Google Drive = duplicates everywhere",
+      "commonTags": ["SYNC-DUPES", "SYNC-ICLOUD", "SYNC-ONEDRIVE", "SYNC-GDRIVE"],
+      "suggestedPlaybook": "PB8",
+      "indicators": [
+        "duplicate files",
+        "files missing",
+        "sync conflict",
+        "files not syncing",
+        "multiple cloud services",
+        "icloud",
+        "onedrive",
+        "google drive"
+      ],
+      "questions": [
+        "Which cloud services do you use?",
+        "Are files missing or duplicated?",
+        "Do you see any sync error messages?"
+      ],
+      "calmResponse": "Multiple cloud services can fight over your files. We'll pick a winner and untangle the rest."
+    },
+    "P9": {
+      "id": "P9",
+      "name": "Thermal Throttler",
+      "emoji": "🌡️",
+      "description": "Hot, slow, dusty, fans screaming",
+      "commonTags": ["PERF-THERMAL", "HW-DUST/FAN", "PERF-BACKGROUND"],
+      "suggestedPlaybook": "PB9",
+      "indicators": [
+        "computer hot",
+        "fans loud",
+        "slows down",
+        "thermal",
+        "overheating",
+        "laptop burns"
+      ],
+      "questions": [
+        "Does it get hot during specific tasks?",
+        "When was the computer last cleaned inside?",
+        "How old is the device?"
+      ],
+      "calmResponse": "Heat causes slowdowns and can damage components. We'll cool things down and set up a maintenance schedule."
+    },
+    "P10": {
+      "id": "P10",
+      "name": "Creative Chaos",
+      "emoji": "🎨",
+      "description": "Premiere + Photoshop, scratch disk full, external drives everywhere",
+      "commonTags": ["PERF-BACKGROUND", "STOR-EXTERNALDRIVE", "FILE-PERMISSIONS"],
+      "suggestedPlaybook": "PB10",
+      "indicators": [
+        "premiere",
+        "photoshop",
+        "after effects",
+        "scratch disk",
+        "render slow",
+        "project files",
+        "video editing",
+        "creative work"
+      ],
+      "questions": [
+        "Which creative apps are you using?",
+        "Where are your project files stored?",
+        "Do you have a dedicated drive for scratch/cache?"
+      ],
+      "calmResponse": "Creative apps need proper setup to run smoothly. We'll optimize your workflow and protect your work."
+    },
+    "P11": {
+      "id": "P11",
+      "name": "Fine Yesterday",
+      "emoji": "🤷",
+      "description": "'It just stopped working', no idea what changed",
+      "commonTags": ["UPD-APP", "UPD-OS"],
+      "suggestedPlaybook": "PB4",
+      "indicators": [
+        "was working yesterday",
+        "suddenly stopped",
+        "nothing changed",
+        "worked fine before",
+        "don't know what happened"
+      ],
+      "questions": [
+        "When exactly did it stop working?",
+        "Did anything update automatically (you might not have noticed)?",
+        "Did you see any error messages?"
+      ],
+      "calmResponse": "Sometimes changes happen in the background. We'll find what changed and get you back to working."
+    },
+    "P12": {
+      "id": "P12",
+      "name": "Hardware Failing Quietly",
+      "emoji": "💀",
+      "description": "Clicks, beeps, weird smells, SSD dying slowly",
+      "commonTags": ["HW-SSD", "HW-RAM", "HW-BATTERY"],
+      "suggestedPlaybook": "PB11",
+      "indicators": [
+        "clicking noise",
+        "beeping",
+        "weird smell",
+        "blue screen",
+        "random crashes",
+        "freezes randomly",
+        "battery swelling",
+        "won't turn on"
+      ],
+      "questions": [
+        "Do you hear any unusual sounds?",
+        "How old is this device?",
+        "Have there been any physical impacts or liquid exposure?"
+      ],
+      "calmResponse": "Hardware issues need quick attention. Let's run diagnostics and make sure your data is safe first."
+    }
+  },
+  "personaGroups": {
+    "performance": ["P1", "P9", "P10"],
+    "storage": ["P2", "P8"],
+    "security": ["P3", "P5"],
+    "maintenance": ["P4", "P11"],
+    "hardware": ["P7", "P12"],
+    "network": ["P6"]
+  }
+}

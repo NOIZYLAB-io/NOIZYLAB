@@ -1,0 +1,40 @@
+{
+    "dazeflow": {
+        "version": "1.0.0",
+        "philosophy": "1day = 1chat = 1truth",
+        "description": "DAZEFLOW is the truth protocol - one day, one continuous conversation, one source of truth",
+        "principles": [
+            "Every day starts fresh but carries forward wisdom",
+            "One conversation thread per day maintains context",
+            "Truth is singular - no fabrication, no hallucination",
+            "Memory persists, context compounds, knowledge grows"
+        ],
+        "daily_reset": {
+            "time": "00:00",
+            "timezone": "America/Los_Angeles",
+            "action": "Archive previous day, initialize new thread"
+        },
+        "memory_persistence": {
+            "short_term": "Current day conversation",
+            "medium_term": "7-day rolling context",
+            "long_term": "Permanent knowledge base"
+        },
+        "truth_covenant": {
+            "rule_1": "Never fabricate data or statistics",
+            "rule_2": "Acknowledge uncertainty explicitly",
+            "rule_3": "Cite sources when available",
+            "rule_4": "Admit when you don't know",
+            "rule_5": "Correct errors immediately upon discovery"
+        }
+    },
+    "integration": {
+        "cloudflare_kv": "DAZEFLOW_MEMORY",
+        "d1_database": "agent-memory",
+        "daily_archive": true,
+        "context_window": "200k tokens"
+    },
+    "meta": {
+        "created": "2026-01-02",
+        "system": "MC96ECOUNIVERSE"
+    }
+}

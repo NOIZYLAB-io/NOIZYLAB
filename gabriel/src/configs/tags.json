@@ -1,0 +1,289 @@
+{
+  "categories": {
+    "performance": {
+      "name": "Performance",
+      "emoji": "⚡",
+      "tags": {
+        "PERF-TABS": {
+          "id": "PERF-TABS",
+          "name": "Too Many Tabs",
+          "description": "Browser tab overload causing slowdown"
+        },
+        "PERF-STARTUP": {
+          "id": "PERF-STARTUP",
+          "name": "Slow Startup",
+          "description": "System takes too long to boot or login"
+        },
+        "PERF-BACKGROUND": {
+          "id": "PERF-BACKGROUND",
+          "name": "Background Processes",
+          "description": "Resource-hungry apps running in background"
+        },
+        "PERF-THERMAL": {
+          "id": "PERF-THERMAL",
+          "name": "Thermal Throttling",
+          "description": "System slowing due to heat"
+        },
+        "PERF-LOWRAM": {
+          "id": "PERF-LOWRAM",
+          "name": "Low RAM",
+          "description": "Insufficient memory for workload"
+        }
+      }
+    },
+    "storage": {
+      "name": "Storage / Files",
+      "emoji": "💾",
+      "tags": {
+        "STOR-LOWDISK": {
+          "id": "STOR-LOWDISK",
+          "name": "Low Disk Space",
+          "description": "Storage nearly full"
+        },
+        "STOR-DISKERRORS": {
+          "id": "STOR-DISKERRORS",
+          "name": "Disk Errors",
+          "description": "File system or disk health issues"
+        },
+        "STOR-EXTERNALDRIVE": {
+          "id": "STOR-EXTERNALDRIVE",
+          "name": "External Drive",
+          "description": "Issues with external storage devices"
+        },
+        "FILE-PERMISSIONS": {
+          "id": "FILE-PERMISSIONS",
+          "name": "File Permissions",
+          "description": "Access denied or permission errors"
+        },
+        "FILE-CORRUPTION": {
+          "id": "FILE-CORRUPTION",
+          "name": "File Corruption",
+          "description": "Damaged or unreadable files"
+        }
+      }
+    },
+    "security": {
+      "name": "Security",
+      "emoji": "🛡️",
+      "tags": {
+        "SEC-PUP": {
+          "id": "SEC-PUP",
+          "name": "PUPs/Malware",
+          "description": "Potentially unwanted programs or malware"
+        },
+        "SEC-BROWSERHIJACK": {
+          "id": "SEC-BROWSERHIJACK",
+          "name": "Browser Hijacked",
+          "description": "Homepage/search engine changed, unwanted extensions"
+        },
+        "SEC-PHISH-ACCOUNT": {
+          "id": "SEC-PHISH-ACCOUNT",
+          "name": "Phishing/Account Compromise",
+          "description": "Suspected phishing or compromised account"
+        },
+        "SEC-AV-CONFLICT": {
+          "id": "SEC-AV-CONFLICT",
+          "name": "Antivirus Conflict",
+          "description": "Security software causing issues"
+        }
+      }
+    },
+    "accounts": {
+      "name": "Accounts",
+      "emoji": "🔑",
+      "tags": {
+        "AUTH-APPLEID": {
+          "id": "AUTH-APPLEID",
+          "name": "Apple ID",
+          "description": "Apple ID or iCloud account issues"
+        },
+        "AUTH-MICROSOFT": {
+          "id": "AUTH-MICROSOFT",
+          "name": "Microsoft Account",
+          "description": "Microsoft 365, Outlook, or Windows account"
+        },
+        "AUTH-GOOGLE": {
+          "id": "AUTH-GOOGLE",
+          "name": "Google Account",
+          "description": "Gmail, Google Workspace account issues"
+        },
+        "AUTH-MFA": {
+          "id": "AUTH-MFA",
+          "name": "MFA/2FA Issues",
+          "description": "Two-factor authentication problems"
+        },
+        "AUTH-PASSWORDRESET": {
+          "id": "AUTH-PASSWORDRESET",
+          "name": "Password Reset",
+          "description": "Locked out, forgot password, recovery needed"
+        }
+      }
+    },
+    "network": {
+      "name": "Network",
+      "emoji": "📶",
+      "tags": {
+        "NET-WIFIDROP": {
+          "id": "NET-WIFIDROP",
+          "name": "Wi-Fi Drops",
+          "description": "Intermittent wireless connection"
+        },
+        "NET-DNS": {
+          "id": "NET-DNS",
+          "name": "DNS Issues",
+          "description": "Name resolution or DNS configuration"
+        },
+        "NET-ROUTER": {
+          "id": "NET-ROUTER",
+          "name": "Router/Modem",
+          "description": "Network equipment issues"
+        },
+        "NET-VPN": {
+          "id": "NET-VPN",
+          "name": "VPN Issues",
+          "description": "VPN connection or configuration problems"
+        }
+      }
+    },
+    "updates": {
+      "name": "Updates / Drivers",
+      "emoji": "🔄",
+      "tags": {
+        "UPD-OS": {
+          "id": "UPD-OS",
+          "name": "OS Update",
+          "description": "Operating system update issues"
+        },
+        "UPD-APP": {
+          "id": "UPD-APP",
+          "name": "App Update",
+          "description": "Application update problems"
+        },
+        "DRV-PRINTER": {
+          "id": "DRV-PRINTER",
+          "name": "Printer Driver",
+          "description": "Printer driver or spooler issues"
+        },
+        "DRV-USB": {
+          "id": "DRV-USB",
+          "name": "USB Driver",
+          "description": "USB device recognition or driver"
+        },
+        "DRV-GPU": {
+          "id": "DRV-GPU",
+          "name": "Graphics Driver",
+          "description": "GPU driver or display issues"
+        },
+        "DRV-AUDIO": {
+          "id": "DRV-AUDIO",
+          "name": "Audio Driver",
+          "description": "Sound driver or audio device issues"
+        }
+      }
+    },
+    "cloud": {
+      "name": "Cloud / Sync",
+      "emoji": "☁️",
+      "tags": {
+        "SYNC-ICLOUD": {
+          "id": "SYNC-ICLOUD",
+          "name": "iCloud Sync",
+          "description": "Apple iCloud synchronization issues"
+        },
+        "SYNC-ONEDRIVE": {
+          "id": "SYNC-ONEDRIVE",
+          "name": "OneDrive Sync",
+          "description": "Microsoft OneDrive synchronization issues"
+        },
+        "SYNC-GDRIVE": {
+          "id": "SYNC-GDRIVE",
+          "name": "Google Drive Sync",
+          "description": "Google Drive synchronization issues"
+        },
+        "SYNC-DUPES": {
+          "id": "SYNC-DUPES",
+          "name": "Sync Duplicates",
+          "description": "Duplicate files from sync conflicts"
+        }
+      }
+    },
+    "hardware": {
+      "name": "Hardware",
+      "emoji": "🔧",
+      "tags": {
+        "HW-SSD": {
+          "id": "HW-SSD",
+          "name": "SSD/HDD",
+          "description": "Storage drive health or failure"
+        },
+        "HW-RAM": {
+          "id": "HW-RAM",
+          "name": "RAM",
+          "description": "Memory hardware issues"
+        },
+        "HW-BATTERY": {
+          "id": "HW-BATTERY",
+          "name": "Battery",
+          "description": "Battery health, charging, or swelling"
+        },
+        "HW-DUST/FAN": {
+          "id": "HW-DUST/FAN",
+          "name": "Dust/Fan",
+          "description": "Cooling system, dust buildup"
+        },
+        "HW-LIQUID": {
+          "id": "HW-LIQUID",
+          "name": "Liquid Damage",
+          "description": "Liquid exposure or corrosion"
+        }
+      }
+    },
+    "behavior": {
+      "name": "Behavior Flags",
+      "emoji": "🚩",
+      "tags": {
+        "USR-CLICKYES": {
+          "id": "USR-CLICKYES",
+          "name": "Clicks Yes",
+          "description": "Approves prompts without reading"
+        },
+        "USR-NOBACKUP": {
+          "id": "USR-NOBACKUP",
+          "name": "No Backup",
+          "description": "No backup strategy in place"
+        },
+        "USR-UPDATEAVOID": {
+          "id": "USR-UPDATEAVOID",
+          "name": "Update Avoider",
+          "description": "Consistently skips updates"
+        },
+        "USR-DOWNLOADSCHAOS": {
+          "id": "USR-DOWNLOADSCHAOS",
+          "name": "Downloads Chaos",
+          "description": "Messy downloads folder, installs from anywhere"
+        },
+        "USR-PASSWORDCHAOS": {
+          "id": "USR-PASSWORDCHAOS",
+          "name": "Password Chaos",
+          "description": "Same password everywhere, no manager"
+        }
+      }
+    }
+  },
+  "rules": {
+    "maxTagsPerTicket": 3,
+    "requireBehaviorTagExplanation": true,
+    "autoSuggestFromPersona": true
+  },
+  "allTags": [
+    "PERF-TABS", "PERF-STARTUP", "PERF-BACKGROUND", "PERF-THERMAL", "PERF-LOWRAM",
+    "STOR-LOWDISK", "STOR-DISKERRORS", "STOR-EXTERNALDRIVE", "FILE-PERMISSIONS", "FILE-CORRUPTION",
+    "SEC-PUP", "SEC-BROWSERHIJACK", "SEC-PHISH-ACCOUNT", "SEC-AV-CONFLICT",
+    "AUTH-APPLEID", "AUTH-MICROSOFT", "AUTH-GOOGLE", "AUTH-MFA", "AUTH-PASSWORDRESET",
+    "NET-WIFIDROP", "NET-DNS", "NET-ROUTER", "NET-VPN",
+    "UPD-OS", "UPD-APP", "DRV-PRINTER", "DRV-USB", "DRV-GPU", "DRV-AUDIO",
+    "SYNC-ICLOUD", "SYNC-ONEDRIVE", "SYNC-GDRIVE", "SYNC-DUPES",
+    "HW-SSD", "HW-RAM", "HW-BATTERY", "HW-DUST/FAN", "HW-LIQUID",
+    "USR-CLICKYES", "USR-NOBACKUP", "USR-UPDATEAVOID", "USR-DOWNLOADSCHAOS", "USR-PASSWORDCHAOS"
+  ]
+}

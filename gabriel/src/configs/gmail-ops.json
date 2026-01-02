@@ -1,0 +1,185 @@
+{
+  "templates": {
+    "received": {
+      "id": "received",
+      "name": "Ticket Received",
+      "subject": "NL-{TICKET_ID} | {LASTNAME} | {DEVICE} | {ISSUE}",
+      "body": "Got it. Next update by {NEXT_UPDATE_TIME}.\n\nReply with:\n• Device model\n• OS version\n• What changed recently",
+      "variables": ["TICKET_ID", "LASTNAME", "DEVICE", "ISSUE", "NEXT_UPDATE_TIME"]
+    },
+    "need_info": {
+      "id": "need_info",
+      "name": "Need More Info",
+      "subject": "RE: NL-{TICKET_ID} | Need quick info",
+      "body": "Need one more thing:\n\n• Send 1 screenshot of the issue\n• When did this start?\n• Any recent update or install?\n\nNext update by {NEXT_UPDATE_TIME}.",
+      "variables": ["TICKET_ID", "NEXT_UPDATE_TIME"]
+    },
+    "estimate": {
+      "id": "estimate",
+      "name": "Estimate Ready",
+      "subject": "RE: NL-{TICKET_ID} | Estimate ready",
+      "body": "Estimate ready:\n\n{ESTIMATE_DETAILS}\n\nTotal: ${ESTIMATE_AMOUNT}\n\nReply YES to approve.\nNext update by {NEXT_UPDATE_TIME}.",
+      "variables": ["TICKET_ID", "ESTIMATE_DETAILS", "ESTIMATE_AMOUNT", "NEXT_UPDATE_TIME"]
+    },
+    "parts_ordered": {
+      "id": "parts_ordered",
+      "name": "Parts Ordered",
+      "subject": "RE: NL-{TICKET_ID} | Parts ordered",
+      "body": "Parts ordered.\n\nETA: {PARTS_ETA}\n\nWe'll let you know when they arrive.\nNext update by {NEXT_UPDATE_TIME}.",
+      "variables": ["TICKET_ID", "PARTS_ETA", "NEXT_UPDATE_TIME"]
+    },
+    "scheduled": {
+      "id": "scheduled",
+      "name": "Appointment Scheduled",
+      "subject": "RE: NL-{TICKET_ID} | Scheduled: {APPOINTMENT_DATE}",
+      "body": "You're booked:\n\n📅 {APPOINTMENT_DATE}\n⏰ {APPOINTMENT_TIME}\n\n{APPOINTMENT_NOTES}\n\nReply if you need to reschedule.",
+      "variables": ["TICKET_ID", "APPOINTMENT_DATE", "APPOINTMENT_TIME", "APPOINTMENT_NOTES"]
+    },
+    "in_progress": {
+      "id": "in_progress",
+      "name": "Work In Progress",
+      "subject": "RE: NL-{TICKET_ID} | In progress",
+      "body": "Working on it now.\n\n{STATUS_UPDATE}\n\nNext update by {NEXT_UPDATE_TIME}.",
+      "variables": ["TICKET_ID", "STATUS_UPDATE", "NEXT_UPDATE_TIME"]
+    },
+    "done": {
+      "id": "done",
+      "name": "Work Complete",
+      "subject": "RE: NL-{TICKET_ID} | All set ✓",
+      "body": "All set!\n\n❌ What failed: {WHAT_FAILED}\n✅ What we did: {WHAT_WE_DID}\n🛡️ Prevent repeats: {PREVENTION}\n\n{FOLLOWUP_NOTE}",
+      "variables": ["TICKET_ID", "WHAT_FAILED", "WHAT_WE_DID", "PREVENTION", "FOLLOWUP_NOTE"]
+    },
+    "followup_7d": {
+      "id": "followup_7d",
+      "name": "7-Day Follow-up",
+      "subject": "RE: NL-{TICKET_ID} | Quick check-in",
+      "body": "Quick check-in from last week:\n\n{FOLLOWUP_QUESTION}\n\nReply with a quick update - even 'all good' works!",
+      "variables": ["TICKET_ID", "FOLLOWUP_QUESTION"]
+    },
+    "followup_30d": {
+      "id": "followup_30d",
+      "name": "30-Day Follow-up",
+      "subject": "RE: NL-{TICKET_ID} | Monthly check",
+      "body": "Monthly check on your {DEVICE}:\n\n{FOLLOWUP_QUESTION}\n\nLet us know how things are running.",
+      "variables": ["TICKET_ID", "DEVICE", "FOLLOWUP_QUESTION"]
+    },
+    "invoice": {
+      "id": "invoice",
+      "name": "Invoice",
+      "subject": "NL-{TICKET_ID} | Invoice ${TOTAL_AMOUNT}",
+      "body": "Invoice for your recent service:\n\nLabor: ${LABOR_AMOUNT}\nParts: ${PARTS_AMOUNT}\n---\nTotal: ${TOTAL_AMOUNT}\n\nPayment: e-Transfer to rsp@noizylab.ca\n\nThank you!",
+      "variables": ["TICKET_ID", "LABOR_AMOUNT", "PARTS_AMOUNT", "TOTAL_AMOUNT"]
+    },
+    "payment_received": {
+      "id": "payment_received",
+      "name": "Payment Received",
+      "subject": "RE: NL-{TICKET_ID} | Payment received ✓",
+      "body": "Payment received - thank you!\n\nReceipt attached.\n\nWe're here if you need anything.",
+      "variables": ["TICKET_ID"]
+    }
+  },
+  "labels": {
+    "status": {
+      "NL/0-TRIAGE": {
+        "id": "NL/0-TRIAGE",
+        "name": "Triage",
+        "color": "#ff6b6b",
+        "description": "New tickets awaiting initial review"
+      },
+      "NL/1-WAITING-CLIENT": {
+        "id": "NL/1-WAITING-CLIENT",
+        "name": "Waiting Client",
+        "color": "#ffd93d",
+        "description": "Waiting for client response or info"
+      },
+      "NL/2-WAITING-PARTS": {
+        "id": "NL/2-WAITING-PARTS",
+        "name": "Waiting Parts",
+        "color": "#ffd93d",
+        "description": "Parts on order"
+      },
+      "NL/3-SCHEDULED": {
+        "id": "NL/3-SCHEDULED",
+        "name": "Scheduled",
+        "color": "#74c0fc",
+        "description": "Appointment scheduled"
+      },
+      "NL/4-IN-PROGRESS": {
+        "id": "NL/4-IN-PROGRESS",
+        "name": "In Progress",
+        "color": "#69db7c",
+        "description": "Actively being worked on"
+      },
+      "NL/5-DONE": {
+        "id": "NL/5-DONE",
+        "name": "Done",
+        "color": "#868e96",
+        "description": "Work complete"
+      },
+      "NL/9-BILLING": {
+        "id": "NL/9-BILLING",
+        "name": "Billing",
+        "color": "#da77f2",
+        "description": "Invoice sent, awaiting payment"
+      }
+    },
+    "channels": {
+      "NL/TO-help": {
+        "id": "NL/TO-help",
+        "name": "Via help@",
+        "description": "Received via help@noizylab.ca"
+      },
+      "NL/TO-hello": {
+        "id": "NL/TO-hello",
+        "name": "Via hello@",
+        "description": "Received via hello@noizylab.ca"
+      },
+      "NL/TO-rsp": {
+        "id": "NL/TO-rsp",
+        "name": "Via rsp@",
+        "description": "Received via rsp@noizylab.ca"
+      }
+    }
+  },
+  "subjectDNA": {
+    "format": "NL-{TICKET_ID} | {LASTNAME} | {DEVICE} | {ISSUE}",
+    "regex": "^NL-(\\d{4}) \\| ([^|]+) \\| ([^|]+) \\| (.+)$",
+    "examples": [
+      "NL-0042 | Smith | MacBook Pro | Chrome extremely slow",
+      "NL-0043 | Jones | Desktop PC | Won't turn on",
+      "NL-0044 | Lee | Surface Pro | Battery draining fast"
+    ]
+  },
+  "addresses": {
+    "primary": "rsp@noizylab.ca",
+    "aliases": ["help@noizylab.ca", "hello@noizylab.ca"],
+    "replyRules": {
+      "help@noizylab.ca": "Always reply from help@ for support threads",
+      "hello@noizylab.ca": "First contact / general inquiries",
+      "rsp@noizylab.ca": "Billing and personal contact"
+    }
+  },
+  "automation": {
+    "autoLabel": true,
+    "autoLabelRules": [
+      {
+        "condition": "to:help@noizylab.ca",
+        "addLabel": "NL/TO-help"
+      },
+      {
+        "condition": "to:hello@noizylab.ca",
+        "addLabel": "NL/TO-hello"
+      },
+      {
+        "condition": "to:rsp@noizylab.ca",
+        "addLabel": "NL/TO-rsp"
+      },
+      {
+        "condition": "subject:NL-",
+        "addLabel": "NL/0-TRIAGE"
+      }
+    ],
+    "parseSubject": true,
+    "extractTicketId": true
+  }
+}

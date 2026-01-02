@@ -1,0 +1,194 @@
+#!/bin/bash
+#===============================================================================
+# GORUNFREE - One Command = Everything Done
+# MC96ECOUNIVERSE Quick Command Center
+#===============================================================================
+
+set -euo pipefail
+
+GABRIEL_ROOT="${GABRIEL_ROOT:-$HOME/NOIZYLAB/GABRIEL}"
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+#===============================================================================
+# BANNER
+#===============================================================================
+show_banner() {
+    echo -e "${CYAN}"
+    cat << 'EOF'
+   ██████╗  ██████╗ ██████╗ ██╗   ██╗███╗   ██╗███████╗██████╗ ███████╗███████╗
+  ██╔════╝ ██╔═══██╗██╔══██╗██║   ██║████╗  ██║██╔════╝██╔══██╗██╔════╝██╔════╝
+  ██║  ███╗██║   ██║██████╔╝██║   ██║██╔██╗ ██║█████╗  ██████╔╝█████╗  █████╗  
+  ██║   ██║██║   ██║██╔══██╗██║   ██║██║╚██╗██║██╔══╝  ██╔══██╗██╔══╝  ██╔══╝  
+  ╚██████╔╝╚██████╔╝██║  ██║╚██████╔╝██║ ╚████║██║     ██║  ██║███████╗███████╗
+   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝
+EOF
+    echo -e "${NC}"
+    echo -e "${PURPLE}  MC96ECOUNIVERSE Command Center - One Command = Everything Done${NC}"
+    echo ""
+}
+
+#===============================================================================
+# COMMANDS
+#===============================================================================
+
+# Deploy all workers
+cmd_deploy() {
+    echo -e "${GREEN}🚀 Deploying all Cloudflare Workers...${NC}"
+    cd "$GABRIEL_ROOT/ANTIGRAVITY_COMPLETE" && ./DEPLOY_ALL.sh
+}
+
+# Health check all services
+cmd_health() {
+    echo -e "${GREEN}🏥 Health Check...${NC}"
+    echo ""
+    
+    echo -e "${BLUE}noizylab worker:${NC}"
+    curl -s https://noizylab.rsplowman.workers.dev/health | jq . 2>/dev/null || echo "❌ Offline"
+    
+    echo ""
+    echo -e "${BLUE}antigravity worker:${NC}"
+    curl -s https://antigravity.rsplowman.workers.dev/health | jq . 2>/dev/null || echo "❌ Offline"
+    
+    echo ""
+    echo -e "${GREEN}✅ Health check complete${NC}"
+}
+
+# Git sync - add, commit, push
+cmd_sync() {
+    local message="${1:-🚀 GORUNFREE sync}"
+    echo -e "${GREEN}📤 Syncing to GitHub...${NC}"
+    cd "$GABRIEL_ROOT"
+    git add -A
+    git commit -m "$message" || echo "Nothing to commit"
+    git push origin "$(git branch --show-current)"
+    echo -e "${GREEN}✅ Synced!${NC}"
+}
+
+# Quick status
+cmd_status() {
+    echo -e "${BLUE}📊 MC96ECOUNIVERSE Status${NC}"
+    echo ""
+    
+    echo -e "${YELLOW}Git Status:${NC}"
+    cd "$GABRIEL_ROOT" && git status -sb
+    
+    echo ""
+    echo -e "${YELLOW}Branch:${NC} $(git branch --show-current)"
+    echo -e "${YELLOW}Last Commit:${NC} $(git log -1 --oneline)"
+    
+    echo ""
+    cmd_health
+}
+
+# Open GitKraken
+cmd_kraken() {
+    echo -e "${GREEN}🐙 Opening GitKraken...${NC}"
+    open -a GitKraken "$GABRIEL_ROOT"
+}
+
+# Open VS Code
+cmd_code() {
+    echo -e "${GREEN}💻 Opening VS Code...${NC}"
+    code "$GABRIEL_ROOT/GABRIEL.code-workspace"
+}
+
+# Invoke Circle of 8
+cmd_circle() {
+    local message="${1:-Status report}"
+    echo -e "${PURPLE}🔮 Invoking Circle of 8...${NC}"
+    
+    for agent in gabriel shirl pops engr_keith dream heaven lucy sonic; do
+        echo -e "\n${YELLOW}━━━ ${agent^^} ━━━${NC}"
+        curl -s -X POST "https://antigravity.rsplowman.workers.dev/circle/${agent}/invoke" \
+            -H "Content-Type: application/json" \
+            -d "{\"message\": \"${message}\"}" | jq -r '.response // .error // "No response"' 2>/dev/null
+    done
+}
+
+# Clean duplicates (dry run by default)
+cmd_clean() {
+    local mode="${1:---dry-run}"
+    echo -e "${YELLOW}🧹 Running cleanup script ($mode)...${NC}"
+    bash "$GABRIEL_ROOT/scripts/cleanup_duplicates.sh" "$mode"
+}
+
+# Run system audit
+cmd_audit() {
+    echo -e "${BLUE}🔍 Running system audit...${NC}"
+    bash "$GABRIEL_ROOT/scripts/SYSTEM_AUDIT.sh"
+}
+
+# Launch everything
+cmd_launch() {
+    echo -e "${PURPLE}🚀 LAUNCHING MC96ECOUNIVERSE...${NC}"
+    echo ""
+    cmd_status
+    echo ""
+    cmd_code
+    echo ""
+    echo -e "${GREEN}🔥 HOTROD MODE ACTIVATED${NC}"
+}
+
+#===============================================================================
+# HELP
+#===============================================================================
+show_help() {
+    show_banner
+    echo -e "${BOLD}Usage:${NC} gorunfree <command> [args]"
+    echo ""
+    echo -e "${BOLD}Commands:${NC}"
+    echo -e "  ${GREEN}deploy${NC}         Deploy all Cloudflare Workers"
+    echo -e "  ${GREEN}health${NC}         Health check all services"
+    echo -e "  ${GREEN}sync${NC} [msg]     Git add, commit, push (default msg: 'GORUNFREE sync')"
+    echo -e "  ${GREEN}status${NC}         Quick status overview"
+    echo -e "  ${GREEN}kraken${NC}         Open GitKraken"
+    echo -e "  ${GREEN}code${NC}           Open VS Code workspace"
+    echo -e "  ${GREEN}circle${NC} [msg]   Invoke Circle of 8 agents"
+    echo -e "  ${GREEN}clean${NC} [--dry-run|--execute]  Clean duplicate files"
+    echo -e "  ${GREEN}audit${NC}          Run system audit"
+    echo -e "  ${GREEN}launch${NC}         Launch everything (status + code)"
+    echo ""
+    echo -e "${BOLD}Examples:${NC}"
+    echo -e "  gorunfree deploy"
+    echo -e "  gorunfree sync \"feat: added new feature\""
+    echo -e "  gorunfree circle \"What's the system status?\""
+    echo ""
+}
+
+#===============================================================================
+# MAIN
+#===============================================================================
+main() {
+    local cmd="${1:-help}"
+    shift || true
+    
+    case "$cmd" in
+        deploy)  cmd_deploy "$@" ;;
+        health)  cmd_health "$@" ;;
+        sync)    cmd_sync "$@" ;;
+        status)  cmd_status "$@" ;;
+        kraken)  cmd_kraken "$@" ;;
+        code)    cmd_code "$@" ;;
+        circle)  cmd_circle "$@" ;;
+        clean)   cmd_clean "$@" ;;
+        audit)   cmd_audit "$@" ;;
+        launch)  cmd_launch "$@" ;;
+        help|--help|-h)  show_help ;;
+        *)
+            echo -e "${RED}Unknown command: $cmd${NC}"
+            show_help
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"

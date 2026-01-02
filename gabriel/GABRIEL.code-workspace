@@ -1,7 +1,125 @@
 
 {
+    "folders": [
+        {
+            "name": "🎯 GABRIEL",
+            "path": "."
+        },
+        {
+            "name": "📦 Source Code",
+            "path": "src"
+        },
+        {
+            "name": "🤖 Agents",
+            "path": "src/agents"
+        },
+        {
+            "name": "⚙️ Scripts",
+            "path": "scripts"
+        },
+        {
+            "name": "📚 Documentation",
+            "path": "docs"
+        }
+    ],
     "settings": {
         "chatgpt.openOnStartup": false,
-        "git.ignoreLimitWarning": true
+        "git.ignoreLimitWarning": true,
+        "files.exclude": {
+            "**/.DS_Store": true,
+            "**/node_modules": true,
+            "**/__pycache__": true,
+            "**/*.pyc": true,
+            ".git": true,
+            "logs/**": true,
+            "memory/**": true
+        },
+        "search.exclude": {
+            "**/node_modules": true,
+            "**/logs": true,
+            "**/memory": true,
+            "**/archive": true,
+            "**/*.min.js": true
+        },
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": null,
+        "[python]": {
+            "editor.defaultFormatter": "ms-python.black-formatter",
+            "editor.formatOnSave": true
+        },
+        "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[json]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[markdown]": {
+            "editor.wordWrap": "on"
+        },
+        "github.copilot.chat.codeGeneration.instructions": [
+            {
+                "file": ".github/copilot-instructions.md"
+            }
+        ],
+        "github.copilot.chat.testGeneration.instructions": [
+            {
+                "text": "Use pytest for Python tests. Use vitest for TypeScript tests. Aim for 80%+ coverage."
+            }
+        ]
+    },
+    "extensions": {
+        "recommendations": [
+            "github.copilot",
+            "github.copilot-chat",
+            "eamodio.gitlens",
+            "ms-python.python",
+            "ms-python.black-formatter",
+            "esbenp.prettier-vscode",
+            "dbaeumer.vscode-eslint",
+            "bradlc.vscode-tailwindcss",
+            "usernamehw.errorlens",
+            "gruntfuggly.todo-tree"
+        ]
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "🧹 Clean Duplicates",
+                "type": "shell",
+                "command": "bash scripts/cleanup_duplicates.sh",
+                "problemMatcher": [],
+                "group": "build"
+            },
+            {
+                "label": "🚀 Deploy All",
+                "type": "shell",
+                "command": "bash scripts/DEPLOY_ALL.sh",
+                "problemMatcher": [],
+                "group": "build"
+            },
+            {
+                "label": "🔍 System Audit",
+                "type": "shell",
+                "command": "bash scripts/SYSTEM_AUDIT.sh",
+                "problemMatcher": [],
+                "group": "test"
+            }
+        ]
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Python: Gabriel",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "${workspaceFolder}/gabriel.py",
+                "console": "integratedTerminal"
+            }
+        ]
     }
 }
