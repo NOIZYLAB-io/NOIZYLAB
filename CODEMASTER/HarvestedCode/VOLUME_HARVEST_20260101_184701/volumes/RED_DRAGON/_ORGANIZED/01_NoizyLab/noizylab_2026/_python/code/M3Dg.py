@@ -1,0 +1,265 @@
+#!/usr/bin/env python3
+"""
+Volume Management System for Noizy Fishes Empire
+Comprehensive drive integrity checks and audio file extraction.
+"""
+
+import shutil
+from pathlib import Path
+import subprocess
+import json
+from contextlib import suppress
+
+
+class VolumeManager:
+    def __init__(self):
+        self.volumes = self.get_mounted_volumes()
+        self.temp_folder = Path("/Users/rsp_ms/Desktop/Noizy_Temp")
+        self.audio_extensions = [
+            '.wav', '.mp3', '.flac', '.aiff', '.m4a', '.ogg'
+        ]
+        self.parallels_cli_path = "/Applications/Parallels Desktop.app/Contents/MacOS/prlctl"
+        self.parallels_installed = Path(self.parallels_cli_path).exists()
+        
+    def get_mounted_volumes(self):
+        """Get all mounted volumes with numeric selection"""
+        volume_path = Path("/Volumes")
+        volumes = []
+        if volume_path.exists():
+            volumes.extend(
+                {
+                    'id': i + 1,
+                    'name': item.name,
+                    'path': str(item),
+                    'size': self.get_directory_size(item)
+                }
+                for i, item in enumerate(
+                    d for d in volume_path.iterdir() 
+                    if d.is_dir() and not d.name.startswith('.')
+                )
+            )
+        
+        # Add Mission Control (root)
+        volumes.append({
+            'id': len(volumes) + 1,
+            'name': 'Mission Control',
+            'path': '/',
+            'size': self.get_directory_size(Path('/'))
+        })
+        
+        return volumes
+    
+    def get_directory_size(self, path):
+        """Get directory size in human-readable format"""
+        with suppress(Exception):
+            result = subprocess.run(
+                ['du', '-sh', str(path)],
+                capture_output=True,
+                text=True,
+                timeout=30
+            )
+            if result.returncode == 0:
+                return result.stdout.split('\t')[0]
+        return "Unknown"
+    
+    def _print_header(self, title):
+        """Prints a standardized header."""
+        print("\n" + "=" * 60)
+        print(title)
+        print("=" * 60)
+
+    def display_volumes(self):
+        """Display all volumes with numeric selection"""
+        self._print_header("MOUNTED VOLUMES - NOIZY FISHES EMPIRE")
+        
+        for vol in self.volumes:
+            name = vol['name'][:18] + '..' if len(vol['name']) > 20 else vol['name']
+            print(f"{vol['id']:2}. {name:<20} | {vol['size']:>8} | {vol['path']}")
+        
+        print("="*60)
+        return len(self.volumes)
+    
+    def list_parallels_vms(self):
+        """List all Parallels Desktop virtual machines."""
+        if not self.parallels_installed:
+            print("\nParallels Desktop is not installed.")
+            return
+
+        self._print_header("PARALLELS VIRTUAL MACHINES")
+
+        try:
+            result = subprocess.run(
+                [self.parallels_cli_path, "list", "-a", "--json"],
+                capture_output=True,
+                text=True,
+                check=True,
+                timeout=15
+            )
+            if not (vms := json.loads(result.stdout)):
+                print("No virtual machines found.")
+            else:
+                print(f"{'ID':<5} {'NAME':<30} {'STATUS':<15} {'PATH'}")
+                print("-" * 80)
+                for vm in vms:
+                    vm_id = vm.get('ID', 'N/A').strip('{}')
+                    name = vm.get('Name', 'N/A')
+                    status = vm.get('State', 'N/A')
+                    path = vm.get('Home', 'N/A')
+                    print(f"{vm_id:<5} {name:<30} {status:<15} {path}")
+
+        except FileNotFoundError:
+            print("Parallels Desktop `prlctl` command not found.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error listing VMs: {e.stderr}")
+        except json.JSONDecodeError:
+            print("Error parsing VM list. The output may not be valid JSON.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        
+        print("="*60)
+
+    def perform_integrity_check(self, volume_path):
+        """Perform basic integrity check on a volume"""
+        print(f"\nIntegrity check: {volume_path}")
+        
+        try:
+            path = Path(volume_path)
+            if not path.exists():
+                return {"status": "error", "message": "Path does not exist"}
+            
+            file_count = 0
+            dir_count = 0
+            audio_count = 0
+            
+            for item in path.rglob('*'):
+                if item.is_file():
+                    file_count += 1
+                    if item.suffix.lower() in self.audio_extensions:
+                        audio_count += 1
+                elif item.is_dir():
+                    dir_count += 1
+            
+            return {
+                "status": "success",
+                "files": file_count,
+                "directories": dir_count,
+                "audio_files": audio_count
+            }
+            
+        except Exception as e:
+            return {"status": "error", "message": str(e)}
+    
+    def extract_audio_files(self, volume_path, volume_name):
+        """Extract and organize audio files by name"""
+        print(f"\nExtracting audio from: {volume_name}")
+        
+        source_path = Path(volume_path)
+        dest_folder = (self.temp_folder / "Audio_Extractions" / 
+                      volume_name.replace(" ", "_"))
+        dest_folder.mkdir(parents=True, exist_ok=True)
+        
+        extracted_files = []
+        
+        try:
+            for audio_file in source_path.rglob('*'):
+                if (audio_file.is_file() and 
+                    audio_file.suffix.lower() in self.audio_extensions):
+                    try:
+                        new_name = f"{audio_file.stem}{audio_file.suffix}"
+                        dest_file = dest_folder / new_name
+                        
+                        # Handle duplicates
+                        counter = 1
+                        while dest_file.exists():
+                            new_name = (f"{audio_file.stem}_{counter}"
+                                       f"{audio_file.suffix}")
+                            dest_file = dest_folder / new_name
+                            counter += 1
+                        
+                        shutil.copy2(audio_file, dest_file)
+                        extracted_files.append(str(dest_file))
+                        
+                    except Exception as e:
+                        print(f"Error copying {audio_file}: {e}")
+                        continue
+            
+            print(f"Extracted {len(extracted_files)} files to {dest_folder}")
+            return extracted_files
+            
+        except Exception as e:
+            print(f"Error extracting from {volume_name}: {e}")
+            return []
+    
+    def process_volume(self, volume_id):
+        """Process selected volume with integrity check and audio extraction"""
+        try:
+            volume = next(v for v in self.volumes if v['id'] == volume_id)
+        except StopIteration:
+            print(f"Volume ID {volume_id} not found")
+            return
+        
+        print(f"\nProcessing: {volume['name']}")
+        print("-" * 40)
+        
+        # Integrity check
+        integrity = self.perform_integrity_check(volume['path'])
+        print(f"Status: {integrity['status']}")
+        
+        if integrity['status'] == 'success':
+            print(f"Files: {integrity['files']}")
+            print(f"Directories: {integrity['directories']}")
+            print(f"Audio files: {integrity['audio_files']}")
+            
+            if integrity['audio_files'] > 0:
+                self.extract_audio_files(volume['path'], volume['name'])
+        else:
+            print(f"Error: {integrity['message']}")
+    
+    def process_all_volumes(self):
+        """Process all mounted volumes"""
+        for volume in self.volumes:
+            self.process_volume(volume['id'])
+            print("\n" + "="*60)
+
+
+def handle_choice(vm, choice, num_volumes):
+    """Handles the user's menu choice."""
+    if choice == 'quit':
+        return False  # Signal to exit loop
+    elif choice == 'all':
+        vm.process_all_volumes()
+    elif choice == 'vms' and vm.parallels_installed:
+        vm.list_parallels_vms()
+    else:
+        try:
+            volume_id = int(choice)
+            if 1 <= volume_id <= num_volumes:
+                vm.process_volume(volume_id)
+            else:
+                print("Invalid volume number.")
+        except ValueError:
+            print("Invalid selection. Please try again.")
+    return True # Signal to continue loop
+
+
+def main():
+    """Main interactive loop"""
+    vm = VolumeManager()
+    
+    while True:
+        num_volumes = vm.display_volumes()
+        print("\nOptions:")
+        print("  Enter volume number to process")
+        print("  'all' to process all volumes")
+        if vm.parallels_installed:
+            print("  'vms' to list Parallels VMs")
+        print("  'quit' to exit")
+        
+        choice = input("\nChoice: ").strip().lower()
+        
+        if not handle_choice(vm, choice, num_volumes):
+            break
+
+
+if __name__ == "__main__":
+    main()

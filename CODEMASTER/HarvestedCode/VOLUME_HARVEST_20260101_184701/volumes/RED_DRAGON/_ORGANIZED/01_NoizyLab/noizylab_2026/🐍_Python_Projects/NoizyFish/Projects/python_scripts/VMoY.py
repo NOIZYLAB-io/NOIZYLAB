@@ -1,0 +1,1 @@
+rm: /Users/rsp_ms/Library/Preferences/com.apple.speech.recognition.AppleSpeechRecognitionCustomCommands.plist: No such file or directory
