@@ -1,0 +1,1 @@
+ioreg -p IOUSB -l -w 0 | grep -i "keyboard"

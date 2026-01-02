@@ -1,0 +1,34 @@
+import requests
+import subprocess
+import time
+
+def sarah_11labs_speak(text):
+    api_key = "YOUR_11LABS_API_KEY"  # Replace with your actual API key
+    voice_id = "YOUR_SARAH_VOICE_ID"  # Replace with your actual Sarah voice ID
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+    headers = {"xi-api-key": api_key}
+    data = {"text": text, "voice_settings": {"stability": 0.5, "similarity_boost": 0.75}}
+    try:
+        response = requests.post(url, json=data, headers=headers)
+        if response.ok:
+            with open("sarah_output.mp3", "wb") as f:
+                f.write(response.content)
+            subprocess.run(["afplay", "sarah_output.mp3"])
+        else:
+            print("Error with 11 Labs TTS:", response.text)
+    except Exception as e:
+        print("TTS execution failed:", e)
+
+important_points = [
+    "You have 158 settings configured in your VS Code profile.",
+    "Your terminal font is set to SL Mono, size 14 for legibility.",
+    "The terminal and chat backgrounds use a sandy cream color for comfort.",
+    "Accessibility and AI features are enabled for your workspace.",
+    "Auto-save and code formatting are active for all files.",
+    "Cloud sync and collaboration features are available.",
+    "Security and audit logging are enabled for your projects."
+]
+
+for point in important_points:
+    sarah_11labs_speak(point)
+    time.sleep(1.5)

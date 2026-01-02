@@ -1,0 +1,206 @@
+import os
+import shutil
+import datetime
+import json
+from tkinter import Tk, filedialog, messagebox
+# If you need tkinterdnd2, install it via pip and uncomment the next line
+# If you need tkinterdnd2, install it via pip and it will be imported dynamically if available
+try:
+    import yaml
+except ImportError:
+    raise ImportError("PyYAML is required. Install it with 'pip install pyyaml'.")
+
+# Load rules
+RULES_PATH = os.path.join(os.path.dirname(__file__), 'rules.yaml')
+with open(RULES_PATH, 'r') as f:
+    rules = yaml.safe_load(f)
+
+LOGS_DIR = os.path.join(os.path.dirname(__file__), 'logs')
+REPORTS_DIR = os.path.join(os.path.dirname(__file__), 'reports')
+os.makedirs(LOGS_DIR, exist_ok=True)
+os.makedirs(REPORTS_DIR, exist_ok=True)
+
+def clean_folder(folder_path):
+    """Remove unwanted files as per rules.yaml."""
+    removed = []
+    for root, _, files in os.walk(folder_path):
+        for file in files:
+            ext = os.path.splitext(file)[1]
+            if ext in rules['cleaning']['remove_extensions']:
+                full_path = os.path.join(root, file)
+                os.remove(full_path)
+                removed.append(full_path)
+    return removed
+
+def validate_structure(folder_path):
+    """Check for required subfolders/files as defined in rules.yaml."""
+def validate_structure(folder_path):
+    """Check for required subfolders/files as defined in rules.yaml."""
+    required = rules.get('required_structure', [])
+    missing = []
+    for rel_path in required:
+        abs_path = os.path.join(folder_path, rel_path)
+        if not os.path.exists(abs_path):
+            missing.append(rel_path)
+    return missing
+    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    report_data = {
+        "date": now,
+        "processed_folder": folder,
+        "action": action,
+        "destination": dest_path or 'N/A',
+        "removed_files": removed,
+        "missing_structure": missing,
+        "old_file_count": old_count,
+        "old_total_size": old_size,
+        "new_file_count": new_count,
+        "new_total_size": new_size
+    }
+    report_path = os.path.join(REPORTS_DIR, f'report_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.json')
+    with open(report_path, 'w') as f:
+        json.dump(report_data, f, indent=4)
+    return report_path
+
+def main():
+def generate_html_report(folder, removed, missing, dest_path, action, old_count=None, old_size=None, new_count=None, new_size=None):
+    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # Find artwork
+    artwork_files = []
+    for root, dirs, files in os.walk(folder):
+        for file in files:
+            if file.lower() in ["cover.jpg", "artwork.jpg", "artwork.png", "folder.jpg", "cover.png", "artwork.jpeg", "cover.jpeg"]:
+                artwork_files.append(os.path.join(root, file))
+
+    # Build contents list (tree view)
+    def build_tree(path, prefix=""):
+        html = ""
+        items = sorted(os.listdir(path))
+        for i, item in enumerate(items):
+            full = os.path.join(path, item)
+            connector = "└── " if i == len(items) - 1 else "├── "
+            html += f"<div style='margin-left:{len(prefix)*10}px'>{prefix}{connector}{item}</div>"
+            if os.path.isdir(full):
+                html += build_tree(full, prefix + ("    " if i == len(items) - 1 else "│   "))
+        return html
+
+    html = f"""
+    <html><head><title>Perfectionist Report</title></head><body>
+    <h2>Perfectionist Cleaning Report</h2>
+    <b>Date:</b> {now}<br>
+    <b>Processed Folder:</b> {folder}<br>
+    <b>Action:</b> {action}<br>
+    <b>Destination:</b> {dest_path or 'N/A'}<br>
+    <hr>
+    <h3>Artwork Preview</h3>
+    {''.join(f'<img src="file://{art}" alt="Artwork" style="max-width:200px;max-height:200px;margin:5px;">' for art in artwork_files) if artwork_files else '<i>No artwork found.</i>'}
+    <hr>
+    <h3>Contents</h3>
+    <div style='font-family:monospace;font-size:14px'>{build_tree(folder)}</div>
+    <hr>
+    <h3>Removed Files</h3>
+    <ul>{''.join(f'<li>{r}</li>' for r in removed)}</ul>
+    """
+    if missing:
+        html += f"<h3 style='color:red'>Missing Required Structure</h3><ul>{''.join(f'<li>{m}</li>' for m in missing)}</ul>"
+    if old_count is not None and new_count is not None:
+        html += f"<h3>Quality Comparison</h3>"
+        html += f"Old file count: {old_count}, Old total size: {old_size}<br>"
+        html += f"New file count: {new_count}, New total size: {new_size}<br>"
+    html += "</body></html>"
+    report_path = os.path.join(REPORTS_DIR, f'report_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.html')
+    with open(report_path, 'w') as f:
+        f.write(html)
+    return report_path
+
+
+def generate_html_report(folder, removed, missing, dest_path, action, old_count=None, old_size=None, new_count=None, new_size=None):
+    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    # Find artwork
+    artwork_files = []
+    for root, _, files in os.walk(folder):
+        for file in files:
+            if file.lower() in ["cover.jpg", "artwork.jpg", "artwork.png", "folder.jpg", "cover.png", "artwork.jpeg", "cover.jpeg"]:
+                artwork_files.append(os.path.join(root, file))
+
+    # Build contents list (tree view)
+    def build_tree(path, prefix=""):
+        html = ""
+        items = sorted(os.listdir(path))
+        for i, item in enumerate(items):
+            full = os.path.join(path, item)
+            connector = "└── " if i == len(items) - 1 else "├── "
+            html += f"<div style='margin-left:{len(prefix)*10}px'>{prefix}{connector}{item}</div>"
+            if os.path.isdir(full):
+                html += build_tree(full, prefix + ("    " if i == len(items) - 1 else "│   "))
+        return html
+
+    html = f"""
+    <html><head><title>Perfectionist Report</title></head><body>
+    <h2>Perfectionist Cleaning Report</h2>
+    <b>Date:</b> {now}<br>
+    <b>Processed Folder:</b> {folder}<br>
+    <b>Action:</b> {action}<br>
+    <b>Destination:</b> {dest_path or 'N/A'}<br>
+    <hr>
+    <h3>Artwork Preview</h3>
+    {''.join(f'<img src="file://{art}" alt="Artwork" style="max-width:200px;max-height:200px;margin:5px;">' for art in artwork_files) if artwork_files else '<i>No artwork found.</i>'}
+    <hr>
+    <h3>Contents</h3>
+    <div style='font-family:monospace;font-size:14px'>{build_tree(folder)}</div>
+    <hr>
+    <h3>Removed Files</h3>
+    <ul>{''.join(f'<li>{r}</li>' for r in removed)}</ul>
+    """
+    if missing:
+        html += f"<h3 style='color:red'>Missing Required Structure</h3><ul>{''.join(f'<li>{m}</li>' for m in missing)}</ul>"
+    if old_count is not None and new_count is not None:
+        html += f"<h3>Quality Comparison</h3>"
+        html += f"Old file count: {old_count}, Old total size: {old_size}<br>"
+        html += f"New file count: {new_count}, New total size: {new_size}<br>"
+    html += "</body></html>"
+    report_path = os.path.join(REPORTS_DIR, f'report_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}.html')
+    with open(report_path, 'w') as f:
+        f.write(html)
+    return report_path
+                        action = f"Replaced existing folder with new version at {dest_path}"
+                        messagebox.showinfo("Perfectionist", f"Folder replaced with new version at {dest_path}\nDetailed report generated.")
+                    else:
+                        action = f"New folder NOT better. Existing folder kept at {dest_path}"
+                        messagebox.showwarning("Perfectionist", f"New folder is not better than existing. Existing folder kept.\nDetailed report generated.")
+                else:
+                    shutil.move(folder, dest_path)
+                    action = f"Folder is 100% clean and has been moved to {dest_path}"
+                    messagebox.showinfo("Perfectionist", f"Folder is 100% clean and has been moved to {dest_path}\nDetailed report generated.")
+            else:
+                action = "Folder cleaned, but not moved due to unwanted files or missing structure."
+                messagebox.showinfo("Perfectionist", f"Folder cleaned, but not moved due to unwanted files or missing structure.\nDetailed report generated.")
+            report_path_html = generate_html_report(folder, removed, missing, dest_path, action, old_count, old_size, new_count, new_size)
+            report_path_json = generate_json_report(folder, removed, missing, dest_path, action, old_count, old_size, new_count, new_size)
+        root.destroy()
+
+    def on_drop(event):
+        paths = root.tk.splitlist(event.data)
+        folders = [p for p in paths if os.path.isdir(p)]
+        process_folders(folders)
+
+    def process_folders(folders):
+            return
+        subfolders = [os.path.join(folders, d) for d in os.listdir(folders) if os.path.isdir(os.path.join(folders, d))]
+        process_folders(subfolders)
+
+    if dnd_available:
+        label.drop_target_register(DND_FILES)
+        label.dnd_bind('<<Drop>>', on_drop)
+    label.bind('<Button-1>', on_click)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
+            generate_html_report(folder, removed, missing, dest_path, action, old_count, old_size, new_count, new_size)
+            generate_json_report(folder, removed, missing, dest_path, action, old_count, old_size, new_count, new_size)
+    def on_click(_event):
+        folders = filedialog.askdirectory(mustexist=True, title="Select the parent folder containing up to 10 libraries")
+        if not folders:
+            return
+        subfolders = [os.path.join(folders, d) for d in os.listdir(folders) if os.path.isdir(os.path.join(folders, d))]
+        process_folders(subfolders)

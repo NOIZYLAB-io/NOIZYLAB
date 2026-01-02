@@ -1,0 +1,1 @@
+"editor.accessibilitySignalTimeout": 3000,

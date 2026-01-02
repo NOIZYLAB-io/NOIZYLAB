@@ -1,0 +1,1 @@
+ioreg -p IOUSB -l -w 0 | grep -E '"USB Vendor Name"|"USB Product Name"|"idVendor"|"idProduct"'
