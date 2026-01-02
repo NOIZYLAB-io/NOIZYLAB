@@ -719,6 +719,92 @@ async function auditLog(env: Env, data: {
   ).run();
 }
 
+// GDPR: Export user data
+async function exportUserData(env: Env, clientId: number) {
+  const client = await env.DB.prepare("SELECT * FROM clients WHERE id=?").bind(clientId).first<any>();
+  const profile = await env.DB.prepare("SELECT * FROM client_profiles WHERE client_id=?").bind(clientId).first<any>();
+  const tickets = await env.DB.prepare("SELECT * FROM tickets WHERE client_id=?").bind(clientId).all<any>();
+  const devices = await env.DB.prepare("SELECT * FROM devices WHERE client_id=?").bind(clientId).all<any>();
+  const appointments = await env.DB.prepare("SELECT * FROM appointments WHERE client_id=?").bind(clientId).all<any>();
+  const sentiment = await env.DB.prepare("SELECT * FROM client_sentiment WHERE client_id=?").bind(clientId).all<any>();
+  const surveys = await env.DB.prepare(
+    "SELECT s.* FROM surveys s JOIN tickets t ON t.id = s.ticket_id WHERE t.client_id=?"
+  ).bind(clientId).all<any>();
+  
+  // Get all events for client's tickets
+  const ticketIds = (tickets.results ?? []).map((t: any) => t.id);
+  let events: any[] = [];
+  for (const tid of ticketIds) {
+    const e = await env.DB.prepare("SELECT * FROM events WHERE ticket_id=?").bind(tid).all<any>();
+    events = events.concat(e.results ?? []);
+  }
+  
+  return {
+    exportedAt: nowISO(),
+    client,
+    profile,
+    tickets: tickets.results ?? [],
+    devices: devices.results ?? [],
+    appointments: appointments.results ?? [],
+    sentiment: sentiment.results ?? [],
+    surveys: surveys.results ?? [],
+    events
+  };
+}
+
+// GDPR: Delete user data (right to erasure)
+async function deleteUserData(env: Env, clientId: number) {
+  const now = nowISO();
+  let deleted = { tickets: 0, devices: 0, events: 0, uploads: 0, appointments: 0 };
+  
+  // Get all ticket IDs
+  const tickets = await env.DB.prepare("SELECT id FROM tickets WHERE client_id=?").bind(clientId).all<any>();
+  const ticketIds = (tickets.results ?? []).map((t: any) => t.id);
+  
+  // Delete uploads from R2
+  for (const tid of ticketIds) {
+    const uploads = await env.DB.prepare("SELECT r2_key FROM uploads WHERE ticket_id=?").bind(tid).all<any>();
+    for (const u of (uploads.results ?? [])) {
+      if (u.r2_key && env.UPLOADS) {
+        await env.UPLOADS.delete(u.r2_key);
+        deleted.uploads++;
+      }
+    }
+  }
+  
+  // Cascade delete from DB
+  for (const tid of ticketIds) {
+    await env.DB.prepare("DELETE FROM events WHERE ticket_id=?").bind(tid).run();
+    await env.DB.prepare("DELETE FROM uploads WHERE ticket_id=?").bind(tid).run();
+    await env.DB.prepare("DELETE FROM followups WHERE ticket_id=?").bind(tid).run();
+    await env.DB.prepare("DELETE FROM surveys WHERE ticket_id=?").bind(tid).run();
+    deleted.events++;
+  }
+  
+  deleted.tickets = ticketIds.length;
+  await env.DB.prepare("DELETE FROM tickets WHERE client_id=?").bind(clientId).run();
+  
+  // Delete appointments
+  const appts = await env.DB.prepare("DELETE FROM appointments WHERE client_id=?").bind(clientId).run();
+  deleted.appointments = appts.meta.changes ?? 0;
+  
+  // Delete devices
+  const devs = await env.DB.prepare("DELETE FROM devices WHERE client_id=?").bind(clientId).run();
+  deleted.devices = devs.meta.changes ?? 0;
+  
+  // Delete profile and sentiment
+  await env.DB.prepare("DELETE FROM client_profiles WHERE client_id=?").bind(clientId).run();
+  await env.DB.prepare("DELETE FROM client_sentiment WHERE client_id=?").bind(clientId).run();
+  await env.DB.prepare("DELETE FROM client_health WHERE client_id=?").bind(clientId).run();
+  
+  // Anonymize client record (keep for referential integrity)
+  await env.DB.prepare(
+    "UPDATE clients SET name='[DELETED]', email='deleted_' || id || '@redacted.local', phone=NULL, updated_at=? WHERE id=?"
+  ).bind(now, clientId).run();
+  
+  return { deleted, anonymizedClientId: clientId };
+}
+
 // Generate API key
 async function generateApiKey(env: Env, name: string, scopes: string[], createdBy: string, expiresAt?: string) {
   const key = `nlk_${crypto.randomUUID().replace(/-/g, "")}`;
@@ -3977,6 +4063,229 @@ export default {
         "SELECT g.*, c.name, c.email FROM gdpr_requests g JOIN clients c ON c.id = g.client_id ORDER BY g.requested_at DESC"
       ).all<any>();
       return json({ ok: true, requests: requests.results ?? [] });
+    }
+
+    // --------------------
+    // TIME TRACKING: Start timer
+    // --------------------
+    if (path === "/staff/timer/start" && method === "POST") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const body = await readJson(req);
+      const ticketId = Number(body?.ticketId);
+      const staffId = String(body?.staffId ?? "");
+      const description = body?.description;
+      
+      if (!ticketId || !staffId) return bad(400, "Missing ticketId or staffId");
+      
+      const result = await startTimer(env, ticketId, staffId, description);
+      return json(result);
+    }
+
+    // --------------------
+    // TIME TRACKING: Stop timer
+    // --------------------
+    if (path === "/staff/timer/stop" && method === "POST") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const body = await readJson(req);
+      const timerId = Number(body?.timerId);
+      
+      if (!timerId) return bad(400, "Missing timerId");
+      
+      const result = await stopTimer(env, timerId);
+      return json(result);
+    }
+
+    // --------------------
+    // TIME TRACKING: Get ticket time summary
+    // --------------------
+    if (path.match(/^\/staff\/tickets\/\d+\/time$/) && method === "GET") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const ticketId = Number(path.split("/")[3]);
+      
+      const summary = await getTicketTime(env, ticketId);
+      const timers = await env.DB.prepare(
+        "SELECT * FROM ticket_timers WHERE ticket_id=? ORDER BY started_at DESC"
+      ).bind(ticketId).all<any>();
+      
+      return json({ ok: true, ...summary, timers: timers.results ?? [] });
+    }
+
+    // --------------------
+    // CANNED RESPONSES: List
+    // --------------------
+    if (path === "/staff/canned" && method === "GET") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const category = url.searchParams.get("category");
+      
+      let query = "SELECT * FROM canned_responses";
+      const params: any[] = [];
+      
+      if (category) {
+        query += " WHERE category=?";
+        params.push(category);
+      }
+      
+      query += " ORDER BY use_count DESC, title ASC";
+      
+      const responses = await env.DB.prepare(query).bind(...params).all<any>();
+      return json({ ok: true, responses: responses.results ?? [] });
+    }
+
+    // --------------------
+    // CANNED RESPONSES: Create
+    // --------------------
+    if (path === "/staff/canned/create" && method === "POST") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const body = await readJson(req);
+      const code = String(body?.code ?? "").toUpperCase();
+      const title = String(body?.title ?? "");
+      const responseBody = String(body?.body ?? "");
+      const category = body?.category ?? null;
+      const variablesJson = JSON.stringify(body?.variables ?? []);
+      
+      if (!code || !title || !responseBody) return bad(400, "Missing required fields");
+      
+      await env.DB.prepare(
+        "INSERT INTO canned_responses (code, title, body, category, variables_json, created_at) VALUES (?,?,?,?,?,?)"
+      ).bind(code, title, responseBody, category, variablesJson, nowISO()).run();
+      
+      return json({ ok: true, code });
+    }
+
+    // --------------------
+    // CANNED RESPONSES: Get by code
+    // --------------------
+    if (path.match(/^\/staff\/canned\/[A-Z0-9_]+$/) && method === "GET") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const code = path.split("/").pop()!.toUpperCase();
+      
+      const response = await getCannedResponse(env, code);
+      if (!response) return bad(404, "Canned response not found");
+      
+      return json({ ok: true, response });
+    }
+
+    // --------------------
+    // SURVEY: Send satisfaction survey
+    // --------------------
+    if (path === "/staff/survey/send" && method === "POST") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const body = await readJson(req);
+      const ticketId = Number(body?.ticketId);
+      
+      if (!ticketId) return bad(400, "Missing ticketId");
+      
+      const result = await sendSurvey(env, ticketId);
+      if (!result.ok) return bad(400, result.error!);
+      
+      return json(result);
+    }
+
+    // --------------------
+    // SURVEY: Get statistics
+    // --------------------
+    if (path === "/staff/survey/stats" && method === "GET") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      
+      const stats = await env.DB.prepare(`
+        SELECT 
+          COUNT(*) AS total,
+          COUNT(submitted_at) AS submitted,
+          AVG(rating) AS avg_rating,
+          SUM(CASE WHEN rating >= 4 THEN 1 ELSE 0 END) AS satisfied,
+          SUM(CASE WHEN rating <= 2 THEN 1 ELSE 0 END) AS unsatisfied
+        FROM surveys
+        WHERE created_at >= date('now', '-30 days')
+      `).first<any>();
+      
+      return json({
+        ok: true,
+        total: stats?.total ?? 0,
+        submitted: stats?.submitted ?? 0,
+        responseRate: stats?.total ? Math.round((stats.submitted / stats.total) * 100) : 0,
+        avgRating: stats?.avg_rating ? Number(stats.avg_rating.toFixed(2)) : 0,
+        satisfactionRate: stats?.submitted ? Math.round((stats.satisfied / stats.submitted) * 100) : 0
+      });
+    }
+
+    // --------------------
+    // AUDIT LOG: Query with action filter
+    // --------------------
+    if (path === "/staff/audit/log" && method === "GET") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const resourceType = url.searchParams.get("resourceType");
+      const resourceId = url.searchParams.get("resourceId");
+      const actorId = url.searchParams.get("actorId");
+      const action = url.searchParams.get("action");
+      const limit = Number(url.searchParams.get("limit") ?? 100);
+      
+      let query = "SELECT * FROM audit_log WHERE 1=1";
+      const params: any[] = [];
+      
+      if (resourceType) { query += " AND resource_type=?"; params.push(resourceType); }
+      if (resourceId) { query += " AND resource_id=?"; params.push(resourceId); }
+      if (actorId) { query += " AND actor_id=?"; params.push(actorId); }
+      if (action) { query += " AND action LIKE ?"; params.push(`%${action}%`); }
+      
+      query += " ORDER BY created_at DESC LIMIT ?";
+      params.push(limit);
+      
+      const logs = await env.DB.prepare(query).bind(...params).all<any>();
+      return json({ ok: true, logs: logs.results ?? [] });
+    }
+
+    // --------------------
+    // GDPR: Export user data
+    // --------------------
+    if (path === "/staff/gdpr/export" && method === "POST") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const body = await readJson(req);
+      const email = String(body?.email ?? "");
+      
+      if (!email) return bad(400, "Missing email");
+      
+      // Find client
+      const client = await env.DB.prepare("SELECT * FROM clients WHERE email=?").bind(email).first<any>();
+      if (!client) return bad(404, "Client not found");
+      
+      const data = await exportUserData(env, client.id);
+      
+      // Log export
+      await auditLog(env, {
+        actorType: "staff",
+        action: "gdpr_export",
+        resourceType: "client",
+        resourceId: String(client.id)
+      });
+      
+      return json({ ok: true, data });
+    }
+
+    // --------------------
+    // GDPR: Delete user data
+    // --------------------
+    if (path === "/staff/gdpr/delete" && method === "POST") {
+      if (!(await staffAuthPlaceholder(req))) return bad(403, "Forbidden");
+      const body = await readJson(req);
+      const email = String(body?.email ?? "");
+      
+      if (!email) return bad(400, "Missing email");
+      
+      // Find client
+      const client = await env.DB.prepare("SELECT * FROM clients WHERE email=?").bind(email).first<any>();
+      if (!client) return bad(404, "Client not found");
+      
+      const result = await deleteUserData(env, client.id);
+      
+      // Log deletion
+      await auditLog(env, {
+        actorType: "staff",
+        action: "gdpr_delete",
+        resourceType: "client",
+        resourceId: String(client.id)
+      });
+      
+      return json({ ok: true, ...result });
     }
 
     return bad(404, "No route");
