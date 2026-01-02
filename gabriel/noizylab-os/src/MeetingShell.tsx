@@ -1,6 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { RTKMeeting } from "@cloudflare/realtimekit-react-ui";
 
+// Voice "Calm Mode" - reads NOW/NEXT/WHEN status updates
+export function speakStatus(now: string, next: string, when: string, enabled: boolean, rate = 0.95) {
+  if (!enabled || !("speechSynthesis" in window)) return;
+  const u = new SpeechSynthesisUtterance(`${now}. Next: ${next}. Next update: ${when}.`);
+  u.rate = rate;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
 type Props = {
   wsUrl: string;
   ticketId?: number; // optional if you wire staff console

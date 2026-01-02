@@ -2,9 +2,15 @@ import { Command } from "commander";
 import dotenv from "dotenv";
 dotenv.config();
 
+import fs from "node:fs";
+import path from "node:path";
+
 import { http } from "./http.js";
 import { wsListen, wsSend } from "./ws.js";
 import { must, toInt, toUpperCode } from "./util.js";
+import { doctor } from "./doctor.js";
+import { PLAYBOOKS_SEED } from "./seed.js";
+import { tailEvents } from "./sse.js";
 
 const program = new Command();
 
@@ -217,6 +223,220 @@ program
     console.log(JSON.stringify(out, null, 2));
   });
 
+program
+  .command("estimate:send")
+  .description("Create+send estimate and print approve/decline links (staff)")
+  .requiredOption("--ticketId <id>")
+  .requiredOption("--amountCents <n>")
+  .requiredOption("--summary <text>")
+  .option("--terms <text>", "")
+  .option("--currency <cur>", "CAD")
+  .option("--expiresMinutes <n>", "4320") // 72h
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/estimate/send",
+      json: {
+        ticketId: toInt(opt.ticketId),
+        amount_cents: toInt(opt.amountCents),
+        currency: opt.currency,
+        summary: opt.summary,
+        terms: opt.terms,
+        expiresMinutes: toInt(opt.expiresMinutes)
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("status:send")
+  .description("Send a 3-line status update NOW/NEXT/WHEN (staff)")
+  .requiredOption("--ticketId <id>")
+  .requiredOption("--now <text>")
+  .requiredOption("--next <text>")
+  .requiredOption("--when <text>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/status/send",
+      json: {
+        ticketId: toInt(opt.ticketId),
+        now: opt.now,
+        next: opt.next,
+        when: opt.when
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("followups:run")
+  .description("Run due followups (staff)")
+  .option("--limit <n>", "50")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/followups/run",
+      json: { limit: toInt(opt.limit) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("timeline:tail")
+  .description("Live tail ticket events (staff)")
+  .requiredOption("--ticketId <id>")
+  .action(async (opt) => {
+    await tailEvents(toInt(opt.ticketId));
+  });
+
+program
+  .command("invoice:close")
+  .description("Create invoice for ticket with line items (staff)")
+  .requiredOption("--ticketId <id>")
+  .option("--currency <cur>", "CAD")
+  .option("--taxRate <n>", "0.13")
+  .requiredOption("--item <label=...,qty=...,amountCents=...>", "Repeatable", (v, p: string[]) => (p.push(v), p), [])
+  .action(async (opt) => {
+    const items = (opt.item as string[]).map(s => {
+      const m = Object.fromEntries(s.split(",").map(kv => kv.split("=").map(x => x.trim())));
+      return {
+        label: m["label"],
+        qty: Number(m["qty"] ?? 1),
+        amount_cents: Number(m["amountCents"] ?? 0)
+      };
+    });
+    const out = await http({
+      method: "POST",
+      path: "/staff/invoice/close",
+      json: { ticketId: toInt(opt.ticketId), currency: opt.currency, taxRate: Number(opt.taxRate), items }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("metrics:top")
+  .description("Top event hotspots (staff)")
+  .option("--days <n>", "30")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/metrics/top?days=${encodeURIComponent(opt.days)}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("client:profile:set")
+  .description("Set operational client traits (staff)")
+  .requiredOption("--clientId <id>")
+  .option("--comms <mode>", "calm")
+  .option("--trait <TRAIT>", "Repeatable", (v, p: string[]) => (p.push(v), p), [])
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/client/profile/set",
+      json: { clientId: toInt(opt.clientId), commsMode: opt.comms, traits: opt.trait }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("client:profile:get")
+  .description("Get client profile (staff)")
+  .requiredOption("--clientId <id>")
+  .action(async (opt) => {
+    const out = await http({ path: `/staff/client/profile/get?clientId=${encodeURIComponent(opt.clientId)}` });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("device:register")
+  .description("Register device fingerprint (staff)")
+  .requiredOption("--label <text>")
+  .requiredOption("--os <mac|win>")
+  .requiredOption("--fingerprintInput <stableFields>")
+  .option("--clientId <id>")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/device/register",
+      json: {
+        clientId: opt.clientId ? toInt(opt.clientId) : undefined,
+        label: opt.label,
+        os: opt.os,
+        fingerprintInput: opt.fingerprintInput
+      }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("export:case")
+  .description("Export full case bundle (staff) and save to file")
+  .requiredOption("--ticketId <id>")
+  .option("--out <dir>", "./exports")
+  .action(async (opt) => {
+    const ticketId = toInt(opt.ticketId);
+    const out = await http({ path: `/staff/export/case?ticketId=${encodeURIComponent(String(ticketId))}` });
+
+    const dir = opt.out;
+    fs.mkdirSync(dir, { recursive: true });
+
+    const filename = `case_ticket_${ticketId}_${new Date().toISOString().replace(/[:.]/g, "-")}.json`;
+    const fp = path.join(dir, filename);
+    fs.writeFileSync(fp, JSON.stringify(out.bundle, null, 2), "utf8");
+
+    console.log(JSON.stringify({ ok: true, file: fp }, null, 2));
+  });
+
+program
+  .command("prevention:plan")
+  .description("Create prevention plan + schedule D7/D30 followups (staff)")
+  .requiredOption("--ticketId <id>")
+  .option("--os <os>", "both")
+  .option("--tag <TAG>", "Repeatable", (v, p: string[]) => (p.push(v), p), [])
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/prevention/plan",
+      json: { ticketId: toInt(opt.ticketId), os: opt.os, tags: opt.tag }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("ops:cron")
+  .description("Run retention purges + followups + daily metrics rollup (staff)")
+  .option("--limit <n>", "100")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/ops/cron",
+      json: { limit: toInt(opt.limit) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("ops:enqueue")
+  .description("Enqueue ops jobs (staff)")
+  .requiredOption("--type <retention_purge|followups_run|metrics_rollup>")
+  .option("--limit <n>", "200")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/ops/enqueue",
+      json: { type: opt.type, limit: toInt(opt.limit) }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("dlq:list")
+  .description("List DLQ quarantined jobs (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/dlq/list" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
 //
 // WS: Chat
 //
@@ -297,21 +517,21 @@ program
   });
 
 program
-  .command("staff:payment:link")
-  .description("Create payment link (staff) (provider-agnostic stub)")
+  .command("payment:link")
+  .description("Create Stripe payment link (staff)")
   .requiredOption("--ticketId <id>")
   .requiredOption("--amountCents <n>")
-  .option("--currency <cur>", "CAD")
-  .option("--provider <p>", "stripe")
+  .option("--currency <cur>", "cad")
+  .option("--description <text>")
   .action(async (opt) => {
     const out = await http({
       method: "POST",
-      path: "/staff/payment/link",
+      path: "/staff/payment/stripe/link",
       json: {
         ticketId: toInt(opt.ticketId),
         amount_cents: toInt(opt.amountCents),
         currency: opt.currency,
-        provider: opt.provider
+        description: opt.description
       }
     });
     console.log(JSON.stringify(out, null, 2));
@@ -329,6 +549,118 @@ program
       json: { ticketId: toInt(opt.ticketId), minutes: toInt(opt.minutes) }
     });
     console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// DOCTOR + SEED
+//
+program
+  .command("doctor")
+  .description("Smoke test (public + staff health). Use --deep for more.")
+  .option("--deep", "Run deeper checks", false)
+  .action(async (opt) => {
+    const res = await doctor(!!opt.deep);
+    const ok = res.every(r => r.ok);
+    console.log(JSON.stringify({ ok, checks: res }, null, 2));
+    process.exit(ok ? 0 : 1);
+  });
+
+program
+  .command("playbooks:seed")
+  .description("Seed PB1–PB12 into D1 via /staff/playbooks/seed (staff)")
+  .action(async () => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/playbooks/seed",
+      json: { playbooks: PLAYBOOKS_SEED }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// PLAYBOOKS: list, get, run
+//
+program
+  .command("playbooks:list")
+  .description("List all playbooks (staff)")
+  .action(async () => {
+    const out = await http({ path: "/staff/playbooks/list" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("playbooks:get")
+  .description("Get a playbook + steps (staff)")
+  .requiredOption("--code <PBx>")
+  .option("--os <os>", "both")
+  .action(async (opt) => {
+    const out = await http({
+      path: `/staff/playbooks/get?code=${encodeURIComponent(opt.code)}&os=${encodeURIComponent(opt.os)}`
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("playbooks:run")
+  .description("Start a playbook run for a ticket (staff)")
+  .requiredOption("--ticketId <id>")
+  .requiredOption("--code <playbookCode>")
+  .option("--os <os>", "both")
+  .action(async (opt) => {
+    const out = await http({
+      method: "POST",
+      path: "/staff/playbooks/apply",
+      json: { ticketId: toInt(opt.ticketId), playbookCode: toUpperCode(opt.code), os: opt.os }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+//
+// SESSION: start (prints join code + wsUrl + auto-listens)
+//
+program
+  .command("session:start")
+  .description("Start RTK session (staff), print code + tokens + wsUrl, then auto-listen chat")
+  .requiredOption("--ticketId <id>")
+  .option("--title <title>", "NoizyLab Live Help")
+  .option("--staffName <name>", "NoizyLab Staff")
+  .option("--no-listen", "Do not auto-listen on websocket")
+  .action(async (opt) => {
+    // 1) Start RTK (creates meeting + join code + staff token)
+    const started = await http({
+      method: "POST",
+      path: "/staff/rtk/start",
+      json: { ticketId: toInt(opt.ticketId), title: opt.title, staffName: opt.staffName }
+    });
+
+    // started = { ok, roomId, code, expiresAt, meetingId, staffAuthToken }
+    const roomId = must(started.roomId, "Missing roomId from /staff/rtk/start");
+
+    // 2) Mint wsUrl for staff
+    const ws = await http({
+      method: "POST",
+      path: "/staff/ws/url",
+      json: { roomId }
+    });
+
+    const payload = {
+      ok: true,
+      ticketId: toInt(opt.ticketId),
+      roomId,
+      joinCode: started.code,
+      codeExpiresAt: started.expiresAt,
+      meetingId: started.meetingId,
+      staffAuthToken: started.staffAuthToken,
+      wsUrl: ws.wsUrl,
+      wsExp: ws.exp
+    };
+
+    console.log(JSON.stringify(payload, null, 2));
+
+    // 3) Auto-listen
+    if (opt.listen !== false) {
+      await wsListen(payload.wsUrl);
+    }
   });
 
 await program.parseAsync(process.argv);

@@ -33,4 +33,21 @@ CF_API_TOKEN = "REPLACE_ME" # Cloudflare API token with Realtime permissions
 RTK_PRESET_STAFF = "admin"  # change to your preset_name
 RTK_PRESET_CLIENT = "viewer" # change to your preset_name
 
-# Secrets: TURNSTILE_SECRET, ACCESS_AUD
+# Cron Triggers (UTC)
+[triggers]
+crons = ["*/5 * * * *"] # every 5 minutes
+
+# Queues (producer)
+[[queues.producers]]
+queue = "noizylab-ops"
+binding = "OPS_QUEUE"
+
+# Queues (consumer)
+[[queues.consumers]]
+queue = "noizylab-ops"
+max_batch_size = 10
+max_batch_timeout = 5
+max_retries = 5
+dead_letter_queue = "noizylab-ops-dlq"
+
+# Secrets: TURNSTILE_SECRET, ACCESS_AUD, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET
