@@ -1,0 +1,89 @@
+name = "noizylab-workflow-orchestrator"
+main = "worker.ts"
+compatibility_date = "2024-05-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[kv_namespaces]]
+binding = "NOIZYLAB_KV"
+id = "your-kv-namespace-id"
+
+[[d1_databases]]
+binding = "NOIZYLAB_DB"
+database_name = "noizylab-db"
+database_id = "your-d1-database-id"
+
+[[queues.producers]]
+binding = "NOIZYLAB_QUEUE"
+queue = "noizylab-jobs"
+
+[[queues.consumers]]
+queue = "noizylab-workflows"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[ai]
+binding = "AI"
+
+# Service bindings to other workers
+[[services]]
+binding = "BRAIN"
+service = "noizylab-brain"
+
+[[services]]
+binding = "VISION"
+service = "noizylab-vision"
+
+[[services]]
+binding = "VOICE"
+service = "noizylab-voice"
+
+[[services]]
+binding = "PRICING"
+service = "noizylab-pricing"
+
+[[services]]
+binding = "INVENTORY"
+service = "noizylab-inventory"
+
+[[services]]
+binding = "ANALYTICS"
+service = "noizylab-analytics"
+
+[[services]]
+binding = "NOTIFICATIONS"
+service = "noizylab-notifications"
+
+[[services]]
+binding = "QC_INSPECTOR"
+service = "noizylab-qc-inspector"
+
+[[services]]
+binding = "CUSTOMER_PORTAL"
+service = "noizylab-customer-portal"
+
+[[services]]
+binding = "SCHEMATIC_ANALYZER"
+service = "noizylab-schematic-analyzer"
+
+[[services]]
+binding = "AR_GUIDE"
+service = "noizylab-ar-guide"
+
+[[services]]
+binding = "TRAINING"
+service = "noizylab-training"
+
+[[services]]
+binding = "EBAY_SNIPER"
+service = "noizylab-ebay-sniper"
+
+[[services]]
+binding = "CHAT_AGENT"
+service = "noizylab-chat-agent"
+
+[env.staging]
+name = "noizylab-workflow-orchestrator-staging"
+[env.staging.vars]
+ENVIRONMENT = "staging"

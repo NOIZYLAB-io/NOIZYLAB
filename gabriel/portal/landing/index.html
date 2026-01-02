@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoizyLab - AI Hardware Audit | Detect Counterfeit Electronics</title>
+    <meta name="description" content="Point your phone at any circuit board. Get instant AI analysis for counterfeits, damage, and defects. $4.99 per scan.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="NoizyLab - AI Hardware Audit">
+    <meta property="og:description" content="Shazam for counterfeit electronics. Instant AI analysis.">
+    <meta property="og:image" content="https://noizylab.ai/og-image.png">
+    <meta property="og:url" content="https://scan.noizylab.ai">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <style>
+        :root {
+            --hot-rod-orange: #FF6B00;
+            --dark-bg: #0A0A0B;
+            --card-bg: #141416;
+            --border: #2A2A2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            --success: #22C55E;
+            --warning: #EAB308;
+            --danger: #EF4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 10, 11, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--hot-rod-orange);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--text-primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--hot-rod-orange);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #E55F00;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--hot-rod-orange);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 107, 0, 0.1);
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--hot-rod-orange);
+            margin-bottom: 24px;
+        }
+        
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--hot-rod-orange), #FF9500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .price-tag {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 16px;
+        }
+        
+        .price-tag strong {
+            color: var(--success);
+            font-size: 24px;
+        }
+        
+        /* Features Grid */
+        .features {
+            padding: 100px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--hot-rod-orange);
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 107, 0, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 100px 0;
+            background: var(--card-bg);
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 64px;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: var(--hot-rod-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+        
+        .step h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .step p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            padding: 100px 0;
+        }
+        
+        .upload-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-box:hover {
+            border-color: var(--hot-rod-orange);
+            background: rgba(255, 107, 0, 0.05);
+        }
+        
+        .upload-box.dragging {
+            border-color: var(--hot-rod-orange);
+            background: rgba(255, 107, 0, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+        
+        .upload-box h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .upload-box p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+        
+        .upload-formats {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .format-badge {
+            padding: 6px 12px;
+            background: var(--dark-bg);
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 100px 0;
+            background: var(--card-bg);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--hot-rod-orange);
+        }
+        
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--hot-rod-orange);
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        
+        .pricing-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .pricing-card .price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        
+        .pricing-card .description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 16px;
+            max-width: 300px;
+        }
+        
+        .footer-links h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="/" class="logo">Noizy<span>Lab</span></a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#api">API</a></li>
+            </ul>
+            <a href="#upload" class="btn btn-primary">Start Scanning</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span>🔬</span> AI-Powered Hardware Analysis
+            </div>
+            <h1>
+                Detect Counterfeit<br>
+                Electronics <span class="highlight">Instantly</span>
+            </h1>
+            <p>
+                Point your phone at any circuit board. Get AI analysis for 
+                counterfeits, damage, and defects in seconds. No expensive 
+                equipment required.
+            </p>
+            <div class="hero-cta">
+                <a href="#upload" class="btn btn-primary">
+                    📸 Upload Board Photo
+                </a>
+                <a href="#how-it-works" class="btn btn-secondary">
+                    See How It Works →
+                </a>
+            </div>
+            <p class="price-tag">
+                Single scan: <strong>$4.99</strong> · Results in under 5 seconds
+            </p>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI-Powered Inspection</h2>
+                <p>Technology that previously required $500K equipment</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Counterfeit Detection</h3>
+                    <p>Compare components against our database of 50,000+ verified authentic parts. Identify remarked, recycled, or fake chips.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Visual Overlay</h3>
+                    <p>AI highlights suspicious areas directly on your image. Orange boxes show exactly where to look.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Reasoning Engine</h3>
+                    <p>Not just pass/fail—get detailed explanations of WHY something looks suspicious, backed by evidence.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎙️</div>
+                    <h3>Voice Guidance</h3>
+                    <p>AI narrator walks you through findings and repair steps. Like having an expert on call.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Results</h3>
+                    <p>Analysis completes in under 5 seconds. No waiting for lab results or shipping samples.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Phone Camera Ready</h3>
+                    <p>Works with any smartphone camera. Add a $20 macro lens for best results on small components.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Three steps to hardware verification</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Capture</h3>
+                    <p>Take a clear photo of the circuit board or component. Higher resolution = better analysis.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Analyze</h3>
+                    <p>AI compares your image against verified "Golden Reference" images and detects anomalies.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Results</h3>
+                    <p>Get instant verdict with visual overlay, confidence scores, and detailed reasoning.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload">
+        <div class="container">
+            <div class="section-header">
+                <h2>Start Your Scan</h2>
+                <p>Upload a board photo for instant AI analysis</p>
+            </div>
+            <div class="upload-box" id="upload-box">
+                <div class="upload-icon animate-float">📸</div>
+                <h3>Drop your image here</h3>
+                <p>or click to browse files</p>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                <div class="upload-formats">
+                    <span class="format-badge">PNG</span>
+                    <span class="format-badge">JPEG</span>
+                    <span class="format-badge">TIFF</span>
+                    <span class="format-badge">RAW</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Simple Pricing</h2>
+                <p>Pay per scan or subscribe for unlimited access</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Single Scan</h3>
+                    <div class="price">$4.99</div>
+                    <p class="description">One-time analysis</p>
+                    <ul class="pricing-features">
+                        <li>Quick authenticity check</li>
+                        <li>Visual anomaly overlay</li>
+                        <li>Confidence score</li>
+                        <li>Basic report</li>
+                    </ul>
+                    <a href="#upload" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                        Get Started
+                    </a>
+                </div>
+                <div class="pricing-card featured">
+                    <h3>Pro</h3>
+                    <div class="price">$49<span>/month</span></div>
+                    <p class="description">For repair professionals</p>
+                    <ul class="pricing-features">
+                        <li>Unlimited scans</li>
+                        <li>Deep analysis mode</li>
+                        <li>Voice repair guidance</li>
+                        <li>PDF reports</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        Start Free Trial
+                    </a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$499<span>/month</span></div>
+                    <p class="description">For businesses</p>
+                    <ul class="pricing-features">
+                        <li>Everything in Pro</li>
+                        <li>API access</li>
+                        <li>Batch processing</li>
+                        <li>Custom integrations</li>
+                        <li>SLA guarantee</li>
+                    </ul>
+                    <a href="mailto:enterprise@noizylab.ai" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="logo">Noizy<span>Lab</span></a>
+                    <p>AI-powered hardware verification for the repair industry. Making counterfeit detection accessible to everyone.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#api">API Docs</a></li>
+                        <li><a href="#">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 NoizyLab. All rights reserved.</p>
+                <p>Built with 🔧 in Canada</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // File upload handling
+        const uploadBox = document.getElementById('upload-box');
+        const fileInput = document.getElementById('file-input');
+        
+        uploadBox.addEventListener('click', () => fileInput.click());
+        
+        uploadBox.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadBox.classList.add('dragging');
+        });
+        
+        uploadBox.addEventListener('dragleave', () => {
+            uploadBox.classList.remove('dragging');
+        });
+        
+        uploadBox.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadBox.classList.remove('dragging');
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                handleFile(files[0]);
+            }
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                handleFile(e.target.files[0]);
+            }
+        });
+        
+        async function handleFile(file) {
+            if (!file.type.startsWith('image/')) {
+                alert('Please upload an image file');
+                return;
+            }
+            
+            // Show processing state
+            uploadBox.innerHTML = `
+                <div class="upload-icon">⏳</div>
+                <h3>Analyzing...</h3>
+                <p>AI is inspecting your board</p>
+            `;
+            
+            // TODO: Implement actual API call
+            // For now, simulate processing
+            setTimeout(() => {
+                // Redirect to payment/results page
+                window.location.href = '/checkout?file=' + encodeURIComponent(file.name);
+            }, 2000);
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

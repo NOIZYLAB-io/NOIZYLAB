@@ -1,0 +1,50 @@
+name = "gabriel-vision-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Account settings
+account_id = "YOUR_ACCOUNT_ID"
+
+# R2 Buckets
+[[r2_buckets]]
+binding = "R2_SCANS"
+bucket_name = "gabriel-scans"
+
+[[r2_buckets]]
+binding = "R2_REFERENCES"
+bucket_name = "gabriel-references"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "KV_RESULTS"
+id = "YOUR_KV_ID"
+
+[[kv_namespaces]]
+binding = "KV_API_KEYS"
+id = "YOUR_API_KEYS_KV_ID"
+
+# Environment variables (secrets - set via wrangler secret put)
+# GEMINI_API_KEY
+# ANTHROPIC_API_KEY
+# ELEVENLABS_API_KEY
+# ELEVENLABS_VOICE_ID
+
+# Routes
+routes = [
+  { pattern = "api.noizylab.ai/*", zone_name = "noizylab.ai" }
+]
+
+# Dev settings
+[dev]
+port = 8787
+local_protocol = "http"
+
+# Production settings
+[env.production]
+routes = [
+  { pattern = "api.noizylab.ai/*", zone_name = "noizylab.ai" }
+]
+
+# Observability
+[observability]
+enabled = true

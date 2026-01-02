@@ -1,0 +1,30 @@
+name = "training-worker"
+main = "src/worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "development"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "YOUR_D1_DATABASE_ID"
+
+[[kv_namespaces]]
+binding = "TRAINING_KV"
+id = "YOUR_KV_NAMESPACE_ID"
+
+[ai]
+binding = "AI"
+
+# Service bindings
+[[services]]
+binding = "BRAIN"
+service = "brain-worker"
+
+# Daily challenge refresh at midnight
+[triggers]
+crons = ["0 0 * * *"]
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
