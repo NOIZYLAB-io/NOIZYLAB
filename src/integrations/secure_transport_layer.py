@@ -13,15 +13,11 @@ Implements:
 """
 
 import asyncio
-import json
-import socket
 import subprocess
-import threading
 import time
 from dataclasses import dataclass
-from datetime import datetime, timedelta
 from enum import Enum
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -30,16 +26,18 @@ logger = logging.getLogger(__name__)
 
 class TransportMode(Enum):
     """Available transport modes"""
-    DIRECT_SSH = "direct_ssh"           # Direct SSH connection
-    SSH_TUNNEL = "ssh_tunnel"           # SSH port forwarding
-    SSH_JUMPHOST = "ssh_jumphost"       # SSH through jumphost
-    WIREGUARD_VPN = "wireguard_vpn"    # WireGuard VPN tunnel
-    OPENVPN = "openvpn"                 # OpenVPN tunnel
-    HTTP_RELAY = "http_relay"           # HTTP relay (last resort)
+
+    DIRECT_SSH = "direct_ssh"  # Direct SSH connection
+    SSH_TUNNEL = "ssh_tunnel"  # SSH port forwarding
+    SSH_JUMPHOST = "ssh_jumphost"  # SSH through jumphost
+    WIREGUARD_VPN = "wireguard_vpn"  # WireGuard VPN tunnel
+    OPENVPN = "openvpn"  # OpenVPN tunnel
+    HTTP_RELAY = "http_relay"  # HTTP relay (last resort)
 
 
 class ConnectionStatus(Enum):
     """Connection status states"""
+
     DISCONNECTED = "disconnected"
     CONNECTING = "connecting"
     CONNECTED = "connected"
@@ -50,6 +48,7 @@ class ConnectionStatus(Enum):
 @dataclass
 class NetworkMetrics:
     """Network performance metrics"""
+
     latency_ms: float
     jitter_ms: float
     packet_loss_pct: float
@@ -62,9 +61,15 @@ class NetworkMetrics:
 class SSHTunnelManager:
     """Manages SSH tunnels with auto-reconnect and failover"""
 
-    def __init__(self, remote_host: str, remote_user: str = "m2ultra",
-                 local_port: int = 9000, remote_port: int = 9000,
-                 ssh_key: Optional[str] = None, max_retries: int = 5):
+    def __init__(
+        self,
+        remote_host: str,
+        remote_user: str = "m2ultra",
+        local_port: int = 9000,
+        remote_port: int = 9000,
+        ssh_key: Optional[str] = None,
+        max_retries: int = 5,
+    ):
         self.remote_host = remote_host
         self.remote_user = remote_user
         self.local_port = local_port
@@ -83,9 +88,11 @@ class SSHTunnelManager:
             "ssh",
             "-N",  # No command
             "-f",  # Background
-            "-i", self.ssh_key,
-            "-L", f"{self.local_port}:localhost:{self.remote_port}",
-            f"{self.remote_user}@{self.remote_host}"
+            "-i",
+            self.ssh_key,
+            "-L",
+            f"{self.local_port}:localhost:{self.remote_port}",
+            f"{self.remote_user}@{self.remote_host}",
         ]
 
         try:
@@ -96,7 +103,9 @@ class SSHTunnelManager:
                 self.status = ConnectionStatus.CONNECTED
                 self.retry_count = 0
                 self.last_connection_time = time.time()
-                logger.info(f"✅ SSH tunnel connected: localhost:{self.local_port} → {self.remote_host}:{self.remote_port}")
+                logger.info(
+                    f"✅ SSH tunnel connected: localhost:{self.local_port} → {self.remote_host}:{self.remote_port}"
+                )
                 return True
             else:
                 self.status = ConnectionStatus.FAILED
@@ -106,7 +115,7 @@ class SSHTunnelManager:
 
         except subprocess.TimeoutExpired:
             self.status = ConnectionStatus.FAILED
-            logger.error(f"❌ SSH tunnel timeout")
+            logger.error("❌ SSH tunnel timeout")
             self.retry_count += 1
             return False
         except Exception as e:
@@ -148,8 +157,7 @@ class SSHTunnelManager:
         """Check if tunnel process is still running"""
         try:
             result = subprocess.run(
-                ["lsof", "-i", f":{self.local_port}"],
-                capture_output=True, timeout=5
+                ["lsof", "-i", f":{self.local_port}"], capture_output=True, timeout=5
             )
             return result.returncode == 0
         except Exception:
@@ -160,7 +168,8 @@ class SSHTunnelManager:
         try:
             subprocess.run(
                 ["pkill", "-f", f"ssh.*{self.local_port}"],
-                capture_output=True, timeout=5
+                capture_output=True,
+                timeout=5,
             )
             self.status = ConnectionStatus.DISCONNECTED
             logger.info("✅ SSH tunnel disconnected")
@@ -186,12 +195,16 @@ class VPNFallback:
             if self.vpn_type == "wireguard":
                 result = subprocess.run(
                     ["wg-quick", "up", self.vpn_config],
-                    capture_output=True, text=True, timeout=10
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
                 )
             else:  # OpenVPN
                 result = subprocess.run(
                     ["openvpn", "--config", self.vpn_config],
-                    capture_output=True, text=True, timeout=10
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
                 )
 
             if result.returncode == 0:
@@ -212,16 +225,16 @@ class VPNFallback:
             if self.vpn_type == "wireguard":
                 result = subprocess.run(
                     ["wg-quick", "down", self.vpn_config],
-                    capture_output=True, timeout=10
+                    capture_output=True,
+                    timeout=10,
                 )
             else:
                 result = subprocess.run(
-                    ["pkill", "openvpn"],
-                    capture_output=True, timeout=10
+                    ["pkill", "openvpn"], capture_output=True, timeout=10
                 )
 
             self.connected = False
-            logger.info(f"✅ VPN disconnected")
+            logger.info("✅ VPN disconnected")
             return result.returncode == 0
 
         except Exception as e:
@@ -232,8 +245,12 @@ class VPNFallback:
 class NetworkResilienceLayer:
     """Handles network failures with retry logic and fallback"""
 
-    def __init__(self, primary_host: str, primary_port: int = 9000,
-                 fallback_hosts: Optional[List[str]] = None):
+    def __init__(
+        self,
+        primary_host: str,
+        primary_port: int = 9000,
+        fallback_hosts: Optional[List[str]] = None,
+    ):
         self.primary_host = primary_host
         self.primary_port = primary_port
         self.fallback_hosts = fallback_hosts or []
@@ -279,15 +296,19 @@ class NetworkResilienceLayer:
                 self.metrics.append(metrics)
                 self.metrics = self.metrics[-100:]  # Keep last 100 measurements
 
-                logger.info(f"📊 Network metrics: {metrics.latency_ms:.1f}ms latency, "
-                           f"{metrics.packet_loss_pct:.1f}% loss")
+                logger.info(
+                    f"📊 Network metrics: {metrics.latency_ms:.1f}ms latency, "
+                    f"{metrics.packet_loss_pct:.1f}% loss"
+                )
 
                 # Check for degradation
                 if metrics.packet_loss_pct > 5.0 or metrics.latency_ms > 100:
                     if self.status != ConnectionStatus.DEGRADED:
                         self.status = ConnectionStatus.DEGRADED
-                        logger.warning(f"⚠️  Network degraded: latency {metrics.latency_ms}ms, "
-                                     f"loss {metrics.packet_loss_pct}%")
+                        logger.warning(
+                            f"⚠️  Network degraded: latency {metrics.latency_ms}ms, "
+                            f"loss {metrics.packet_loss_pct}%"
+                        )
 
                 await asyncio.sleep(check_interval)
 
@@ -301,12 +322,18 @@ class NetworkResilienceLayer:
             # Ping test
             result = subprocess.run(
                 ["ping", "-c", "5", "-W", "1000", self.primary_host],
-                capture_output=True, text=True, timeout=10
+                capture_output=True,
+                text=True,
+                timeout=10,
             )
 
             # Parse ping output
-            lines = result.stdout.split('\n')
-            stats_line = [l for l in lines if 'min/avg/max/stddev' in l or '% packet loss' in l]
+            lines = result.stdout.split("\n")
+            stats_line = [
+                line
+                for line in lines
+                if "min/avg/max/stddev" in line or "% packet loss" in line
+            ]
 
             latency_ms = 0.0
             jitter_ms = 0.0
@@ -314,15 +341,15 @@ class NetworkResilienceLayer:
 
             if stats_line:
                 # macOS format: "min/avg/max/stddev = 12.345/15.678/20.123/2.456"
-                if 'min/avg/max/stddev' in stats_line[0]:
-                    parts = stats_line[0].split('=')[1].strip().split('/')
+                if "min/avg/max/stddev" in stats_line[0]:
+                    parts = stats_line[0].split("=")[1].strip().split("/")
                     latency_ms = float(parts[1])
                     jitter_ms = float(parts[3])
 
                 # Check for packet loss
                 for line in lines:
-                    if '% packet loss' in line:
-                        packet_loss_pct = float(line.split('%')[0].split()[-1])
+                    if "% packet loss" in line:
+                        packet_loss_pct = float(line.split("%")[0].split()[-1])
 
             bandwidth_mbps = await self._measure_bandwidth()
 
@@ -331,17 +358,23 @@ class NetworkResilienceLayer:
                 jitter_ms=jitter_ms,
                 packet_loss_pct=packet_loss_pct,
                 bandwidth_mbps=bandwidth_mbps,
-                connection_uptime_sec=self.ssh_tunnel.connection_uptime if self.ssh_tunnel else 0,
+                connection_uptime_sec=(
+                    self.ssh_tunnel.connection_uptime if self.ssh_tunnel else 0
+                ),
                 timestamp=time.time(),
-                mode=self.current_mode.value
+                mode=self.current_mode.value,
             )
 
         except Exception as e:
             logger.error(f"❌ Network measurement error: {e}")
             return NetworkMetrics(
-                latency_ms=0.0, jitter_ms=0.0, packet_loss_pct=0.0,
-                bandwidth_mbps=0.0, connection_uptime_sec=0.0,
-                timestamp=time.time(), mode=self.current_mode.value
+                latency_ms=0.0,
+                jitter_ms=0.0,
+                packet_loss_pct=0.0,
+                bandwidth_mbps=0.0,
+                connection_uptime_sec=0.0,
+                timestamp=time.time(),
+                mode=self.current_mode.value,
             )
 
     async def _measure_bandwidth(self) -> float:
@@ -349,10 +382,19 @@ class NetworkResilienceLayer:
         try:
             # Quick bandwidth test: send 1MB and measure time
             start = time.time()
-            result = subprocess.run(
-                ["ssh", "-p", "22", f"user@{self.primary_host}", "dd", "if=/dev/zero",
-                 "bs=1M", "count=10"],
-                capture_output=True, timeout=30
+            _result = subprocess.run(
+                [
+                    "ssh",
+                    "-p",
+                    "22",
+                    f"user@{self.primary_host}",
+                    "dd",
+                    "if=/dev/zero",
+                    "bs=1M",
+                    "count=10",
+                ],
+                capture_output=True,
+                timeout=30,
             )
             elapsed = time.time() - start
             if elapsed > 0:
@@ -367,7 +409,9 @@ class NetworkResilienceLayer:
         """Get current connection health status"""
         if self.metrics:
             recent = self.metrics[-1]
-            avg_latency = sum(m.latency_ms for m in self.metrics[-10:]) / len(self.metrics[-10:])
+            avg_latency = sum(m.latency_ms for m in self.metrics[-10:]) / len(
+                self.metrics[-10:]
+            )
             return {
                 "status": self.status.value,
                 "mode": self.current_mode.value,
@@ -376,7 +420,7 @@ class NetworkResilienceLayer:
                 "jitter_ms": recent.jitter_ms,
                 "packet_loss_pct": recent.packet_loss_pct,
                 "bandwidth_mbps": recent.bandwidth_mbps,
-                "uptime_sec": recent.connection_uptime_sec
+                "uptime_sec": recent.connection_uptime_sec,
             }
         return {"status": self.status.value, "mode": self.current_mode.value}
 
@@ -391,8 +435,7 @@ class NetworkResilienceLayer:
 async def main():
     """Example usage"""
     resilience = NetworkResilienceLayer(
-        primary_host="192.168.1.100",  # HP-OMEN
-        fallback_hosts=["vpn.backup.com"]
+        primary_host="192.168.1.100", fallback_hosts=["vpn.backup.com"]  # HP-OMEN
     )
 
     try:
@@ -404,7 +447,7 @@ async def main():
             await asyncio.gather(
                 resilience.ssh_tunnel.reconnect_loop(),
                 resilience.monitor_connection(),
-                return_exceptions=True
+                return_exceptions=True,
             )
         else:
             print("❌ Failed to establish connection")

@@ -15,11 +15,10 @@ Integrates:
 
 import asyncio
 import json
-import os
 import time
 from dataclasses import dataclass, asdict
 from enum import Enum
-from typing import Dict, List, Optional, Any
+from typing import Dict, Optional, Any
 import logging
 from pathlib import Path
 
@@ -29,21 +28,23 @@ logger = logging.getLogger(__name__)
 
 class SystemComponent(Enum):
     """Integrated system components"""
-    AEON = "aeon"                       # AI/ML training & inference
-    REPAIRROB = "repairrob"             # Robot repair AI
-    AUDIO_10CC = "audio_10cc"           # Audio processing
-    TUNNEL = "tunnel"                   # Network tunneling
-    INGESTION = "ingestion"             # Data ingestion pipeline
-    DISPLAY = "display"                 # Remote display
-    METRICS = "metrics"                 # Performance metrics
-    AUTH = "auth"                       # Authentication
-    FILE_SYNC = "file_sync"             # File synchronization
-    TRANSPORT = "transport"             # Secure transport
+
+    AEON = "aeon"  # AI/ML training & inference
+    REPAIRROB = "repairrob"  # Robot repair AI
+    AUDIO_10CC = "audio_10cc"  # Audio processing
+    TUNNEL = "tunnel"  # Network tunneling
+    INGESTION = "ingestion"  # Data ingestion pipeline
+    DISPLAY = "display"  # Remote display
+    METRICS = "metrics"  # Performance metrics
+    AUTH = "auth"  # Authentication
+    FILE_SYNC = "file_sync"  # File synchronization
+    TRANSPORT = "transport"  # Secure transport
 
 
 @dataclass
 class ComponentStatus:
     """Status of system component"""
+
     component: str
     status: str  # 'running', 'stopped', 'error', 'degraded'
     health_score: float  # 0-100
@@ -67,7 +68,7 @@ class AIEONBridge:
             uptime_sec=0.0,
             error_message=None,
             last_check=time.time(),
-            metrics={}
+            metrics={},
         )
 
     async def initialize(self) -> bool:
@@ -80,7 +81,7 @@ class AIEONBridge:
             if config_path.exists():
                 for config_file in config_path.glob("*.yaml"):
                     with open(config_file) as f:
-                        config = json.load(f)
+                        _config = json.load(f)
                         logger.info(f"  ✅ Loaded: {config_file.name}")
 
             # Start power management
@@ -107,7 +108,7 @@ class AIEONBridge:
             "config": config,
             "status": "queued",
             "created_at": time.time(),
-            "progress": 0.0
+            "progress": 0.0,
         }
         logger.info(f"📊 Training job submitted: {job_id}")
         return job_id
@@ -135,7 +136,7 @@ class RepairRobBridge:
             uptime_sec=0.0,
             error_message=None,
             last_check=time.time(),
-            metrics={}
+            metrics={},
         )
 
     async def initialize(self) -> bool:
@@ -170,7 +171,7 @@ class RepairRobBridge:
             return {
                 "damage_type": "mechanical",
                 "severity": "medium",
-                "repair_steps": ["calibrate", "replace_joint"]
+                "repair_steps": ["calibrate", "replace_joint"],
             }
         except Exception as e:
             logger.error(f"❌ Damage analysis failed: {e}")
@@ -189,7 +190,7 @@ class Audio10CCBridge:
             uptime_sec=0.0,
             error_message=None,
             last_check=time.time(),
-            metrics={}
+            metrics={},
         )
 
     async def initialize(self) -> bool:
@@ -236,7 +237,7 @@ class NOIZYLABTunnelBridge:
             uptime_sec=0.0,
             error_message=None,
             last_check=time.time(),
-            metrics={}
+            metrics={},
         )
 
     async def initialize(self) -> bool:
@@ -247,7 +248,7 @@ class NOIZYLABTunnelBridge:
             # Load tunnel configuration
             config_path = self.tunnel_path / "config.yml"
             if config_path.exists():
-                logger.info(f"  📝 Loaded tunnel config")
+                logger.info("  📝 Loaded tunnel config")
 
             # Initialize Gabriel agent
             logger.info("  🤝 Starting Gabriel agent...")
@@ -284,7 +285,7 @@ class UniversalIngestionBridge:
             uptime_sec=0.0,
             error_message=None,
             last_check=time.time(),
-            metrics={}
+            metrics={},
         )
 
     async def initialize(self) -> bool:
@@ -326,9 +327,15 @@ class UnifiedIntegrationBridge:
 
     async def initialize_all(self) -> Dict[str, bool]:
         """Initialize all integrated systems"""
-        logger.info("╔════════════════════════════════════════════════════════════════════════╗")
-        logger.info("║         🔗 INITIALIZING UNIFIED INTEGRATION BRIDGE 🔗                   ║")
-        logger.info("╚════════════════════════════════════════════════════════════════════════╝")
+        logger.info(
+            "╔════════════════════════════════════════════════════════════════════════╗"
+        )
+        logger.info(
+            "║         🔗 INITIALIZING UNIFIED INTEGRATION BRIDGE 🔗                   ║"
+        )
+        logger.info(
+            "╚════════════════════════════════════════════════════════════════════════╝"
+        )
         logger.info("")
 
         results = {}
@@ -356,26 +363,38 @@ class UnifiedIntegrationBridge:
 
         # Initialize TUNNEL
         logger.info("▶ [4/6] NOIZYLAB-TUNNEL Networking...")
-        tunnel_bridge = NOIZYLABTunnelBridge(self.projects_path / "NETWORK" / "NOIZYLAB-TUNNEL")
+        tunnel_bridge = NOIZYLABTunnelBridge(
+            self.projects_path / "NETWORK" / "NOIZYLAB-TUNNEL"
+        )
         results["tunnel"] = await tunnel_bridge.initialize()
         self.components["tunnel"] = tunnel_bridge
         logger.info("")
 
         # Initialize Ingestion
         logger.info("▶ [5/6] UNIVERSAL-INGESTION Pipeline...")
-        ingestion_bridge = UniversalIngestionBridge(self.projects_path / "DATA" / "UNIVERSAL-INGESTION")
+        ingestion_bridge = UniversalIngestionBridge(
+            self.projects_path / "DATA" / "UNIVERSAL-INGESTION"
+        )
         results["ingestion"] = await ingestion_bridge.initialize()
         self.components["ingestion"] = ingestion_bridge
         logger.info("")
 
         # Summary
-        logger.info("╔════════════════════════════════════════════════════════════════════════╗")
-        logger.info("║                    ✅ INTEGRATION COMPLETE                            ║")
-        logger.info("╚════════════════════════════════════════════════════════════════════════╝")
+        logger.info(
+            "╔════════════════════════════════════════════════════════════════════════╗"
+        )
+        logger.info(
+            "║                    ✅ INTEGRATION COMPLETE                            ║"
+        )
+        logger.info(
+            "╚════════════════════════════════════════════════════════════════════════╝"
+        )
         logger.info("")
 
         success_count = sum(1 for v in results.values() if v)
-        logger.info(f"✅ {success_count}/{len(results)} systems initialized successfully")
+        logger.info(
+            f"✅ {success_count}/{len(results)} systems initialized successfully"
+        )
         logger.info("")
 
         return results
@@ -387,7 +406,7 @@ class UnifiedIntegrationBridge:
         results = {
             "workflow_name": workflow_config.get("name"),
             "start_time": time.time(),
-            "steps": []
+            "steps": [],
         }
 
         for step in workflow_config.get("steps", []):
@@ -416,13 +435,15 @@ class UnifiedIntegrationBridge:
             else:
                 result = None
 
-            results["steps"].append({
-                "step": step_name,
-                "status": "complete" if result else "failed",
-                "result": result
-            })
+            results["steps"].append(
+                {
+                    "step": step_name,
+                    "status": "complete" if result else "failed",
+                    "result": result,
+                }
+            )
 
-            logger.info(f"    ✅ Complete")
+            logger.info("    ✅ Complete")
 
         results["end_time"] = time.time()
         results["duration_sec"] = results["end_time"] - results["start_time"]
@@ -431,10 +452,7 @@ class UnifiedIntegrationBridge:
 
     def get_system_status(self) -> Dict:
         """Get status of all integrated systems"""
-        status = {
-            "timestamp": time.time(),
-            "components": {}
-        }
+        status = {"timestamp": time.time(), "components": {}}
 
         for name, component in self.components.items():
             status["components"][name] = asdict(component.status)
@@ -461,16 +479,33 @@ async def main():
     bridge = UnifiedIntegrationBridge()
 
     # Initialize all systems
-    results = await bridge.initialize_all()
+    _results = await bridge.initialize_all()
 
     # Execute example workflow
     workflow = {
         "name": "Complete Analysis Workflow",
         "steps": [
-            {"name": "Detect Damage", "component": "repairrob", "operation": "analyze_damage", "image_path": "/path/to/image.png"},
-            {"name": "Process Audio", "component": "audio", "operation": "process_audio", "audio_data": b"...", "algorithm": "room_simulation"},
-            {"name": "Ingest Results", "component": "ingestion", "operation": "ingest_data", "data_source": "results", "format": "json"}
-        ]
+            {
+                "name": "Detect Damage",
+                "component": "repairrob",
+                "operation": "analyze_damage",
+                "image_path": "/path/to/image.png",
+            },
+            {
+                "name": "Process Audio",
+                "component": "audio",
+                "operation": "process_audio",
+                "audio_data": b"...",
+                "algorithm": "room_simulation",
+            },
+            {
+                "name": "Ingest Results",
+                "component": "ingestion",
+                "operation": "ingest_data",
+                "data_source": "results",
+                "format": "json",
+            },
+        ],
     }
 
     workflow_result = await bridge.execute_workflow(workflow)

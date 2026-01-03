@@ -13,7 +13,6 @@ Implements:
 """
 
 import asyncio
-import base64
 import hashlib
 import json
 import os
@@ -21,7 +20,6 @@ import secrets
 import subprocess
 import time
 from dataclasses import dataclass, asdict
-from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -34,25 +32,28 @@ logger = logging.getLogger(__name__)
 
 class AuthMethod(Enum):
     """Authentication methods"""
-    SSH_KEY = "ssh_key"               # SSH public key auth
-    PASSWORD = "password"              # Password-based
-    TOTP = "totp"                      # Time-based one-time password (2FA)
-    WEBAUTHN = "webauthn"              # Hardware key (FIDO2)
-    OAUTH2 = "oauth2"                  # OAuth 2.0 (GitHub, Google, etc)
-    API_KEY = "api_key"                # API key token
+
+    SSH_KEY = "ssh_key"  # SSH public key auth
+    PASSWORD = "password"  # Password-based
+    TOTP = "totp"  # Time-based one-time password (2FA)
+    WEBAUTHN = "webauthn"  # Hardware key (FIDO2)
+    OAUTH2 = "oauth2"  # OAuth 2.0 (GitHub, Google, etc)
+    API_KEY = "api_key"  # API key token
 
 
 class TokenType(Enum):
     """Token types"""
-    SESSION = "session"                # Session token (short-lived)
-    REFRESH = "refresh"                # Refresh token (long-lived)
-    API = "api"                        # API key token
-    OAUTH = "oauth"                    # OAuth token
+
+    SESSION = "session"  # Session token (short-lived)
+    REFRESH = "refresh"  # Refresh token (long-lived)
+    API = "api"  # API key token
+    OAUTH = "oauth"  # OAuth token
 
 
 @dataclass
 class Credential:
     """User credential"""
+
     username: str
     auth_method: str
     credential_data: str  # Encrypted
@@ -64,6 +65,7 @@ class Credential:
 @dataclass
 class APIKey:
     """API key for system-to-system auth"""
+
     key_id: str
     key_secret: str  # Hashed
     created_at: float
@@ -77,6 +79,7 @@ class APIKey:
 @dataclass
 class Token:
     """Authentication token"""
+
     token_id: str
     user_id: str
     token_type: str
@@ -97,23 +100,39 @@ class SecureCredentialStore:
         """Store credential in system keychain"""
         try:
             if self.system == "macOS":
-                subprocess.run([
-                    "security", "add-generic-password",
-                    "-s", service,
-                    "-a", account,
-                    "-w", password,
-                    "-U"
-                ], capture_output=True, check=True)
+                subprocess.run(
+                    [
+                        "security",
+                        "add-generic-password",
+                        "-s",
+                        service,
+                        "-a",
+                        account,
+                        "-w",
+                        password,
+                        "-U",
+                    ],
+                    capture_output=True,
+                    check=True,
+                )
                 logger.info(f"✅ Stored credential: {service}/{account}")
                 return True
             elif self.system == "Linux":
                 # Use Secret Service (systemd user session)
                 import gi
-                gi.require_version('Secret', '1')
+
+                gi.require_version("Secret", "1")
                 from gi.repository import Secret
+
                 attributes = {"service": service, "account": account}
-                Secret.password_store_sync(None, attributes, Secret.COLLECTION_DEFAULT,
-                                          f"{service}:{account}", password, None)
+                Secret.password_store_sync(
+                    None,
+                    attributes,
+                    Secret.COLLECTION_DEFAULT,
+                    f"{service}:{account}",
+                    password,
+                    None,
+                )
                 return True
         except Exception as e:
             logger.error(f"❌ Failed to store credential: {e}")
@@ -123,17 +142,27 @@ class SecureCredentialStore:
         """Retrieve credential from system keychain"""
         try:
             if self.system == "macOS":
-                result = subprocess.run([
-                    "security", "find-generic-password",
-                    "-s", service,
-                    "-a", account,
-                    "-w"
-                ], capture_output=True, text=True, check=True)
+                result = subprocess.run(
+                    [
+                        "security",
+                        "find-generic-password",
+                        "-s",
+                        service,
+                        "-a",
+                        account,
+                        "-w",
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=True,
+                )
                 return result.stdout.strip()
             elif self.system == "Linux":
                 import gi
-                gi.require_version('Secret', '1')
+
+                gi.require_version("Secret", "1")
                 from gi.repository import Secret
+
                 attributes = {"service": service, "account": account}
                 password = Secret.password_lookup_sync(None, attributes, None)
                 return password
@@ -145,11 +174,18 @@ class SecureCredentialStore:
         """Delete credential from keychain"""
         try:
             if self.system == "macOS":
-                subprocess.run([
-                    "security", "delete-generic-password",
-                    "-s", service,
-                    "-a", account
-                ], capture_output=True, check=True)
+                subprocess.run(
+                    [
+                        "security",
+                        "delete-generic-password",
+                        "-s",
+                        service,
+                        "-a",
+                        account,
+                    ],
+                    capture_output=True,
+                    check=True,
+                )
                 logger.info(f"✅ Deleted credential: {service}/{account}")
                 return True
         except Exception as e:
@@ -166,8 +202,9 @@ class APIKeyManager:
         self.keys: Dict[str, APIKey] = {}
         self._load_keys()
 
-    def generate_key(self, name: str, scopes: List[str], 
-                    system_id: str, expires_in_days: int = 365) -> Tuple[str, APIKey]:
+    def generate_key(
+        self, name: str, scopes: List[str], system_id: str, expires_in_days: int = 365
+    ) -> Tuple[str, APIKey]:
         """Generate new API key"""
         key_id = f"key_{secrets.token_hex(8)}"
         key_secret = secrets.token_urlsafe(32)
@@ -181,7 +218,7 @@ class APIKeyManager:
             scopes=scopes,
             name=name,
             last_used=0.0,
-            system_id=system_id
+            system_id=system_id,
         )
 
         self.keys[key_id] = api_key
@@ -258,7 +295,7 @@ class APIKeyManager:
         """Save API keys to storage"""
         try:
             data = {k: asdict(v) for k, v in self.keys.items()}
-            with open(self.storage_path, 'w') as f:
+            with open(self.storage_path, "w") as f:
                 json.dump(data, f, indent=2, default=str)
             # Secure file permissions
             os.chmod(self.storage_path, 0o600)
@@ -276,8 +313,14 @@ class TokenManager:
         self.tokens: Dict[str, Token] = {}
         self._load_tokens()
 
-    def create_token(self, user_id: str, token_type: str, scopes: List[str],
-                    system_id: str, expires_in_hours: int = 24) -> Tuple[str, Token]:
+    def create_token(
+        self,
+        user_id: str,
+        token_type: str,
+        scopes: List[str],
+        system_id: str,
+        expires_in_hours: int = 24,
+    ) -> Tuple[str, Token]:
         """Create new authentication token"""
         token_id = f"tok_{secrets.token_hex(8)}"
         token_value = secrets.token_urlsafe(32)
@@ -291,7 +334,7 @@ class TokenManager:
             created_at=time.time(),
             expires_at=time.time() + (expires_in_hours * 3600),
             scopes=scopes,
-            system_id=system_id
+            system_id=system_id,
         )
 
         self.tokens[token_id] = token
@@ -344,7 +387,7 @@ class TokenManager:
         """Save tokens to storage"""
         try:
             data = {k: asdict(v) for k, v in self.tokens.items()}
-            with open(self.storage_path, 'w') as f:
+            with open(self.storage_path, "w") as f:
                 json.dump(data, f, indent=2, default=str)
             os.chmod(self.storage_path, 0o600)
         except Exception as e:
@@ -360,7 +403,9 @@ class UnifiedAuthManager:
         self.api_key_manager = APIKeyManager()
         self.token_manager = TokenManager(secret_key=secrets.token_urlsafe(32))
 
-    async def authenticate_user(self, username: str, password: str) -> Optional[Tuple[str, Token]]:
+    async def authenticate_user(
+        self, username: str, password: str
+    ) -> Optional[Tuple[str, Token]]:
         """Authenticate user and create session token"""
         # Verify password (in real scenario, compare against stored hash)
         stored_pwd = self.credential_store.retrieve_credential("NOIZYLAB", username)
@@ -375,13 +420,15 @@ class UnifiedAuthManager:
             token_type=TokenType.SESSION.value,
             scopes=["read", "write"],
             system_id=self.system_id,
-            expires_in_hours=24
+            expires_in_hours=24,
         )
 
         logger.info(f"✅ User authenticated: {username}")
         return token_value, token
 
-    async def sync_credentials(self, remote_system_id: str, remote_endpoint: str) -> bool:
+    async def sync_credentials(
+        self, remote_system_id: str, remote_endpoint: str
+    ) -> bool:
         """Sync credentials with remote system"""
         try:
             # Get local credentials
@@ -389,14 +436,15 @@ class UnifiedAuthManager:
 
             # Send to remote
             import aiohttp
+
             async with aiohttp.ClientSession() as session:
                 async with session.post(
                     f"https://{remote_endpoint}/auth/sync",
                     json={
                         "system_id": self.system_id,
-                        "api_keys": [asdict(k) for k in local_api_keys]
+                        "api_keys": [asdict(k) for k in local_api_keys],
                     },
-                    timeout=aiohttp.ClientTimeout(total=10)
+                    timeout=aiohttp.ClientTimeout(total=10),
                 ) as resp:
                     if resp.status == 200:
                         logger.info(f"✅ Credentials synced with {remote_system_id}")
@@ -414,10 +462,20 @@ class UnifiedAuthManager:
         return {
             "system_id": self.system_id,
             "api_keys_count": len(self.api_key_manager.keys),
-            "active_tokens": len([t for t in self.token_manager.tokens.values()
-                                 if t.expires_at > time.time()]),
-            "expired_tokens": len([t for t in self.token_manager.tokens.values()
-                                  if t.expires_at <= time.time()])
+            "active_tokens": len(
+                [
+                    t
+                    for t in self.token_manager.tokens.values()
+                    if t.expires_at > time.time()
+                ]
+            ),
+            "expired_tokens": len(
+                [
+                    t
+                    for t in self.token_manager.tokens.values()
+                    if t.expires_at <= time.time()
+                ]
+            ),
         }
 
 
@@ -433,7 +491,7 @@ async def main():
         name="HP-OMEN Integration",
         scopes=["read:files", "write:files", "read:metrics"],
         system_id="m2",
-        expires_in_days=90
+        expires_in_days=90,
     )
     print(f"🔑 API Key: {key_secret}")
 
@@ -443,12 +501,12 @@ async def main():
         token_type=TokenType.SESSION.value,
         scopes=["read", "write"],
         system_id="m2",
-        expires_in_hours=24
+        expires_in_hours=24,
     )
     print(f"🎫 Session Token: {token_value}")
 
     # Validate token
-    token_id, token_secret = token_value.split(':')
+    token_id, token_secret = token_value.split(":")
     validated = auth.token_manager.validate_token(token_id, token_secret)
     print(f"✅ Token valid: {validated is not None}")
 
