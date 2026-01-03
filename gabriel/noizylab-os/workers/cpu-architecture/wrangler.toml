@@ -1,0 +1,57 @@
+name = "cpu-architecture-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+DEFAULT_ARCHITECTURE = "x86-64"
+ENABLE_DISASSEMBLY = "true"
+HISTORICAL_DATA_ENABLED = "true"
+
+[[kv_namespaces]]
+binding = "CPU_CACHE"
+id = "cpu_architecture_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[r2_buckets]]
+binding = "BINARIES_STORAGE"
+bucket_name = "noizylab-cpu-binaries"
+
+[[queues.producers]]
+queue = "cpu-analysis-queue"
+binding = "ANALYSIS_QUEUE"
+
+[[queues.consumers]]
+queue = "cpu-analysis-queue"
+max_batch_size = 5
+max_batch_timeout = 60
+
+[ai]
+binding = "AI"
+
+[observability]
+enabled = true
+
+# Production deployment
+[env.production]
+name = "cpu-architecture-worker"
+routes = [
+  { pattern = "api.noizylab.com/v1/cpu/*", zone_name = "noizylab.com" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+MAX_BINARY_SIZE = "10485760"
+INSTRUCTION_CACHE_TTL = "86400"
+
+# Staging environment
+[env.staging]
+name = "cpu-architecture-worker-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+ENABLE_DEBUG_LOGGING = "true"

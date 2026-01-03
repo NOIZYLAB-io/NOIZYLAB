@@ -1,0 +1,57 @@
+name = "automator-genius-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+DEFAULT_SHELL = "zsh"
+ENABLE_JXA = "true"
+WORKFLOW_LIBRARY_ENABLED = "true"
+
+[[kv_namespaces]]
+binding = "AUTOMATOR_CACHE"
+id = "automator_genius_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[r2_buckets]]
+binding = "WORKFLOWS_STORAGE"
+bucket_name = "noizylab-automator-workflows"
+
+[[queues.producers]]
+queue = "automation-queue"
+binding = "AUTOMATION_QUEUE"
+
+[[queues.consumers]]
+queue = "automation-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[ai]
+binding = "AI"
+
+[observability]
+enabled = true
+
+# Production deployment
+[env.production]
+name = "automator-genius-worker"
+routes = [
+  { pattern = "api.noizylab.com/v1/automator/*", zone_name = "noizylab.com" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+ENABLE_REMOTE_EXECUTION = "false"
+WORKFLOW_SHARING = "true"
+
+# Staging environment
+[env.staging]
+name = "automator-genius-worker-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+ENABLE_DEBUG_LOGGING = "true"

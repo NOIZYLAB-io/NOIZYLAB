@@ -1,0 +1,47 @@
+name = "computing-history-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "HISTORY_DB"
+database_name = "noizylab-computing-history"
+database_id = "computing-history-db-id"
+
+[[kv_namespaces]]
+binding = "HISTORY_CACHE"
+id = "computing-history-cache-id"
+
+[[r2_buckets]]
+binding = "HISTORY_STORAGE"
+bucket_name = "computing-history-storage"
+
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "HISTORY_VECTORS"
+index_name = "computing-history-index"
+
+# Queue for processing historical data research
+[[queues.producers]]
+queue = "history-research-queue"
+binding = "HISTORY_QUEUE"
+
+[[queues.consumers]]
+queue = "history-research-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[observability]
+enabled = true
+
+# Development environment
+[env.development]
+vars = { ENVIRONMENT = "development" }
+
+# Staging environment
+[env.staging]
+vars = { ENVIRONMENT = "staging" }

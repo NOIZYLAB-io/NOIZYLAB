@@ -1,0 +1,15 @@
+name = "network-protocols-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "NETWORK_DB"
+database_name = "noizylab-network-protocols"
+database_id = "network-protocols-db-id"
+
+[[kv_namespaces]]
+binding = "NETWORK_CACHE"
+id = "network-protocols-cache-id"
+
+[ai]
+binding = "AI"
