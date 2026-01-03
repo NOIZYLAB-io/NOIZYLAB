@@ -4,7 +4,7 @@
 // Zero dead ends: always falls back to a working mode
 // ═══════════════════════════════════════════════════════════════════════════
 
-import { WSClientMessage, WSServerMessage, LiveMode } from './types';
+import { WSClientMessage, WSServerMessage, LiveMode } from '../types';
 
 interface Session {
   ws: WebSocket;

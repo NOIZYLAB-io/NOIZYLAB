@@ -150,7 +150,14 @@ export function validateEmail(email: string): boolean {
 }
 
 export function sanitize(input: string, maxLength = 1000): string {
-  return input.trim().slice(0, maxLength);
+  // Trim, clamp length, and escape HTML to keep logs/emails safe
+  const trimmed = String(input ?? '').trim().slice(0, maxLength);
+  return trimmed
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 export function validatePhone(phone: string): boolean {

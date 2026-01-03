@@ -9,14 +9,15 @@ import { verifyAccess, generateId, generateJoinCode, addMinutes, now, json, erro
 import { logEvent, getTimeline } from '../lib/events';
 import { triageTicket, summarizeSession } from '../lib/ai';
 
-const app = new Hono<{ Bindings: Env }>();
+type StaffContext = { Bindings: Env; Variables: { staffEmail: string } };
+const app = new Hono<StaffContext>();
 
 // ───────────────────────────────────────────────────────────────────────────
 // Middleware: Verify Cloudflare Access
 // ───────────────────────────────────────────────────────────────────────────
 app.use('*', async (c, next) => {
   const { valid, email } = await verifyAccess(c.req.raw, c.env.ACCESS_AUD);
-  if (!valid) {
+  if (!valid || !email) {
     return unauthorized('Access denied. Staff login required.');
   }
   c.set('staffEmail', email);

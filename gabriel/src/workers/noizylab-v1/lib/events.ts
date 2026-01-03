@@ -81,6 +81,7 @@ export function formatPublicTimeline(events: Event[]): Array<{
   type: EventType;
   created_at: string;
   summary: string;
+  payload: unknown;
 }> {
   return events.map(event => {
     const payload = JSON.parse(event.payload_json);
@@ -128,6 +129,7 @@ export function formatPublicTimeline(events: Event[]): Array<{
       type: event.type,
       created_at: event.created_at,
       summary,
+      payload,
     };
   });
 }

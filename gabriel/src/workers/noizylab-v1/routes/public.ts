@@ -124,14 +124,19 @@ app.get('/status/:publicId', async (c) => {
 app.post('/upload', async (c) => {
   const formData = await c.req.formData();
   
-  const publicId = formData.get('publicId') as string;
-  const secret = formData.get('secret') as string;
-  const turnstileToken = formData.get('turnstile_token') as string;
-  const file = formData.get('file') as File;
+  const publicId = formData.get('publicId');
+  const secret = formData.get('secret');
+  const turnstileToken = formData.get('turnstile_token');
+  const fileEntry = formData.get('file');
   
-  if (!publicId || !secret || !turnstileToken || !file) {
+  if (typeof publicId !== 'string' || typeof secret !== 'string' || typeof turnstileToken !== 'string') {
     return error('Missing required fields');
   }
+
+  if (!fileEntry || typeof fileEntry === 'string') {
+    return error('Missing required fields');
+  }
+  const file = fileEntry as File;
   
   // Verify Turnstile
   const ip = c.req.header('CF-Connecting-IP');

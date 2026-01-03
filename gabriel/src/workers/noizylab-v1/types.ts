@@ -269,8 +269,9 @@ export interface StatusResponse {
   timeline: Array<{
     type: EventType;
     created_at: string;
-    payload: unknown;
-    // Redact internal details for public view
+    summary: string;
+    payload?: unknown;
+    // Public view: summary is the primary display field
   }>;
 }
 

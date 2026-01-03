@@ -5,6 +5,9 @@
 
 import { Env, AITriageResult, AISummaryResult, Persona, Tag, Playbook, PERSONA_NAMES, PLAYBOOK_NAMES } from '../types';
 
+// Workers AI type defs can lag model names; cast the canonical model id once.
+const LLAMA_INSTRUCT_MODEL = '@cf/meta/llama-3.1-8b-instruct' as unknown as keyof AiModels;
+
 // ───────────────────────────────────────────────────────────────────────────
 // AI Triage - Analyze ticket and assign persona/tags/playbook
 // ───────────────────────────────────────────────────────────────────────────
@@ -69,7 +72,7 @@ Respond in this exact JSON format:
 }`;
 
   try {
-    const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
+    const response = await ai.run(LLAMA_INSTRUCT_MODEL, {
       prompt,
       max_tokens: 500,
     }) as { response: string };
@@ -123,7 +126,7 @@ Respond in this exact JSON format:
 }`;
 
   try {
-    const response = await ai.run('@cf/meta/llama-3.1-8b-instruct', {
+    const response = await ai.run(LLAMA_INSTRUCT_MODEL, {
       prompt,
       max_tokens: 400,
     }) as { response: string };
