@@ -170,6 +170,9 @@ class SSHKeyManager:
         """Distribute public key to remote authorized_keys"""
         try:
             client = paramiko.SSHClient()
+            # SECURITY NOTE: Using AutoAddPolicy for development/first-time setup
+            # In production, use known_hosts file or WarningPolicy instead
+            # TODO: Replace with client.load_system_host_keys() or known_hosts validation
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             client.connect(remote_host, port=remote_port, username=remote_user)
 
@@ -221,6 +224,9 @@ class SSHTunnelManager:
         """Create SSH tunnel for port forwarding"""
         try:
             ssh_client = paramiko.SSHClient()
+            # SECURITY NOTE: Using AutoAddPolicy for development/first-time setup
+            # In production, use known_hosts file or WarningPolicy instead
+            # TODO: Replace with ssh_client.load_system_host_keys() or known_hosts validation
             ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
             # Connect

@@ -216,6 +216,9 @@ class SFTPSyncEngine:
         """Establish SSH connection to HP-OMEN"""
         try:
             self.ssh_client = paramiko.SSHClient()
+            # SECURITY NOTE: Using AutoAddPolicy for development/first-time setup
+            # In production, use known_hosts file or WarningPolicy instead
+            # TODO: Replace with ssh_client.load_system_host_keys() or known_hosts validation
             self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
             self.logger.info(
