@@ -6,9 +6,15 @@ Usage examples for all integrated systems
 """
 
 import asyncio
-from unified_integration_bridge import UnifiedIntegrationBridge, DisplayCodec
-from unified_remote_display import UnifiedRemoteDisplay
-from unified_performance_metrics import UnifiedMetricsCollector, BandwidthThrottler
+from src.integrations.unified_integration_bridge import (
+    UnifiedIntegrationBridge,
+    DisplayCodec,
+)
+from src.integrations.unified_remote_display import UnifiedRemoteDisplay
+from src.integrations.unified_performance_metrics import (
+    UnifiedMetricsCollector,
+    BandwidthThrottler,
+)
 
 # ═════════════════════════════════════════════════════════════════════════════
 # EXAMPLE 1: Initialize All Systems
