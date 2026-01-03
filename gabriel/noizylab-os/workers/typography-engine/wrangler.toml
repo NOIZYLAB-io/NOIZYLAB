@@ -1,0 +1,14 @@
+name = "noizylab-typography-engine"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+[ai]
+binding = "AI"
+[[d1_databases]]
+binding = "TYPOGRAPHY_DB"
+database_name = "typography-db"
+database_id = "typography-db-id"
+[[kv_namespaces]]
+binding = "TYPOGRAPHY_CACHE"
+id = "typography-cache-id"
+[vars]
+WORKER_NAME = "typography-engine"

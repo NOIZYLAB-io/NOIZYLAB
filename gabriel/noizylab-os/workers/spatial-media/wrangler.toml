@@ -1,0 +1,14 @@
+name = "noizylab-spatial-media"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+[ai]
+binding = "AI"
+[[d1_databases]]
+binding = "SPATIAL_DB"
+database_name = "spatial-db"
+database_id = "spatial-db-id"
+[[kv_namespaces]]
+binding = "SPATIAL_CACHE"
+id = "spatial-cache-id"
+[vars]
+WORKER_NAME = "spatial-media"

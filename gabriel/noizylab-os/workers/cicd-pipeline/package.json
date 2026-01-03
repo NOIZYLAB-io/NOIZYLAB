@@ -1,0 +1,19 @@
+{
+  "name": "cicd-pipeline-worker",
+  "version": "1.0.0",
+  "description": "NoizyLab OS CI/CD Pipeline Worker - GitHub Actions, Jenkins, GitLab CI Expert",
+  "main": "worker.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.24.0"
+  }
+}

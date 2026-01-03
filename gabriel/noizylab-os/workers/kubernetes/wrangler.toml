@@ -1,0 +1,13 @@
+name = "kubernetes-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[ai]
+binding = "AI"
+
+[[kv_namespaces]]
+binding = "K8S_KV"
+id = "your-kv-namespace-id"
+
+[vars]
+ENVIRONMENT = "production"

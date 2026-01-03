@@ -2460,6 +2460,533 @@ program
     console.log(JSON.stringify(out, null, 2));
   });
 
+// ═══════════════════════════════════════════════════════════════════
+// ROUND 4: MEDIA & CREATIVE LEGENDS
+// ═══════════════════════════════════════════════════════════════════
+
+// Video Codec
+program
+  .command("video:codecs")
+  .description("List video codecs (H.264, H.265, AV1, VP9, ProRes)")
+  .option("--codec <id>", "Get specific codec info")
+  .action(async (opt) => {
+    const path = opt.codec ? `/codecs/${opt.codec}` : "/codecs";
+    console.log(`🎬 Querying Video Codec Worker...`);
+    const out = await http({ path, baseUrl: process.env.VIDEO_CODEC_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("video:openh264")
+  .description("Get OpenH264 v2.6.0 information and binaries")
+  .action(async () => {
+    console.log(`📦 Fetching OpenH264 v2.6.0 info...`);
+    const out = await http({ path: "/openh264", baseUrl: process.env.VIDEO_CODEC_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("video:calculate")
+  .description("Calculate video encoding parameters")
+  .option("--width <w>", "1920")
+  .option("--height <h>", "1080")
+  .option("--fps <fps>", "30")
+  .option("--codec <codec>", "h264")
+  .option("--quality <q>", "high")
+  .action(async (opt) => {
+    console.log(`🧮 Calculating video encoding parameters...`);
+    const out = await http({
+      method: "POST",
+      path: "/calculate",
+      baseUrl: process.env.VIDEO_CODEC_WORKER_URL,
+      json: { width: parseInt(opt.width || '1920'), height: parseInt(opt.height || '1080'), fps: parseInt(opt.fps || '30'), codec: opt.codec || 'h264', quality: opt.quality || 'high' }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("video:ask")
+  .description("Ask AI about video codecs and encoding")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Video Codec AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.VIDEO_CODEC_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Audio Engine
+program
+  .command("audio:codecs")
+  .description("List audio codecs (AAC, MP3, Opus, FLAC, etc.)")
+  .option("--codec <id>", "Get specific codec info")
+  .action(async (opt) => {
+    const path = opt.codec ? `/codecs/${opt.codec}` : "/codecs";
+    console.log(`🎵 Querying Audio Engine Worker...`);
+    const out = await http({ path, baseUrl: process.env.AUDIO_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("audio:daws")
+  .description("List DAWs (Pro Tools, Logic, Ableton, etc.)")
+  .action(async () => {
+    console.log(`🎛️ Fetching DAW information...`);
+    const out = await http({ path: "/daws", baseUrl: process.env.AUDIO_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("audio:effects")
+  .description("List audio effects by category")
+  .option("--category <cat>", "dynamics|eq|time|distortion|modulation|pitch|spatial")
+  .action(async (opt) => {
+    const path = opt.category ? `/effects?category=${opt.category}` : "/effects";
+    console.log(`🎚️ Fetching audio effects...`);
+    const out = await http({ path, baseUrl: process.env.AUDIO_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("audio:ask")
+  .description("Ask AI about audio engineering")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Audio Engine AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.AUDIO_ENGINE_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Image Pipeline
+program
+  .command("image:formats")
+  .description("List image formats (JPEG, PNG, WebP, AVIF, HEIC, etc.)")
+  .option("--format <id>", "Get specific format info")
+  .action(async (opt) => {
+    const path = opt.format ? `/formats/${opt.format}` : "/formats";
+    console.log(`🖼️ Querying Image Pipeline Worker...`);
+    const out = await http({ path, baseUrl: process.env.IMAGE_PIPELINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("image:colorspaces")
+  .description("Get color space information (sRGB, P3, Adobe RGB, etc.)")
+  .action(async () => {
+    console.log(`🎨 Fetching color space info...`);
+    const out = await http({ path: "/colorspaces", baseUrl: process.env.IMAGE_PIPELINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("image:optimize")
+  .description("Get image optimization recommendations")
+  .option("--usecase <use>", "web|social|print|email")
+  .action(async (opt) => {
+    console.log(`⚡ Getting optimization recommendations...`);
+    const out = await http({
+      method: "POST",
+      path: "/optimize",
+      baseUrl: process.env.IMAGE_PIPELINE_WORKER_URL,
+      json: { useCase: opt.usecase || 'web' }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("image:ask")
+  .description("Ask AI about image processing")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Image Pipeline AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.IMAGE_PIPELINE_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// 3D Graphics
+program
+  .command("3d:formats")
+  .description("List 3D file formats (glTF, FBX, OBJ, USD, STL)")
+  .action(async () => {
+    console.log(`🎮 Querying 3D Graphics Worker...`);
+    const out = await http({ path: "/formats", baseUrl: process.env.GRAPHICS_3D_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("3d:engines")
+  .description("List game engines (Unity, Unreal, Godot, Three.js)")
+  .action(async () => {
+    console.log(`🎯 Fetching game engine info...`);
+    const out = await http({ path: "/engines", baseUrl: process.env.GRAPHICS_3D_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("3d:apis")
+  .description("List graphics APIs (WebGL, WebGPU, Vulkan, Metal, DirectX)")
+  .action(async () => {
+    console.log(`🔧 Fetching graphics APIs...`);
+    const out = await http({ path: "/apis", baseUrl: process.env.GRAPHICS_3D_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("3d:ask")
+  .description("Ask AI about 3D graphics")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking 3D Graphics AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.GRAPHICS_3D_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Streaming Media
+program
+  .command("stream:protocols")
+  .description("List streaming protocols (HLS, DASH, WebRTC, RTMP, SRT)")
+  .option("--protocol <id>", "Get specific protocol info")
+  .action(async (opt) => {
+    const path = opt.protocol ? `/protocols/${opt.protocol}` : "/protocols";
+    console.log(`📡 Querying Streaming Media Worker...`);
+    const out = await http({ path, baseUrl: process.env.STREAMING_MEDIA_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("stream:cdn")
+  .description("List CDN providers (Cloudflare, Mux, AWS, Akamai)")
+  .action(async () => {
+    console.log(`🌐 Fetching CDN providers...`);
+    const out = await http({ path: "/cdn", baseUrl: process.env.STREAMING_MEDIA_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("stream:drm")
+  .description("Get DRM system information (Widevine, FairPlay, PlayReady)")
+  .action(async () => {
+    console.log(`🔐 Fetching DRM info...`);
+    const out = await http({ path: "/drm", baseUrl: process.env.STREAMING_MEDIA_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("stream:ask")
+  .description("Ask AI about streaming media")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Streaming Media AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.STREAMING_MEDIA_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Creative AI
+program
+  .command("creative:image")
+  .description("List AI image generators (DALL-E, Midjourney, Stable Diffusion)")
+  .action(async () => {
+    console.log(`🎨 Querying Creative AI Worker...`);
+    const out = await http({ path: "/image", baseUrl: process.env.CREATIVE_AI_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("creative:music")
+  .description("List AI music generators (Suno, Udio, MusicGen)")
+  .action(async () => {
+    console.log(`🎵 Fetching AI music generators...`);
+    const out = await http({ path: "/music", baseUrl: process.env.CREATIVE_AI_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("creative:video")
+  .description("List AI video generators (Sora, Runway, Pika)")
+  .action(async () => {
+    console.log(`🎬 Fetching AI video generators...`);
+    const out = await http({ path: "/video", baseUrl: process.env.CREATIVE_AI_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("creative:voice")
+  .description("List AI voice generators (ElevenLabs, Resemble)")
+  .action(async () => {
+    console.log(`🎙️ Fetching AI voice generators...`);
+    const out = await http({ path: "/voice", baseUrl: process.env.CREATIVE_AI_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("creative:prompts")
+  .description("Get prompt engineering tips")
+  .option("--type <type>", "image|music|video")
+  .action(async (opt) => {
+    const path = opt.type ? `/prompts?type=${opt.type}` : "/prompts";
+    console.log(`✍️ Fetching prompt tips...`);
+    const out = await http({ path, baseUrl: process.env.CREATIVE_AI_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("creative:ask")
+  .description("Ask AI about generative AI tools")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Creative AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.CREATIVE_AI_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Animation Engine
+program
+  .command("anim:software")
+  .description("List animation software (After Effects, Maya, Blender)")
+  .option("--type <type>", "2d|3d|web")
+  .action(async (opt) => {
+    const path = opt.type ? `/software?type=${opt.type}` : "/software";
+    console.log(`🎬 Querying Animation Engine Worker...`);
+    const out = await http({ path, baseUrl: process.env.ANIMATION_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("anim:principles")
+  .description("Get Disney's 12 principles of animation")
+  .action(async () => {
+    console.log(`🎭 Fetching animation principles...`);
+    const out = await http({ path: "/principles", baseUrl: process.env.ANIMATION_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("anim:easing")
+  .description("Get easing function reference")
+  .action(async () => {
+    console.log(`📈 Fetching easing functions...`);
+    const out = await http({ path: "/easing", baseUrl: process.env.ANIMATION_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("anim:ask")
+  .description("Ask AI about animation")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Animation Engine AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.ANIMATION_ENGINE_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Color Science
+program
+  .command("color:spaces")
+  .description("Get color space information (sRGB, P3, Rec.2020, ACES)")
+  .action(async () => {
+    console.log(`🌈 Querying Color Science Worker...`);
+    const out = await http({ path: "/spaces", baseUrl: process.env.COLOR_SCIENCE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("color:hdr")
+  .description("Get HDR format comparison (HDR10, HDR10+, Dolby Vision, HLG)")
+  .action(async () => {
+    console.log(`✨ Fetching HDR formats...`);
+    const out = await http({ path: "/hdr", baseUrl: process.env.COLOR_SCIENCE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("color:harmony")
+  .description("Get color harmony types")
+  .action(async () => {
+    console.log(`🎨 Fetching color harmony...`);
+    const out = await http({ path: "/harmony", baseUrl: process.env.COLOR_SCIENCE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("color:convert")
+  .description("Convert colors between formats")
+  .requiredOption("--color <hex>", "Hex color (e.g., #FF5733)")
+  .action(async (opt) => {
+    console.log(`🔄 Converting color...`);
+    const out = await http({
+      method: "POST",
+      path: "/convert",
+      baseUrl: process.env.COLOR_SCIENCE_WORKER_URL,
+      json: { color: opt.color }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("color:ask")
+  .description("Ask AI about color science")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Color Science AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.COLOR_SCIENCE_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Typography Engine
+program
+  .command("type:formats")
+  .description("Get font format information (WOFF2, OTF, TTF, Variable)")
+  .action(async () => {
+    console.log(`🔤 Querying Typography Engine Worker...`);
+    const out = await http({ path: "/formats", baseUrl: process.env.TYPOGRAPHY_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("type:classifications")
+  .description("Get type classifications (Serif, Sans, Mono, Display)")
+  .action(async () => {
+    console.log(`📝 Fetching type classifications...`);
+    const out = await http({ path: "/classifications", baseUrl: process.env.TYPOGRAPHY_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("type:scales")
+  .description("Get typography scale information")
+  .option("--scale <name>", "minor-third|major-third|perfect-fourth|golden-ratio")
+  .option("--base <size>", "16")
+  .action(async (opt) => {
+    const path = `/scales?scale=${opt.scale || 'major-third'}&base=${opt.base || '16'}`;
+    console.log(`📐 Fetching typography scale...`);
+    const out = await http({ path, baseUrl: process.env.TYPOGRAPHY_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("type:pairings")
+  .description("Get font pairing recommendations")
+  .action(async () => {
+    console.log(`👯 Fetching font pairings...`);
+    const out = await http({ path: "/pairings", baseUrl: process.env.TYPOGRAPHY_ENGINE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("type:ask")
+  .description("Ask AI about typography")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Typography Engine AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.TYPOGRAPHY_ENGINE_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Spatial Media (VR/AR)
+program
+  .command("xr:vr")
+  .description("List VR headsets (Quest 3, Vision Pro, Index)")
+  .action(async () => {
+    console.log(`🥽 Querying Spatial Media Worker...`);
+    const out = await http({ path: "/vr", baseUrl: process.env.SPATIAL_MEDIA_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("xr:ar")
+  .description("List AR platforms (ARKit, ARCore, WebXR)")
+  .action(async () => {
+    console.log(`📱 Fetching AR platforms...`);
+    const out = await http({ path: "/ar", baseUrl: process.env.SPATIAL_MEDIA_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("xr:frameworks")
+  .description("List XR development frameworks (Unity XR, A-Frame)")
+  .action(async () => {
+    console.log(`🔧 Fetching XR frameworks...`);
+    const out = await http({ path: "/frameworks", baseUrl: process.env.SPATIAL_MEDIA_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("xr:360video")
+  .description("Get 360 video specifications and cameras")
+  .action(async () => {
+    console.log(`📷 Fetching 360 video specs...`);
+    const out = await http({ path: "/360video", baseUrl: process.env.SPATIAL_MEDIA_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("xr:audio")
+  .description("Get spatial audio information (Ambisonics, binaural)")
+  .action(async () => {
+    console.log(`🔊 Fetching spatial audio info...`);
+    const out = await http({ path: "/spatial-audio", baseUrl: process.env.SPATIAL_MEDIA_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("xr:ask")
+  .description("Ask AI about VR/AR/spatial media")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Spatial Media AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ask",
+      baseUrl: process.env.SPATIAL_MEDIA_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
 // Universal Knowledge Query - Ask any worker
 program
   .command("ask")
@@ -2478,7 +3005,7 @@ program
 // Worker Status
 program
   .command("workers:status")
-  .description("Get status of all 57 workers")
+  .description("Get status of all 67 workers")
   .action(async () => {
     console.log(`📊 Checking NoizyLab OS Worker Status...`);
     const out = await http({ path: "/workers/status" });

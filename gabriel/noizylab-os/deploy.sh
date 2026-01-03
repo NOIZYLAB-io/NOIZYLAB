@@ -125,6 +125,20 @@ WORKERS=(
   "display-technology:$WORKERS_DIR/display-technology"           # CRT to microLED
   
   # ═══════════════════════════════════════════════════════════════════
+  # GENIUS AI WORKERS - ROUND 4 - Media & Creative Legends
+  # ═══════════════════════════════════════════════════════════════════
+  "video-codec:$WORKERS_DIR/video-codec"                         # H.264/H.265/AV1, OpenH264 v2.6.0
+  "audio-engine:$WORKERS_DIR/audio-engine"                       # Audio codecs, DAWs, effects
+  "image-pipeline:$WORKERS_DIR/image-pipeline"                   # Image formats, processing
+  "3d-graphics:$WORKERS_DIR/3d-graphics"                         # glTF, game engines, WebGL
+  "streaming-media:$WORKERS_DIR/streaming-media"                 # HLS/DASH/WebRTC streaming
+  "creative-ai:$WORKERS_DIR/creative-ai"                         # DALL-E, Midjourney, Suno AI
+  "animation-engine:$WORKERS_DIR/animation-engine"               # Motion graphics, principles
+  "color-science:$WORKERS_DIR/color-science"                     # Color grading, HDR, LUTs
+  "typography-engine:$WORKERS_DIR/typography-engine"             # Fonts, type, layout
+  "spatial-media:$WORKERS_DIR/spatial-media"                     # VR/AR, 360 video, WebXR
+  
+  # ═══════════════════════════════════════════════════════════════════
   # ORCHESTRATION LAYER (depends on ALL above)
   # ═══════════════════════════════════════════════════════════════════
   "ai-supervisor:$WORKERS_DIR/ai-supervisor"   # Meta-AI orchestrator

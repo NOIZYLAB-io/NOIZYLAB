@@ -1,6 +1,7 @@
 # ████ NOIZYLAB OS ████
 
 ## 🔧 Omni-Sovereign AI-Powered Hardware Restoration Platform
+## 🎬 Featuring 67 AI Workers Across 4 Rounds of Innovation
 
 <p align="center">
   <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?style=for-the-badge&logo=cloudflare" alt="Cloudflare Workers"/>
