@@ -125,3 +125,7 @@ gabriel/vault/artifacts/manifests/FISHNET_MANIFEST.json
 **/*MANIFEST*.json
 MC96/
 GLOBAL_HARVEST*/
+*.db
+CODEMASTER/HarvestedCode/
+CODEMASTER/data/harvest/
+_HARVEST/
