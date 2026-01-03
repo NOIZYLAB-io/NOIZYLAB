@@ -14,7 +14,9 @@
 # @raycast.description Add a quick note with timestamp
 # @raycast.author NOIZYLAB
 
-notes_file="$HOME/.notes"
+notes_dir="${XDG_CONFIG_HOME:-$HOME/.config}/notes"
+mkdir -p "$notes_dir"
+notes_file="$notes_dir/notes.txt"
 timestamp=$(date '+%Y-%m-%d %H:%M')
 
 echo "[$timestamp] $1" >> "$notes_file"
