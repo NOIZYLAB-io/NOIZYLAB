@@ -1,0 +1,23 @@
+name = "churn-prediction-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "CHURN_KV"
+id = "churn_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[ai]
+binding = "AI"
+
+[vars]
+ENVIRONMENT = "production"
+CHURN_THRESHOLD_CRITICAL = "0.75"
+CHURN_THRESHOLD_HIGH = "0.5"
+CHURN_THRESHOLD_MEDIUM = "0.25"
+RETENTION_ACTION_COOLDOWN_DAYS = "14"
+WINBACK_MAX_DAYS = "180"

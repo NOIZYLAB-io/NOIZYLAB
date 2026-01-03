@@ -1,0 +1,20 @@
+name = "anomaly-detection-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "ANOMALY_KV"
+id = "anomaly_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[vars]
+ENVIRONMENT = "production"
+Z_SCORE_THRESHOLD = "3.0"
+IQR_MULTIPLIER = "1.5"
+ISOLATION_FOREST_CONTAMINATION = "0.05"
+BASELINE_WINDOW_HOURS = "168"
+ALERT_COOLDOWN_MINUTES = "15"

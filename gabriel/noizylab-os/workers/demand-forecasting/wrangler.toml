@@ -1,0 +1,23 @@
+name = "demand-forecasting-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "FORECAST_KV"
+id = "forecast_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[ai]
+binding = "AI"
+
+[vars]
+ENVIRONMENT = "production"
+DEFAULT_FORECAST_HORIZON = "30"
+MIN_DATA_POINTS = "30"
+DEFAULT_SERVICE_LEVEL = "0.95"
+REORDER_LEAD_TIME_DAYS = "7"
+SEASONALITY_MIN_STRENGTH = "0.1"

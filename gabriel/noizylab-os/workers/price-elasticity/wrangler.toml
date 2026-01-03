@@ -1,0 +1,22 @@
+name = "price-elasticity-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "PRICING_KV"
+id = "pricing_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[ai]
+binding = "AI"
+
+[vars]
+ENVIRONMENT = "production"
+DEFAULT_ELASTICITY = "-1.5"
+PRICE_CHANGE_THRESHOLD = "0.05"
+EXPERIMENT_MIN_SAMPLE = "100"
+COMPETITOR_CHECK_INTERVAL = "3600"

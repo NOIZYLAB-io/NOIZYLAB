@@ -1,0 +1,31 @@
+name = "noizylab-sentiment-analysis"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-main"
+database_id = "your-d1-database-id"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "your-kv-namespace-id"
+
+[[vectorize]]
+binding = "SENTIMENT_INDEX"
+index_name = "sentiment-patterns"
+
+[[queues.producers]]
+queue = "sentiment-alerts-queue"
+binding = "ALERTS_QUEUE"
+
+[ai]
+binding = "AI"
+
+# Routes
+[[routes]]
+pattern = "sentiment.noizylab.com/*"
+zone_name = "noizylab.com"
