@@ -557,15 +557,17 @@ class UnifiedMetricsCollector:
 
         # Check gRPC latency
         grpc_summary = self.get_grpc_summary()
-        if grpc_summary.get("avg_latency_ms", 0) > 100:
-            recommendations.append(
-                {
-                    "component": "gRPC",
-                    "severity": "warning",
-                    "message": f"High gRPC latency: {grpc_summary['avg_latency_ms']:.1f}ms. Consider increasing thread pool size.",
-                    "recommended_action": "Increase gRPC max concurrent streams",
-                }
-            )
+        for method_name, stats in grpc_summary.items():
+            avg_latency = stats.get("avg_latency_ms", 0)
+            if avg_latency > 100:
+                recommendations.append(
+                    {
+                        "component": "gRPC",
+                        "severity": "warning",
+                        "message": f"High gRPC latency for {method_name}: {avg_latency:.1f}ms. Consider increasing thread pool size.",
+                        "recommended_action": "Increase gRPC max concurrent streams",
+                    }
+                )
 
         # Check file sync throughput
         file_sync_summary = self.get_file_sync_summary()

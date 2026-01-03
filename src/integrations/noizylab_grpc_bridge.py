@@ -254,8 +254,9 @@ class NoizyGridRPCService:
         logger.info(f"Sending prompt to AI agent:\n{prompt}")
 
         # TODO: Integrate with LiteLLM for actual AI call
-        # For now, return a mock decision
-        return "Execute on current node (HP-Omen has appropriate capabilities)"
+        raise NotImplementedError(
+            "AI decision making not yet implemented. Configure LiteLLM integration."
+        )
 
     async def _execute_windows_diagnostic(self, payload: str) -> str:
         """Execute Windows diagnostic command via WinRM"""

@@ -78,7 +78,16 @@ class FileChangeType(Enum):
 
 @dataclass
 class FileChange:
-    """Represents a file change"""
+    """Represents a file change detected during synchronization.
+
+    Attributes:
+        change_type: Type of change (created, modified, deleted, moved)
+        local_path: Absolute path to file on local filesystem
+        remote_path: Path to file on remote system (relative to remote_base)
+        timestamp: When the change was detected
+        size: File size in bytes (0 for deleted files)
+        checksum: File checksum for change detection (empty for deleted files)
+    """
 
     change_type: FileChangeType
     local_path: str

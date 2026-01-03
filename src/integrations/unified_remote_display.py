@@ -166,8 +166,9 @@ class ScreenCaptureEngine:
     ) -> bytes:
         """Capture and encode frame as H.264"""
         # TODO: Implement H.264 encoding using ffmpeg or hardware encoder
-        # For now, return placeholder
-        return b"H264_FRAME_DATA"
+        raise NotImplementedError(
+            "H.264 encoding not yet implemented. Use JPEG codec for now."
+        )
 
     async def _capture_vp9(
         self,
@@ -181,7 +182,9 @@ class ScreenCaptureEngine:
         # TODO: Implement VP9 encoding using ffmpeg
         # VP9 provides ~35% smaller files than H.264
         # Example: ffmpeg -f x11grab -i :0.0 -c:v libvpx-vp9 -crf 30 frame.vp9
-        return b"VP9_FRAME_DATA"
+        raise NotImplementedError(
+            "VP9 encoding not yet implemented. Use JPEG codec for now."
+        )
 
     async def _capture_h265(
         self,
@@ -194,7 +197,9 @@ class ScreenCaptureEngine:
         """Capture and encode frame as H.265/HEVC"""
         # H.265 provides ~50% smaller files than H.264 (best compression)
         # Example: ffmpeg -f x11grab -i :0.0 -c:v libx265 -crf 28 frame.h265
-        return b"H265_FRAME_DATA"
+        raise NotImplementedError(
+            "H.265 encoding not yet implemented. Use JPEG codec for now."
+        )
 
     async def _capture_mjpeg(
         self,

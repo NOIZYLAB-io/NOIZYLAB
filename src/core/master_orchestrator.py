@@ -405,43 +405,17 @@ class NOIZYLABMasterOrchestrator:
             )
         )
 
-        try:
-            # TODO: Implement task execution pipeline
-            # 1. Check auth token validity
-            # 2. Select node (AI routing or explicit target)
-            # 3. Send via gRPC
-            # 4. Monitor progress
-            # 5. Record metrics
+        # TODO: Implement task execution pipeline
+        # 1. Check auth token validity
+        # 2. Select node (AI routing or explicit target)
+        # 3. Send via gRPC
+        # 4. Monitor progress
+        # 5. Record metrics
 
-            result = {"task_id": task_id, "status": "completed", "result": {}}
-
-            # Publish completion event
-            await self.event_bus.publish(
-                Event(
-                    event_id=str(uuid.uuid4()),
-                    event_type=EventType.TASK_COMPLETED,
-                    source_node="Orchestrator",
-                    timestamp=datetime.now(),
-                    data={"task_id": task_id, "result": result},
-                )
-            )
-
-            return result
-
-        except Exception as e:
-            self.logger.error(f"❌ Task {task_id} failed: {e}")
-
-            await self.event_bus.publish(
-                Event(
-                    event_id=str(uuid.uuid4()),
-                    event_type=EventType.TASK_FAILED,
-                    source_node="Orchestrator",
-                    timestamp=datetime.now(),
-                    data={"task_id": task_id, "error": str(e)},
-                )
-            )
-
-            raise
+        raise NotImplementedError(
+            "Task execution pipeline not yet fully implemented. "
+            "Configure gRPC bridge and authentication first."
+        )
 
     # ─────────────────────────────────────────────────────────────────────
     # Health Monitoring
