@@ -22,20 +22,46 @@ The **xenodochial-almeida** branch contains the **complete unified integration i
 
 ---
 
+## 📁 Repository Structure
+
+All NOIZYLAB code and resources are organized in the `NOIZYLAB/` folder:
+
+```
+NOIZYLAB/
+├── src/                  # Python source files
+├── scripts/              # Shell/PowerShell scripts
+├── docs/                 # Documentation
+├── config/               # Configuration files
+├── proto/                # Protocol buffer definitions
+├── workers/              # Cloudflare Workers
+├── ui/                   # UI components
+├── data/                 # Data files
+├── AGENTS/               # AI agents
+├── PROJECTS/             # Project files
+├── Code_Universe/        # Code universe resources
+├── DREAMCHAMBER/         # Dream chamber workspace
+├── gabriel/              # Gabriel subsystem
+└── unity/                # Unity assets
+```
+
+---
+
 ## 🚀 Quick Start
 
 ### Read the Docs
-- **[INTEGRATION_COMPLETION_REPORT.md](./INTEGRATION_COMPLETION_REPORT.md)** - Comprehensive guide
-- **[QUICK_START_EXAMPLES.py](./QUICK_START_EXAMPLES.py)** - 9 runnable examples
+- **[NOIZYLAB/docs/INTEGRATION_COMPLETION_REPORT.md](./NOIZYLAB/docs/INTEGRATION_COMPLETION_REPORT.md)** - Comprehensive guide
+- **[NOIZYLAB/src/QUICK_START_EXAMPLES.py](./NOIZYLAB/src/QUICK_START_EXAMPLES.py)** - 9 runnable examples
 
 ### Run Examples
 ```python
-python QUICK_START_EXAMPLES.py
+python NOIZYLAB/src/QUICK_START_EXAMPLES.py
 ```
 
 ### Initialize System
 ```python
 import asyncio
+import sys
+sys.path.insert(0, 'NOIZYLAB/src')
 from unified_integration_bridge import UnifiedIntegrationBridge
 
 async def main():
@@ -52,12 +78,12 @@ asyncio.run(main())
 
 | Module | Lines | Purpose |
 |--------|-------|---------|
-| **unified_integration_bridge.py** | 1,000+ | Master orchestrator for all systems |
-| **secure_transport_layer.py** | 700+ | SSH tunneling + VPN fallback + Network resilience |
-| **unified_auth_system.py** | 550+ | Keychain integration + API keys + Token management |
-| **unified_file_sync.py** | 600+ | Bidirectional sync + Conflict resolution |
-| **unified_remote_display.py** | 600+ | Remote display + H.265 codec + Window sharing |
-| **unified_performance_metrics.py** | 700+ | Metrics collection + Bandwidth throttling + Optimization |
+| **NOIZYLAB/src/unified_integration_bridge.py** | 1,000+ | Master orchestrator for all systems |
+| **NOIZYLAB/src/secure_transport_layer.py** | 700+ | SSH tunneling + VPN fallback + Network resilience |
+| **NOIZYLAB/src/unified_auth_system.py** | 550+ | Keychain integration + API keys + Token management |
+| **NOIZYLAB/src/unified_file_sync.py** | 600+ | Bidirectional sync + Conflict resolution |
+| **NOIZYLAB/src/unified_remote_display.py** | 600+ | Remote display + H.265 codec + Window sharing |
+| **NOIZYLAB/src/unified_performance_metrics.py** | 700+ | Metrics collection + Bandwidth throttling + Optimization |
 
 ---
 
@@ -69,7 +95,6 @@ asyncio.run(main())
 ✅ **Remote Display** - H.264/VP9/H.265 codecs + Window sharing + Annotations  
 ✅ **Performance Monitoring** - Real-time metrics + Bandwidth throttling + Recommendations  
 ✅ **System Integration** - AEON, RepairRob, 10CC, TUNNEL, INGESTION orchestration
-| `homeAccountId` | A unique identifier for the account                                 |
 
 ### Security considerations
 
