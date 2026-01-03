@@ -11,18 +11,39 @@ import { triageTicket, draftClientMessage, summarizeSession } from '../lib/ai-jo
 
 const app = new Hono<{ Bindings: Env }>();
 
+// UUID validation pattern
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isValidUUID(id: string): boolean {
+  return UUID_PATTERN.test(id);
+}
+
+function safeJsonParse<T>(json: string | null, fallback: T): T {
+  if (!json) return fallback;
+  try {
+    return JSON.parse(json);
+  } catch {
+    return fallback;
+  }
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 // Manual Triage Request
 // ═══════════════════════════════════════════════════════════════════════════
 
 app.post('/triage/:ticketId', async (c) => {
   const ticketId = c.req.param('ticketId');
-  
+
+  // Validate ticketId format
+  if (!isValidUUID(ticketId)) {
+    return c.json({ error: 'Invalid ticket ID format' }, 400);
+  }
+
   // Get ticket data
   const ticket = await c.env.DB.prepare(
     'SELECT * FROM tickets WHERE id = ?'
   ).bind(ticketId).first();
-  
+
   if (!ticket) {
     return c.json({ error: 'Ticket not found' }, 404);
   }
@@ -63,21 +84,26 @@ const draftSchema = z.object({
 app.post('/draft/:ticketId', zValidator('json', draftSchema), async (c) => {
   const ticketId = c.req.param('ticketId');
   const body = c.req.valid('json');
-  
+
+  // Validate ticketId format
+  if (!isValidUUID(ticketId)) {
+    return c.json({ error: 'Invalid ticket ID format' }, 400);
+  }
+
   // Get ticket data
   const ticket = await c.env.DB.prepare(
     'SELECT * FROM tickets WHERE id = ?'
   ).bind(ticketId).first();
-  
+
   if (!ticket) {
     return c.json({ error: 'Ticket not found' }, 404);
   }
-  
+
   try {
     const draft = await draftClientMessage(c.env, ticketId, {
       status: body.status || ticket.status as string,
       persona: body.persona || ticket.persona as string || 'P11',
-      tags: body.tags || (ticket.tags ? JSON.parse(ticket.tags as string) : []),
+      tags: body.tags || safeJsonParse<string[]>(ticket.tags as string, []),
       lastUpdate: ticket.updated_at as string,
       nextUpdateBy: ticket.next_update_by as string,
     });
@@ -100,7 +126,12 @@ app.post('/draft/:ticketId', zValidator('json', draftSchema), async (c) => {
 
 app.get('/analysis/:ticketId', async (c) => {
   const ticketId = c.req.param('ticketId');
-  
+
+  // Validate ticketId format
+  if (!isValidUUID(ticketId)) {
+    return c.json({ error: 'Invalid ticket ID format' }, 400);
+  }
+
   try {
     const analyses = await c.env.DB.prepare(`
       SELECT id, analysis_type, model, confidence, confidence_score,
@@ -134,8 +165,18 @@ const reviewSchema = z.object({
 app.post('/analysis/:analysisId/review', zValidator('json', reviewSchema), async (c) => {
   const analysisId = c.req.param('analysisId');
   const body = c.req.valid('json');
-  const staffId = c.req.header('X-Staff-Id') || 'unknown';
-  
+  const staffId = c.req.header('X-Staff-Id');
+
+  // Validate analysisId format
+  if (!isValidUUID(analysisId)) {
+    return c.json({ error: 'Invalid analysis ID format' }, 400);
+  }
+
+  // Require staff authentication
+  if (!staffId || staffId === 'unknown') {
+    return c.json({ error: 'Staff authentication required' }, 401);
+  }
+
   try {
     await c.env.DB.prepare(`
       UPDATE ai_analysis SET

@@ -186,8 +186,76 @@ app.post('/tickets/:id/message', async (c) => {
     });
   }
   
-  // TODO: If send_email, trigger email via Cloudflare Email or external service
-  
+  // Send email notification if requested
+  if (send_email && ticket.client_email) {
+    try {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${c.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'NoizyLab GABRIEL <noreply@noizylab.com>',
+          reply_to: 'support@noizylab.com',
+          to: [ticket.client_email],
+          subject: `📨 Update on your repair request - ${ticket.public_id}`,
+          html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #ffffff; margin: 0; padding: 40px 20px; }
+    .container { max-width: 600px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 40px; }
+    .logo { font-size: 24px; font-weight: bold; color: #22c55e; }
+    .content { background: #111; border-radius: 16px; padding: 32px; border: 1px solid #222; }
+    h1 { color: #22c55e; margin: 0 0 16px 0; font-size: 20px; }
+    .message { background: #1a1a1a; border-radius: 12px; padding: 20px; margin: 20px 0; border-left: 4px solid #22c55e; }
+    .message p { color: #e0e0e0; margin: 0; line-height: 1.6; white-space: pre-wrap; }
+    .ticket-info { color: #888; font-size: 14px; margin-top: 24px; }
+    .button { display: inline-block; background: #22c55e; color: #000; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 24px 0; }
+    .footer { text-align: center; margin-top: 40px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🔬 NoizyLab GABRIEL</div>
+    </div>
+    <div class="content">
+      <h1>Message from our team</h1>
+      <div class="message">
+        <p>${sanitize(message, 5000)}</p>
+      </div>
+      <p class="ticket-info">Ticket: ${ticket.public_id}</p>
+      <a href="https://gabriel.noizylab.com/ticket/${ticket.public_id}" class="button">View Your Ticket →</a>
+    </div>
+    <div class="footer">
+      <p>NoizyLab Inc. • Anaheim, California</p>
+      <p>Reply to this email if you have questions.</p>
+    </div>
+  </div>
+</body>
+</html>
+          `,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('Email send failed:', await response.text());
+      } else {
+        await logEvent(c.env.DB, id, 'EMAIL_SENT', 'SYSTEM', null, {
+          to: ticket.client_email,
+          subject: `Update on your repair request - ${ticket.public_id}`,
+        });
+      }
+    } catch (emailError) {
+      console.error('Email error:', emailError);
+    }
+  }
+
   return json({ success: true });
 });
 

@@ -62,13 +62,27 @@ export async function createReference(
   env: Env
 ): Promise<Response> {
   const formData = await request.formData();
-  
+
   const image = formData.get('image') as File;
-  const manifest = JSON.parse(formData.get('manifest') as string);
-  const metadata = JSON.parse(formData.get('metadata') as string);
-  
-  if (!image || !manifest) {
+  const manifestStr = formData.get('manifest') as string;
+  const metadataStr = formData.get('metadata') as string;
+
+  if (!image || !manifestStr) {
     return jsonResponse({ error: 'Missing required fields' }, 400);
+  }
+
+  // Safe JSON parsing with validation
+  let manifest: any;
+  let metadata: any;
+  try {
+    manifest = JSON.parse(manifestStr);
+    metadata = metadataStr ? JSON.parse(metadataStr) : {};
+  } catch (e) {
+    return jsonResponse({ error: 'Invalid JSON in manifest or metadata' }, 400);
+  }
+
+  if (!manifest || typeof manifest !== 'object') {
+    return jsonResponse({ error: 'Manifest must be a valid object' }, 400);
   }
   
   const referenceId = crypto.randomUUID();
@@ -138,15 +152,21 @@ export async function createReference(
   
   // Add to category index
   const categoryKey = `category:${reference.category}`;
-  let categoryRefs = await env.KV_REFERENCES.get(categoryKey);
-  const refs = categoryRefs ? JSON.parse(categoryRefs) : [];
+  const categoryRefs = await env.KV_REFERENCES.get(categoryKey);
+  let refs: string[] = [];
+  try {
+    refs = categoryRefs ? JSON.parse(categoryRefs) : [];
+  } catch { refs = []; }
   refs.push(referenceId);
   await env.KV_REFERENCES.put(categoryKey, JSON.stringify(refs));
-  
+
   // Add to manufacturer index
   const mfgKey = `manufacturer:${reference.manufacturer.toLowerCase()}`;
-  let mfgRefs = await env.KV_REFERENCES.get(mfgKey);
-  const mfgList = mfgRefs ? JSON.parse(mfgRefs) : [];
+  const mfgRefs = await env.KV_REFERENCES.get(mfgKey);
+  let mfgList: string[] = [];
+  try {
+    mfgList = mfgRefs ? JSON.parse(mfgRefs) : [];
+  } catch { mfgList = []; }
   mfgList.push(referenceId);
   await env.KV_REFERENCES.put(mfgKey, JSON.stringify(mfgList));
   

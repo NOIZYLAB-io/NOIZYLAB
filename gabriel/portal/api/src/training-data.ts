@@ -308,7 +308,7 @@ async function uploadImage(request: Request, env: Env): Promise<Response> {
       format: file.type,
       capturedAt: new Date().toISOString(),
     },
-    labels: labelsRaw ? JSON.parse(labelsRaw) : [],
+    labels: parseLabels(labelsRaw),
     createdAt: new Date().toISOString(),
   };
 
@@ -322,6 +322,17 @@ async function uploadImage(request: Request, env: Env): Promise<Response> {
     status: 201,
     headers: { 'Content-Type': 'application/json' },
   });
+}
+
+// Safe JSON parsing helper for labels
+function parseLabels(labelsRaw: string | null): Label[] {
+  if (!labelsRaw) return [];
+  try {
+    const parsed = JSON.parse(labelsRaw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
 }
 
 async function addAnnotations(

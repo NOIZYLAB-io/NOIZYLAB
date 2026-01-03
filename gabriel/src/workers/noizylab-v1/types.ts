@@ -15,6 +15,7 @@ export interface Env {
   // Secrets
   TURNSTILE_SECRET: string;
   ACCESS_AUD: string;  // Cloudflare Access audience tag
+  RESEND_API_KEY: string;  // Email service
 }
 
 // ───────────────────────────────────────────────────────────────────────────
@@ -55,7 +56,8 @@ export type EventType =
   | 'FOLLOWUP_SCHEDULED'
   | 'FOLLOWUP_SENT'
   | 'RESOLVED'
-  | 'BILLING_ADDED';
+  | 'BILLING_ADDED'
+  | 'EMAIL_SENT';
 
 // ───────────────────────────────────────────────────────────────────────────
 // Personas (P1-P12)

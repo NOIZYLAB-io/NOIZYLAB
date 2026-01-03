@@ -1,3 +1,0 @@
-#!/bin/zsh
-# ⚡ INSTANT LAUNCH - NO DELAYS, PURE SPEED ⚡
-./🔥_FINAL_COMPLETE_ACTIVATION.sh

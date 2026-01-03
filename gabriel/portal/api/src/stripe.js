@@ -320,18 +320,171 @@ async function verifyWebhookSignature(body, signature, secret) {
 }
 
 /**
- * Send confirmation email (placeholder - integrate with your email provider)
+ * Send confirmation email via Resend
  */
 async function sendConfirmationEmail(email, productId, scans, env) {
-  // TODO: Integrate with Resend, SendGrid, or Mailgun
-  console.log(`Sending confirmation to ${email} for ${productId} (${scans} scans)`);
+  const product = PRODUCTS[productId];
+  if (!product || !env.RESEND_API_KEY) {
+    console.log(`Skipping email: missing product or API key`);
+    return;
+  }
+
+  const isUnlimited = scans === -1;
+  const scansText = isUnlimited ? 'Unlimited scans' : `${scans} scan${scans > 1 ? 's' : ''}`;
+
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'NoizyLab GABRIEL <noreply@noizylab.com>',
+        reply_to: 'support@noizylab.com',
+        to: [email],
+        subject: `✅ Payment confirmed - ${product.name}`,
+        html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #ffffff; margin: 0; padding: 40px 20px; }
+    .container { max-width: 600px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 40px; }
+    .logo { font-size: 24px; font-weight: bold; color: #22c55e; }
+    .content { background: #111; border-radius: 16px; padding: 32px; border: 1px solid #222; }
+    h1 { color: #22c55e; margin: 0 0 8px 0; }
+    .subtitle { color: #888; margin: 0 0 24px 0; }
+    .receipt { background: #1a1a1a; border-radius: 12px; padding: 24px; margin: 24px 0; }
+    .receipt-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #333; }
+    .receipt-row:last-child { border-bottom: none; }
+    .receipt-label { color: #888; }
+    .receipt-value { font-weight: 600; }
+    .total { font-size: 24px; color: #22c55e; }
+    p { line-height: 1.6; color: #888; margin: 16px 0; }
+    .button { display: inline-block; background: #22c55e; color: #000; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 24px 0; }
+    .footer { text-align: center; margin-top: 40px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🔬 NoizyLab GABRIEL</div>
+    </div>
+    <div class="content">
+      <h1>Payment Received ✓</h1>
+      <p class="subtitle">Thank you for your purchase!</p>
+
+      <div class="receipt">
+        <div class="receipt-row">
+          <span class="receipt-label">Product</span>
+          <span class="receipt-value">${product.name}</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Scans Included</span>
+          <span class="receipt-value">${scansText}</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Date</span>
+          <span class="receipt-value">${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Amount Paid</span>
+          <span class="receipt-value total">$${(product.price / 100).toFixed(2)}</span>
+        </div>
+      </div>
+
+      <a href="https://gabriel.noizylab.com/dashboard" class="button">Start Scanning →</a>
+
+      <p style="font-size: 12px; color: #666;">This receipt is for your records. For billing questions, reply to this email.</p>
+    </div>
+    <div class="footer">
+      <p>NoizyLab Inc. • Anaheim, California</p>
+    </div>
+  </div>
+</body>
+</html>
+        `,
+      }),
+    });
+    console.log(`Confirmation email sent to ${email}`);
+  } catch (error) {
+    console.error('Failed to send confirmation email:', error);
+  }
 }
 
 /**
- * Send payment failed email
+ * Send payment failed email via Resend
  */
 async function sendPaymentFailedEmail(email, env) {
-  console.log(`Sending payment failed notification to ${email}`);
+  if (!env.RESEND_API_KEY) {
+    console.log(`Skipping email: missing API key`);
+    return;
+  }
+
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'NoizyLab GABRIEL <noreply@noizylab.com>',
+        reply_to: 'support@noizylab.com',
+        to: [email],
+        subject: '⚠️ Payment failed - Action required',
+        html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #ffffff; margin: 0; padding: 40px 20px; }
+    .container { max-width: 600px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 40px; }
+    .logo { font-size: 24px; font-weight: bold; color: #22c55e; }
+    .content { background: #111; border-radius: 16px; padding: 32px; border: 1px solid #ef4444; }
+    h1 { color: #ef4444; margin: 0 0 16px 0; }
+    p { line-height: 1.6; color: #888; margin: 16px 0; }
+    .button { display: inline-block; background: #22c55e; color: #000; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 24px 0; }
+    .footer { text-align: center; margin-top: 40px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">🔬 NoizyLab GABRIEL</div>
+    </div>
+    <div class="content">
+      <h1>⚠️ Payment Failed</h1>
+      <p>We couldn't process your payment. This may be due to:</p>
+      <ul style="color: #888; margin: 16px 0;">
+        <li>Insufficient funds</li>
+        <li>Expired card</li>
+        <li>Card declined by bank</li>
+      </ul>
+      <p>Please update your payment method to continue using GABRIEL without interruption.</p>
+
+      <a href="https://gabriel.noizylab.com/billing" class="button">Update Payment Method →</a>
+
+      <p style="font-size: 12px; color: #666;">Questions? Reply to this email and we'll help you out.</p>
+    </div>
+    <div class="footer">
+      <p>NoizyLab Inc. • Anaheim, California</p>
+    </div>
+  </div>
+</body>
+</html>
+        `,
+      }),
+    });
+    console.log(`Payment failed email sent to ${email}`);
+  } catch (error) {
+    console.error('Failed to send payment failed email:', error);
+  }
 }
 
 /**

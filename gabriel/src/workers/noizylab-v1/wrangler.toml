@@ -45,6 +45,7 @@ binding = "AI"
 # ───────────────────────────────────────────────────────────────────────────
 # TURNSTILE_SECRET  - Cloudflare Turnstile secret key
 # ACCESS_AUD        - Cloudflare Access audience tag for staff auth
+# RESEND_API_KEY    - Resend.com API key for transactional emails
 
 # ───────────────────────────────────────────────────────────────────────────
 # Development

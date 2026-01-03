@@ -1,108 +1,89 @@
-# ══════════════════════════════════════════════════════════════
-# GABRIEL .gitignore - MC96DIGIUNIVERSE GORUNFREE PROTOCOL ⚡
-# ══════════════════════════════════════════════════════════════
 
-# OS files
-.DS_Store
-Thumbs.db
-*.swp
-*~
-
-# IDE
-.idea/
-*.code-workspace
-!GABRIEL.code-workspace
-# Keep .vscode/ for shared settings (GitLens, extensions, etc.)
-
-# Python
 __pycache__/
-*.py[cod]
-*$py.class
-.Python
-*.so
-.venv/
-venv/
-ENV/
-.eggs/
-*.egg-info/
-dist/
-build/
-
-# Node
-node_modules/
-npm-debug.log*
-yarn-error.log
-.npm/
-.yarn/
-
-# Logs
-logs/
-*.log
-
-# Environment
-.env
-.env.local
-.env.*
-*.pem
-*.key
-secrets/
-
-# Claude / AI
+!GABRIEL.code-workspace
 .claude/
 .codex/
-
-# Agent memory (runtime data)
-memory/
-
-# Large directories (stored externally)
-CODEMASTER/
-CODE/
-SystemGuardian/
-00_CONTROL_PLANE/
-
-# Temp
-tmp/
-temp/
-*.tmp
-*.bak
-
-# Archives
-*.zip
-*.tar.gz
-*.7z
-
-# Database
-*.db
-*.sqlite3
-
-# Wrangler
-.wrangler/
-.dev.vars
-
-# Test outputs
-.pytest_cache/
 .coverage
-htmlcov/
-
-# Shell script duplicates & junk
+.dev.vars
+.DS_Store
+.eggs/
+.env
+.env.*
+.env.local
+.idea/
+.npm/
+.pytest_cache/
+.Python
+.venv/
+.wrangler/
+.yarn/
+*_[0-9].sh
+*_backup/
+*_gorunfree.sh
+*_recovered/
 *-[0-9].sh
 *-[0-9][0-9].sh
-*_[0-9].sh
-GORUNFREE_2025*.sh
-*_gorunfree.sh
-
-# Archive directories (large, not needed in repo)
-archive/
-deep_archive/
-
-# Old/Legacy (keep local only)
-legacy/
-docs_legacy/
-
-# Widget builds
-widget/*.app/
-
-# Recovered/backup files
-*_recovered/
-*_backup/
+*.7z
+*.bak
+*.code-workspace
+*.db
+*.egg-info/
+*.key
+*.log
 *.metadata.json
+*.pem
+*.py[cod]
+*.so
+*.sqlite3
+*.swp
+*.tar.gz
+*.tmp
+*.zip
+*~
+*$py.class
+# ══════════════════════════════════════════════════════════════
+# Agent memory (runtime data)
+# Archive directories (large, not needed in repo)
+# Archives
+# Claude / AI
+# Database
+# Environment
+# GABRIEL .gitignore - MC96DIGIUNIVERSE GORUNFREE PROTOCOL ⚡
+# IDE
+# Keep .vscode/ for shared settings (GitLens, extensions, etc.)
+# Large directories (stored externally)
+# Logs
+# Node
+# Old/Legacy (keep local only)
+# OS files
+# Python
+# Recovered/backup files
+# Shell script duplicates & junk
+# Temp
+# Test outputs
+# Widget builds
+# Wrangler
+00_CONTROL_PLANE/
+archive/
+build/
+CODE/
+CODEMASTER/
+deep_archive/
+dist/
+docs_legacy/
+ENV/
+GORUNFREE_2025*.sh
+htmlcov/
+legacy/
+logs/
+memory/
+node_modules/
+npm-debug.log*
+secrets/
+SystemGuardian/
+temp/
+Thumbs.db
+tmp/
+venv/
+widget/*.app/
+yarn-error.log

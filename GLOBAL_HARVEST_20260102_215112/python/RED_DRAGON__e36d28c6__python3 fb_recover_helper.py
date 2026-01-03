@@ -1,1 +1,0 @@
-python3 fb_recover_helper.py

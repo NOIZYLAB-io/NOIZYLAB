@@ -813,20 +813,39 @@
                 alert('Please upload an image file');
                 return;
             }
-            
+
             // Show processing state
             uploadBox.innerHTML = `
                 <div class="upload-icon">⏳</div>
                 <h3>Analyzing...</h3>
                 <p>AI is inspecting your board</p>
             `;
-            
-            // TODO: Implement actual API call
-            // For now, simulate processing
-            setTimeout(() => {
-                // Redirect to payment/results page
+
+            try {
+                // Upload image for initial analysis
+                const formData = new FormData();
+                formData.append('image', file);
+                formData.append('mode', 'preview'); // Preview mode for landing page
+
+                const response = await fetch('/api/scan/preview', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Upload failed');
+                }
+
+                const result = await response.json();
+
+                // Store preview result and redirect to checkout
+                sessionStorage.setItem('previewResult', JSON.stringify(result));
+                window.location.href = '/checkout?preview=' + result.previewId;
+            } catch (error) {
+                console.error('Upload error:', error);
+                // Fallback: redirect to checkout with file name
                 window.location.href = '/checkout?file=' + encodeURIComponent(file.name);
-            }, 2000);
+            }
         }
         
         // Smooth scroll for anchor links
