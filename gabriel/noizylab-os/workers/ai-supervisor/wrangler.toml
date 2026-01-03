@@ -1,0 +1,44 @@
+name = "noizylab-ai-supervisor"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-main"
+database_id = "your-d1-database-id"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "your-kv-namespace-id"
+
+[[kv_namespaces]]
+binding = "WORKER_REGISTRY"
+id = "your-worker-registry-kv-id"
+
+[[queues.producers]]
+queue = "system-alerts-queue"
+binding = "ALERTS_QUEUE"
+
+[[queues.producers]]
+queue = "auto-heal-queue"
+binding = "HEAL_QUEUE"
+
+[[queues.consumers]]
+queue = "worker-metrics-queue"
+max_batch_size = 100
+max_batch_timeout = 30
+
+[ai]
+binding = "AI"
+
+# Cron triggers for continuous monitoring
+[triggers]
+crons = ["* * * * *", "*/5 * * * *", "0 * * * *"]
+
+# Routes
+[[routes]]
+pattern = "supervisor.noizylab.com/*"
+zone_name = "noizylab.com"

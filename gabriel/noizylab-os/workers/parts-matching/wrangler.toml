@@ -1,0 +1,39 @@
+name = "parts-matching-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "parts-embeddings"
+
+[[kv_namespaces]]
+binding = "PARTS_MATCHING_KV"
+id = "parts-matching-kv-id"
+
+[[d1_databases]]
+binding = "D1_DATABASE"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "noizylab-storage"
+
+[[services]]
+binding = "INVENTORY_SERVICE"
+service = "inventory-worker"
+
+[[services]]
+binding = "EBAY_SNIPER_SERVICE"
+service = "ebay-sniper-worker"
+
+[[services]]
+binding = "PRICING_SERVICE"
+service = "pricing-worker"
+
+[vars]
+ENVIRONMENT = "production"
+SERVICE_NAME = "parts-matching"

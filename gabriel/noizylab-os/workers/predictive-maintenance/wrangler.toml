@@ -1,0 +1,35 @@
+name = "predictive-maintenance-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[ai]
+binding = "AI"
+
+[[kv_namespaces]]
+binding = "PREDICTIVE_MAINTENANCE_KV"
+id = "predictive-maintenance-kv-id"
+
+[[d1_databases]]
+binding = "D1_DATABASE"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "noizylab-storage"
+
+[[services]]
+binding = "ANALYTICS_SERVICE"
+service = "analytics-worker"
+
+[[services]]
+binding = "NOTIFICATIONS_SERVICE"
+service = "notifications-worker"
+
+[[services]]
+binding = "BRAIN_SERVICE"
+service = "brain-worker"
+
+[vars]
+ENVIRONMENT = "production"
+SERVICE_NAME = "predictive-maintenance"

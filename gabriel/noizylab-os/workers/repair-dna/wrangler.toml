@@ -1,0 +1,35 @@
+name = "repair-dna-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[ai]
+binding = "AI"
+
+[[kv_namespaces]]
+binding = "REPAIR_DNA_KV"
+id = "repair-dna-kv-id"
+
+[[d1_databases]]
+binding = "D1_DATABASE"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "noizylab-storage"
+
+[[services]]
+binding = "BRAIN_SERVICE"
+service = "brain-worker"
+
+[[services]]
+binding = "ANALYTICS_SERVICE"
+service = "analytics-worker"
+
+[[services]]
+binding = "PREDICTIVE_SERVICE"
+service = "predictive-maintenance-worker"
+
+[vars]
+ENVIRONMENT = "production"
+SERVICE_NAME = "repair-dna"
