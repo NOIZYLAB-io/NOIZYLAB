@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "ES2021",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "types": [
+            "@cloudflare/workers-types"
+        ],
+        "strict": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "*.ts"
+    ]
+}

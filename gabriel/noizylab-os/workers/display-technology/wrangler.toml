@@ -1,0 +1,9 @@
+name = "display-technology-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+[[d1_databases]]
+binding = "DISPLAY_DB"
+database_name = "noizylab-display"
+database_id = "display-db-id"
+[ai]
+binding = "AI"

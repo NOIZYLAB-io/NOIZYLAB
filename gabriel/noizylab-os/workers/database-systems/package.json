@@ -1,0 +1,9 @@
+{
+  "name": "database-systems-worker",
+  "version": "1.0.0",
+  "description": "NoizyLab OS - Complete Database Systems Knowledge",
+  "main": "worker.ts",
+  "scripts": { "dev": "wrangler dev", "deploy": "wrangler deploy" },
+  "dependencies": { "hono": "^4.0.0" },
+  "devDependencies": { "@cloudflare/workers-types": "^4.20240208.0", "typescript": "^5.3.3", "wrangler": "^3.28.0" }
+}

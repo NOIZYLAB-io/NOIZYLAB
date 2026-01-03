@@ -1914,4 +1914,575 @@ program
     console.log(JSON.stringify(out, null, 2));
   });
 
+//
+// ═══════════════════════════════════════════════════════════════════
+// ROUND 3: COMPUTING LEGENDS - Knowledge Workers
+// ═══════════════════════════════════════════════════════════════════
+//
+
+// CPU Architecture
+program
+  .command("cpu:info")
+  .description("Get CPU architecture information")
+  .option("--arch <arch>", "x86|arm|risc-v|mips")
+  .action(async (opt) => {
+    const path = opt.arch ? `/cpu/${opt.arch}` : "/cpu/architectures";
+    console.log(`🔧 Querying CPU Architecture Worker...`);
+    const out = await http({ path, baseUrl: process.env.CPU_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("cpu:ask")
+  .description("Ask AI about CPU architectures")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking CPU Architecture AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.CPU_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Operating Systems
+program
+  .command("os:history")
+  .description("Get operating system history")
+  .option("--family <family>", "unix|windows|macos|linux|mobile")
+  .action(async (opt) => {
+    const path = opt.family ? `/${opt.family}` : "/history";
+    console.log(`💻 Querying Operating Systems Worker...`);
+    const out = await http({ path, baseUrl: process.env.OS_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("os:ask")
+  .description("Ask AI about operating systems")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Operating Systems AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.OS_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Programming Languages
+program
+  .command("lang:list")
+  .description("Get programming language information")
+  .option("--family <family>", "c|lisp|ml|scripting")
+  .action(async (opt) => {
+    const path = opt.family ? `/family/${opt.family}` : "/languages";
+    console.log(`📝 Querying Programming Languages Worker...`);
+    const out = await http({ path, baseUrl: process.env.LANG_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("lang:ask")
+  .description("Ask AI about programming languages")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Programming Languages AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.LANG_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// GPU Computing
+program
+  .command("gpu:info")
+  .description("Get GPU computing information")
+  .option("--vendor <vendor>", "nvidia|amd|intel")
+  .action(async (opt) => {
+    const path = opt.vendor ? `/${opt.vendor}` : "/history";
+    console.log(`🎮 Querying GPU Computing Worker...`);
+    const out = await http({ path, baseUrl: process.env.GPU_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("gpu:ask")
+  .description("Ask AI about GPUs and graphics computing")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking GPU Computing AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.GPU_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Network Protocols
+program
+  .command("net:protocols")
+  .description("Get network protocol information")
+  .option("--layer <layer>", "osi|tcp-ip|application")
+  .action(async (opt) => {
+    const path = opt.layer ? `/${opt.layer}` : "/osi";
+    console.log(`🌐 Querying Network Protocols Worker...`);
+    const out = await http({ path, baseUrl: process.env.NET_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("net:ask")
+  .description("Ask AI about networking")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Network Protocols AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.NET_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Database Systems
+program
+  .command("db:info")
+  .description("Get database systems information")
+  .option("--type <type>", "relational|nosql|graph|timeseries")
+  .action(async (opt) => {
+    const path = opt.type ? `/${opt.type}` : "/history";
+    console.log(`🗄️ Querying Database Systems Worker...`);
+    const out = await http({ path, baseUrl: process.env.DB_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("db:ask")
+  .description("Ask AI about databases")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Database Systems AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.DB_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// AI/ML History
+program
+  .command("ai:history")
+  .description("Get AI/ML history")
+  .option("--era <era>", "early|winters|deep-learning|transformers|llms")
+  .action(async (opt) => {
+    const path = opt.era ? `/${opt.era}` : "/timeline";
+    console.log(`🤖 Querying AI/ML History Worker...`);
+    const out = await http({ path, baseUrl: process.env.AIML_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("ai:ask")
+  .description("Ask AI about AI/ML history")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking AI/ML History AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.AIML_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Security Systems
+program
+  .command("sec:info")
+  .description("Get security systems information")
+  .option("--topic <topic>", "encryption|authentication|malware|zero-trust")
+  .action(async (opt) => {
+    const path = opt.topic ? `/${opt.topic}` : "/history";
+    console.log(`🔒 Querying Security Systems Worker...`);
+    const out = await http({ path, baseUrl: process.env.SEC_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("sec:ask")
+  .description("Ask AI about cybersecurity")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Security Systems AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.SEC_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Memory Systems
+program
+  .command("mem:info")
+  .description("Get memory systems information")
+  .option("--type <type>", "ddr|cache|hbm|emerging")
+  .action(async (opt) => {
+    const path = opt.type ? `/${opt.type}` : "/evolution";
+    console.log(`🧩 Querying Memory Systems Worker...`);
+    const out = await http({ path, baseUrl: process.env.MEM_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("mem:ask")
+  .description("Ask AI about memory technology")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Memory Systems AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.MEM_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Storage Evolution
+program
+  .command("storage:info")
+  .description("Get storage evolution information")
+  .option("--type <type>", "hdd|ssd|nvme|filesystems|raid")
+  .action(async (opt) => {
+    const path = opt.type ? `/${opt.type}` : "/history";
+    console.log(`💾 Querying Storage Evolution Worker...`);
+    const out = await http({ path, baseUrl: process.env.STORAGE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("storage:ask")
+  .description("Ask AI about storage technology")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Storage Evolution AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.STORAGE_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Display Technology
+program
+  .command("display:info")
+  .description("Get display technology information")
+  .option("--type <type>", "lcd|oled|gaming|connectors")
+  .action(async (opt) => {
+    const path = opt.type ? `/${opt.type}` : "/history";
+    console.log(`🖥️ Querying Display Technology Worker...`);
+    const out = await http({ path, baseUrl: process.env.DISPLAY_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("display:ask")
+  .description("Ask AI about display technology")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Display Technology AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.DISPLAY_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Motherboard Systems
+program
+  .command("mobo:info")
+  .description("Get motherboard systems information")
+  .option("--topic <topic>", "form-factors|buses|chipsets|sockets")
+  .action(async (opt) => {
+    const path = opt.topic ? `/${opt.topic}` : "/history";
+    console.log(`🔌 Querying Motherboard Systems Worker...`);
+    const out = await http({ path, baseUrl: process.env.MOBO_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("mobo:ask")
+  .description("Ask AI about motherboards")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Motherboard Systems AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.MOBO_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Computing History
+program
+  .command("history:timeline")
+  .description("Get computing history timeline")
+  .option("--era <era>", "1940s|1950s|1960s|1970s|1980s|1990s|2000s|2010s|2020s")
+  .action(async (opt) => {
+    const path = opt.era ? `/era/${opt.era}` : "/timeline";
+    console.log(`📜 Querying Computing History Worker...`);
+    const out = await http({ path, baseUrl: process.env.HISTORY_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("history:ask")
+  .description("Ask AI about computing history")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Computing History AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.HISTORY_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Quantum Computing
+program
+  .command("quantum:info")
+  .description("Get quantum computing information")
+  .option("--topic <topic>", "principles|algorithms|hardware|companies")
+  .action(async (opt) => {
+    const path = opt.topic ? `/${opt.topic}` : "/";
+    console.log(`⚛️ Querying Quantum Computing Worker...`);
+    const out = await http({ path, baseUrl: process.env.QUANTUM_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("quantum:ask")
+  .description("Ask AI about quantum computing")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Quantum Computing AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.QUANTUM_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Compiler Technology
+program
+  .command("compiler:info")
+  .description("Get compiler technology information")
+  .option("--phase <phase>", "lexer|parser|optimizer|codegen")
+  .action(async (opt) => {
+    const path = opt.phase ? `/${opt.phase}` : "/";
+    console.log(`⚙️ Querying Compiler Technology Worker...`);
+    const out = await http({ path, baseUrl: process.env.COMPILER_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("compiler:ask")
+  .description("Ask AI about compilers")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Compiler Technology AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.COMPILER_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Virtualization
+program
+  .command("virt:info")
+  .description("Get virtualization information")
+  .option("--type <type>", "hypervisors|containers|orchestration")
+  .action(async (opt) => {
+    const path = opt.type ? `/${opt.type}` : "/";
+    console.log(`📦 Querying Virtualization Worker...`);
+    const out = await http({ path, baseUrl: process.env.VIRT_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("virt:ask")
+  .description("Ask AI about virtualization")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Virtualization AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.VIRT_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Embedded Systems
+program
+  .command("embedded:info")
+  .description("Get embedded systems information")
+  .option("--type <type>", "microcontrollers|rtos|iot|automotive")
+  .action(async (opt) => {
+    const path = opt.type ? `/${opt.type}` : "/";
+    console.log(`🔧 Querying Embedded Systems Worker...`);
+    const out = await http({ path, baseUrl: process.env.EMBEDDED_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("embedded:ask")
+  .description("Ask AI about embedded systems")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Embedded Systems AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.EMBEDDED_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// HCI Evolution
+program
+  .command("hci:info")
+  .description("Get HCI evolution information")
+  .option("--type <type>", "input|displays|gui|vr-ar")
+  .action(async (opt) => {
+    const path = opt.type ? `/${opt.type}` : "/";
+    console.log(`🖱️ Querying HCI Evolution Worker...`);
+    const out = await http({ path, baseUrl: process.env.HCI_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("hci:ask")
+  .description("Ask AI about human-computer interaction")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking HCI Evolution AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.HCI_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Xcode Genius
+program
+  .command("xcode:info")
+  .description("Get Xcode information")
+  .option("--topic <topic>", "build|signing|provisioning|swift")
+  .action(async (opt) => {
+    const path = opt.topic ? `/${opt.topic}` : "/";
+    console.log(`🍎 Querying Xcode Genius Worker...`);
+    const out = await http({ path, baseUrl: process.env.XCODE_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("xcode:ask")
+  .description("Ask AI about Xcode development")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Xcode Genius AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.XCODE_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Automator Genius
+program
+  .command("automator:info")
+  .description("Get macOS automation information")
+  .option("--topic <topic>", "workflows|applescript|shortcuts")
+  .action(async (opt) => {
+    const path = opt.topic ? `/${opt.topic}` : "/";
+    console.log(`⚡ Querying Automator Genius Worker...`);
+    const out = await http({ path, baseUrl: process.env.AUTOMATOR_WORKER_URL });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+program
+  .command("automator:ask")
+  .description("Ask AI about macOS automation")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🧠 Asking Automator Genius AI...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/query",
+      baseUrl: process.env.AUTOMATOR_WORKER_URL,
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Universal Knowledge Query - Ask any worker
+program
+  .command("ask")
+  .description("Ask any computing question (routes to best worker)")
+  .requiredOption("--question <q>")
+  .action(async (opt) => {
+    console.log(`🌌 Querying NoizyLab OS Universal Knowledge...`);
+    const out = await http({
+      method: "POST",
+      path: "/ai/universal-query",
+      json: { question: opt.question }
+    });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
+// Worker Status
+program
+  .command("workers:status")
+  .description("Get status of all 57 workers")
+  .action(async () => {
+    console.log(`📊 Checking NoizyLab OS Worker Status...`);
+    const out = await http({ path: "/workers/status" });
+    console.log(JSON.stringify(out, null, 2));
+  });
+
 await program.parseAsync(process.argv);

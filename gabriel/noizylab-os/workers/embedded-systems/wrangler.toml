@@ -1,0 +1,9 @@
+name = "embedded-systems-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+[[d1_databases]]
+binding = "EMBEDDED_DB"
+database_name = "noizylab-embedded"
+database_id = "embedded-db-id"
+[ai]
+binding = "AI"

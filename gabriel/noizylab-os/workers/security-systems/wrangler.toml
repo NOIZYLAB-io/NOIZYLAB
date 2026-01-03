@@ -1,0 +1,12 @@
+name = "security-systems-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+[[d1_databases]]
+binding = "SECURITY_DB"
+database_name = "noizylab-security"
+database_id = "security-db-id"
+[[kv_namespaces]]
+binding = "SECURITY_CACHE"
+id = "security-cache-id"
+[ai]
+binding = "AI"

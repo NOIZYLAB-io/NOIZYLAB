@@ -1,0 +1,9 @@
+name = "hci-evolution-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+[[d1_databases]]
+binding = "HCI_DB"
+database_name = "noizylab-hci"
+database_id = "hci-db-id"
+[ai]
+binding = "AI"

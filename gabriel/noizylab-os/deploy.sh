@@ -101,6 +101,30 @@ WORKERS=(
   "carbon-footprint:$WORKERS_DIR/carbon-footprint"               # ESG sustainability
   
   # ═══════════════════════════════════════════════════════════════════
+  # GENIUS AI WORKERS - ROUND 3 - Computing Legends & Hardware Masters
+  # ═══════════════════════════════════════════════════════════════════
+  "xcode-genius:$WORKERS_DIR/xcode-genius"                       # Xcode project mastery
+  "automator-genius:$WORKERS_DIR/automator-genius"               # macOS workflow automation
+  "cpu-architecture:$WORKERS_DIR/cpu-architecture"               # x86/ARM/RISC-V/MIPS expert
+  "computing-history:$WORKERS_DIR/computing-history"             # Computing pioneers knowledge
+  "operating-systems:$WORKERS_DIR/operating-systems"             # Every OS ever made
+  "programming-languages:$WORKERS_DIR/programming-languages"     # All languages since FORTRAN
+  "gpu-computing:$WORKERS_DIR/gpu-computing"                     # GPU evolution & CUDA/OpenCL
+  "network-protocols:$WORKERS_DIR/network-protocols"             # TCP/IP, OSI, routing
+  "database-systems:$WORKERS_DIR/database-systems"               # Hierarchical to NoSQL
+  "ai-ml-history:$WORKERS_DIR/ai-ml-history"                     # AI from Turing to GPT
+  "security-systems:$WORKERS_DIR/security-systems"               # Cybersecurity evolution
+  "quantum-computing:$WORKERS_DIR/quantum-computing"             # Quantum principles & hardware
+  "compiler-technology:$WORKERS_DIR/compiler-technology"         # Lexers, parsers, LLVM
+  "virtualization:$WORKERS_DIR/virtualization"                   # VMware to Kubernetes
+  "embedded-systems:$WORKERS_DIR/embedded-systems"               # Microcontrollers & IoT
+  "memory-systems:$WORKERS_DIR/memory-systems"                   # Magnetic core to HBM3E
+  "hci-evolution:$WORKERS_DIR/hci-evolution"                     # Input devices to VR/AR
+  "motherboard-systems:$WORKERS_DIR/motherboard-systems"         # S-100 bus to Z890
+  "storage-evolution:$WORKERS_DIR/storage-evolution"             # Punch cards to NVMe Gen5
+  "display-technology:$WORKERS_DIR/display-technology"           # CRT to microLED
+  
+  # ═══════════════════════════════════════════════════════════════════
   # ORCHESTRATION LAYER (depends on ALL above)
   # ═══════════════════════════════════════════════════════════════════
   "ai-supervisor:$WORKERS_DIR/ai-supervisor"   # Meta-AI orchestrator

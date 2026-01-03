@@ -1,0 +1,15 @@
+name = "ai-ml-history-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "AI_HISTORY_DB"
+database_name = "noizylab-ai-ml-history"
+database_id = "ai-ml-history-db-id"
+
+[[kv_namespaces]]
+binding = "AI_CACHE"
+id = "ai-ml-history-cache-id"
+
+[ai]
+binding = "AI"

@@ -36,37 +36,81 @@
 ## 🏗️ Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                          NOIZYLAB OS                                    │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐   │
-│  │   BRAIN     │  │   VISION    │  │   VOICE     │  │ CHAT AGENT  │   │
-│  │  Claude AI  │  │  PCB Scan   │  │ ElevenLabs  │  │  WebSocket  │   │
-│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘   │
-│         │                │                │                │           │
-│  ┌──────┴────────────────┴────────────────┴────────────────┴──────┐   │
-│  │                    MAIN NOIZYLAB WORKER                         │   │
-│  │              Ticket Management • API Gateway                    │   │
-│  └────────────────────────────────────────────────────────────────┘   │
-│         │                │                │                │           │
-│  ┌──────┴──────┐  ┌──────┴──────┐  ┌──────┴──────┐  ┌──────┴──────┐   │
-│  │   PRICING   │  │  INVENTORY  │  │   EBAY      │  │  ANALYTICS  │   │
-│  │   Engine    │  │   Manager   │  │   Sniper    │  │  Dashboard  │   │
-│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘   │
-│         │                │                │                │           │
-│  ┌──────┴──────┐  ┌──────┴──────┐  ┌──────┴──────┐  ┌──────┴──────┐   │
-│  │  AR GUIDE   │  │  TRAINING   │  │NOTIFICATIONS│  │   VOICE     │   │
-│  │  Repair AR  │  │  Simulator  │  │     Hub     │  │   TTS       │   │
-│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘   │
-│                                                                         │
-├─────────────────────────────────────────────────────────────────────────┤
-│                        CLOUDFLARE INFRASTRUCTURE                        │
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐      │
-│  │   D1    │  │   R2    │  │   KV    │  │ Queues  │  │Durable  │      │
-│  │Database │  │ Storage │  │  Cache  │  │  Jobs   │  │Objects  │      │
-│  └─────────┘  └─────────┘  └─────────┘  └─────────┘  └─────────┘      │
-└─────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                              NOIZYLAB OS - 57 AI WORKERS                            │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                     │
+│  ┌─────────────────────────────────────────────────────────────────────────────┐   │
+│  │                        ORCHESTRATION LAYER                                   │   │
+│  │    ┌──────────────┐  ┌────────────────────┐  ┌──────────────┐               │   │
+│  │    │ AI-SUPERVISOR│  │WORKFLOW-ORCHESTRATOR│  │  API-GATEWAY │               │   │
+│  │    │  Meta-AI     │  │   State Machine     │  │  Unified API │               │   │
+│  │    └──────────────┘  └────────────────────┘  └──────────────┘               │   │
+│  └─────────────────────────────────────────────────────────────────────────────┘   │
+│                                        │                                            │
+│  ┌─────────────────────────────────────┴───────────────────────────────────────┐   │
+│  │                    ROUND 3: COMPUTING LEGENDS (20 workers)                   │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │  XCODE   │ │AUTOMATOR │ │   CPU    │ │COMPUTING │ │OPERATING │           │   │
+│  │  │  GENIUS  │ │  GENIUS  │ │   ARCH   │ │ HISTORY  │ │ SYSTEMS  │           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │LANGUAGES │ │   GPU    │ │ NETWORK  │ │ DATABASE │ │  AI/ML   │           │   │
+│  │  │  (ALL)   │ │COMPUTING │ │PROTOCOLS │ │ SYSTEMS  │ │ HISTORY  │           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │ SECURITY │ │ QUANTUM  │ │ COMPILER │ │  VIRT    │ │ EMBEDDED │           │   │
+│  │  │ SYSTEMS  │ │COMPUTING │ │   TECH   │ │ (VMs/K8s)│ │ SYSTEMS  │           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │  MEMORY  │ │   HCI    │ │   MOBO   │ │ STORAGE  │ │ DISPLAY  │           │   │
+│  │  │ SYSTEMS  │ │EVOLUTION │ │ SYSTEMS  │ │EVOLUTION │ │   TECH   │           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  └─────────────────────────────────────────────────────────────────────────────┘   │
+│                                        │                                            │
+│  ┌─────────────────────────────────────┴───────────────────────────────────────┐   │
+│  │                      ROUND 2: NEXT-GEN AI (10 workers)                       │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │SENTIMENT │ │ ANOMALY  │ │  REPAIR  │ │  PRICE   │ │  CHURN   │           │   │
+│  │  │ ANALYSIS │ │DETECTION │ │SIMULATION│ │ELASTICITY│ │PREDICTION│           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │ DEMAND   │ │ NL-QUERY │ │  AUTO    │ │COMPLIANCE│ │  CARBON  │           │   │
+│  │  │FORECASTING│ │(Eng→SQL)│ │ TESTING  │ │MONITORING│ │FOOTPRINT │           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  └─────────────────────────────────────────────────────────────────────────────┘   │
+│                                        │                                            │
+│  ┌─────────────────────────────────────┴───────────────────────────────────────┐   │
+│  │                        ROUND 1: GENIUS AI (9 workers)                        │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │PREDICTIVE│ │  PARTS   │ │  REPAIR  │ │KNOWLEDGE │ │ COLLAB   │           │   │
+│  │  │   MAINT  │ │ MATCHING │ │   DNA    │ │  GRAPH   │ │   HUB    │           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐                        │   │
+│  │  │  FRAUD   │ │   TIME   │ │COMPONENT │ │ SUPPLIER │                        │   │
+│  │  │DETECTION │ │ESTIMATION│ │LIFECYCLE │ │  INTEL   │                        │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘                        │   │
+│  └─────────────────────────────────────────────────────────────────────────────┘   │
+│                                        │                                            │
+│  ┌─────────────────────────────────────┴───────────────────────────────────────┐   │
+│  │                       CORE + BUSINESS + TECHNICIAN                           │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │  BRAIN   │ │  VISION  │ │  VOICE   │ │  CHAT    │ │ PRICING  │           │   │
+│  │  │ Claude AI│ │ PCB Scan │ │ElevenLabs│ │  AGENT   │ │  Engine  │           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │   │
+│  │  │  EBAY    │ │INVENTORY │ │ANALYTICS │ │ AR-GUIDE │ │ TRAINING │           │   │
+│  │  │  SNIPER  │ │ Manager  │ │Dashboard │ │Repair AR │ │Simulator │           │   │
+│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘           │   │
+│  └─────────────────────────────────────────────────────────────────────────────┘   │
+│                                                                                     │
+├─────────────────────────────────────────────────────────────────────────────────────┤
+│                          CLOUDFLARE INFRASTRUCTURE                                  │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐  ┌─────────┐     │
+│  │   D1    │  │   R2    │  │   KV    │  │ Queues  │  │Durable  │  │Workers  │     │
+│  │Database │  │ Storage │  │  Cache  │  │  Jobs   │  │Objects  │  │   AI    │     │
+│  └─────────┘  └─────────┘  └─────────┘  └─────────┘  └─────────┘  └─────────┘     │
+└─────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -77,26 +121,178 @@
 noizylab-os/
 ├── src/
 │   └── worker.ts           # Main NoizyLab OS worker
-├── workers/
+├── workers/                # 57 GENIUS AI WORKERS
+│   │
+│   │ ══════ CORE INFRASTRUCTURE ══════
 │   ├── brain/              # Claude AI diagnostic engine
 │   ├── voice/              # ElevenLabs voice synthesis
 │   ├── vision/             # PCB computer vision analysis
+│   ├── notifications/      # Multi-channel notifications
+│   │
+│   │ ══════ BUSINESS LOGIC ══════
 │   ├── pricing/            # Smart pricing engine
 │   ├── ebay-sniper/        # eBay deal hunter
 │   ├── inventory/          # Inventory management
 │   ├── analytics/          # Business intelligence
+│   │
+│   │ ══════ TECHNICIAN SUPPORT ══════
 │   ├── ar-guide/           # AR repair guides
 │   ├── training/           # Training simulator
 │   ├── chat-agent/         # Real-time WebSocket chat
-│   └── notifications/      # Multi-channel notifications
+│   ├── qc-inspector/       # Quality control inspector
+│   ├── schematic-analyzer/ # Schematic analysis
+│   │
+│   │ ══════ ROUND 1: GENIUS AI ══════
+│   ├── predictive-maintenance/  # ML failure prediction
+│   ├── parts-matching/     # Vector parts compatibility
+│   ├── repair-dna/         # Device fingerprinting
+│   ├── knowledge-graph/    # Graph knowledge base
+│   ├── collaboration-hub/  # Real-time collaboration
+│   ├── fraud-detection/    # AI fraud prevention
+│   ├── time-estimation/    # ML time prediction
+│   ├── component-lifecycle/# Component health tracking
+│   ├── supplier-intelligence/ # Supplier AI management
+│   │
+│   │ ══════ ROUND 2: NEXT-GEN AI ══════
+│   ├── sentiment-analysis/ # NLP customer sentiment
+│   ├── anomaly-detection/  # Statistical outliers
+│   ├── repair-simulation/  # Digital twin simulation
+│   ├── price-elasticity/   # Dynamic pricing AI
+│   ├── churn-prediction/   # Customer retention ML
+│   ├── demand-forecasting/ # Predictive inventory
+│   ├── nl-query/           # English-to-SQL engine
+│   ├── auto-testing/       # Self-testing QA
+│   ├── compliance-monitoring/ # Regulatory compliance
+│   ├── carbon-footprint/   # ESG sustainability
+│   │
+│   │ ══════ ROUND 3: COMPUTING LEGENDS ══════
+│   ├── xcode-genius/       # Xcode project mastery
+│   ├── automator-genius/   # macOS workflow automation
+│   ├── cpu-architecture/   # x86/ARM/RISC-V/MIPS expert
+│   ├── computing-history/  # Computing pioneers 1940s-now
+│   ├── operating-systems/  # Every OS ever made
+│   ├── programming-languages/ # All languages since FORTRAN
+│   ├── gpu-computing/      # GPU evolution 3dfx→RTX5090
+│   ├── network-protocols/  # TCP/IP, OSI, DNS, routing
+│   ├── database-systems/   # Hierarchical to NoSQL
+│   ├── ai-ml-history/      # AI from Turing to GPT
+│   ├── security-systems/   # Cybersecurity evolution
+│   ├── quantum-computing/  # Quantum principles & HW
+│   ├── compiler-technology/# Lexers, parsers, LLVM
+│   ├── virtualization/     # VMware to Kubernetes
+│   ├── embedded-systems/   # Microcontrollers & IoT
+│   ├── memory-systems/     # Magnetic core to HBM3E
+│   ├── hci-evolution/      # Input devices to VR/AR
+│   ├── motherboard-systems/# S-100 bus to Z890
+│   ├── storage-evolution/  # Punch cards to NVMe Gen5
+│   ├── display-technology/ # CRT to microLED
+│   │
+│   │ ══════ ORCHESTRATION LAYER ══════
+│   ├── ai-supervisor/      # Meta-AI orchestrator
+│   ├── workflow-orchestrator/ # Workflow engine
+│   └── api-gateway/        # Unified API gateway
+│
 ├── tools/
 │   └── tts-hotrod/         # Python TTS client tool
 ├── migrations/
 │   └── schema.sql          # D1 database schema
-├── deploy.sh               # Master deployment script
+├── deploy.sh               # Master deployment script (57 workers)
 ├── wrangler.toml           # Cloudflare config
 └── package.json
 ```
+
+---
+
+## 🧠 57 AI Workers - Complete Index
+
+### Core Infrastructure (5 workers)
+| Worker | Purpose |
+|--------|---------|
+| `main` | Main NoizyLab OS API gateway |
+| `brain` | Claude 3.5 Opus diagnostic engine |
+| `voice` | ElevenLabs voice synthesis |
+| `vision` | PCB computer vision analysis |
+| `notifications` | Multi-channel notifications hub |
+
+### Business Logic (4 workers)
+| Worker | Purpose |
+|--------|---------|
+| `pricing` | Smart pricing with margin optimization |
+| `ebay-sniper` | AI-powered eBay deal hunting |
+| `inventory` | Predictive inventory management |
+| `analytics` | Business intelligence & dashboards |
+
+### Technician Support (5 workers)
+| Worker | Purpose |
+|--------|---------|
+| `ar-guide` | Augmented reality repair guides |
+| `training` | Gamified technician training |
+| `chat-agent` | Real-time WebSocket AI chat |
+| `qc-inspector` | Quality control automation |
+| `schematic-analyzer` | Circuit schematic analysis |
+
+### Customer Experience (1 worker)
+| Worker | Purpose |
+|--------|---------|
+| `customer-portal` | Customer self-service portal |
+
+### Round 1: Genius AI (9 workers)
+| Worker | Purpose |
+|--------|---------|
+| `predictive-maintenance` | ML-based failure prediction |
+| `parts-matching` | Vector similarity parts matching |
+| `repair-dna` | Device fingerprint profiling |
+| `knowledge-graph` | Graph-based knowledge base |
+| `collaboration-hub` | Real-time team collaboration |
+| `fraud-detection` | AI fraud prevention |
+| `time-estimation` | ML repair time prediction |
+| `component-lifecycle` | Component health tracking |
+| `supplier-intelligence` | Supplier performance AI |
+
+### Round 2: Next-Gen Intelligence (10 workers)
+| Worker | Purpose |
+|--------|---------|
+| `sentiment-analysis` | NLP customer sentiment |
+| `anomaly-detection` | Statistical outlier detection |
+| `repair-simulation` | Digital twin simulation |
+| `price-elasticity` | Dynamic pricing optimization |
+| `churn-prediction` | Customer retention ML |
+| `demand-forecasting` | Predictive inventory planning |
+| `nl-query` | Natural language to SQL |
+| `auto-testing` | Automated QA testing |
+| `compliance-monitoring` | Regulatory compliance |
+| `carbon-footprint` | ESG & sustainability metrics |
+
+### Round 3: Computing Legends (20 workers) 🆕
+| Worker | Purpose |
+|--------|---------|
+| `xcode-genius` | Xcode projects, code signing, provisioning |
+| `automator-genius` | macOS workflows, AppleScript, shell |
+| `cpu-architecture` | x86, ARM, RISC-V, MIPS architecture |
+| `computing-history` | ENIAC to modern computing |
+| `operating-systems` | Every OS from GM-NAA I/O (1956) to now |
+| `programming-languages` | All languages since FORTRAN (1957) |
+| `gpu-computing` | 3dfx Voodoo to RTX 5090, CUDA, OpenCL |
+| `network-protocols` | TCP/IP, OSI model, DNS, BGP, OSPF |
+| `database-systems` | Hierarchical → Relational → NoSQL |
+| `ai-ml-history` | Turing → Perceptron → GPT-4 |
+| `security-systems` | Encryption, firewalls, zero trust |
+| `quantum-computing` | Qubits, Shor's, Grover's, IBM/Google HW |
+| `compiler-technology` | Lexers, parsers, AST, LLVM, GCC |
+| `virtualization` | VMware → Xen → KVM → Docker → K8s |
+| `embedded-systems` | Arduino, Raspberry Pi, automotive, IoT |
+| `memory-systems` | Magnetic core → DDR5 → HBM3E |
+| `hci-evolution` | Punch cards → Mouse → Touch → VR/AR |
+| `motherboard-systems` | S-100 bus → ISA → PCIe 6.0 → Z890 |
+| `storage-evolution` | IBM RAMAC → SSD → NVMe Gen5 |
+| `display-technology` | CRT → LCD → OLED → microLED |
+
+### Orchestration Layer (3 workers)
+| Worker | Purpose |
+|--------|---------|
+| `ai-supervisor` | Meta-AI orchestrating all workers |
+| `workflow-orchestrator` | Workflow state machine engine |
+| `api-gateway` | Unified API gateway & auth |
 
 ---
 
@@ -259,6 +455,123 @@ wrangler secret put EBAY_CLIENT_SECRET
 | `/preferences` | GET/PUT | User preferences |
 | `/push/subscribe` | POST | Web push subscription |
 | `/analytics` | GET | Notification analytics |
+
+### 🆕 Round 3: Computing Legends API Reference
+
+#### CPU Architecture Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/architectures` | GET | All CPU architectures (x86, ARM, RISC-V, MIPS) |
+| `/x86` | GET | x86/x64 instruction set details |
+| `/arm` | GET | ARM architecture (A-series, M-series, R-series) |
+| `/risc-v` | GET | RISC-V open architecture |
+| `/timeline` | GET | CPU evolution timeline |
+| `/ai/query` | POST | AI-powered architecture questions |
+
+#### Operating Systems Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/history` | GET | Complete OS history from 1956 |
+| `/unix` | GET | Unix family tree |
+| `/windows` | GET | Windows evolution |
+| `/macos` | GET | macOS/Mac OS X history |
+| `/linux` | GET | Linux distributions |
+| `/mobile` | GET | iOS, Android, mobile OS |
+| `/rtos` | GET | Real-time operating systems |
+| `/ai/query` | POST | AI-powered OS questions |
+
+#### Programming Languages Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/languages` | GET | All programming languages |
+| `/timeline` | GET | Language creation timeline |
+| `/paradigms` | GET | Programming paradigms |
+| `/family/:name` | GET | Language family (C, Lisp, ML, etc.) |
+| `/compare` | POST | Compare languages |
+| `/ai/query` | POST | AI-powered language questions |
+
+#### GPU Computing Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/history` | GET | GPU evolution from 3dfx |
+| `/nvidia` | GET | NVIDIA architecture (Turing, Ampere, Ada) |
+| `/amd` | GET | AMD/ATI history |
+| `/cuda` | GET | CUDA programming guide |
+| `/opencl` | GET | OpenCL specification |
+| `/benchmarks` | GET | Historical benchmarks |
+| `/ai/query` | POST | AI-powered GPU questions |
+
+#### Network Protocols Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/osi` | GET | OSI 7-layer model |
+| `/tcp-ip` | GET | TCP/IP stack |
+| `/protocols/:name` | GET | Protocol details (HTTP, DNS, BGP, etc.) |
+| `/routing` | GET | Routing protocols |
+| `/security` | GET | Network security protocols |
+| `/ai/query` | POST | AI-powered networking questions |
+
+#### Database Systems Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/history` | GET | Database evolution |
+| `/relational` | GET | RDBMS systems |
+| `/nosql` | GET | NoSQL databases |
+| `/query-optimization` | GET | Query optimization techniques |
+| `/acid` | GET | ACID properties |
+| `/ai/query` | POST | AI-powered database questions |
+
+#### AI/ML History Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/timeline` | GET | AI history from Turing |
+| `/pioneers` | GET | AI pioneers and contributions |
+| `/neural-networks` | GET | Neural network evolution |
+| `/deep-learning` | GET | Deep learning breakthroughs |
+| `/transformers` | GET | Transformer architecture |
+| `/llms` | GET | Large language models |
+| `/ai/query` | POST | AI-powered ML history questions |
+
+#### Security Systems Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/history` | GET | Cybersecurity evolution |
+| `/encryption` | GET | Encryption algorithms |
+| `/authentication` | GET | Authentication methods |
+| `/malware` | GET | Malware history |
+| `/zero-trust` | GET | Zero trust architecture |
+| `/ai/query` | POST | AI-powered security questions |
+
+#### Memory Systems Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/evolution` | GET | Memory technology evolution |
+| `/ddr` | GET | DDR generations (DDR1-DDR5) |
+| `/cache` | GET | Cache hierarchy (L1/L2/L3) |
+| `/hbm` | GET | High Bandwidth Memory |
+| `/emerging` | GET | Emerging memory tech (MRAM, ReRAM) |
+| `/ai/query` | POST | AI-powered memory questions |
+
+#### Storage Evolution Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/history` | GET | Storage history from punch cards |
+| `/hdd` | GET | Hard disk drive evolution |
+| `/ssd` | GET | SSD technology |
+| `/nvme` | GET | NVMe specifications |
+| `/filesystems` | GET | File system comparison |
+| `/raid` | GET | RAID levels |
+| `/ai/query` | POST | AI-powered storage questions |
+
+#### Display Technology Worker
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/history` | GET | Display evolution |
+| `/lcd` | GET | LCD technologies (TN, VA, IPS) |
+| `/oled` | GET | OLED/QD-OLED |
+| `/gaming` | GET | Gaming display features |
+| `/connectors` | GET | Display connectors (HDMI, DP) |
+| `/ai/query` | POST | AI-powered display questions |
 
 ---
 

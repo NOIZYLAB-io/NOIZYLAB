@@ -1,0 +1,9 @@
+name = "virtualization-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+[[d1_databases]]
+binding = "VIRT_DB"
+database_name = "noizylab-virtualization"
+database_id = "virtualization-db-id"
+[ai]
+binding = "AI"
