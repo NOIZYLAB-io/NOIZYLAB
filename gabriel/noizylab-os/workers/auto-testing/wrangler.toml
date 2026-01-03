@@ -1,0 +1,54 @@
+name = "auto-testing-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+TEST_TIMEOUT_MS = "30000"
+MAX_PARALLEL_TESTS = "10"
+REGRESSION_THRESHOLD = "0.05"
+
+[[kv_namespaces]]
+binding = "TEST_CACHE"
+id = "auto_testing_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[queues.producers]]
+queue = "test-execution-queue"
+binding = "TEST_QUEUE"
+
+[[queues.consumers]]
+queue = "test-execution-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[ai]
+binding = "AI"
+
+[observability]
+enabled = true
+
+# Production deployment
+[env.production]
+name = "auto-testing-worker"
+routes = [
+  { pattern = "api.noizylab.com/v1/testing/*", zone_name = "noizylab.com" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+ENABLE_CHAOS_TESTING = "false"
+AUTO_ROLLBACK = "true"
+
+# Staging environment for test validation
+[env.staging]
+name = "auto-testing-worker-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+ENABLE_CHAOS_TESTING = "true"
+TEST_COVERAGE_MIN = "80"

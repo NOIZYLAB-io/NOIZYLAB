@@ -74,7 +74,7 @@ WORKERS=(
   "customer-portal:$WORKERS_DIR/customer-portal" # Customer self-service
   
   # ═══════════════════════════════════════════════════════════════════
-  # GENIUS AI WORKERS - Advanced Intelligence Systems
+  # GENIUS AI WORKERS - ROUND 1 - Advanced Intelligence Systems
   # ═══════════════════════════════════════════════════════════════════
   "predictive-maintenance:$WORKERS_DIR/predictive-maintenance"   # ML failure prediction
   "parts-matching:$WORKERS_DIR/parts-matching"                   # Vector parts compatibility
@@ -85,6 +85,20 @@ WORKERS=(
   "time-estimation:$WORKERS_DIR/time-estimation"                 # ML time prediction
   "component-lifecycle:$WORKERS_DIR/component-lifecycle"         # Component health tracking
   "supplier-intelligence:$WORKERS_DIR/supplier-intelligence"     # Supplier AI management
+  
+  # ═══════════════════════════════════════════════════════════════════
+  # GENIUS AI WORKERS - ROUND 2 - Next-Gen Intelligence
+  # ═══════════════════════════════════════════════════════════════════
+  "sentiment-analysis:$WORKERS_DIR/sentiment-analysis"           # NLP customer sentiment
+  "anomaly-detection:$WORKERS_DIR/anomaly-detection"             # Statistical outlier detection
+  "repair-simulation:$WORKERS_DIR/repair-simulation"             # Digital twin simulation
+  "price-elasticity:$WORKERS_DIR/price-elasticity"               # Dynamic pricing AI
+  "churn-prediction:$WORKERS_DIR/churn-prediction"               # Customer retention ML
+  "demand-forecasting:$WORKERS_DIR/demand-forecasting"           # Predictive inventory
+  "nl-query:$WORKERS_DIR/nl-query"                               # English-to-SQL engine
+  "auto-testing:$WORKERS_DIR/auto-testing"                       # Self-testing QA
+  "compliance-monitoring:$WORKERS_DIR/compliance-monitoring"     # Regulatory compliance
+  "carbon-footprint:$WORKERS_DIR/carbon-footprint"               # ESG sustainability
   
   # ═══════════════════════════════════════════════════════════════════
   # ORCHESTRATION LAYER (depends on ALL above)

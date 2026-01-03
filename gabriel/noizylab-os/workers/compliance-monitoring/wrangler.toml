@@ -1,0 +1,59 @@
+name = "compliance-monitoring-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+DEFAULT_RETENTION_DAYS = "365"
+GDPR_DSR_DEADLINE_DAYS = "30"
+AUTO_AUDIT_ENABLED = "true"
+
+[[kv_namespaces]]
+binding = "COMPLIANCE_CACHE"
+id = "compliance_monitoring_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[r2_buckets]]
+binding = "AUDIT_STORAGE"
+bucket_name = "noizylab-audit-storage"
+
+[[queues.producers]]
+queue = "compliance-alert-queue"
+binding = "ALERT_QUEUE"
+
+[[queues.consumers]]
+queue = "compliance-alert-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[ai]
+binding = "AI"
+
+[observability]
+enabled = true
+
+# Production deployment
+[env.production]
+name = "compliance-monitoring-worker"
+routes = [
+  { pattern = "api.noizylab.com/v1/compliance/*", zone_name = "noizylab.com" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+ENABLE_AUTO_REMEDIATION = "false"
+AUDIT_TRAIL_ENABLED = "true"
+PII_DETECTION_ENABLED = "true"
+
+# Staging environment
+[env.staging]
+name = "compliance-monitoring-worker-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+ENABLE_AUTO_REMEDIATION = "true"
+SIMULATE_AUDITS = "true"

@@ -1,0 +1,21 @@
+name = "nl-query-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "QUERY_KV"
+id = "query_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[ai]
+binding = "AI"
+
+[vars]
+ENVIRONMENT = "production"
+MAX_RESULTS = "100"
+SESSION_TTL_SECONDS = "3600"
+ENABLE_QUERY_CACHING = "true"

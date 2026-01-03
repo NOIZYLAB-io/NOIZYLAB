@@ -10,17 +10,20 @@
             "@cloudflare/workers-types"
         ],
         "strict": true,
-        "noEmit": true,
+        "esModuleInterop": true,
         "skipLibCheck": true,
-        "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
-        "isolatedModules": true
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "outDir": "./dist"
     },
     "include": [
         "*.ts"
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "dist"
     ]
 }

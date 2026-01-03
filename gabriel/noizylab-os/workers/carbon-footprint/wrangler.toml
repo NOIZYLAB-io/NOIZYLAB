@@ -1,0 +1,59 @@
+name = "carbon-footprint-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+DEFAULT_EMISSION_UNIT = "kg_co2e"
+ENABLE_REAL_TIME_TRACKING = "true"
+ESG_FRAMEWORK = "GHG_PROTOCOL"
+
+[[kv_namespaces]]
+binding = "CARBON_CACHE"
+id = "carbon_footprint_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[r2_buckets]]
+binding = "REPORTS_STORAGE"
+bucket_name = "noizylab-carbon-reports"
+
+[[queues.producers]]
+queue = "carbon-alert-queue"
+binding = "ALERT_QUEUE"
+
+[[queues.consumers]]
+queue = "carbon-alert-queue"
+max_batch_size = 10
+max_batch_timeout = 30
+
+[ai]
+binding = "AI"
+
+[observability]
+enabled = true
+
+# Production deployment
+[env.production]
+name = "carbon-footprint-worker"
+routes = [
+  { pattern = "api.noizylab.com/v1/carbon/*", zone_name = "noizylab.com" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+ENABLE_AUTO_OFFSETTING = "false"
+EMISSION_ALERT_THRESHOLD = "10000"
+NET_ZERO_TARGET_YEAR = "2040"
+
+# Staging environment
+[env.staging]
+name = "carbon-footprint-worker-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+ENABLE_TEST_DATA = "true"
+SIMULATE_REAL_TIME = "true"

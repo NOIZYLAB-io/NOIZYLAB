@@ -1,0 +1,58 @@
+name = "xcode-genius-worker"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+XCODE_VERSION = "15.2"
+SWIFT_VERSION = "5.9"
+ENABLE_CRASH_SYMBOLICATION = "true"
+
+[[kv_namespaces]]
+binding = "XCODE_CACHE"
+id = "xcode_genius_kv_id"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-db"
+database_id = "noizylab-db-id"
+
+[[r2_buckets]]
+binding = "ARTIFACTS_STORAGE"
+bucket_name = "noizylab-xcode-artifacts"
+
+[[queues.producers]]
+queue = "xcode-build-queue"
+binding = "BUILD_QUEUE"
+
+[[queues.consumers]]
+queue = "xcode-build-queue"
+max_batch_size = 5
+max_batch_timeout = 60
+
+[ai]
+binding = "AI"
+
+[observability]
+enabled = true
+
+# Production deployment
+[env.production]
+name = "xcode-genius-worker"
+routes = [
+  { pattern = "api.noizylab.com/v1/xcode/*", zone_name = "noizylab.com" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+ENABLE_REMOTE_BUILD = "true"
+DSYM_RETENTION_DAYS = "365"
+BUILD_LOG_RETENTION_DAYS = "90"
+
+# Staging environment
+[env.staging]
+name = "xcode-genius-worker-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+ENABLE_DEBUG_LOGGING = "true"
