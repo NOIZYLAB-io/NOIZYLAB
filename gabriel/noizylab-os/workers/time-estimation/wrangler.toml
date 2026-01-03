@@ -1,0 +1,27 @@
+name = "noizylab-time-estimation"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-main"
+database_id = "your-d1-database-id"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "your-kv-namespace-id"
+
+[[queues.producers]]
+queue = "notifications-queue"
+binding = "NOTIFICATIONS_QUEUE"
+
+[ai]
+binding = "AI"
+
+# Routes
+[[routes]]
+pattern = "time.noizylab.com/*"
+zone_name = "noizylab.com"

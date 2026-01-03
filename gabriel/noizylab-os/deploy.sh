@@ -42,22 +42,56 @@ MAIN_WORKER_DIR="$SCRIPT_DIR"
 
 # Worker list in deployment order (respects dependencies)
 WORKERS=(
-  "main:$MAIN_WORKER_DIR"           # Main NoizyLab OS worker
-  "brain:$WORKERS_DIR/brain"         # Claude diagnostic engine (no deps)
-  "voice:$WORKERS_DIR/voice"         # ElevenLabs TTS (no deps)
-  "vision:$WORKERS_DIR/vision"       # PCB analysis (no deps)
-  "pricing:$WORKERS_DIR/pricing"     # Pricing engine (depends on brain)
-  "ebay-sniper:$WORKERS_DIR/ebay-sniper"  # Parts hunting (depends on pricing)
-  "inventory:$WORKERS_DIR/inventory" # Inventory management (depends on ebay, pricing)
-  "analytics:$WORKERS_DIR/analytics" # Business intelligence (depends on brain)
-  "ar-guide:$WORKERS_DIR/ar-guide"   # AR repair guides (depends on brain, voice)
-  "training:$WORKERS_DIR/training"   # Training simulator (depends on brain)
-  "chat-agent:$WORKERS_DIR/chat-agent" # Real-time AI assistant (depends on brain)
-  "notifications:$WORKERS_DIR/notifications" # Notifications hub (no deps)
-  "qc-inspector:$WORKERS_DIR/qc-inspector" # QC inspector (depends on vision)
-  "customer-portal:$WORKERS_DIR/customer-portal" # Customer self-service (depends on notifications)
-  "schematic-analyzer:$WORKERS_DIR/schematic-analyzer" # Schematic analysis (depends on brain)
-  "workflow-orchestrator:$WORKERS_DIR/workflow-orchestrator" # Workflow engine (depends on ALL)
+  # ═══════════════════════════════════════════════════════════════════
+  # CORE INFRASTRUCTURE (no dependencies)
+  # ═══════════════════════════════════════════════════════════════════
+  "main:$MAIN_WORKER_DIR"                     # Main NoizyLab OS worker
+  "brain:$WORKERS_DIR/brain"                   # Claude diagnostic engine
+  "voice:$WORKERS_DIR/voice"                   # ElevenLabs TTS
+  "vision:$WORKERS_DIR/vision"                 # PCB analysis
+  "notifications:$WORKERS_DIR/notifications"   # Notifications hub
+  
+  # ═══════════════════════════════════════════════════════════════════
+  # BUSINESS LOGIC LAYER
+  # ═══════════════════════════════════════════════════════════════════
+  "pricing:$WORKERS_DIR/pricing"               # Pricing engine
+  "ebay-sniper:$WORKERS_DIR/ebay-sniper"       # Parts hunting
+  "inventory:$WORKERS_DIR/inventory"           # Inventory management
+  "analytics:$WORKERS_DIR/analytics"           # Business intelligence
+  
+  # ═══════════════════════════════════════════════════════════════════
+  # TECHNICIAN SUPPORT LAYER
+  # ═══════════════════════════════════════════════════════════════════
+  "ar-guide:$WORKERS_DIR/ar-guide"             # AR repair guides
+  "training:$WORKERS_DIR/training"             # Training simulator
+  "chat-agent:$WORKERS_DIR/chat-agent"         # Real-time AI assistant
+  "qc-inspector:$WORKERS_DIR/qc-inspector"     # QC inspector
+  "schematic-analyzer:$WORKERS_DIR/schematic-analyzer" # Schematic analysis
+  
+  # ═══════════════════════════════════════════════════════════════════
+  # CUSTOMER EXPERIENCE LAYER
+  # ═══════════════════════════════════════════════════════════════════
+  "customer-portal:$WORKERS_DIR/customer-portal" # Customer self-service
+  
+  # ═══════════════════════════════════════════════════════════════════
+  # GENIUS AI WORKERS - Advanced Intelligence Systems
+  # ═══════════════════════════════════════════════════════════════════
+  "predictive-maintenance:$WORKERS_DIR/predictive-maintenance"   # ML failure prediction
+  "parts-matching:$WORKERS_DIR/parts-matching"                   # Vector parts compatibility
+  "repair-dna:$WORKERS_DIR/repair-dna"                           # Device fingerprinting
+  "knowledge-graph:$WORKERS_DIR/knowledge-graph"                 # Graph knowledge base
+  "collaboration-hub:$WORKERS_DIR/collaboration-hub"             # Real-time collaboration
+  "fraud-detection:$WORKERS_DIR/fraud-detection"                 # AI fraud prevention
+  "time-estimation:$WORKERS_DIR/time-estimation"                 # ML time prediction
+  "component-lifecycle:$WORKERS_DIR/component-lifecycle"         # Component health tracking
+  "supplier-intelligence:$WORKERS_DIR/supplier-intelligence"     # Supplier AI management
+  
+  # ═══════════════════════════════════════════════════════════════════
+  # ORCHESTRATION LAYER (depends on ALL above)
+  # ═══════════════════════════════════════════════════════════════════
+  "ai-supervisor:$WORKERS_DIR/ai-supervisor"   # Meta-AI orchestrator
+  "workflow-orchestrator:$WORKERS_DIR/workflow-orchestrator" # Workflow engine
+  "api-gateway:$WORKERS_DIR/api-gateway"       # Unified API gateway
 )
 
 # Functions

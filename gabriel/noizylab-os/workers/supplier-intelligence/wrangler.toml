@@ -1,0 +1,35 @@
+name = "noizylab-supplier-intelligence"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-main"
+database_id = "your-d1-database-id"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "your-kv-namespace-id"
+
+[[vectorize]]
+binding = "SUPPLIER_INDEX"
+index_name = "supplier-capabilities"
+
+[[queues.producers]]
+queue = "supplier-alerts-queue"
+binding = "ALERTS_QUEUE"
+
+[ai]
+binding = "AI"
+
+# Cron triggers for market intelligence updates
+[triggers]
+crons = ["0 8 * * *", "0 20 * * *"]
+
+# Routes
+[[routes]]
+pattern = "supplier.noizylab.com/*"
+zone_name = "noizylab.com"
