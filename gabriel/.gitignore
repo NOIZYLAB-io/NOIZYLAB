@@ -1,89 +1,129 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# GABRIEL .gitignore - NOIZYLAB GORUNFREE PROTOCOL
+# ══════════════════════════════════════════════════════════════════════════════
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────────────────────────────────────
 __pycache__/
-!GABRIEL.code-workspace
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.eggs/
+.Python
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+venv/
+.venv/
+ENV/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Node / JavaScript
+# ─────────────────────────────────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+.npm/
+.yarn/
+npm-debug.log*
+yarn-error.log
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Cloudflare / Wrangler
+# ─────────────────────────────────────────────────────────────────────────────
+.wrangler/
+.dev.vars
+
+# ─────────────────────────────────────────────────────────────────────────────
+# IDE / Editor
+# ─────────────────────────────────────────────────────────────────────────────
+.idea/
 .claude/
 .codex/
-.coverage
-.dev.vars
-.DS_Store
-.eggs/
+*.swp
+*~
+
+# Keep .vscode/ for shared settings
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Environment / Secrets
+# ─────────────────────────────────────────────────────────────────────────────
 .env
 .env.*
 .env.local
-.idea/
-.npm/
-.pytest_cache/
-.Python
-.venv/
-.wrangler/
-.yarn/
-*_[0-9].sh
+*.key
+*.pem
+secrets/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# OS / System
+# ─────────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Logs / Temp
+# ─────────────────────────────────────────────────────────────────────────────
+*.log
+logs/
+temp/
+tmp/
+*.tmp
+*.bak
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Archives / Backups
+# ─────────────────────────────────────────────────────────────────────────────
+*.zip
+*.tar.gz
+*.7z
 *_backup/
-*_gorunfree.sh
 *_recovered/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Database
+# ─────────────────────────────────────────────────────────────────────────────
+*.db
+*.sqlite3
+*.metadata.json
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Large Directories (External Storage)
+# ─────────────────────────────────────────────────────────────────────────────
+CODEMASTER/
+archive/
+deep_archive/
+memory/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Legacy / Deprecated
+# ─────────────────────────────────────────────────────────────────────────────
+00_CONTROL_PLANE/
+CODE/
+docs_legacy/
+legacy/
+SystemGuardian/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Shell Script Duplicates
+# ─────────────────────────────────────────────────────────────────────────────
+*_[0-9].sh
 *-[0-9].sh
 *-[0-9][0-9].sh
-*.7z
-*.bak
-*.code-workspace
-*.db
-*.egg-info/
-*.key
-*.log
-*.metadata.json
-*.pem
-*.py[cod]
-*.so
-*.sqlite3
-*.swp
-*.tar.gz
-*.tmp
-*.zip
-*~
-*$py.class
-# ══════════════════════════════════════════════════════════════
-# Agent memory (runtime data)
-# Archive directories (large, not needed in repo)
-# Archives
-# Claude / AI
-# Database
-# Environment
-# GABRIEL .gitignore - MC96DIGIUNIVERSE GORUNFREE PROTOCOL ⚡
-# IDE
-# Keep .vscode/ for shared settings (GitLens, extensions, etc.)
-# Large directories (stored externally)
-# Logs
-# Node
-# Old/Legacy (keep local only)
-# OS files
-# Python
-# Recovered/backup files
-# Shell script duplicates & junk
-# Temp
-# Test outputs
-# Widget builds
-# Wrangler
-00_CONTROL_PLANE/
-archive/
-build/
-CODE/
-CODEMASTER/
-deep_archive/
-dist/
-docs_legacy/
-ENV/
+*_gorunfree.sh
 GORUNFREE_2025*.sh
-htmlcov/
-legacy/
-logs/
-memory/
-node_modules/
-npm-debug.log*
-secrets/
-SystemGuardian/
-temp/
-Thumbs.db
-tmp/
-venv/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Widget Builds
+# ─────────────────────────────────────────────────────────────────────────────
 widget/*.app/
-yarn-error.log
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Exceptions (Include These)
+# ─────────────────────────────────────────────────────────────────────────────
+!GABRIEL.code-workspace
+!*.code-workspace

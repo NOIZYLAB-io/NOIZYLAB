@@ -1,82 +1,149 @@
-# NOIZYLAB
+# GABRIEL
 
-**Rob Plowman's Complete Business & Automation Ecosystem**
+**NOIZYLAB's AI-Powered Operations Platform**
 
-One repo. Everything organized. GORUNFREE.
+Built for Rob Plowman's M2 Ultra Mac Studio | 192GB RAM | GORUNFREE Protocol
 
 ---
 
-## 📁 Structure
+## Directory Structure
 
 ```
-NOIZYLAB/
-├── business/
-│   ├── noizylab-repairs/     # CPU repair service ($256K target)
-│   └── fish-music-inc/       # 40+ years music/sound design
+GABRIEL/
+├── src/workers/                 # Core Cloudflare Workers
+│   ├── noizylab/               # Full-featured API (3,955 LOC)
+│   └── noizylab-v1/            # Simplified v1 refactor (1,984 LOC)
 │
-├── infrastructure/
-│   ├── cloudflare-workers/   # Edge computing & APIs
-│   ├── d1-schemas/           # Database schemas
-│   └── kv-configs/           # Key-value store configs
+├── noizylab-os/workers/         # 67 Specialized AI Workers (50,636 LOC)
+│   ├── brain/                  # Central intelligence
+│   ├── vision/                 # Image/document analysis
+│   ├── voice/                  # Voice processing
+│   ├── chat-agent/             # Conversational AI
+│   ├── api-gateway/            # API routing
+│   ├── inventory/              # Parts management
+│   ├── pricing/                # Dynamic pricing
+│   ├── audio-engine/           # Audio processing
+│   ├── video-codec/            # Video encoding
+│   └── ... (57 more workers)
 │
-├── automation/
-│   ├── mc96-universe/        # MC96ECOUNIVERSE framework
-│   ├── ai-agents/            # SHIRL, POPS, ENGR_KEITH, DREAM, GABRIEL
-│   └── voice-first/          # Accessibility-first automation
+├── ANTIGRAVITY_COMPLETE/        # 10 Creative Workers (5,569 LOC)
+│   ├── command-center/         # Central control
+│   ├── sonic-engine/           # Audio synthesis
+│   ├── media-vault/            # Media management
+│   ├── neural-gateway/         # AI gateway
+│   ├── dazeflow/               # Workflow automation
+│   └── mc96-network/           # Network integration
 │
-├── archive/
-│   ├── the-aquarium/         # 34TB creative archive management
-│   └── legacy-projects/      # Historical code & projects
+├── portal/                      # Web Applications
+│   ├── api/                    # Backend API
+│   ├── frontend/               # React dashboard
+│   ├── landing/                # Marketing site
+│   └── sdk/                    # Client SDK
 │
-└── docs/                     # Documentation & guides
+├── mcp_servers/                 # MCP Tools
+│   └── gabriel_mcp/
+│       └── turbo.py            # Parallel code scanner
+│
+├── scripts/                     # Shell Utilities (5,582 LOC)
+│   ├── deploy.sh               # Deployment
+│   ├── backup.sh               # Backup routines
+│   ├── health_alerts.sh        # System monitoring
+│   └── noizylab-sync.sh        # Repo synchronization
+│
+├── projects/                    # Active Projects
+│   ├── SystemGuardian/         # System health monitoring
+│   ├── universal-ingestion/    # Data ingestion pipeline
+│   └── universal-blocker/      # Content filtering
+│
+├── tools/                       # Development Tools
+│   ├── ai-dev-toolkit/         # AI development helpers
+│   └── claude-voice-pack/      # Voice integration
+│
+├── docs/                        # Documentation
+├── config/                      # Configuration files
+├── archive/                     # Legacy code (75MB)
+└── memory/                      # Agent memory storage
 ```
 
 ---
 
-## 🔧 Infrastructure Status
+## Active Codebase Stats
 
-### D1 Databases (10)
-| Database | Purpose |
-|----------|---------|
-| noizylab-repairs | Customer intake & repair tracking |
-| mc96-command-central | Mission Control automation |
-| agent-memory | AI agent persistent memory |
-| email-command-center | Email routing & management |
-| ai-router-brain | AI model routing logic |
-| rsp-master-budget | Financial tracking |
-| tencc-pipeline | 10CC pipeline management |
-| subscription-killer | Subscription audit & cleanup |
-| godaddy-escape-tracker | Domain migration tracking |
-| aquarium-archive | Archive catalog & metadata |
-
-### KV Namespaces (18+)
-Session caching, rate limiting, feature flags, voice commands, agent state, and more.
+| Component | Lines of Code | Files |
+|-----------|---------------|-------|
+| NoizyLab OS Workers | 50,636 | 67 workers |
+| Core Workers | 5,939 | 2 workers |
+| ANTIGRAVITY Creative | 5,569 | 10 workers |
+| Shell Scripts | 5,582 | 30 scripts |
+| MCP Servers | 848 | 3 tools |
+| **Total Active** | **~70,000** | **~110** |
 
 ---
 
-## 🤖 AI Agents
+## Technology Stack
 
-| Agent | Role | Personality |
-|-------|------|-------------|
-| SHIRL | Business operations | Organized, efficient |
-| POPS | Creative direction | Rob's father's spirit |
-| ENGR_KEITH | Technical engineering | R.K. Plowman's precision |
-| DREAM | Visionary planning | Future-focused |
-| GABRIEL | System bridge | HP Omen connector |
+### Backend
+- **Runtime**: Cloudflare Workers (Edge)
+- **Framework**: Hono
+- **Database**: D1 (SQLite)
+- **Storage**: R2
+- **AI**: Workers AI (Llama 3.1, Claude)
+- **Validation**: Zod
+
+### Frontend
+- **Framework**: React 18
+- **Styling**: Tailwind CSS
+- **State**: Zustand
+- **API**: Hono RPC
+
+### AI/ML
+- **Models**: Llama 3.1 8B Instruct, Claude 3.5 Sonnet
+- **Vision**: Workers AI Vision
+- **Voice**: Voice pipeline (TTS/STT)
 
 ---
 
-## 🎯 Philosophy
+## Key Features
 
-**GORUNFREE**: One command = everything done. No fragmented steps.
+### NoizyLab OS
+- 12 persona-based ticket triage (Tab Tornado, Storage Closet, etc.)
+- 12 playbook-driven remediation
+- AI-powered calm messaging
+- Real-time WebSocket updates
 
-**Voice-First**: All solutions accessible via voice or one-click.
+### ANTIGRAVITY
+- Creative workflow automation
+- Audio/video processing
+- Media vault management
+- Network-wide sync
 
-**Truth Covenant**: Zero fabricated data. Ever.
+### GABRIEL TURBO
+- Parallel code validation
+- Auto-fix with black/isort
+- TypeScript/JavaScript/Python/Shell support
+- ThreadPoolExecutor for speed
 
 ---
 
-## 🏠 Network: MC96ECOUNIVERSE
+## Quick Commands
+
+```bash
+# Deploy all workers
+./scripts/deploy.sh
+
+# Sync to GitHub
+./scripts/noizylab-sync.sh
+
+# Run TURBO scanner
+python mcp_servers/gabriel_mcp/turbo.py scan .
+
+# Health check
+./scripts/health_alerts.sh
+```
+
+---
+
+## Network: MC96ECOUNIVERSE
 
 | System | Role | Specs |
 |--------|------|-------|
@@ -84,11 +151,9 @@ Session caching, rate limiting, feature flags, voice commands, agent state, and 
 | GABRIEL | Windows bridge | HP Omen |
 | DaFixer | Repair station | MacBook Pro |
 
-Connected via DLink DGS1210-10 managed switch.
-
 ---
 
-## 📧 Contact
+## Contact
 
 - Primary: rsplowman@icloud.com
 - Business: rob@noizylab.ca
@@ -96,4 +161,4 @@ Connected via DLink DGS1210-10 managed switch.
 
 ---
 
-*Built with GORUNFREE philosophy. One repo to rule them all.*
+*Built with GORUNFREE philosophy. Ship it.*
