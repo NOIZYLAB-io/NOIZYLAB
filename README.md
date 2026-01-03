@@ -4,39 +4,48 @@
 
 🇺🇸 English | 🇪🇸 Español | 🇫🇷 Français | 🇩🇪 Deutsch | 🇯🇵 日本語 | 🇨🇳 中文 | 🇧🇷 Português | 🇷🇺 Русский | 🇮🇳 हिन्दी | 🇸🇦 العربية
 
+[![CI/CD](https://github.com/NOIZYLAB-io/NOIZYLAB/workflows/🚀%20NOIZYLAB%20CI/CD/badge.svg)](https://github.com/NOIZYLAB-io/NOIZYLAB/actions)
+
 ---
 
-## 📋 XENODOCHIAL-ALMEIDA: Unified NOIZYLAB Integration Platform
+## 🚀 Unified NOIZYLAB Integration Platform
 
-## Overview
-
-The **xenodochial-almeida** branch contains the **complete unified integration infrastructure** for M2-Ultra and HP-OMEN systems, consolidating the NOIZYLAB ecosystem into a single coherent platform.
-
-**Universal Compatibility**: macOS, Windows, Linux, Cloudflare Workers, Docker, VMs.  
-**Accessibility**: Designed for global teams; translation-ready docs and UI.
+The **NOIZYLAB** platform provides a complete unified integration infrastructure for multi-system orchestration across macOS, Windows, Linux, and Cloudflare Workers.
 
 **Status**: ✅ **PRODUCTION READY**  
-**Completion**: 100% (All 6 TODOs implemented)  
-**Lines of Code**: 3,550+  
-**Systems Integrated**: 5+ (AEON, RepairRob, 10CC, TUNNEL, INGESTION)
+**Systems Integrated**: AEON, RepairRob, 10CC, TUNNEL, INGESTION  
+**Universal Compatibility**: macOS, Windows, Linux, Cloudflare Workers, Docker, VMs
 
 ---
 
-## 🚀 Quick Start
+## 📦 Quick Start
 
-### Read the Docs
-- **[INTEGRATION_COMPLETION_REPORT.md](./INTEGRATION_COMPLETION_REPORT.md)** - Comprehensive guide
-- **[QUICK_START_EXAMPLES.py](./QUICK_START_EXAMPLES.py)** - 9 runnable examples
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/NOIZYLAB-io/NOIZYLAB.git
+cd NOIZYLAB
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Copy environment template
+cp .env.example .env
+# Edit .env with your configuration
+```
 
 ### Run Examples
-```python
+
+```bash
 python QUICK_START_EXAMPLES.py
 ```
 
-### Initialize System
+### Basic Usage
+
 ```python
 import asyncio
-from unified_integration_bridge import UnifiedIntegrationBridge
+from src.integrations.unified_integration_bridge import UnifiedIntegrationBridge
 
 async def main():
     bridge = UnifiedIntegrationBridge()
@@ -48,30 +57,135 @@ asyncio.run(main())
 
 ---
 
-## 📦 Core Modules
+## 📂 Project Structure
 
-| Module | Lines | Purpose |
-|--------|-------|---------|
-| **unified_integration_bridge.py** | 1,000+ | Master orchestrator for all systems |
-| **secure_transport_layer.py** | 700+ | SSH tunneling + VPN fallback + Network resilience |
-| **unified_auth_system.py** | 550+ | Keychain integration + API keys + Token management |
-| **unified_file_sync.py** | 600+ | Bidirectional sync + Conflict resolution |
-| **unified_remote_display.py** | 600+ | Remote display + H.265 codec + Window sharing |
-| **unified_performance_metrics.py** | 700+ | Metrics collection + Bandwidth throttling + Optimization |
+```
+NOIZYLAB/
+├── src/                    # Source code
+│   ├── core/              # Core orchestration
+│   └── integrations/      # System integrations
+├── workers/               # Cloudflare Workers
+├── scripts/               # Utility scripts
+├── docs/                  # Documentation
+│   ├── guides/           # Implementation guides
+│   ├── setup/            # Setup instructions
+│   ├── plans/            # Architecture plans
+│   └── quizzes/          # Knowledge checks
+├── gabriel/              # Gabriel subsystem
+├── PROJECTS/             # Project workspace
+└── data/                 # Data files
+```
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed system design.
 
 ---
 
-## ✨ Key Features
+## 🎯 Core Features
 
-✅ **File Synchronization** - Bidirectional sync with 5 conflict strategies  
-✅ **Network Security** - SSH tunneling with 3-tier fallback strategy  
-✅ **Authentication** - Keychain integration + API key rotation + OAuth2  
-✅ **Remote Display** - H.264/VP9/H.265 codecs + Window sharing + Annotations  
-✅ **Performance Monitoring** - Real-time metrics + Bandwidth throttling + Recommendations  
-✅ **System Integration** - AEON, RepairRob, 10CC, TUNNEL, INGESTION orchestration
-| `homeAccountId` | A unique identifier for the account                                 |
+### 🔐 Authentication & Security
+- Keychain integration (macOS/Windows)
+- API key management and rotation
+- OAuth2 token handling
+- Secure credential storage
 
-### Security considerations
+### 📁 File Synchronization
+- Bidirectional sync with real-time detection
+- 5 conflict resolution strategies
+- Clipboard sync support
+- Efficient change tracking
 
-- The user profile's `.azure` directory is already used by other products, such as MSAL and Azure CLI to store metadata in `msal_token_cache.bin` and `azureProfile.json`, respectively.
-- While `authRecord.json` itself isn't inherently dangerous, it should still be excluded from source control. A preconfigued `.gitignore` file is written alongside the file for that purpose.
+### 🌐 Secure Networking
+- SSH tunneling with automatic fallback
+- VPN integration
+- Network health monitoring
+- Bandwidth optimization
+
+### 🖥️ Remote Display
+- Multiple codec support (H.264, VP9, H.265, JPEG)
+- Window sharing capabilities
+- Remote input handling
+- Annotation support
+
+### 📊 Performance Monitoring
+- Real-time system metrics
+- Network performance tracking
+- Bandwidth throttling
+- Prometheus export format
+
+### 🔗 System Integration
+- gRPC bridge for cross-platform communication
+- Event-driven architecture
+- Health monitoring and auto-recovery
+- Workflow orchestration
+
+---
+
+## 📚 Documentation
+
+- **[Architecture Overview](./ARCHITECTURE.md)** - System design and components
+- **[Quick Start Examples](./QUICK_START_EXAMPLES.py)** - Runnable code examples
+- **[Integration Guide](./docs/guides/INTEGRATION_COMPLETION_REPORT.md)** - Complete integration documentation
+- **[API Documentation](./docs/DOCUMENTATION_INDEX.md)** - API reference
+- **[Setup Guides](./docs/setup/)** - Installation and configuration
+- **[Source Code Docs](./src/README.md)** - Module documentation
+
+---
+
+## 🛠️ Development
+
+### Code Quality
+
+The project uses modern Python tooling:
+
+- **Formatting**: Black
+- **Linting**: Ruff
+- **Type Checking**: MyPy (when available)
+
+```bash
+# Format code
+black src/ QUICK_START_EXAMPLES.py
+
+# Lint code
+ruff check src/ QUICK_START_EXAMPLES.py
+
+# Run tests (when available)
+pytest tests/
+```
+
+### Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run linting and tests
+5. Submit a pull request
+
+---
+
+## 🔒 Security
+
+- No hardcoded credentials
+- Environment-based configuration
+- Keychain integration for secrets
+- Encrypted transport layers
+- Regular dependency audits
+
+See [.env.example](./.env.example) for configuration template.
+
+---
+
+## 📄 License
+
+See [LICENSE](./LICENSE) for details.
+
+---
+
+## 🌟 Status
+
+**Production Ready** | **Active Development** | **Community Welcome**
+
+For questions, issues, or contributions, please open an issue on GitHub.
+
+---
+
+**GoRunFree!** 🚀

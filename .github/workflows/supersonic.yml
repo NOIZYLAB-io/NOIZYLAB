@@ -8,9 +8,104 @@ on:
   workflow_dispatch:
 
 jobs:
-  supersonic:
-    name: 🔍 Supersonic Checks
+  lint:
+    name: 🔍 Linting & Code Quality
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python Dependencies
+        run: |
+          pip install black ruff mypy -q
+          pip install -r requirements.txt -q || true
+
+      - name: Run Black Formatter
+        run: |
+          echo "🎨 Checking Python formatting..."
+          black --check src/ QUICK_START_EXAMPLES.py || {
+            echo "❌ Code formatting issues found. Run 'black .' to fix."
+            exit 1
+          }
+
+      - name: Run Ruff Linter
+        run: |
+          echo "🔍 Running Ruff linter..."
+          ruff check src/ QUICK_START_EXAMPLES.py
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lint TypeScript Worker
+        working-directory: workers/noizylab
+        run: |
+          echo "🔍 Checking TypeScript worker..."
+          npm install
+          npm run build
+
+  test:
+    name: 🧪 Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt -q || true
+          pip install pytest pytest-asyncio -q
+
+      - name: Run Python Tests
+        run: |
+          echo "🧪 Running tests..."
+          # Add test execution once tests exist
+          echo "⚠️ No tests defined yet"
+
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Bandit
+        run: pip install bandit[toml] safety
+
+      - name: Run Bandit Security Scan
+        run: |
+          echo "🔒 Running security scan..."
+          bandit -r src/ -ll || true
+
+      - name: Check Dependencies for Vulnerabilities
+        run: |
+          echo "🔍 Checking for vulnerable dependencies..."
+          pip install -r requirements.txt -q
+          safety check --json || true
+
+  supersonic:
+    name: 🔍 System Checks
+    runs-on: ubuntu-latest
+    needs: [lint, test]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,7 +125,7 @@ jobs:
             echo "⚠️ Worker: HTTP $HTTP_CODE (may need deploy)"
           fi
 
-      - name: Validate Scripts
+      - name: Validate Shell Scripts
         run: |
           echo "📜 Checking shell scripts..."
           for script in autorun.sh supersonic.sh ultimate.sh scripts/*.sh; do
@@ -39,17 +134,18 @@ jobs:
             fi
           done
 
-      - name: Check Markdown Links
+      - name: Check Project Structure
         run: |
-          echo "📝 Checking for broken internal links..."
-          find . -name "*.md" -type f | head -20 | while read f; do
-            echo "  Checked: $f"
-          done
+          echo "📁 Validating project structure..."
+          [ -d "src/core" ] && echo "✅ src/core exists" || echo "❌ src/core missing"
+          [ -d "src/integrations" ] && echo "✅ src/integrations exists" || echo "❌ src/integrations missing"
+          [ -f "ARCHITECTURE.md" ] && echo "✅ ARCHITECTURE.md exists" || echo "❌ ARCHITECTURE.md missing"
+          [ -f ".env.example" ] && echo "✅ .env.example exists" || echo "❌ .env.example missing"
 
   deploy:
     name: 🚀 Deploy Worker
     runs-on: ubuntu-latest
-    needs: supersonic
+    needs: [lint, test, supersonic, security]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/xenodochial-almeida'
     steps:
       - name: Checkout
@@ -77,19 +173,22 @@ jobs:
           fi
 
   notify:
-    name: 📣 Notify
+    name: 📣 Summary
     runs-on: ubuntu-latest
-    needs: [supersonic, deploy]
+    needs: [lint, test, security, supersonic, deploy]
     if: always()
     steps:
-      - name: Summary
+      - name: Build Summary
         run: |
           echo "╔═══════════════════════════════════════════════════════════════╗"
           echo "║   🌍 NOIZYLAB — The United Nations of Code                   ║"
-          echo "║   https://github.com/Noizyfish/NOIZYLAB                       ║"
+          echo "║   https://github.com/NOIZYLAB-io/NOIZYLAB                     ║"
           echo "╚═══════════════════════════════════════════════════════════════╝"
           echo ""
-          echo "Supersonic: ${{ needs.supersonic.result }}"
+          echo "Lint: ${{ needs.lint.result }}"
+          echo "Test: ${{ needs.test.result }}"
+          echo "Security: ${{ needs.security.result }}"
+          echo "Checks: ${{ needs.supersonic.result }}"
           echo "Deploy: ${{ needs.deploy.result }}"
           echo ""
           echo "GoRunFree! 🚀"
