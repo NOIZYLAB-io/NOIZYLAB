@@ -1521,7 +1521,7 @@ async def test_autonomous_learning():
     print(f"   Current Readiness: {career_path['current_readiness']:.1f}%")
     print(f"   Skill Gaps: {len(career_path['skill_gaps'])}")
     print(f"   Time to Job-Ready: {career_path['total_learning_hours']:.1f} hours")
-    print(f"   Salary Potential (Entry): ${career_path['salary_potential']['entry']:,}")
+    print(f"   Salary Potential (Entry): $***REDACTED***")
     print(f"   Market Outlook: {career_path['market_outlook'].title()}")
     
     # Test 7: Collaborative learning features

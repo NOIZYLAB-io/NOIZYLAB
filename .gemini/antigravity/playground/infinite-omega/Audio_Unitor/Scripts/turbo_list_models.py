@@ -12,7 +12,7 @@ def list_models():
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
     
-    print(f"Querying: {url}")
+    print(f"Querying: https://generativelanguage.googleapis.com/v1beta/models?key=***REDACTED***")
     
     try:
         with urllib.request.urlopen(url) as response:
