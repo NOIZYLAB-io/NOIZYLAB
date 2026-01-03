@@ -1,0 +1,27 @@
+name = "noizylab-video-codec"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "video-codec-index"
+
+[[d1_databases]]
+binding = "VIDEO_CODEC_DB"
+database_name = "video-codec-db"
+database_id = "video-codec-db-id"
+
+[[kv_namespaces]]
+binding = "VIDEO_CODEC_CACHE"
+id = "video-codec-cache-id"
+
+[[r2_buckets]]
+binding = "VIDEO_ASSETS"
+bucket_name = "video-assets"
+
+[vars]
+WORKER_NAME = "video-codec"
+OPENH264_VERSION = "2.6.0"

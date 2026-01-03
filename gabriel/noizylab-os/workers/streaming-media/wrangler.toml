@@ -1,0 +1,26 @@
+name = "noizylab-streaming-media"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "streaming-media-index"
+
+[[d1_databases]]
+binding = "STREAMING_DB"
+database_name = "streaming-media-db"
+database_id = "streaming-media-db-id"
+
+[[kv_namespaces]]
+binding = "STREAMING_CACHE"
+id = "streaming-media-cache-id"
+
+[[r2_buckets]]
+binding = "STREAMING_ASSETS"
+bucket_name = "streaming-assets"
+
+[vars]
+WORKER_NAME = "streaming-media"

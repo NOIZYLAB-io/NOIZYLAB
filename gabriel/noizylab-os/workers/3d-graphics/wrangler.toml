@@ -1,0 +1,26 @@
+name = "noizylab-3d-graphics"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "3d-graphics-index"
+
+[[d1_databases]]
+binding = "GRAPHICS_3D_DB"
+database_name = "3d-graphics-db"
+database_id = "3d-graphics-db-id"
+
+[[kv_namespaces]]
+binding = "GRAPHICS_3D_CACHE"
+id = "3d-graphics-cache-id"
+
+[[r2_buckets]]
+binding = "GRAPHICS_ASSETS"
+bucket_name = "graphics-assets"
+
+[vars]
+WORKER_NAME = "3d-graphics"

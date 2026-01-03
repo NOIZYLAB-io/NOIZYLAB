@@ -1,0 +1,26 @@
+name = "noizylab-image-pipeline"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[ai]
+binding = "AI"
+
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "image-pipeline-index"
+
+[[d1_databases]]
+binding = "IMAGE_PIPELINE_DB"
+database_name = "image-pipeline-db"
+database_id = "image-pipeline-db-id"
+
+[[kv_namespaces]]
+binding = "IMAGE_PIPELINE_CACHE"
+id = "image-pipeline-cache-id"
+
+[[r2_buckets]]
+binding = "IMAGE_ASSETS"
+bucket_name = "image-assets"
+
+[vars]
+WORKER_NAME = "image-pipeline"
