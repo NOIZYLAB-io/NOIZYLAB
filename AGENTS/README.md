@@ -21,6 +21,7 @@ Central registry and launcher for all MC96UNIVERSE agents.
 |-------|-------------|--------|
 | GABRIEL | Zero Latency Voice + Control | ✅ Active |
 | MC96 | Core Universe Engine | ✅ Active |
+| CODEMASTER | Unified Code Repository Organizer | ✅ Active |
 | SystemGuardian | System Monitoring | 🔧 Stub |
 
 ## Registry

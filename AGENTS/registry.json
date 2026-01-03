@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "updated": "2025-12-20",
+  "version": "1.1.0",
+  "updated": "2026-01-03",
   "agents": [
     {
       "id": "gabriel",
@@ -28,6 +28,15 @@
       "path": "/Users/m2ultra/NOIZYLAB/SystemGuardian",
       "status": "stub",
       "capabilities": ["monitoring", "alerts"]
+    },
+    {
+      "id": "codemaster",
+      "name": "CODEMASTER",
+      "description": "Unified Code Repository Organizer",
+      "entrypoint": null,
+      "path": "/Users/m2ultra/NOIZYLAB/CODEMASTER",
+      "status": "active",
+      "capabilities": ["code-organization", "repository-management", "consolidation"]
     }
   ],
   "launcher": {
