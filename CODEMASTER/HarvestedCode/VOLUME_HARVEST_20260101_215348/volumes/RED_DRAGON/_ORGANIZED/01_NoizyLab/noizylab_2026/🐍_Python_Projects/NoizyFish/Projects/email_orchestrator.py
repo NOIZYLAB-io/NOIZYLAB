@@ -1,1 +1,0 @@
-python3 ~/Desktop/NoizyFish/auto_organize_noizyfish.py
