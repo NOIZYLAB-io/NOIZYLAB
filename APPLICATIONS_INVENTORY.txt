@@ -1,0 +1,360 @@
+═══════════════════════════════════════════════════════════════════
+NOIZYLAB APPLICATIONS INVENTORY
+Generated: Sun Jan  4 17:43:32 EST 2026
+═══════════════════════════════════════════════════════════════════
+
+
+🔧 DISK REPAIR & DIAGNOSTIC TOOLS:
+─────────────────────────────────────────────────────────────────
+✓ TechTool Pro.app
+
+🚑 DATA RECOVERY TOOLS:
+─────────────────────────────────────────────────────────────────
+
+💾 BACKUP & CLONING TOOLS:
+─────────────────────────────────────────────────────────────────
+
+🎵 AUDIO/VIDEO PRODUCTION:
+─────────────────────────────────────────────────────────────────
+✓ Logic Pro.app
+✓ GarageBand.app
+
+📊 SYSTEM MONITORING & OPTIMIZATION:
+─────────────────────────────────────────────────────────────────
+
+💻 DEVELOPMENT & AUTOMATION:
+─────────────────────────────────────────────────────────────────
+✓ Visual Studio Code.app
+✓ Xcode.app
+✓ BBEdit.app
+✓ GitHub Desktop.app
+
+
+═══════════════════════════════════════════════════════════════════
+COMPLETE APPLICATION LIST (ALL .app BUNDLES):
+═══════════════════════════════════════════════════════════════════
+
+Antigravity.app
+Apple Configurator.app
+Apps for Google App.app
+Arch.app
+Barrier.app
+BBEdit.app
+Blackmagic Cam.app
+Blackmagic Disk Speed Test.app
+Camera Control.app
+Canva.app
+ChatGPT Atlas.app
+ChatGPT.app
+Chords Compass.app
+Claude.app
+Clone in VS Code.app
+Cloudflare Events.app
+Cloudflare One.app
+Cloudflare WARP.app
+Code AI.app
+Color Picker.app
+ColorSlurp.app
+Copilot.app
+CSV Editor Pro X.app
+Cursor.app
+Demo.app
+DevCleaner.app
+Discord.app
+Docs for Google Docs and Drive.app
+Easy REX Converter.app
+EasyFind.app
+Ente Auth.app
+FileShredder.app
+Firefox.app
+Flycut.app
+GarageBand.app
+Gemini 2.app
+GitHub Desktop.app
+GitHub Wiki Search.app
+GitKraken.app
+Google Chrome.app
+Google Docs.app
+Google Drive.app
+Google Sheets.app
+Google Slides.app
+Icon Maker Pro.app
+iHosts.app
+iLok License Manager.app
+Logic Pro.app
+LUNA.app
+Magnet.app
+Messenger.app
+Microsoft Edge.app
+Microsoft Excel.app
+Microsoft OneNote.app
+Microsoft Outlook.app
+Microsoft PowerPoint.app
+Microsoft Teams.app
+Microsoft Word.app
+MP3 Normalizer 2.app
+MusicMath.app
+MyQuickMac Neo.app
+nazca.app
+Okta Verify.app
+OneDrive.app
+Openly a Link - Browser Picker.app
+Opera.app
+Pages.app
+Parallels Desktop.app
+Parallels Toolbox.app
+Parsec.app
+Piano Chords and Scales.app
+PowerShell.app
+Prime Video.app
+Py Editor.app
+Quick Note.app
+Rename X.app
+Ringer.app
+Safari.app
+Shapr3D.app
+Slack.app
+Solar App.app
+Spectrum.app
+Spotify.app
+Swiftify for Xcode.app
+Switch Plus.app
+Tag Editor 2.app
+Tailscale.app
+TeamViewer.app
+TechTool Monitor.app
+Techtool Pro.app
+Termius.app
+TestFlight.app
+To MP3 Converter 2.app
+Transporter.app
+UA Connect.app
+Userscripts.app
+UxMIDI Tools.app
+Videohub.app
+Visual Studio Code - Insiders.app
+Visual Studio Code.app
+WhatsApp.app
+Windows App.app
+Windsurf.app
+Xcode.app
+ZeroTier.app
+
+UTILITIES FOLDER:
+─────────────────────────────────────────────────────────────────
+Feedback Assistant.app
+
+═══════════════════════════════════════════════════════════════════
+COMMAND-LINE TOOLS (HOMEBREW):
+═══════════════════════════════════════════════════════════════════
+
+abseil
+aom
+apr
+apr-util
+aria2
+aribb24
+arp-scan
+azure-cli
+bash
+bat
+bc
+brotli
+ca-certificates
+cairo
+chisel
+cjson
+cloudflared
+cmake
+dav1d
+eza
+fd
+fdupes
+ffmpeg
+flac
+fontconfig
+freetype
+frei0r
+fribidi
+fswatch
+fzf
+gdbm
+gettext
+gh
+giflib
+git-filter-repo
+gitleaks
+glib
+gmp
+gnutls
+go
+graphite2
+harfbuzz
+highway
+icu4c@78
+imath
+ios-deploy
+iperf3
+jpeg-turbo
+jpeg-xl
+jq
+lame
+leptonica
+libarchive
+libass
+libb2
+libbluray
+libdeflate
+libevent
+libgit2
+libidn2
+liblinear
+libmicrohttpd
+libnghttp2
+libogg
+libpng
+librist
+libsamplerate
+libsndfile
+libsodium
+libsoxr
+libssh
+libssh2
+libtasn1
+libtiff
+libudfread
+libunibreak
+libunistring
+libvidstab
+libvmaf
+libvorbis
+libvpx
+libx11
+libxau
+libxcb
+libxdmcp
+libxext
+libxrender
+libyaml
+libzip
+little-cms2
+lua
+lz4
+lzo
+mad
+mbedtls@3
+mint
+mpdecimal
+mpg123
+ncurses
+nettle
+nmap
+ollama
+oniguruma
+opencore-amr
+openexr
+openjpeg
+openjph
+openssl@3
+opus
+opusfile
+p11-kit
+pango
+parallel
+pcre2
+periphery
+pigz
+pixman
+pkgconf
+portaudio
+protobuf
+pv
+python@3.10
+python@3.11
+python@3.12
+python@3.13
+python@3.14
+qrencode
+rav1e
+rclone
+readline
+ripgrep
+rubberband
+sdl2
+smartmontools
+snappy
+sourcery
+sox
+speex
+sqlite
+srt
+starship
+subversion
+svt-av1
+swift
+swift-protobuf
+swift-sh
+swiftformat
+swiftlint
+syncthing
+tesseract
+thefuck
+theora
+tldr
+unbound
+utf8proc
+vapor
+webp
+wireguard-go
+wireguard-tools
+x264
+x265
+xcbeautify
+xcodegen
+xcodes
+xorgproto
+xvid
+xz
+zeromq
+zimg
+zoxide
+zsh-autosuggestions
+zsh-syntax-highlighting
+zstd
+
+═══════════════════════════════════════════════════════════════════
+NOIZYLAB AI CPU REPAIR - TOOL RECOMMENDATIONS:
+═══════════════════════════════════════════════════════════════════
+
+RECOMMENDED TOOL COMBINATIONS FOR DIFFERENT SCENARIOS:
+
+1. FROZEN/SLOW DRIVES (Your current issue):
+   Primary: TechTool Pro 21 → Volume Structures test
+   Secondary: Drive Genius → DrivePulse monitoring
+   Fallback: DiskWarrior → Directory rebuild
+   Automation: ~/NOIZYLAB/TTP21_HOT_ROD_GUIDE.sh
+
+2. DATA RECOVERY (Deleted/corrupted files):
+   Primary: Disk Drill → GUI-based, user-friendly
+   Secondary: PhotoRec/TestDisk → Command-line, powerful
+   Advanced: R-Studio → Professional-grade
+   Emergency: Partner with DriveSavers/Ontrack labs
+
+3. PREVENTIVE MAINTENANCE:
+   Daily: Drive Genius DrivePulse → SMART monitoring
+   Weekly: TechTool Pro → Quick scan
+   Monthly: Carbon Copy Cloner → Full system backup
+   Continuous: ~/NOIZYLAB/QUICK_STATUS.sh (automated)
+
+4. PERFORMANCE OPTIMIZATION:
+   Monitoring: iStat Menus → Real-time system stats
+   Cleanup: CleanMyMac X → Remove junk files
+   Diagnostics: Activity Monitor → Process management
+   Automation: ~/NOIZYLAB/ULTRA_AGGRESSIVE.sh
+
+5. AUDIO/VIDEO ARCHIVE PROTECTION (40-year collection):
+   Primary backup: Carbon Copy Cloner → Bootable clone
+   Cloud backup: Backblaze → Unlimited cloud storage
+   Version control: ChronoSync → Incremental backups
+   Integrity checks: DaisyDisk → Visual space analysis
+
