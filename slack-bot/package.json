@@ -1,0 +1,30 @@
+{
+  "name": "noizylab-slack-bot",
+  "version": "1.0.0",
+  "description": "NOIZYLAB AI Copilot - Slack bot for automated disk repair & monitoring",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "disk-repair",
+    "automation",
+    "noizylab"
+  ],
+  "author": "Gabriel Almeida",
+  "license": "MIT",
+  "dependencies": {
+    "@slack/bolt": "^3.17.1",
+    "dotenv": "^16.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
