@@ -1,0 +1,7 @@
+identity_gate:
+  provider: CLOUDFLARE_ZERO_TRUST
+  primary_auth: HARDWARE_PASSKEY
+  secondary_auth: AURA_PRINT_BIO
+  failover:
+    if_google_billing_error: LOCAL_GOD_NODE_ONLY
+    mode: AIR_GAPPED_REPAIR_ENABLED
