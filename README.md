@@ -1,5 +1,7 @@
 # 🌍 NOIZYLAB — The United Nations of Code
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/NOIZYLAB-io/NOIZYLAB?quickstart=1)
+
 > **One repo. All platforms. All humans. GoRunFree!**
 
 🇺🇸 English | 🇪🇸 Español | 🇫🇷 Français | 🇩🇪 Deutsch | 🇯🇵 日本語 | 🇨🇳 中文 | 🇧🇷 Português | 🇷🇺 Русский | 🇮🇳 हिन्दी | 🇸🇦 العربية
@@ -25,15 +27,18 @@ The **xenodochial-almeida** branch contains the **complete unified integration i
 ## 🚀 Quick Start
 
 ### Read the Docs
+
 - **[INTEGRATION_COMPLETION_REPORT.md](./INTEGRATION_COMPLETION_REPORT.md)** - Comprehensive guide
 - **[QUICK_START_EXAMPLES.py](./QUICK_START_EXAMPLES.py)** - 9 runnable examples
 
 ### Run Examples
+
 ```python
 python QUICK_START_EXAMPLES.py
 ```
 
 ### Initialize System
+
 ```python
 import asyncio
 from unified_integration_bridge import UnifiedIntegrationBridge
@@ -50,14 +55,14 @@ asyncio.run(main())
 
 ## 📦 Core Modules
 
-| Module | Lines | Purpose |
-|--------|-------|---------|
-| **unified_integration_bridge.py** | 1,000+ | Master orchestrator for all systems |
-| **secure_transport_layer.py** | 700+ | SSH tunneling + VPN fallback + Network resilience |
-| **unified_auth_system.py** | 550+ | Keychain integration + API keys + Token management |
-| **unified_file_sync.py** | 600+ | Bidirectional sync + Conflict resolution |
-| **unified_remote_display.py** | 600+ | Remote display + H.265 codec + Window sharing |
-| **unified_performance_metrics.py** | 700+ | Metrics collection + Bandwidth throttling + Optimization |
+| Module                             | Lines  | Purpose                                                  |
+| ---------------------------------- | ------ | -------------------------------------------------------- |
+| **unified_integration_bridge.py**  | 1,000+ | Master orchestrator for all systems                      |
+| **secure_transport_layer.py**      | 700+   | SSH tunneling + VPN fallback + Network resilience        |
+| **unified_auth_system.py**         | 550+   | Keychain integration + API keys + Token management       |
+| **unified_file_sync.py**           | 600+   | Bidirectional sync + Conflict resolution                 |
+| **unified_remote_display.py**      | 600+   | Remote display + H.265 codec + Window sharing            |
+| **unified_performance_metrics.py** | 700+   | Metrics collection + Bandwidth throttling + Optimization |
 
 ---
 
@@ -69,9 +74,36 @@ asyncio.run(main())
 ✅ **Remote Display** - H.264/VP9/H.265 codecs + Window sharing + Annotations  
 ✅ **Performance Monitoring** - Real-time metrics + Bandwidth throttling + Recommendations  
 ✅ **System Integration** - AEON, RepairRob, 10CC, TUNNEL, INGESTION orchestration
-| `homeAccountId` | A unique identifier for the account                                 |
 
-### Security considerations
+---
 
-- The user profile's `.azure` directory is already used by other products, such as MSAL and Azure CLI to store metadata in `msal_token_cache.bin` and `azureProfile.json`, respectively.
-- While `authRecord.json` itself isn't inherently dangerous, it should still be excluded from source control. A preconfigued `.gitignore` file is written alongside the file for that purpose.
+## 🧹 Repository Organization
+
+```
+NOIZYLAB/
+├── workers/noizylab/    # 🚀 THE Cloudflare Worker
+├── scripts/             # 📜 All shell scripts
+├── gabriel/             # 🤖 Gabriel AI system
+│   └── _ORGANIZED/      # ✅ Single source of truth
+├── docs/                # 📚 Documentation
+├── data/                # 💾 Local databases
+└── AG_HOME.code-workspace  # 🏠 THE workspace file
+```
+
+### Quick Commands
+
+```bash
+make help        # See all commands
+make deploy      # Deploy worker
+make nuke        # 🔥 Delete all junk
+make organize    # 📁 Consolidate duplicates
+make clean       # 🧹 Clean artifacts
+```
+
+---
+
+## 📞 Contact
+
+**Organization**: [NOIZYLAB-io](https://github.com/NOIZYLAB-io)  
+**Creator**: Rob Plowman  
+**Philosophy**: GoRunFree! 🏃‍♂️
