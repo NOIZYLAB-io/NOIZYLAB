@@ -2,9 +2,14 @@
 
 # Zero-trust extractor: detect Google auth friction and fail over to local master.
 
+FORCE=0
+if [[ "${1:-}" == "--force-sovereign" ]]; then
+  FORCE=1
+fi
+
 CHECK_AUTH=$(curl -s -o /dev/null -w "%{http_code}" https://admin.google.com)
 
-if [ "$CHECK_AUTH" != "200" ]; then
+if [[ "$CHECK_AUTH" != "200" || "$FORCE" -eq 1 ]]; then
     echo "⚠️ FRICTION DETECTED: Google Identity Throttled."
     echo "🚀 ACTIVATING SOVEREIGN_LOCAL_MASTER..."
     # Sever Cloud-Auth, switch to local P24+Passkey Auth

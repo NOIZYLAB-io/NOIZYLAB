@@ -36,7 +36,12 @@ def zen_lock_loop():
 def main():
     parser = argparse.ArgumentParser(description="Aura oscillator / bio-key generator")
     parser.add_argument("--mode", default="ZEN_LOCK", help="Mode: ZEN_LOCK")
+    parser.add_argument("--ignite-key", action="store_true", help="Generate key once and exit.")
     args = parser.parse_args()
+
+    if args.ignite_key:
+        zen_lock_loop()
+        return
 
     if args.mode.upper() == "ZEN_LOCK":
         zen_lock_loop()

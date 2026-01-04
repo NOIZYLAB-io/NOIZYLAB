@@ -1,3 +1,4 @@
+import argparse
 import cv2
 import numpy as np
 
@@ -22,3 +23,14 @@ class GhostVision:
 
         # Overlay the Ghost Trace at 30% opacity
         return cv2.addWeighted(stabilized, 0.7, self.reference_map, 0.3, 0)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Ghost Vision stabilizer")
+    parser.add_argument("--mode", default="GHOST", help="Mode selection (scaffold)")
+    args = parser.parse_args()
+    print(f"👁️ GHOST_VISION: mode={args.mode} (stub). Hook to live 4K stream + P24 data.")
+
+
+if __name__ == "__main__":
+    main()

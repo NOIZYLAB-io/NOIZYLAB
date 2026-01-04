@@ -1,0 +1,27 @@
+# NOIZYLAB Sovereign Repair Portal
+# Python Dependencies
+# =====================
+
+# PDF Generation
+reportlab>=4.0.0
+pillow>=10.0.0
+
+# Image Processing / Vision
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# Async HTTP
+aiohttp>=3.9.0
+
+# Terminal UI (optional but recommended)
+rich>=13.0.0
+
+# API Framework (if running local server)
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# Database (optional local SQLite)
+aiosqlite>=0.19.0
+
+# Typing extensions
+typing-extensions>=4.8.0

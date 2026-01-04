@@ -1,0 +1,57 @@
+# NOIZYLAB Sovereign Manifest API
+# Cloudflare Worker Configuration
+
+name = "noizylab-manifest-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Account and zone
+# account_id = "your-account-id"
+
+[vars]
+ENVIRONMENT = "production"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "KV_CACHE"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-id"
+
+# R2 Buckets
+[[r2_buckets]]
+binding = "MANIFESTS"
+bucket_name = "noizylab-manifests"
+preview_bucket_name = "noizylab-manifests-preview"
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "noizylab-repairs"
+database_id = "your-d1-database-id"
+
+# Secrets (set via wrangler secret put)
+# STRIPE_SECRET
+# SENDGRID_API_KEY
+# JWT_SECRET
+
+# Routes
+[triggers]
+routes = [
+  { pattern = "api.noizylab.ca/manifests/*", zone_name = "noizylab.ca" },
+  { pattern = "api.noizylab.ca/billing/*", zone_name = "noizylab.ca" },
+  { pattern = "api.noizylab.ca/notifications/*", zone_name = "noizylab.ca" },
+  { pattern = "api.noizylab.ca/analytics/*", zone_name = "noizylab.ca" }
+]
+
+# Dev settings
+[dev]
+port = 8787
+local_protocol = "http"
+
+# Build settings
+[build]
+command = "npm run build"
+
+[build.upload]
+format = "modules"
+main = "./dist/index.js"

@@ -1,0 +1,5 @@
+claude_api:
+  access: PRIVATE_TUNNEL_ONLY
+  data_retention: ZERO_STORAGE
+  encryption: AES-256-GCM (Aura-Key Signed)
+  priority: ARCHITECTURAL_REASONING
