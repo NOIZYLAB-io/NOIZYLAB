@@ -1,0 +1,124 @@
+# NOIZYLAB AI Copilot - Slack App Manifest
+# 
+# 🚀 QUICK DEPLOY:
+# 1. Go to https://api.slack.com/apps?new_app=1
+# 2. Choose "From an app manifest"
+# 3. Select your workspace (MC96 Digi Universe)
+# 4. Paste this entire YAML file
+# 5. Click "Create" - Done! ✨
+#
+# This manifest automatically configures:
+# ✅ Socket Mode (no webhooks needed)
+# ✅ All 4 slash commands
+# ✅ Event subscriptions (app mentions)
+# ✅ OAuth scopes (all permissions)
+# ✅ Bot user settings
+#
+# After creation, you'll get 3 tokens automatically:
+# 1. SLACK_BOT_TOKEN (xoxb-...) - OAuth & Permissions page
+# 2. SLACK_SIGNING_SECRET - Basic Information page
+# 3. SLACK_APP_TOKEN (xapp-...) - Socket Mode page (generate App-Level Token)
+
+_metadata:
+  major_version: 2
+  minor_version: 1
+
+display_information:
+  name: NOIZYLAB AI Copilot
+  description: AI-powered disk repair automation for Mac systems
+  long_description: |-
+    NOIZYLAB AI Copilot automates Mac disk repair and system maintenance with intelligent monitoring and repair commands.
+    
+    Features:
+    • Real-time disk status monitoring
+    • Automated repair workflows (TechTool Pro, DiskWarrior)
+    • Emergency cleanup procedures
+    • Daily health reports
+    • Natural language interface
+    
+    Perfect for Mac systems with 50TB+ storage, RAID configurations, and production environments.
+  background_color: "#1a1a1a"
+
+settings:
+  # Socket Mode - No webhooks, no public endpoints needed!
+  socket_mode_enabled: true
+  
+  # Event Subscriptions
+  event_subscriptions:
+    # No request_url needed with Socket Mode
+    bot_events:
+      - app_mention        # Listen for @noizylab mentions
+      - message.channels   # Read messages for natural language processing
+
+  # Interactivity
+  interactivity:
+    is_enabled: true
+    # No request_url needed with Socket Mode
+
+  # Organization deployment (for Enterprise Grid)
+  org_deploy_enabled: false
+  
+  # Token rotation for security
+  token_rotation_enabled: true
+
+features:
+  # Bot User
+  bot_user:
+    display_name: NOIZYLAB
+    always_online: true
+
+  # App Home
+  app_home:
+    home_tab_enabled: true
+    messages_tab_enabled: true
+    messages_tab_read_only_enabled: false
+
+  # Slash Commands
+  slash_commands:
+    - command: /disk-status
+      description: "🔍 Check disk status and health across all volumes"
+      usage_hint: "[volume_name] - Optional: specify volume to check"
+      should_escape: false
+
+    - command: /noizylab-repair
+      description: "🛠️ Run TechTool Pro comprehensive repair (ADMIN ONLY)"
+      usage_hint: "[volume_name] - Optional: specify volume to repair"
+      should_escape: false
+
+    - command: /cleanup-all
+      description: "🧹 Run emergency cleanup to free disk space (ADMIN ONLY)"
+      usage_hint: "[volume_name] - Optional: specify volume to clean"
+      should_escape: false
+
+    - command: /diskwarrior-emergency
+      description: "🚨 Run DiskWarrior emergency repair (ADMIN ONLY - DESTRUCTIVE)"
+      usage_hint: "[volume_name] - Optional: specify volume for emergency repair"
+      should_escape: false
+
+oauth_config:
+  scopes:
+    bot:
+      # App mentions & messaging
+      - app_mentions:read         # Listen for @noizylab
+      - chat:write                # Send messages
+      - chat:write.public         # Post in channels without joining
+      
+      # Channels
+      - channels:read             # List channels
+      - channels:history          # Read channel history for context
+      
+      # Files (for logs/reports)
+      - files:read                # Read uploaded files
+      - files:write               # Upload repair reports
+      
+      # Commands
+      - commands                  # Enable slash commands
+      
+      # User info (for authorization)
+      - users:read                # Get user info for admin checks
+      
+      # Groups (for private channels)
+      - groups:read               # List private channels
+      - groups:history            # Read private channel history
+
+# No redirect URLs needed for Socket Mode apps

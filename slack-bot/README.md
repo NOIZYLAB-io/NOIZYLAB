@@ -49,7 +49,7 @@ npm start
 
 1. Go to https://api.slack.com/apps
 2. Click **Create New App** → **From scratch**
-3. Name: `NOIZYLAB AI Copilot`
+3. Name: `Nbash ~/NOIZYLAB/scripts/import_gemini_backups.sh ~/Downloads/folder-nameOIZYLAB AI Copilot`
 4. Workspace: `MC96 Digi Universe`
 
 ### Enable Socket Mode (No public endpoint needed!)
