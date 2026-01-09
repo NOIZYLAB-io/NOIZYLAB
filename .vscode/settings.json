@@ -1,0 +1,110 @@
+{
+	// ===========================================
+	// NOIZYLAB VS Code Settings
+	// Curated settings for the NOIZYLAB monorepo
+	// ===========================================
+
+	// Editor Settings
+	"editor.formatOnSave": true,
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.wordWrap": "off",
+	"editor.minimap.enabled": false,
+	"editor.renderWhitespace": "selection",
+	"editor.bracketPairColorization.enabled": true,
+	"editor.guides.bracketPairs": true,
+
+	// Files
+	"files.trimTrailingWhitespace": true,
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"files.autoSave": "onFocusChange",
+	"files.exclude": {
+		"**/.DS_Store": true,
+		"**/__pycache__": true,
+		"**/node_modules": true,
+		"**/.venv": true,
+		"**/venv": true,
+		"**/*.pyc": true,
+		"**/mission-run-*": true
+	},
+
+	// Search exclusions for performance
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/.venv": true,
+		"**/venv": true,
+		"**/__pycache__": true,
+		"**/gabriel/archive": true,
+		"**/_Temp": true,
+		"**/yarn.lock": true,
+		"**/package-lock.json": true
+	},
+
+	// Python
+	"[python]": {
+		"editor.defaultFormatter": "ms-python.black-formatter"
+	},
+	"python.analysis.typeCheckingMode": "basic",
+	"python.analysis.autoImportCompletions": true,
+
+	// TypeScript / JavaScript
+	"[typescript]": {
+		"editor.tabSize": 2,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.tabSize": 2,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"typescript.preferences.importModuleSpecifier": "relative",
+
+	// JSON
+	"[json]": {
+		"editor.tabSize": 2,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[jsonc]": {
+		"editor.tabSize": 2,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+
+	// Shell scripts
+	"[shellscript]": {
+		"editor.tabSize": 4,
+		"files.eol": "\n"
+	},
+
+	// YAML
+	"[yaml]": {
+		"editor.tabSize": 2,
+		"editor.insertSpaces": true
+	},
+
+	// Markdown
+	"[markdown]": {
+		"editor.wordWrap": "on",
+		"editor.quickSuggestions": {
+			"other": false,
+			"comments": false,
+			"strings": false
+		}
+	},
+
+	// Git
+	"git.ignoreLimitWarning": true,
+	"git.autofetch": true,
+	"git.confirmSync": false,
+
+	// Terminal
+	"terminal.integrated.defaultProfile.osx": "zsh",
+	"terminal.integrated.scrollback": 10000,
+
+	// Workbench
+	"workbench.editor.enablePreview": false,
+	"workbench.startupEditor": "none",
+
+	// Telemetry
+	"telemetry.telemetryLevel": "off"
+}

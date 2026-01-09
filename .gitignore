@@ -113,7 +113,12 @@ _Screenshots/
 _Shortcuts/
 archives/
 logs/
-.vscode/
+# VS Code - ignore user-specific files but track shared configs
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/mcp.json
+!.vscode/extensions.json
 .cursor/
 .copilot/
 output_directory/
