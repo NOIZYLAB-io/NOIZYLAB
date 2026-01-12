@@ -1,0 +1,66 @@
+{
+  "identity": {
+    "agent": "Gemini 2026",
+    "user": "NOIZYLAB",
+    "session": "2026-01-05",
+    "machine": "M2 Ultra (m2ultra)"
+  },
+  "history_layers": {
+    "layer_1_cli_log": {
+      "description": "Raw terminal commands and outputs",
+      "location": "~/.memcell/captures/",
+      "format": "JSON timestamped entries"
+    },
+    "layer_2_manifest": {
+      "description": "Structured MCP/Bash executables",
+      "artifacts": [
+        "gabriel/memcell/memcell.py",
+        "gabriel/memcell/install.sh",
+        "gabriel/mc96_terminal.py",
+        "gabriel/mc96_diagnostics.py",
+        "scripts/cleanspace.py",
+        "scripts/upgrade.sh"
+      ],
+      "format": "Python/Bash executable"
+    },
+    "layer_3_summary": {
+      "description": "Compressed human-readable summary",
+      "location": "gabriel/memcell/SESSION.md",
+      "format": "Markdown one-pager"
+    }
+  },
+  "session_summary": {
+    "created": [
+      { "file": "memcell.py", "loc": 750, "purpose": "Time Capsule Engine" },
+      { "file": "mc96_terminal.py", "loc": 650, "purpose": "Hot Rod Terminal" },
+      { "file": "cleanspace.py", "loc": 750, "purpose": "Diagnostic Engine" },
+      { "file": "upgrade.sh", "loc": 400, "purpose": "System Upgrade" },
+      {
+        "file": "mc96_diagnostics.py",
+        "loc": 700,
+        "purpose": "Problem Capture"
+      },
+      { "file": "voice.py", "loc": 826, "purpose": "Voice Interface" }
+    ],
+    "total_loc": 4076,
+    "code_logic": 0,
+    "code_structural": 4,
+    "blocked": ["Azure auth", "GCloud auth"],
+    "completed": ["MEMCELL", "Circle of 8", "MC96", "CLEANSPACE"]
+  },
+  "circle_of_8": [
+    { "id": "gabriel", "role": "Orchestrator", "emoji": "🤖" },
+    { "id": "mc96", "role": "Engine", "emoji": "⚡" },
+    { "id": "omega", "role": "Protocol", "emoji": "📡" },
+    { "id": "shirl", "role": "Heart", "emoji": "💜" },
+    { "id": "keith", "role": "Engineer", "emoji": "🔧" },
+    { "id": "deepseek", "role": "Seeker", "emoji": "🔍" },
+    { "id": "temporal", "role": "Timekeeper", "emoji": "⏰" },
+    { "id": "memcell", "role": "Memory", "emoji": "🧠" }
+  ],
+  "pivot_state": {
+    "ready": true,
+    "context_serialized": true,
+    "handoff_format": "JSON + MD"
+  }
+}

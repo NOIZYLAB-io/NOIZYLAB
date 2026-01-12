@@ -60,6 +60,33 @@ echo "▶ Google Drive (Media):"
 [ -d "$DRIVE_BASE" ] && ln -s "$DRIVE_BASE" "$BASEDIR/MEDIA/DRIVE" && echo "  ✅ Mounted: Google Drive NOIZYLAB-MEDIA" || echo "  ⚠️  Google Drive not found at: $DRIVE_BASE"
 
 echo ""
+echo "▶ CLEANSPACE Setup:"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+chmod +x "$SCRIPT_DIR/cleanspace" "$SCRIPT_DIR/cleanspace.py"
+
+# Create CLEANSPACE directories
+mkdir -p "$HOME/.noizylab/cleanspace/diagnostics"
+mkdir -p "$HOME/.noizylab/cleanspace/logs"
+echo "  ✅ Created CLEANSPACE directories"
+
+# Add cleanspace to PATH via .zshrc
+ZSHRC="$HOME/.zshrc"
+if ! grep -q "CLEANSPACE" "$ZSHRC" 2>/dev/null; then
+    cat >> "$ZSHRC" << EOF
+
+# 🧹 NOIZYLAB CLEANSPACE
+export PATH="\$PATH:$SCRIPT_DIR"
+alias cleanspace="python3 $SCRIPT_DIR/cleanspace.py"
+alias cs="cleanspace"
+alias wtf="cleanspace last"
+alias heal="cleanspace heal"
+EOF
+    echo "  ✅ Added CLEANSPACE to ~/.zshrc"
+else
+    echo "  ✅ CLEANSPACE already in ~/.zshrc"
+fi
+
+echo ""
 echo "📊 ALIAS VERIFICATION:"
 echo ""
 find "$BASEDIR/PROJECTS" -maxdepth 2 -type l 2>/dev/null | while read link; do
@@ -68,9 +95,22 @@ find "$BASEDIR/PROJECTS" -maxdepth 2 -type l 2>/dev/null | while read link; do
 done
 
 echo ""
-echo "✅ Alias setup complete!"
+echo "✅ Setup complete!"
+echo ""
+echo "🧹 CLEANSPACE Commands:"
+echo "  cleanspace list      - List all diagnostic reports"
+echo "  cleanspace last      - Show most recent problem"
+echo "  cleanspace heal      - Auto-fix if possible"
+echo "  wtf                  - Quick alias for cleanspace last"
+echo "  heal                 - Quick alias for cleanspace heal"
+echo ""
+echo "In Python:"
+echo "  from cleanspace import wtf, diagnose, heal"
+echo "  try:"
+echo "      risky_code()"
+echo "  except Exception as e:"
+echo "      wtf(e)"
 echo ""
 echo "Next steps:"
-echo "  1. Clone GitHub repos: git clone https://github.com/Noizyfish/AEON-MEGA ~/GITHUB_REPOS/AEON-MEGA"
-echo "  2. Run this script again to create aliases"
-echo "  3. Verify: ls -la ./PROJECTS/ (should show symlinks with ->)"
+echo "  1. Run: source ~/.zshrc"
+echo "  2. Test: cleanspace test"

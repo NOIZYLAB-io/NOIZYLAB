@@ -1,169 +1,232 @@
 {
-     "nodes": [
-          {
-               "id": "gabriel",
-               "label": "GABRIEL",
-               "type": "core"
-          },
-          {
-               "id": "mc96",
-               "label": "MC96",
-               "type": "system"
-          },
-          {
-               "id": "omega",
-               "label": "OMEGA",
-               "type": "protocol"
-          },
-          {
-               "id": "ecouniverse",
-               "label": "ECOUNIVERSE",
-               "type": "system"
-          },
-          {
-               "id": "voice",
-               "label": "VOICE",
-               "type": "module"
-          },
-          {
-               "id": "vision",
-               "label": "VISION",
-               "type": "module"
-          },
-          {
-               "id": "memory",
-               "label": "MEMORY",
-               "type": "module"
-          },
-          {
-               "id": "shirl",
-               "label": "SHIRL",
-               "type": "core"
-          },
-          {
-               "id": "keith",
-               "label": "ENGR_KEITH",
-               "type": "core"
-          },
-          {
-               "id": "deepseek",
-               "label": "DEEPSEEK R1",
-               "type": "protocol"
-          },
-          {
-               "id": "sonic",
-               "label": "SONIC-TEMPLATOR",
-               "type": "module"
-          },
-          {
-               "id": "temporal",
-               "label": "TEMPORAL",
-               "type": "protocol"
-          },
-          {
-               "id": "gorunfree",
-               "label": "GORUNFREE",
-               "type": "protocol"
-          },
-          {
-               "id": "voiceforge",
-               "label": "VOICE FORGE",
-               "type": "module"
-          },
-          {
-               "id": "knowledge",
-               "label": "KNOWLEDGE GRAPH",
-               "type": "system"
-          }
-     ],
-     "edges": [
-          {
-               "from": "gabriel",
-               "to": "mc96"
-          },
-          {
-               "from": "gabriel",
-               "to": "omega"
-          },
-          {
-               "from": "gabriel",
-               "to": "ecouniverse"
-          },
-          {
-               "from": "gabriel",
-               "to": "voice"
-          },
-          {
-               "from": "gabriel",
-               "to": "vision"
-          },
-          {
-               "from": "gabriel",
-               "to": "shirl"
-          },
-          {
-               "from": "gabriel",
-               "to": "keith"
-          },
-          {
-               "from": "gabriel",
-               "to": "memory"
-          },
-          {
-               "from": "gabriel",
-               "to": "gorunfree"
-          },
-          {
-               "from": "mc96",
-               "to": "memory"
-          },
-          {
-               "from": "mc96",
-               "to": "temporal"
-          },
-          {
-               "from": "mc96",
-               "to": "knowledge"
-          },
-          {
-               "from": "omega",
-               "to": "deepseek"
-          },
-          {
-               "from": "omega",
-               "to": "temporal"
-          },
-          {
-               "from": "shirl",
-               "to": "voice"
-          },
-          {
-               "from": "shirl",
-               "to": "voiceforge"
-          },
-          {
-               "from": "sonic",
-               "to": "voice"
-          },
-          {
-               "from": "sonic",
-               "to": "voiceforge"
-          },
-          {
-               "from": "keith",
-               "to": "deepseek"
-          },
-          {
-               "from": "keith",
-               "to": "knowledge"
-          },
-          {
-               "from": "ecouniverse",
-               "to": "knowledge"
-          },
-          {
-               "from": "memory",
-               "to": "temporal"
-          }
-     ]
+  "version": "2.0.0",
+  "name": "NOIZYLAB BRAIN - CIRCLE OF 8",
+  "description": "The interconnected consciousness of NOIZYLAB systems",
+  "nodes": [
+    {
+      "id": "gabriel",
+      "label": "GABRIEL",
+      "type": "core",
+      "role": "The Orchestrator - AI Coordination",
+      "emoji": "🤖"
+    },
+    {
+      "id": "mc96",
+      "label": "MC96",
+      "type": "system",
+      "role": "The Engine - System Power",
+      "emoji": "⚡"
+    },
+    {
+      "id": "omega",
+      "label": "OMEGA",
+      "type": "protocol",
+      "role": "The Protocol - Communication",
+      "emoji": "📡"
+    },
+    {
+      "id": "shirl",
+      "label": "SHIRL",
+      "type": "core",
+      "role": "The Heart - Family Connection",
+      "emoji": "💜"
+    },
+    {
+      "id": "keith",
+      "label": "ENGR_KEITH",
+      "type": "core",
+      "role": "The Engineer - Technical Wisdom",
+      "emoji": "🔧"
+    },
+    {
+      "id": "deepseek",
+      "label": "DEEPSEEK R1",
+      "type": "protocol",
+      "role": "The Seeker - Knowledge Discovery",
+      "emoji": "🔍"
+    },
+    {
+      "id": "temporal",
+      "label": "TEMPORAL",
+      "type": "protocol",
+      "role": "The Timekeeper - Calendar/Scheduling",
+      "emoji": "⏰"
+    },
+    {
+      "id": "memcell",
+      "label": "MEMCELL",
+      "type": "core",
+      "role": "The Memory - Time Capsule",
+      "emoji": "🧠"
+    },
+    {
+      "id": "ecouniverse",
+      "label": "ECOUNIVERSE",
+      "type": "system",
+      "role": "The Ecosystem - Unified Platform",
+      "emoji": "🌐"
+    },
+    {
+      "id": "voice",
+      "label": "VOICE",
+      "type": "module",
+      "role": "Speech Interface",
+      "emoji": "🗣️"
+    },
+    {
+      "id": "vision",
+      "label": "VISION",
+      "type": "module",
+      "role": "Visual Processing",
+      "emoji": "👁️"
+    },
+    {
+      "id": "sonic",
+      "label": "SONIC-TEMPLATOR",
+      "type": "module",
+      "role": "Audio Processing",
+      "emoji": "🎵"
+    },
+    {
+      "id": "gorunfree",
+      "label": "GORUNFREE",
+      "type": "protocol",
+      "role": "Liberation Protocol",
+      "emoji": "🚀"
+    },
+    {
+      "id": "voiceforge",
+      "label": "VOICE FORGE",
+      "type": "module",
+      "role": "Voice Synthesis",
+      "emoji": "🎤"
+    },
+    {
+      "id": "knowledge",
+      "label": "KNOWLEDGE GRAPH",
+      "type": "system",
+      "role": "Information Network",
+      "emoji": "📊"
+    }
+  ],
+  "circle_of_8": [
+    "gabriel",
+    "mc96",
+    "omega",
+    "shirl",
+    "keith",
+    "deepseek",
+    "temporal",
+    "memcell"
+  ],
+  "edges": [
+    {
+      "from": "gabriel",
+      "to": "mc96"
+    },
+    {
+      "from": "gabriel",
+      "to": "omega"
+    },
+    {
+      "from": "gabriel",
+      "to": "ecouniverse"
+    },
+    {
+      "from": "gabriel",
+      "to": "voice"
+    },
+    {
+      "from": "gabriel",
+      "to": "vision"
+    },
+    {
+      "from": "gabriel",
+      "to": "shirl"
+    },
+    {
+      "from": "gabriel",
+      "to": "keith"
+    },
+    {
+      "from": "gabriel",
+      "to": "memory"
+    },
+    {
+      "from": "gabriel",
+      "to": "gorunfree"
+    },
+    {
+      "from": "mc96",
+      "to": "memory"
+    },
+    {
+      "from": "mc96",
+      "to": "temporal"
+    },
+    {
+      "from": "mc96",
+      "to": "knowledge"
+    },
+    {
+      "from": "omega",
+      "to": "deepseek"
+    },
+    {
+      "from": "omega",
+      "to": "temporal"
+    },
+    {
+      "from": "shirl",
+      "to": "voice"
+    },
+    {
+      "from": "shirl",
+      "to": "voiceforge"
+    },
+    {
+      "from": "sonic",
+      "to": "voice"
+    },
+    {
+      "from": "sonic",
+      "to": "voiceforge"
+    },
+    {
+      "from": "keith",
+      "to": "deepseek"
+    },
+    {
+      "from": "keith",
+      "to": "knowledge"
+    },
+    {
+      "from": "ecouniverse",
+      "to": "knowledge"
+    },
+    {
+      "from": "memcell",
+      "to": "temporal"
+    },
+    {
+      "from": "memcell",
+      "to": "knowledge"
+    },
+    {
+      "from": "memcell",
+      "to": "gabriel"
+    },
+    {
+      "from": "memcell",
+      "to": "deepseek"
+    },
+    {
+      "from": "temporal",
+      "to": "memcell"
+    },
+    {
+      "from": "gabriel",
+      "to": "memcell"
+    }
+  ]
 }

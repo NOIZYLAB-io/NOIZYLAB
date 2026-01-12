@@ -1,0 +1,6 @@
+#!/bin/bash
+# 🔥 MC96 HOT ROD TERMINAL LAUNCHER
+# Usage: mc96 [command] [args...]
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec python3 "$SCRIPT_DIR/mc96_terminal.py" "$@"

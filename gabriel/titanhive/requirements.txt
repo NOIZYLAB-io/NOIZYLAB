@@ -1,0 +1,32 @@
+# TitanHive Voice Module Dependencies
+# =====================================
+
+# Core (Required)
+# ---------------
+
+# Speech-to-Text
+openai-whisper>=20230314
+
+# Audio Processing
+pydub>=0.25.1
+
+# Text-to-Speech (choose one or more)
+edge-tts>=6.1.9            # Free Microsoft Edge TTS (recommended)
+gTTS>=2.5.0                # Free Google TTS
+
+# AI Integration (optional - for intelligent responses)
+openai>=1.0.0              # OpenAI GPT
+google-generativeai>=0.3.0 # Google Gemini
+
+# Premium TTS (optional - requires API keys)
+# ------------------------------------------
+# azure-cognitiveservices-speech>=1.34.0  # Azure TTS
+# google-cloud-texttospeech>=2.14.0       # Google Cloud TTS
+
+# HTTP requests
+requests>=2.31.0
+
+# Development
+# -----------
+# pytest>=7.4.0
+# pytest-asyncio>=0.21.0
