@@ -13,7 +13,11 @@ from pathlib import Path
 try:
     import requests
 except ImportError:
-    print("Error: requests library not found. Install with: pip install requests")
+    print("Error: requests library not found.")
+    print("Install it using your preferred package manager:")
+    print("  pip install requests")
+    print("  conda install requests")
+    print("  poetry add requests")
     sys.exit(1)
 
 # Load registry configuration

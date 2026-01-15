@@ -11,11 +11,11 @@ if [[ "$*" == *"--cloud"* ]]; then
   USE_CLOUD=true
 fi
 
-# Remove --cloud from args
-AGENT_NAME=$(echo "$1" | sed 's/--cloud//' | xargs)
+# Remove --cloud from args and normalize agent name
+AGENT_NAME=$(echo "$1" | sed 's/--cloud//' | xargs | tr '[:upper:]' '[:lower:]')
 
 case "$AGENT_NAME" in
-  gabriel|GABRIEL)
+  gabriel)
     if [ "$USE_CLOUD" = true ]; then
       echo "☁️  Delegating to cloud GABRIEL..."
       python3 "$SCRIPT_DIR/cloud-delegate.py" --agent gabriel --action health
@@ -24,7 +24,7 @@ case "$AGENT_NAME" in
       python3 "$NOIZYLAB/GABRIEL/tools/gabriel_control.py"
     fi
     ;;
-  mc96|MC96)
+  mc96)
     if [ "$USE_CLOUD" = true ]; then
       echo "☁️  Delegating to cloud MC96..."
       python3 "$SCRIPT_DIR/cloud-delegate.py" --agent mc96 --action vault-status
@@ -33,7 +33,7 @@ case "$AGENT_NAME" in
       python3 "$NOIZYLAB/MC96/vault/organize_code.py"
     fi
     ;;
-  systemguardian|system-guardian|SystemGuardian)
+  systemguardian|system-guardian)
     if [ "$USE_CLOUD" = true ]; then
       echo "☁️  Delegating to cloud SystemGuardian..."
       python3 "$SCRIPT_DIR/cloud-delegate.py" --agent systemGuardian --action status

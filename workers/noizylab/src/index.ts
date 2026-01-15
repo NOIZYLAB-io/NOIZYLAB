@@ -118,8 +118,8 @@ export default {
           });
         }
 
-        const agentFunc = cloudAgents[task.agent as keyof typeof cloudAgents];
-        if (!agentFunc) {
+        // Safe type checking without unsafe assertion
+        if (!(task.agent in cloudAgents)) {
           return new Response(JSON.stringify({
             success: false,
             error: `Unknown agent: ${task.agent}. Available: ${Object.keys(cloudAgents).join(', ')}`
@@ -132,6 +132,7 @@ export default {
           });
         }
 
+        const agentFunc = cloudAgents[task.agent as keyof typeof cloudAgents];
         const result = await agentFunc(task.action, task.params || {});
         
         const response: AgentResponse = {
@@ -148,12 +149,14 @@ export default {
             ...corsHeaders
           }
         });
-      } catch (error: any) {
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        
         const response: AgentResponse = {
           success: false,
           agent: 'unknown',
           action: 'unknown',
-          error: error.message || 'Unknown error',
+          error: errorMessage,
           timestamp: new Date().toISOString()
         };
 
