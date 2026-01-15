@@ -105,6 +105,27 @@
 
 ---
 
+## 🍎 Apple Ecosystem Guides
+
+### iPhone Battery Optimization
+
+- **[IPHONE_BATTERY_FIX_GUIDE.md](IPHONE_BATTERY_FIX_GUIDE.md)** (572 lines)
+  - Complete battery health diagnostic guide
+  - Software optimization (iOS settings, app management)
+  - Charging best practices and hardware troubleshooting
+  - When and how to replace battery
+  - Emergency battery saving techniques
+  - iOS-specific tips and troubleshooting decision tree
+
+### Apple Integration
+
+- **[apple-god-mode.md](apple-god-mode.md)**
+  - Free/low-cost Apple ecosystem setup
+  - Domain, email, and website solutions
+  - iCloud integration strategies
+
+---
+
 ## 🔧 Quick Reference by Use Case
 
 ### I want to...
