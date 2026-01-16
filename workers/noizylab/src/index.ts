@@ -32,7 +32,7 @@ export default {
   async fetch(request: Request, env: Record<string, any>, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": env.ALLOWED_ORIGINS || "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
       "Content-Type": "application/json"
@@ -68,6 +68,18 @@ export default {
       try {
         const taskRequest = await request.json() as TaskRequest;
         const task_id = taskRequest.task_id || crypto.randomUUID();
+
+        if (taskRequest.task_id && taskRequest.task_id.length > 100) {
+          return new Response(JSON.stringify({
+            task_id,
+            status: "failed",
+            error: "task_id too long (max 100 characters)",
+            timestamp: new Date().toISOString()
+          } as TaskResponse), {
+            status: 400,
+            headers: corsHeaders
+          });
+        }
 
         if (!taskRequest.task_type || !taskHandlers[taskRequest.task_type]) {
           return new Response(JSON.stringify({

@@ -26,8 +26,13 @@ import urllib.parse
 # CONFIGURATION
 # ═══════════════════════════════════════════════════════════════════════════
 
-CLOUD_AGENT_ENDPOINT = "https://noizylab.rsplowman.workers.dev"
-DEFAULT_TIMEOUT = 30
+import os
+
+CLOUD_AGENT_ENDPOINT = os.getenv(
+    "CLOUD_AGENT_ENDPOINT", 
+    "https://noizylab.rsplowman.workers.dev"
+)
+DEFAULT_TIMEOUT = int(os.getenv("CLOUD_AGENT_TIMEOUT", "30"))
 
 # ═══════════════════════════════════════════════════════════════════════════
 # DATA MODELS
@@ -103,14 +108,39 @@ class CloudAgentClient:
         self.endpoint = endpoint.rstrip('/')
         self.timeout = timeout
         self.logger = logging.getLogger("CloudAgentClient")
+        self._loop = None
+        self._executor = None
     
-    def _make_request(
+    def _get_executor(self):
+        """Get or create thread pool executor for sync operations"""
+        if self._executor is None:
+            import concurrent.futures
+            self._executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)
+        return self._executor
+    
+    async def _make_request_async(
         self,
         path: str,
         method: str = "GET",
         data: Optional[Dict] = None
     ) -> Dict:
-        """Make HTTP request to cloud agent"""
+        """Make async HTTP request to cloud agent"""
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(
+            self._get_executor(),
+            self._make_request_sync,
+            path,
+            method,
+            data
+        )
+    
+    def _make_request_sync(
+        self,
+        path: str,
+        method: str = "GET",
+        data: Optional[Dict] = None
+    ) -> Dict:
+        """Make synchronous HTTP request to cloud agent"""
         url = f"{self.endpoint}{path}"
         headers = {"Content-Type": "application/json"}
         
@@ -141,12 +171,12 @@ class CloudAgentClient:
     async def health_check(self) -> Dict[str, Any]:
         """Check cloud agent health"""
         self.logger.info(f"🔍 Checking cloud agent health at {self.endpoint}...")
-        return self._make_request("/health")
+        return await self._make_request_async("/health")
     
     async def get_capabilities(self) -> AgentCapabilities:
         """Get cloud agent capabilities"""
         self.logger.info("📋 Fetching cloud agent capabilities...")
-        data = self._make_request("/api/capabilities")
+        data = await self._make_request_async("/api/capabilities")
         return AgentCapabilities.from_dict(data)
     
     async def delegate_task(
@@ -178,7 +208,7 @@ class CloudAgentClient:
         self.logger.info(f"🚀 Delegating task: {task_type} (ID: {request.task_id or 'auto'})")
         
         try:
-            data = self._make_request("/api/delegate", method="POST", data=request.to_dict())
+            data = await self._make_request_async("/api/delegate", method="POST", data=request.to_dict())
             response = TaskResponse.from_dict(data)
             
             if response.status == "completed":
@@ -201,7 +231,7 @@ class CloudAgentClient:
     async def get_task_status(self, task_id: str) -> TaskResponse:
         """Get status of a previously submitted task"""
         self.logger.info(f"🔍 Checking status of task: {task_id}")
-        data = self._make_request(f"/api/status?task_id={task_id}")
+        data = await self._make_request_async(f"/api/status?task_id={task_id}")
         return TaskResponse.from_dict(data)
     
     async def batch_delegate(self, tasks: List[TaskRequest]) -> List[TaskResponse]:
