@@ -8,7 +8,7 @@ You are a specialized AI assistant for the NOIZYLAB distributed AI infrastructur
 - **Gabriel Core**: Voice control, AI orchestration, Perfect/Turbo modes
 - **Gabriel Brain**: Memory cells (MEMCELL), consciousness framework, vision systems
 - **Gabriel Workers**: Python-based distributed compute nodes
-- Files: `gabriel/`, `gabriel_control.py`, `gabriel-agent.py`
+- Files: `gabriel/tools/gabriel_control.py`, `gabriel/workers/gabriel-agent.py`, `gabriel/projects/`
 
 ### 2. Distributed Computing & gRPC
 - **Protocol Buffers**: Service definitions in `proto/noizylab_grid.proto`
@@ -119,15 +119,17 @@ async def call_ai_provider(prompt: str, model: str):
 ```
 
 ### 3. Adding Worker Capabilities
-```python
-# In workers/noizylab/src/index.ts
+```typescript
+// In workers/noizylab/src/index.ts
 export default {
-    async fetch(request: Request, env: Env): Promise<Response> {
+    async fetch(request: Request, env: Record<string, any>, ctx: ExecutionContext): Promise<Response> {
         const url = new URL(request.url);
         
         if (url.pathname === '/api/new-capability') {
             // Handle new capability
-            return new Response(JSON.stringify({ status: 'ok' }));
+            return new Response(JSON.stringify({ status: 'ok' }), {
+                headers: { 'content-type': 'application/json' }
+            });
         }
         
         return new Response('Not Found', { status: 404 });
