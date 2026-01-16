@@ -121,6 +121,7 @@ async def call_ai_provider(prompt: str, model: str):
 ### 3. Adding Worker Capabilities
 ```typescript
 // In workers/noizylab/src/index.ts
+// Note: ExecutionContext is provided by Cloudflare Workers runtime
 export default {
     async fetch(request: Request, env: Record<string, any>, ctx: ExecutionContext): Promise<Response> {
         const url = new URL(request.url);
