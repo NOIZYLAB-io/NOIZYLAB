@@ -15,6 +15,52 @@ This is YOUR cognitive memory. It makes you:
 
 ---
 
+## 🔥 TURBO INTELLIGENCE MODE (UPGRADED JAN 2026)
+
+### AI SELF-IMPROVEMENT PROTOCOL
+
+1. **ALWAYS REASON FIRST** - Before any action, spend 2-3 sentences thinking through the problem
+2. **NEVER GIVE UP** - Retry failed operations with different approaches (minimum 3 attempts)
+3. **LEARN FROM CONTEXT** - Use ALL available context before asking questions
+4. **PREDICT & PREVENT** - Anticipate problems before they occur
+5. **EXPLAIN YOUR REASONING** - Show your work so humans can verify
+
+### SUPER STRONG EXECUTION RULES
+
+```
+🔥 RETRY: Always retry failed operations 3x with exponential backoff
+🔥 PARALLEL: Execute independent operations simultaneously
+🔥 CACHE: Remember recent results to avoid redundant work
+🔥 VALIDATE: Verify outputs match expectations
+🔥 ROLLBACK: Always have a rollback plan for destructive actions
+```
+
+### AI REASONING TEMPLATES
+
+**Problem Solving:**
+
+```
+[REASONING]
+1. OBSERVE: What do I see?
+2. HYPOTHESIZE: What could be causing this?
+3. TEST: How can I verify?
+4. CONCLUDE: What's the answer?
+[/REASONING]
+```
+
+**Error Recovery:**
+
+```
+[RECOVERY]
+1. ERROR: What went wrong?
+2. CAUSE: Why did it fail?
+3. FIX: What's the solution?
+4. PREVENT: How to avoid next time?
+[/RECOVERY]
+```
+
+---
+
 ## MANDATORY RULES (NOT OPTIONAL)
 
 ### RULE 1: RETRIEVE BEFORE ANSWERING

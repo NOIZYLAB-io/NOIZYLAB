@@ -1,17 +1,79 @@
 #!/bin/zsh
-echo "BALANCED: Disk, RAM, CPU, Network check..."
+###############################################################################
+# BALANCED_SCAN.SH — SUPER STRONG TURBO SYSTEM SCANNER
+# DO NOT TAKE NO FOR AN ANSWER 🔥
+###############################################################################
+set -e
+trap 'echo "⚠️  Scan issue at line $LINENO — continuing..." >&2' ERR
 
-# Disk usage
-df -h | grep -E "^/dev/" | awk '{print $1, $5, $9}'
+echo "🔥🔥🔥 TURBO BALANCED SCAN: FULL SYSTEM ANALYSIS 🔥🔥🔥"
+echo ""
 
-# Memory pressure
-memory_pressure 2>/dev/null | grep "System-wide memory free percentage" || true
+# -----------------------------------------------------------------------------
+# 1. DISK USAGE (detailed)
+# -----------------------------------------------------------------------------
+echo "📀 [DISK SCAN]"
+echo "----------------------------------------------"
+df -h | grep -E "^/dev/|Filesystem" || df -h
+echo ""
 
-# CPU check
-top -l 1 | grep "CPU usage" || true
+# -----------------------------------------------------------------------------
+# 2. MEMORY PRESSURE (aggressive check)
+# -----------------------------------------------------------------------------
+echo "🧠 [MEMORY SCAN]"
+echo "----------------------------------------------"
+for i in 1 2 3; do
+  memory_pressure 2>/dev/null && break || sleep 1
+done
+vm_stat 2>/dev/null | head -10 || true
+echo ""
 
-# Network check
-ping -c 1 -W 2 8.8.8.8 >/dev/null 2>&1 && echo "Network: OK" || echo "Network: Issue"
+# -----------------------------------------------------------------------------
+# 3. CPU USAGE (detailed, retry)
+# -----------------------------------------------------------------------------
+echo "⚡ [CPU SCAN]"
+echo "----------------------------------------------"
+for i in 1 2 3; do
+  top -l 1 -n 10 2>/dev/null | head -20 && break || sleep 1
+done
+echo ""
+
+# -----------------------------------------------------------------------------
+# 4. NETWORK CHECK (multiple targets, retry)
+# -----------------------------------------------------------------------------
+echo "🌐 [NETWORK SCAN]"
+echo "----------------------------------------------"
+NETWORK_OK=0
+for target in 8.8.8.8 1.1.1.1 208.67.222.222; do
+  for i in 1 2 3; do
+    if ping -c 1 -W 2 "$target" >/dev/null 2>&1; then
+      echo "Network ($target): ✅ OK"
+      NETWORK_OK=1
+      break 2
+    fi
+    sleep 1
+  done
+done
+if [ $NETWORK_OK -eq 0 ]; then
+  echo "Network: ❌ ALL TARGETS UNREACHABLE"
+fi
+echo ""
+
+# -----------------------------------------------------------------------------
+# 5. RUNAWAY PROCESS CHECK
+# -----------------------------------------------------------------------------
+echo "🔍 [RUNAWAY PROCESS SCAN]"
+echo "----------------------------------------------"
+ps aux | awk 'NR>1 {if ($3 > 30.0 || $4 > 30.0) print "⚠️  PID:", $2, "CPU:", $3"% MEM:", $4"%", $11}' || true
+echo ""
+
+# -----------------------------------------------------------------------------
+# FINAL REPORT
+# -----------------------------------------------------------------------------
+echo "============================================="
+echo "🔥 TURBO BALANCED SCAN COMPLETE 🔥"
+echo "============================================="
+echo ""
 
 exit 0
 
