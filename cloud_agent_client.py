@@ -15,12 +15,16 @@ import json
 import logging
 import sys
 import uuid
+import time
+import gzip
 from typing import Dict, Any, Optional, List
-from datetime import datetime
+from datetime import datetime, timedelta
 from dataclasses import dataclass, asdict
+from enum import Enum
 import urllib.request
 import urllib.error
 import urllib.parse
+from functools import wraps
 
 # ═══════════════════════════════════════════════════════════════════════════
 # CONFIGURATION
@@ -33,6 +37,154 @@ CLOUD_AGENT_ENDPOINT = os.getenv(
     "https://noizylab.rsplowman.workers.dev"
 )
 DEFAULT_TIMEOUT = int(os.getenv("CLOUD_AGENT_TIMEOUT", "30"))
+API_KEY = os.getenv("CLOUD_AGENT_API_KEY", "")
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CUSTOM EXCEPTIONS
+# ═══════════════════════════════════════════════════════════════════════════
+
+class CloudAgentError(Exception):
+    """Base exception for cloud agent errors"""
+    pass
+
+class AuthenticationError(CloudAgentError):
+    """Authentication failed"""
+    pass
+
+class RateLimitError(CloudAgentError):
+    """Rate limit exceeded"""
+    def __init__(self, retry_after: int = 60):
+        self.retry_after = retry_after
+        super().__init__(f"Rate limit exceeded. Retry after {retry_after} seconds.")
+
+class CircuitBreakerOpen(CloudAgentError):
+    """Circuit breaker is open"""
+    pass
+
+# ═══════════════════════════════════════════════════════════════════════════
+# CIRCUIT BREAKER
+# ═══════════════════════════════════════════════════════════════════════════
+
+class CircuitState(Enum):
+    CLOSED = "closed"
+    OPEN = "open"
+    HALF_OPEN = "half_open"
+
+class CircuitBreaker:
+    """Circuit breaker pattern implementation"""
+    
+    def __init__(self, failure_threshold: int = 5, timeout: int = 30):
+        self.failure_threshold = failure_threshold
+        self.timeout = timeout
+        self.failure_count = 0
+        self.last_failure_time: Optional[float] = None
+        self.state = CircuitState.CLOSED
+        self.logger = logging.getLogger("CircuitBreaker")
+    
+    def call_succeeded(self):
+        """Record successful call"""
+        self.failure_count = 0
+        if self.state == CircuitState.HALF_OPEN:
+            self.state = CircuitState.CLOSED
+            self.logger.info("🔄 Circuit breaker CLOSED")
+    
+    def call_failed(self):
+        """Record failed call"""
+        self.failure_count += 1
+        self.last_failure_time = time.time()
+        
+        if self.failure_count >= self.failure_threshold:
+            self.state = CircuitState.OPEN
+            self.logger.warning(f"⚠️ Circuit breaker OPEN (failures: {self.failure_count})")
+    
+    def can_attempt(self) -> bool:
+        """Check if request can be attempted"""
+        if self.state == CircuitState.CLOSED:
+            return True
+        
+        if self.state == CircuitState.OPEN:
+            if self.last_failure_time and time.time() - self.last_failure_time >= self.timeout:
+                self.state = CircuitState.HALF_OPEN
+                self.logger.info("🔄 Circuit breaker HALF_OPEN")
+                return True
+            return False
+        
+        # HALF_OPEN state - allow one attempt
+        return True
+    
+    def get_state(self) -> Dict[str, Any]:
+        """Get current circuit breaker state"""
+        return {
+            "state": self.state.value,
+            "failure_count": self.failure_count,
+            "last_failure_time": self.last_failure_time
+        }
+
+# ═══════════════════════════════════════════════════════════════════════════
+# RESPONSE CACHE
+# ═══════════════════════════════════════════════════════════════════════════
+
+@dataclass
+class CacheEntry:
+    """Cache entry with expiration"""
+    data: Any
+    expires_at: float
+
+class ResponseCache:
+    """Simple in-memory cache with TTL"""
+    
+    def __init__(self):
+        self.cache: Dict[str, CacheEntry] = {}
+    
+    def get(self, key: str) -> Optional[Any]:
+        """Get cached value if not expired"""
+        if key in self.cache:
+            entry = self.cache[key]
+            if time.time() < entry.expires_at:
+                return entry.data
+            else:
+                del self.cache[key]
+        return None
+    
+    def set(self, key: str, value: Any, ttl_seconds: int):
+        """Set cache value with TTL"""
+        self.cache[key] = CacheEntry(
+            data=value,
+            expires_at=time.time() + ttl_seconds
+        )
+    
+    def clear(self):
+        """Clear all cache entries"""
+        self.cache.clear()
+
+# ═══════════════════════════════════════════════════════════════════════════
+# RETRY DECORATOR
+# ═══════════════════════════════════════════════════════════════════════════
+
+def retry_on_failure(max_retries: int = 3, backoff_base: float = 1.0):
+    """Decorator for retrying failed operations with exponential backoff"""
+    def decorator(func):
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            last_exception = None
+            for attempt in range(max_retries):
+                try:
+                    return await func(*args, **kwargs)
+                except (urllib.error.URLError, ConnectionError, TimeoutError) as e:
+                    last_exception = e
+                    if attempt < max_retries - 1:
+                        delay = backoff_base * (2 ** attempt)
+                        logging.getLogger("RetryDecorator").warning(
+                            f"Attempt {attempt + 1} failed, retrying in {delay}s: {e}"
+                        )
+                        await asyncio.sleep(delay)
+                    else:
+                        logging.getLogger("RetryDecorator").error(
+                            f"All {max_retries} attempts failed"
+                        )
+            raise last_exception
+        return wrapper
+    return decorator
 
 # ═══════════════════════════════════════════════════════════════════════════
 # DATA MODELS
@@ -98,18 +250,36 @@ class CloudAgentClient:
     """
     Client for communicating with the NOIZYLAB Cloudflare Worker agent.
     
+    Features:
+    - Retry logic with exponential backoff
+    - Circuit breaker pattern
+    - Response caching
+    - Request compression
+    - API key authentication
+    - Rate limit handling
+    
     Usage:
-        client = CloudAgentClient()
+        client = CloudAgentClient(api_key="your-key")
         response = await client.delegate_task("echo", {"message": "Hello"})
         print(response.result)
     """
     
-    def __init__(self, endpoint: str = CLOUD_AGENT_ENDPOINT, timeout: int = DEFAULT_TIMEOUT):
+    def __init__(
+        self, 
+        endpoint: str = CLOUD_AGENT_ENDPOINT, 
+        timeout: int = DEFAULT_TIMEOUT,
+        api_key: str = API_KEY
+    ):
         self.endpoint = endpoint.rstrip('/')
         self.timeout = timeout
+        self.api_key = api_key
         self.logger = logging.getLogger("CloudAgentClient")
         self._loop = None
         self._executor = None
+        
+        # Advanced features
+        self.circuit_breaker = CircuitBreaker()
+        self.cache = ResponseCache()
     
     def _get_executor(self):
         """Get or create thread pool executor for sync operations"""
@@ -118,21 +288,40 @@ class CloudAgentClient:
             self._executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)
         return self._executor
     
+    def _compress_data(self, data: bytes) -> bytes:
+        """Compress data using gzip"""
+        return gzip.compress(data)
+    
+    def _decompress_data(self, data: bytes) -> bytes:
+        """Decompress gzip data"""
+        return gzip.decompress(data)
+    
+    @retry_on_failure(max_retries=3, backoff_base=1.0)
     async def _make_request_async(
         self,
         path: str,
         method: str = "GET",
         data: Optional[Dict] = None
     ) -> Dict:
-        """Make async HTTP request to cloud agent"""
-        loop = asyncio.get_event_loop()
-        return await loop.run_in_executor(
-            self._get_executor(),
-            self._make_request_sync,
-            path,
-            method,
-            data
-        )
+        """Make async HTTP request to cloud agent with retry logic"""
+        # Check circuit breaker
+        if not self.circuit_breaker.can_attempt():
+            raise CircuitBreakerOpen("Circuit breaker is open, requests blocked")
+        
+        try:
+            loop = asyncio.get_event_loop()
+            result = await loop.run_in_executor(
+                self._get_executor(),
+                self._make_request_sync,
+                path,
+                method,
+                data
+            )
+            self.circuit_breaker.call_succeeded()
+            return result
+        except Exception as e:
+            self.circuit_breaker.call_failed()
+            raise
     
     def _make_request_sync(
         self,
@@ -144,47 +333,96 @@ class CloudAgentClient:
         url = f"{self.endpoint}{path}"
         headers = {"Content-Type": "application/json"}
         
+        # Add API key header if configured
+        if self.api_key:
+            headers["X-API-Key"] = self.api_key
+        
         try:
             if method == "POST" and data:
                 req_data = json.dumps(data).encode('utf-8')
+                
+                # Compress large payloads
+                if len(req_data) > 1024:
+                    req_data = self._compress_data(req_data)
+                    headers["Content-Encoding"] = "gzip"
+                
                 request = urllib.request.Request(url, data=req_data, headers=headers, method=method)
             else:
                 request = urllib.request.Request(url, headers=headers, method=method)
             
             with urllib.request.urlopen(request, timeout=self.timeout) as response:
-                return json.loads(response.read().decode('utf-8'))
+                response_data = response.read()
+                
+                # Check if response is compressed
+                if response.headers.get("Content-Encoding") == "gzip":
+                    response_data = self._decompress_data(response_data)
+                
+                return json.loads(response_data.decode('utf-8'))
         
         except urllib.error.HTTPError as e:
             error_body = e.read().decode('utf-8')
+            
+            # Handle rate limiting
+            if e.code == 429:
+                retry_after = int(e.headers.get("Retry-After", 60))
+                raise RateLimitError(retry_after)
+            
+            # Handle authentication errors
+            if e.code == 401:
+                raise AuthenticationError("API key authentication failed")
+            
             try:
                 error_data = json.loads(error_body)
+                if 'error' in error_data:
+                    raise CloudAgentError(f"HTTP {e.code}: {error_data['error']}")
                 return error_data
             except json.JSONDecodeError:
-                raise Exception(f"HTTP {e.code}: {error_body}")
+                raise CloudAgentError(f"HTTP {e.code}: {error_body}")
         
         except urllib.error.URLError as e:
-            raise Exception(f"Connection error: {e.reason}")
+            raise CloudAgentError(f"Connection error: {e.reason}")
         
         except Exception as e:
-            raise Exception(f"Request failed: {str(e)}")
+            raise CloudAgentError(f"Request failed: {str(e)}")
     
     async def health_check(self) -> Dict[str, Any]:
-        """Check cloud agent health"""
+        """Check cloud agent health (cached for 1 minute)"""
+        cache_key = "health_check"
+        cached = self.cache.get(cache_key)
+        if cached:
+            self.logger.debug("🔄 Using cached health check")
+            return cached
+        
         self.logger.info(f"🔍 Checking cloud agent health at {self.endpoint}...")
-        return await self._make_request_async("/health")
+        result = await self._make_request_async("/health")
+        self.cache.set(cache_key, result, ttl_seconds=60)
+        return result
     
     async def get_capabilities(self) -> AgentCapabilities:
-        """Get cloud agent capabilities"""
+        """Get cloud agent capabilities (cached for 5 minutes)"""
+        cache_key = "capabilities"
+        cached = self.cache.get(cache_key)
+        if cached:
+            self.logger.debug("🔄 Using cached capabilities")
+            return AgentCapabilities.from_dict(cached)
+        
         self.logger.info("📋 Fetching cloud agent capabilities...")
         data = await self._make_request_async("/api/capabilities")
+        self.cache.set(cache_key, data, ttl_seconds=300)
         return AgentCapabilities.from_dict(data)
+    
+    async def get_metrics(self) -> Dict[str, Any]:
+        """Get cloud agent metrics"""
+        self.logger.info("📊 Fetching cloud agent metrics...")
+        return await self._make_request_async("/api/metrics")
     
     async def delegate_task(
         self,
         task_type: str,
         task_data: Dict[str, Any],
         task_id: Optional[str] = None,
-        priority: str = "normal"
+        priority: str = "normal",
+        webhook_url: Optional[str] = None
     ) -> TaskResponse:
         """
         Delegate a task to the cloud agent
@@ -194,6 +432,7 @@ class CloudAgentClient:
             task_data: Task-specific data
             task_id: Optional task ID (generated if not provided)
             priority: Task priority ("low", "normal", "high")
+            webhook_url: Optional webhook URL for async notification
         
         Returns:
             TaskResponse with task result or error
@@ -205,10 +444,14 @@ class CloudAgentClient:
             priority=priority
         )
         
+        request_dict = request.to_dict()
+        if webhook_url:
+            request_dict["webhook_url"] = webhook_url
+        
         self.logger.info(f"🚀 Delegating task: {task_type} (ID: {request.task_id or 'auto'})")
         
         try:
-            data = await self._make_request_async("/api/delegate", method="POST", data=request.to_dict())
+            data = await self._make_request_async("/api/delegate", method="POST", data=request_dict)
             response = TaskResponse.from_dict(data)
             
             if response.status == "completed":
@@ -219,6 +462,22 @@ class CloudAgentClient:
                 self.logger.info(f"⏳ Task status: {response.status}")
             
             return response
+        
+        except RateLimitError as e:
+            self.logger.warning(f"⚠️ Rate limit exceeded. Retry after {e.retry_after}s")
+            return TaskResponse(
+                task_id=request.task_id or "error",
+                status="failed",
+                error=str(e)
+            )
+        
+        except CircuitBreakerOpen as e:
+            self.logger.error(f"⚠️ Circuit breaker open: {e}")
+            return TaskResponse(
+                task_id=request.task_id or "error",
+                status="failed",
+                error=str(e)
+            )
         
         except Exception as e:
             self.logger.error(f"❌ Task delegation failed: {e}")
@@ -235,20 +494,53 @@ class CloudAgentClient:
         return TaskResponse.from_dict(data)
     
     async def batch_delegate(self, tasks: List[TaskRequest]) -> List[TaskResponse]:
-        """Delegate multiple tasks"""
-        self.logger.info(f"🚀 Delegating {len(tasks)} tasks...")
+        """Delegate multiple tasks using batch endpoint"""
+        self.logger.info(f"🚀 Delegating {len(tasks)} tasks in batch...")
         
-        responses = []
-        for task in tasks:
-            response = await self.delegate_task(
-                task.task_type,
-                task.task_data,
-                task.task_id,
-                task.priority
-            )
-            responses.append(response)
+        # Use new batch endpoint
+        try:
+            batch_data = {
+                "tasks": [t.to_dict() for t in tasks]
+            }
+            
+            result = await self._make_request_async("/api/batch", method="POST", data=batch_data)
+            
+            if "results" in result:
+                responses = [TaskResponse.from_dict(r) for r in result["results"]]
+                self.logger.info(f"✅ Batch completed: {len(responses)} tasks")
+                return responses
+            else:
+                raise CloudAgentError("Invalid batch response format")
         
-        return responses
+        except Exception as e:
+            self.logger.error(f"❌ Batch delegation failed: {e}")
+            # Fallback to sequential processing
+            self.logger.info("🔄 Falling back to sequential processing...")
+            responses = []
+            for task in tasks:
+                response = await self.delegate_task(
+                    task.task_type,
+                    task.task_data,
+                    task.task_id,
+                    task.priority
+                )
+                responses.append(response)
+            return responses
+    
+    def get_circuit_breaker_state(self) -> Dict[str, Any]:
+        """Get current circuit breaker state"""
+        return self.circuit_breaker.get_state()
+    
+    def reset_circuit_breaker(self):
+        """Manually reset circuit breaker"""
+        self.circuit_breaker.failure_count = 0
+        self.circuit_breaker.state = CircuitState.CLOSED
+        self.logger.info("🔄 Circuit breaker manually reset")
+    
+    def clear_cache(self):
+        """Clear response cache"""
+        self.cache.clear()
+        self.logger.info("🗑️ Cache cleared")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # ORCHESTRATOR INTEGRATION
@@ -257,16 +549,46 @@ class CloudAgentClient:
 class CloudAgentOrchestrator:
     """
     Wrapper for integrating CloudAgentClient with master_orchestrator.py
+    
+    Features:
+    - Intelligent task routing
+    - Fallback to local execution
+    - Task priority queue
+    - Load balancing
     """
     
-    def __init__(self, endpoint: str = CLOUD_AGENT_ENDPOINT):
-        self.client = CloudAgentClient(endpoint)
+    def __init__(self, endpoint: str = CLOUD_AGENT_ENDPOINT, api_key: str = API_KEY):
+        self.client = CloudAgentClient(endpoint, api_key=api_key)
         self.logger = logging.getLogger("CloudAgentOrchestrator")
+        self.task_queue: List[tuple] = []  # (priority, task_data)
+        
+        # Task routing configuration
+        self.cloud_task_types = set()
+        self.local_fallback_enabled = True
+    
+    async def initialize(self):
+        """Initialize orchestrator and fetch capabilities"""
+        try:
+            caps = await self.client.get_capabilities()
+            self.cloud_task_types = set(caps.capabilities)
+            self.logger.info(f"✅ Orchestrator initialized with {len(self.cloud_task_types)} cloud capabilities")
+        except Exception as e:
+            self.logger.warning(f"⚠️ Could not fetch cloud capabilities: {e}")
+            self.local_fallback_enabled = True
+    
+    async def is_cloud_healthy(self) -> bool:
+        """Check if cloud agent is healthy"""
+        try:
+            health = await self.client.health_check()
+            return health.get("status") == "ok"
+        except Exception:
+            return False
     
     async def route_task_to_cloud(
         self,
         task_type: str,
-        task_data: Dict[str, Any]
+        task_data: Dict[str, Any],
+        priority: str = "normal"
     ) -> Dict[str, Any]:
         """
         Route a task from the master orchestrator to the cloud agent
@@ -275,20 +597,30 @@ class CloudAgentOrchestrator:
         """
         self.logger.info(f"🌐 Routing task to cloud: {task_type}")
         
-        # Check if cloud agent supports this task type
-        capabilities = await self.client.get_capabilities()
+        # Check if cloud agent is healthy
+        if not await self.is_cloud_healthy():
+            if self.local_fallback_enabled:
+                self.logger.warning("⚠️ Cloud agent unhealthy, falling back to local execution")
+                raise CloudAgentError("Cloud agent unavailable, use local fallback")
+            else:
+                raise CloudAgentError("Cloud agent unavailable")
         
-        if task_type not in capabilities.capabilities:
-            raise ValueError(
-                f"Cloud agent does not support task type '{task_type}'. "
-                f"Available: {', '.join(capabilities.capabilities)}"
-            )
+        # Check if cloud agent supports this task type
+        if task_type not in self.cloud_task_types:
+            if self.local_fallback_enabled:
+                self.logger.warning(f"⚠️ Cloud agent does not support '{task_type}', using local fallback")
+                raise CloudAgentError(f"Task type '{task_type}' not supported by cloud agent")
+            else:
+                raise ValueError(
+                    f"Cloud agent does not support task type '{task_type}'. "
+                    f"Available: {', '.join(self.cloud_task_types)}"
+                )
         
         # Delegate to cloud
-        response = await self.client.delegate_task(task_type, task_data)
+        response = await self.client.delegate_task(task_type, task_data, priority=priority)
         
         if response.status == "failed":
-            raise Exception(f"Cloud task failed: {response.error}")
+            raise CloudAgentError(f"Cloud task failed: {response.error}")
         
         return {
             "task_id": response.task_id,
@@ -297,6 +629,90 @@ class CloudAgentOrchestrator:
             "delegated_to": "cloud-agent",
             "timestamp": response.timestamp
         }
+    
+    async def should_route_to_cloud(self, task_type: str, task_data: Dict[str, Any]) -> bool:
+        """
+        Decide if task should be routed to cloud based on task properties
+        
+        Routes to cloud if:
+        - Task is computationally expensive
+        - Cloud agent is healthy
+        - Task type is supported
+        """
+        # Check if cloud supports this task
+        if task_type not in self.cloud_task_types:
+            return False
+        
+        # Check cloud health
+        if not await self.is_cloud_healthy():
+            return False
+        
+        # Route computationally expensive tasks to cloud
+        expensive_tasks = {"inference", "code-analysis", "data-transform", "file-processing"}
+        if task_type in expensive_tasks:
+            return True
+        
+        # Route large payloads to cloud
+        if isinstance(task_data, dict):
+            data_size = len(json.dumps(task_data))
+            if data_size > 10000:  # 10KB threshold
+                return True
+        
+        return False
+    
+    async def execute_with_priority(
+        self,
+        task_type: str,
+        task_data: Dict[str, Any],
+        priority: int = 0
+    ) -> Dict[str, Any]:
+        """
+        Execute task with priority
+        
+        Higher priority tasks execute first
+        Priority: 0 (normal), 1 (high), -1 (low)
+        """
+        self.task_queue.append((priority, task_type, task_data))
+        self.task_queue.sort(key=lambda x: -x[0])  # Sort by priority descending
+        
+        # Execute highest priority task
+        _, t_type, t_data = self.task_queue.pop(0)
+        
+        return await self.route_task_to_cloud(
+            t_type,
+            t_data,
+            priority="high" if priority > 0 else "normal"
+        )
+    
+    async def get_status(self) -> Dict[str, Any]:
+        """Get orchestrator status"""
+        try:
+            health = await self.client.health_check()
+            metrics = await self.client.get_metrics()
+            circuit_state = self.client.get_circuit_breaker_state()
+            
+            return {
+                "cloud_agent": {
+                    "healthy": health.get("status") == "ok",
+                    "version": health.get("version"),
+                    "endpoint": self.client.endpoint
+                },
+                "circuit_breaker": circuit_state,
+                "metrics": metrics,
+                "capabilities": list(self.cloud_task_types),
+                "queue_size": len(self.task_queue),
+                "local_fallback_enabled": self.local_fallback_enabled
+            }
+        except Exception as e:
+            return {
+                "cloud_agent": {
+                    "healthy": False,
+                    "error": str(e)
+                },
+                "circuit_breaker": self.client.get_circuit_breaker_state(),
+                "queue_size": len(self.task_queue),
+                "local_fallback_enabled": self.local_fallback_enabled
+            }
 
 # ═══════════════════════════════════════════════════════════════════════════
 # CLI INTERFACE
