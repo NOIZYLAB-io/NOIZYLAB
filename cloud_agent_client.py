@@ -170,7 +170,8 @@ def retry_on_failure(max_retries: int = 3, backoff_base: float = 1.0):
             for attempt in range(max_retries):
                 try:
                     return await func(*args, **kwargs)
-                except (urllib.error.URLError, ConnectionError, TimeoutError) as e:
+                except (urllib.error.URLError, OSError) as e:
+                    # OSError covers ConnectionError, TimeoutError, etc.
                     last_exception = e
                     if attempt < max_retries - 1:
                         delay = backoff_base * (2 ** attempt)

@@ -245,13 +245,9 @@ async function updateMetrics(
     metrics.failed_tasks++;
   }
   
-  // Update running average (guard against division by zero)
-  if (metrics.total_tasks > 0) {
-    metrics.avg_duration_ms = 
-      (metrics.avg_duration_ms * (metrics.total_tasks - 1) + durationMs) / metrics.total_tasks;
-  } else {
-    metrics.avg_duration_ms = durationMs;
-  }
+  // Update running average
+  metrics.avg_duration_ms = 
+    (metrics.avg_duration_ms * (metrics.total_tasks - 1) + durationMs) / metrics.total_tasks;
   
   await env.METRICS_KV.put(key, JSON.stringify(metrics));
 }
@@ -275,7 +271,7 @@ async function sendWebhook(
 export default {
   async fetch(request: Request, env: Record<string, any>, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
-    const corsHeaders = {
+    let corsHeaders: Record<string, string> = {
       "Access-Control-Allow-Origin": env.ALLOWED_ORIGINS || "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization, X-API-Key",
