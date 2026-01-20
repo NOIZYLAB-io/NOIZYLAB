@@ -100,10 +100,10 @@ const taskHandlers: Record<string, (data: any) => Promise<any>> = {
     let result;
     switch (operation) {
       case "uppercase":
-        result = JSON.parse(JSON.stringify(input)).toString().toUpperCase();
+        result = String(input).toUpperCase();
         break;
       case "lowercase":
-        result = JSON.parse(JSON.stringify(input)).toString().toLowerCase();
+        result = String(input).toLowerCase();
         break;
       case "reverse":
         if (Array.isArray(input)) {
@@ -245,9 +245,13 @@ async function updateMetrics(
     metrics.failed_tasks++;
   }
   
-  // Update running average
-  metrics.avg_duration_ms = 
-    (metrics.avg_duration_ms * (metrics.total_tasks - 1) + durationMs) / metrics.total_tasks;
+  // Update running average (guard against division by zero)
+  if (metrics.total_tasks > 0) {
+    metrics.avg_duration_ms = 
+      (metrics.avg_duration_ms * (metrics.total_tasks - 1) + durationMs) / metrics.total_tasks;
+  } else {
+    metrics.avg_duration_ms = durationMs;
+  }
   
   await env.METRICS_KV.put(key, JSON.stringify(metrics));
 }
