@@ -6,6 +6,10 @@
 
 ---
 
+> 🧭 **New here or feeling lost?** Start with **[GETTING_STARTED.md](./GETTING_STARTED.md)** - your navigation guide!
+
+---
+
 ## 📋 XENODOCHIAL-ALMEIDA: Unified NOIZYLAB Integration Platform
 
 ## Overview
@@ -25,6 +29,7 @@ The **xenodochial-almeida** branch contains the **complete unified integration i
 ## 🚀 Quick Start
 
 ### Read the Docs
+- **[GETTING_STARTED.md](./GETTING_STARTED.md)** - 🧭 Navigation guide for new users
 - **[INTEGRATION_COMPLETION_REPORT.md](./INTEGRATION_COMPLETION_REPORT.md)** - Comprehensive guide
 - **[QUICK_START_EXAMPLES.py](./QUICK_START_EXAMPLES.py)** - 9 runnable examples
 

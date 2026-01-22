@@ -4,13 +4,19 @@
 
 **New to this infrastructure?** Read in this order:
 
-1. **[README_HOT_ROD.md](README_HOT_ROD.md)** ← **START HERE** (5 min read)
+1. **[GETTING_STARTED.md](GETTING_STARTED.md)** ← **FEELING LOST? START HERE** (3 min read)
+   - Navigation guide for the repository
+   - Directory structure explained
+   - Quick paths based on what you need
+   - Visual navigation map
+
+2. **[README_HOT_ROD.md](README_HOT_ROD.md)** ← **QUICK OVERVIEW** (5 min read)
    - What you got
    - Feature highlights
    - Quick start guide
    - Performance improvements
 
-2. **[NOIZYLAB_INTEGRATION_MAP.md](NOIZYLAB_INTEGRATION_MAP.md)** (15 min read)
+3. **[NOIZYLAB_INTEGRATION_MAP.md](NOIZYLAB_INTEGRATION_MAP.md)** (15 min read)
    - System architecture overview
    - Existing components survey
    - Network topology
