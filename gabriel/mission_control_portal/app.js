@@ -49,7 +49,7 @@ class GabrielPortal {
 
      initBackground() {
           this.bgCanvas = document.getElementById('neural-bg');
-          this.bgCtx = this.bgCanvas.getContext('2d');
+          this.bgCtx = this.bgCanvas.getContext('2d', { alpha: false });
 
           const resize = () => {
                this.bgCanvas.width = window.innerWidth;
@@ -59,8 +59,9 @@ class GabrielPortal {
           resize();
           window.addEventListener('resize', resize);
 
-          // Create particles
-          for (let i = 0; i < 100; i++) {
+          // Reduced particle count for better performance (50 instead of 100)
+          const particleCount = 50;
+          for (let i = 0; i < particleCount; i++) {
                this.particles.push({
                     x: Math.random() * window.innerWidth,
                     y: Math.random() * window.innerHeight,
@@ -75,42 +76,55 @@ class GabrielPortal {
 
      animateBackground() {
           const ctx = this.bgCtx;
-          ctx.clearRect(0, 0, this.bgCanvas.width, this.bgCanvas.height);
+          const width = this.bgCanvas.width;
+          const height = this.bgCanvas.height;
+          const particles = this.particles;
+          const len = particles.length;
+          
+          // Clear with solid color (faster than clearRect)
+          ctx.fillStyle = 'rgb(0, 0, 0)';
+          ctx.fillRect(0, 0, width, height);
 
-          // Update and draw particles
-          for (const p of this.particles) {
+          // Update and draw particles in single loop
+          ctx.fillStyle = 'rgba(0, 255, 65, 0.5)';
+          for (let i = 0; i < len; i++) {
+               const p = particles[i];
                p.x += p.vx;
                p.y += p.vy;
 
-               // Wrap around
-               if (p.x < 0) p.x = this.bgCanvas.width;
-               if (p.x > this.bgCanvas.width) p.x = 0;
-               if (p.y < 0) p.y = this.bgCanvas.height;
-               if (p.y > this.bgCanvas.height) p.y = 0;
+               // Wrap around with direct assignment (faster than conditionals)
+               if (p.x < 0) p.x = width;
+               else if (p.x > width) p.x = 0;
+               if (p.y < 0) p.y = height;
+               else if (p.y > height) p.y = 0;
 
                ctx.beginPath();
                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-               ctx.fillStyle = 'rgba(0, 255, 65, 0.5)';
                ctx.fill();
           }
 
-          // Draw connections between nearby particles
+          // Draw connections with distance threshold optimization
+          // Only check nearby particles using squared distance (avoid sqrt)
+          const maxDistSq = 10000; // 100 * 100
           ctx.strokeStyle = 'rgba(0, 255, 65, 0.1)';
           ctx.lineWidth = 1;
-          for (let i = 0; i < this.particles.length; i++) {
-               for (let j = i + 1; j < this.particles.length; j++) {
-                    const dx = this.particles[j].x - this.particles[i].x;
-                    const dy = this.particles[j].y - this.particles[i].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+          ctx.beginPath(); // Single path for all lines (much faster)
+          
+          for (let i = 0; i < len; i++) {
+               const pi = particles[i];
+               for (let j = i + 1; j < len; j++) {
+                    const pj = particles[j];
+                    const dx = pj.x - pi.x;
+                    const dy = pj.y - pi.y;
+                    const distSq = dx * dx + dy * dy;
 
-                    if (dist < 100) {
-                         ctx.beginPath();
-                         ctx.moveTo(this.particles[i].x, this.particles[i].y);
-                         ctx.lineTo(this.particles[j].x, this.particles[j].y);
-                         ctx.stroke();
+                    if (distSq < maxDistSq) {
+                         ctx.moveTo(pi.x, pi.y);
+                         ctx.lineTo(pj.x, pj.y);
                     }
                }
           }
+          ctx.stroke(); // Single stroke call for all lines
 
           requestAnimationFrame(() => this.animateBackground());
      }
@@ -214,7 +228,8 @@ class GabrielPortal {
           };
 
           update();
-          this.updateInterval = setInterval(update, 5000);
+          // Update every 10 seconds instead of 5 for better performance
+          this.updateInterval = setInterval(update, 10000);
      }
 
      updateMetrics(status) {
