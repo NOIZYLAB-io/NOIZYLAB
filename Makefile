@@ -12,7 +12,7 @@ help:
 
 install:
 	@echo "Installing dependencies..."
-	pip install -r requirements.txt 2>/dev/null || echo "No requirements.txt"
+	pip install -r NOIZYLAB/config/requirements.txt 2>/dev/null || echo "No requirements.txt"
 	npm install 2>/dev/null || echo "No package.json"
 
 upgrade:
@@ -23,7 +23,7 @@ upgrade:
 
 build:
 	@echo "Building project..."
-	npm run build 2>/dev/null || python -m py_compile src/**/*.py 2>/dev/null || echo "No build script"
+	npm run build 2>/dev/null || python -m py_compile NOIZYLAB/src/**/*.py 2>/dev/null || echo "No build script"
 
 test:
 	@echo "Running tests..."
@@ -31,7 +31,7 @@ test:
 
 lint:
 	@echo "Running linters..."
-	pylint src/ 2>/dev/null || npm run lint 2>/dev/null || echo "No linters configured"
+	pylint NOIZYLAB/src/ 2>/dev/null || npm run lint 2>/dev/null || echo "No linters configured"
 
 clean:
 	@echo "Cleaning build artifacts..."
