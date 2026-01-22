@@ -5,6 +5,9 @@
  */
 
 class GabrielPortal {
+     // Configuration constants
+     static PARTICLE_CONNECTION_DISTANCE_SQ = 100 * 100; // 10000 (squared for perf)
+
      constructor() {
           this.neuralEngine = null;
           this.feedMessages = [];
@@ -12,6 +15,8 @@ class GabrielPortal {
           this.bgCanvas = null;
           this.bgCtx = null;
           this.particles = [];
+          // Cached DOM elements for performance (avoid repeated getElementById calls)
+          this.cachedElements = {};
      }
 
      async init() {
@@ -19,6 +24,9 @@ class GabrielPortal {
 
           // Initialize background
           this.initBackground();
+
+          // Cache frequently accessed DOM elements (performance optimization)
+          this.cacheElements();
 
           // Initialize API
           await API_BRIDGE.init();
@@ -45,6 +53,19 @@ class GabrielPortal {
 
           // Play startup sound (visual only for now)
           this.flashStatus();
+     }
+
+     cacheElements() {
+          // Cache DOM elements to avoid repeated getElementById calls
+          this.cachedElements = {
+               latency: document.getElementById('latency-value'),
+               agents: document.getElementById('agents-value'),
+               memcell: document.getElementById('memcell-value'),
+               uptime: document.getElementById('uptime-value'),
+               statusBadge: document.getElementById('system-status'),
+               timestamp: document.getElementById('timestamp'),
+               feed: document.getElementById('live-feed')
+          };
      }
 
      initBackground() {
@@ -95,22 +116,26 @@ class GabrielPortal {
           }
 
           // Draw connections between nearby particles
+          // OPTIMIZATION: Use squared distance to avoid expensive Math.sqrt()
+          // OPTIMIZATION: Batch path operations with single beginPath/stroke
           ctx.strokeStyle = 'rgba(0, 255, 65, 0.1)';
           ctx.lineWidth = 1;
+          ctx.beginPath(); // Single beginPath for all connection lines
           for (let i = 0; i < this.particles.length; i++) {
+               const p1 = this.particles[i];
                for (let j = i + 1; j < this.particles.length; j++) {
-                    const dx = this.particles[j].x - this.particles[i].x;
-                    const dy = this.particles[j].y - this.particles[i].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const p2 = this.particles[j];
+                    const dx = p2.x - p1.x;
+                    const dy = p2.y - p1.y;
+                    const distSq = dx * dx + dy * dy;
 
-                    if (dist < 100) {
-                         ctx.beginPath();
-                         ctx.moveTo(this.particles[i].x, this.particles[i].y);
-                         ctx.lineTo(this.particles[j].x, this.particles[j].y);
-                         ctx.stroke();
+                    if (distSq < GabrielPortal.PARTICLE_CONNECTION_DISTANCE_SQ) {
+                         ctx.moveTo(p1.x, p1.y);
+                         ctx.lineTo(p2.x, p2.y);
                     }
                }
           }
+          ctx.stroke(); // Single stroke call for all lines
 
           requestAnimationFrame(() => this.animateBackground());
      }
@@ -218,18 +243,15 @@ class GabrielPortal {
      }
 
      updateMetrics(status) {
-          const latencyEl = document.getElementById('latency-value');
-          const agentsEl = document.getElementById('agents-value');
-          const memcellEl = document.getElementById('memcell-value');
-          const uptimeEl = document.getElementById('uptime-value');
+          // Use cached DOM elements for better performance
+          const { latency, agents, memcell, uptime, statusBadge } = this.cachedElements;
 
-          if (latencyEl) latencyEl.textContent = status.latency || '<7ms';
-          if (agentsEl) agentsEl.textContent = status.agents_active || '3';
-          if (memcellEl) memcellEl.textContent = status.memcell_nodes || '∞';
-          if (uptimeEl) uptimeEl.textContent = status.uptime || '99.9%';
+          if (latency) latency.textContent = status.latency || '<7ms';
+          if (agents) agents.textContent = status.agents_active || '3';
+          if (memcell) memcell.textContent = status.memcell_nodes || '∞';
+          if (uptime) uptime.textContent = status.uptime || '99.9%';
 
           // Update connection status
-          const statusBadge = document.getElementById('system-status');
           if (statusBadge) {
                const statusText = statusBadge.querySelector('.status-text');
                if (statusText) {
@@ -239,7 +261,7 @@ class GabrielPortal {
      }
 
      updateTimestamp() {
-          const el = document.getElementById('timestamp');
+          const el = this.cachedElements.timestamp;
           if (el) {
                const now = new Date();
                el.textContent = `SYNC: ${now.toISOString()}`;
@@ -247,7 +269,7 @@ class GabrielPortal {
      }
 
      log(message) {
-          const feed = document.getElementById('live-feed');
+          const feed = this.cachedElements.feed;
           if (!feed) return;
 
           const time = new Date().toLocaleTimeString('en-US', { hour12: false });
@@ -267,7 +289,7 @@ class GabrielPortal {
      }
 
      flashStatus() {
-          const badge = document.getElementById('system-status');
+          const badge = this.cachedElements.statusBadge;
           if (badge) {
                badge.style.animation = 'none';
                badge.offsetHeight; // Trigger reflow
