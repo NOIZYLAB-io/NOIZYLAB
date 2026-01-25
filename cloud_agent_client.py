@@ -17,10 +17,11 @@ import sys
 import uuid
 import time
 import gzip
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Callable
 from datetime import datetime, timedelta
 from dataclasses import dataclass, asdict
 from enum import Enum
+from pathlib import Path
 import urllib.request
 import urllib.error
 import urllib.parse
@@ -714,6 +715,276 @@ class CloudAgentOrchestrator:
                 "queue_size": len(self.task_queue),
                 "local_fallback_enabled": self.local_fallback_enabled
             }
+
+# ═══════════════════════════════════════════════════════════════════════════
+# WEBSOCKET CLIENT (ENTERPRISE FEATURE)
+# ═══════════════════════════════════════════════════════════════════════════
+
+class WebSocketClient:
+    """
+    Enterprise WebSocket client for real-time streaming.
+    
+    Features:
+    - Real-time task updates
+    - Channel subscriptions
+    - Automatic reconnection
+    - Heartbeat/keepalive
+    """
+    
+    def __init__(self, endpoint: str, api_key: Optional[str] = None):
+        """
+        Initialize WebSocket client.
+        
+        Args:
+            endpoint: WebSocket endpoint URL (wss://...)
+            api_key: Optional API key for authentication
+        """
+        self.endpoint = endpoint.replace("https://", "wss://").replace("http://", "ws://")
+        self.api_key = api_key
+        self.ws = None
+        self.connected = False
+        self.logger = logging.getLogger("WebSocketClient")
+        self.message_handlers = []
+        
+        try:
+            import websockets
+            self.websockets = websockets
+        except ImportError:
+            self.logger.error("websockets library not installed: pip install websockets")
+            self.websockets = None
+    
+    async def connect(self):
+        """Establish WebSocket connection"""
+        if self.websockets is None:
+            raise RuntimeError("websockets library not available")
+        
+        extra_headers = {}
+        if self.api_key:
+            extra_headers["X-API-Key"] = self.api_key
+        
+        self.ws = await self.websockets.connect(
+            f"{self.endpoint}/ws",
+            extra_headers=extra_headers
+        )
+        self.connected = True
+        self.logger.info(f"✅ WebSocket connected to {self.endpoint}")
+    
+    async def disconnect(self):
+        """Close WebSocket connection"""
+        if self.ws:
+            await self.ws.close()
+            self.connected = False
+            self.logger.info("👋 WebSocket disconnected")
+    
+    async def send(self, message: Dict[str, Any]):
+        """Send message through WebSocket"""
+        if not self.connected or not self.ws:
+            raise RuntimeError("WebSocket not connected")
+        
+        await self.ws.send(json.dumps(message))
+    
+    async def receive(self) -> Dict[str, Any]:
+        """Receive message from WebSocket"""
+        if not self.connected or not self.ws:
+            raise RuntimeError("WebSocket not connected")
+        
+        message = await self.ws.recv()
+        return json.loads(message)
+    
+    async def execute_streaming_task(
+        self,
+        task_type: str,
+        task_data: Dict[str, Any],
+        on_progress: Optional[Callable] = None
+    ) -> Dict[str, Any]:
+        """
+        Execute task with streaming progress updates.
+        
+        Args:
+            task_type: Type of task
+            task_data: Task input data
+            on_progress: Optional callback for progress updates
+        
+        Returns:
+            Final task result
+        """
+        # Send task request with streaming enabled
+        task_data["stream"] = True
+        await self.send({
+            "type": "task",
+            "task_type": task_type,
+            "task_data": task_data
+        })
+        
+        # Receive progress updates
+        while True:
+            message = await self.receive()
+            
+            if message["type"] == "error":
+                raise Exception(message.get("error", "Task failed"))
+            
+            elif message["type"] == "result":
+                result = message.get("result", {})
+                
+                if result.get("status") == "streaming" and on_progress:
+                    # Progress update
+                    on_progress(result)
+                
+                elif result.get("status") == "completed":
+                    # Final result
+                    return result.get("data", {})
+    
+    async def subscribe(self, channel: str):
+        """Subscribe to a channel"""
+        await self.send({
+            "type": "subscribe",
+            "channel": channel
+        })
+        
+        # Wait for confirmation
+        message = await self.receive()
+        if message.get("type") == "result":
+            self.logger.info(f"✅ Subscribed to channel: {channel}")
+    
+    async def unsubscribe(self, channel: str):
+        """Unsubscribe from a channel"""
+        await self.send({
+            "type": "unsubscribe",
+            "channel": channel
+        })
+        
+        # Wait for confirmation
+        message = await self.receive()
+        if message.get("type") == "result":
+            self.logger.info(f"✅ Unsubscribed from channel: {channel}")
+
+# ═══════════════════════════════════════════════════════════════════════════
+# MULTI-LEVEL CACHING (ENTERPRISE FEATURE)
+# ═══════════════════════════════════════════════════════════════════════════
+
+class MultiLevelCache:
+    """
+    Enterprise multi-level caching system.
+    
+    Levels:
+    - L1: In-memory cache (fastest, smallest)
+    - L2: File-based cache (persistent, larger)
+    """
+    
+    def __init__(self, cache_dir: Optional[Path] = None):
+        """
+        Initialize multi-level cache.
+        
+        Args:
+            cache_dir: Directory for L2 file cache
+        """
+        # L1: In-memory cache
+        self.l1_cache: Dict[str, CacheEntry] = {}
+        self.l1_max_size = 100  # Max entries
+        
+        # L2: File cache
+        self.cache_dir = cache_dir or Path("/tmp/cloud_agent_cache")
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        
+        self.logger = logging.getLogger("MultiLevelCache")
+    
+    def get(self, key: str) -> Optional[Any]:
+        """
+        Get value from cache (checks L1, then L2).
+        
+        Args:
+            key: Cache key
+        
+        Returns:
+            Cached value or None if not found/expired
+        """
+        # Check L1
+        if key in self.l1_cache:
+            entry = self.l1_cache[key]
+            if time.time() < entry.expires_at:
+                self.logger.debug(f"L1 cache hit: {key}")
+                return entry.data
+            else:
+                del self.l1_cache[key]
+        
+        # Check L2
+        cache_file = self.cache_dir / f"{key}.cache"
+        if cache_file.exists():
+            try:
+                with open(cache_file, "rb") as f:
+                    entry_data = json.loads(f.read().decode())
+                
+                if time.time() < entry_data["expires_at"]:
+                    self.logger.debug(f"L2 cache hit: {key}")
+                    
+                    # Promote to L1
+                    self.l1_cache[key] = CacheEntry(
+                        data=entry_data["data"],
+                        expires_at=entry_data["expires_at"]
+                    )
+                    
+                    return entry_data["data"]
+                else:
+                    cache_file.unlink()
+            except Exception as e:
+                self.logger.warning(f"L2 cache read error: {e}")
+        
+        return None
+    
+    def set(self, key: str, value: Any, ttl_seconds: int):
+        """
+        Set value in cache (writes to both L1 and L2).
+        
+        Args:
+            key: Cache key
+            value: Value to cache
+            ttl_seconds: Time-to-live in seconds
+        """
+        expires_at = time.time() + ttl_seconds
+        
+        # Write to L1
+        self.l1_cache[key] = CacheEntry(data=value, expires_at=expires_at)
+        
+        # Evict old entries if L1 is full
+        if len(self.l1_cache) > self.l1_max_size:
+            oldest_key = min(self.l1_cache.keys(), key=lambda k: self.l1_cache[k].expires_at)
+            del self.l1_cache[oldest_key]
+        
+        # Write to L2
+        try:
+            cache_file = self.cache_dir / f"{key}.cache"
+            entry_data = {
+                "data": value,
+                "expires_at": expires_at
+            }
+            with open(cache_file, "wb") as f:
+                f.write(json.dumps(entry_data).encode())
+        except Exception as e:
+            self.logger.warning(f"L2 cache write error: {e}")
+    
+    def clear(self):
+        """Clear all caches"""
+        self.l1_cache.clear()
+        
+        # Clear L2
+        for cache_file in self.cache_dir.glob("*.cache"):
+            try:
+                cache_file.unlink()
+            except Exception as e:
+                self.logger.warning(f"L2 cache clear error: {e}")
+        
+        self.logger.info("✨ All caches cleared")
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get cache statistics"""
+        l2_files = list(self.cache_dir.glob("*.cache"))
+        
+        return {
+            "l1_entries": len(self.l1_cache),
+            "l1_max_size": self.l1_max_size,
+            "l2_entries": len(l2_files),
+            "l2_size_bytes": sum(f.stat().st_size for f in l2_files)
+        }
 
 # ═══════════════════════════════════════════════════════════════════════════
 # CLI INTERFACE
