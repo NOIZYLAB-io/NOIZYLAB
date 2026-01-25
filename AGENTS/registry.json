@@ -28,6 +28,16 @@
       "path": "/Users/m2ultra/NOIZYLAB/SystemGuardian",
       "status": "stub",
       "capabilities": ["monitoring", "alerts"]
+    },
+    {
+      "id": "cloud-agent",
+      "name": "CloudAgent",
+      "description": "Cloudflare Worker Agent for Cloud Task Delegation",
+      "entrypoint": "cloud_agent_client.py",
+      "endpoint": "https://noizylab.rsplowman.workers.dev",
+      "type": "remote",
+      "status": "active",
+      "capabilities": ["echo", "inference", "code-analysis", "monitoring"]
     }
   ],
   "launcher": {
@@ -35,7 +45,9 @@
     "mc96": "python3 /Users/m2ultra/NOIZYLAB/MC96/vault/organize_code.py",
     "media-push": "/Users/m2ultra/NOIZYLAB/AGENTS/sync-media.sh push",
     "media-pull": "/Users/m2ultra/NOIZYLAB/AGENTS/sync-media.sh pull",
-    "media-status": "/Users/m2ultra/NOIZYLAB/AGENTS/sync-media.sh status"
+    "media-status": "/Users/m2ultra/NOIZYLAB/AGENTS/sync-media.sh status",
+    "cloud-agent": "python3 cloud_agent_client.py",
+    "cloud-status": "python3 cloud_agent_client.py --status"
   },
   "storage": {
     "code": "https://github.com/NOIZYLAB-io/NOIZYLAB",
