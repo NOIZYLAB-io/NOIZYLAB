@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "updated": "2025-12-20",
+  "version": "1.1.0",
+  "updated": "2026-01-15",
   "agents": [
     {
       "id": "gabriel",
@@ -9,7 +9,8 @@
       "entrypoint": "tools/gabriel_control.py",
       "path": "/Users/m2ultra/NOIZYLAB/GABRIEL",
       "status": "active",
-      "capabilities": ["voice", "ui", "automation"]
+      "capabilities": ["voice", "ui", "automation"],
+      "deployment": ["local", "cloud"]
     },
     {
       "id": "mc96",
@@ -18,18 +19,29 @@
       "entrypoint": "vault/organize_code.py",
       "path": "/Users/m2ultra/NOIZYLAB/MC96",
       "status": "active",
-      "capabilities": ["code-organization", "vault"]
+      "capabilities": ["code-organization", "vault"],
+      "deployment": ["local", "cloud"]
     },
     {
-      "id": "system-guardian",
+      "id": "systemGuardian",
       "name": "SystemGuardian",
       "description": "System Monitoring Agent",
       "entrypoint": null,
       "path": "/Users/m2ultra/NOIZYLAB/SystemGuardian",
-      "status": "stub",
-      "capabilities": ["monitoring", "alerts"]
+      "status": "active",
+      "capabilities": ["monitoring", "alerts"],
+      "deployment": ["cloud"]
     }
   ],
+  "cloud": {
+    "enabled": true,
+    "endpoint": "https://noizylab.rsplowman.workers.dev",
+    "endpoints": {
+      "health": "/health",
+      "list": "/agent/list",
+      "delegate": "/agent/delegate"
+    }
+  },
   "launcher": {
     "gabriel": "python3 /Users/m2ultra/NOIZYLAB/GABRIEL/tools/gabriel_control.py",
     "mc96": "python3 /Users/m2ultra/NOIZYLAB/MC96/vault/organize_code.py",
