@@ -1,0 +1,34 @@
+name = "noizy-claude-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+account_id = "2446d788cc4280f5ea22a9948410c355"
+# Migrated 2026-04-02 from Account 2 (5ba03939...)
+# See: docs/CLOUDFLARE_AUDIT_AND_MIGRATION.md
+
+# Secrets — set with wrangler secret put:
+# ANTHROPIC_API_KEY
+# NOIZY_SECRET
+
+[observability]
+enabled = true
+
+[vars]
+ENVIRONMENT = "production"
+OLLAMA_URL = "http://localhost:11434"
+
+[[d1_databases]]
+binding = "NOIZY_DB"
+database_name = "agent-memory"
+database_id = "7b813205-fd12-4a23-84a6-ce83bc49ec70"
+
+# R2: DISABLED until R2 is enabled on Account 1
+# When R2 is activated, create bucket "noizy-voice-archive" and uncomment:
+# [[r2_buckets]]
+# binding = "VOICE_BUCKET"
+# bucket_name = "noizy-voice-archive"
+
+[[kv_namespaces]]
+binding = "NOIZY_KV"
+id = "68710a32a1814ce7994a5be532f871cc"
+# OLD (Account 2): 6fe434a8020147c7bc4788e7057b843a — WRONG ACCOUNT

@@ -1,0 +1,36 @@
+name = "heaven"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+compatibility_flags = ["nodejs_compat"]
+account_id = "2446d788cc4280f5ea22a9948410c355"
+
+# ============================================================
+# CANONICAL BINDINGS — Account 1 (Fishmusicinc / Primary)
+# Migrated 2026-04-02 from Account 2 (5ba03939...)
+# See: docs/CLOUDFLARE_AUDIT_AND_MIGRATION.md
+# ============================================================
+
+[[d1_databases]]
+binding = "GABRIEL_DB"
+database_name = "agent-memory"
+database_id = "7b813205-fd12-4a23-84a6-ce83bc49ec70"
+# OLD (Account 2, DEAD): fc0edd97-5a4c-49ff-a5fb-b3d7d8fda1aa — NEVER USE
+
+[[kv_namespaces]]
+binding = "GABRIEL_KV"
+id = "68710a32a1814ce7994a5be532f871cc"
+# OLD (Account 2): 6fe434a8020147c7bc4788e7057b843a — WRONG ACCOUNT
+
+[[kv_namespaces]]
+binding = "GABRIEL_VOICE"
+id = "28f2fdce465243759e7f5df6468c8228"
+# OLD (Account 2): afef27e69f634d2b941482435d042167 — WRONG ACCOUNT
+
+[vars]
+NOIZY_ENV = "production"
+NOIZY_VERSION = "17.7.0"
+FOUNDING_ACTOR_FLOOR = "85"
+STANDARD_ACTOR_FLOOR = "75"
+
+[observability]
+enabled = true
